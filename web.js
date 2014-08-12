@@ -1,4 +1,5 @@
 // web.js
+var port = Number(process.env.PORT || 4000);
 var express = require("express");
 var logfmt = require("logfmt");
 var app = express();
@@ -38,7 +39,6 @@ app.get('/', function(req, res) {
   res.render('index.html');
 });
 
-var port = Number(process.env.PORT || 4000);
 server.listen(port, function() {
   console.log("Listening on " + port);
 });
