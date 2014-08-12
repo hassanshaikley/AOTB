@@ -19,6 +19,7 @@ o
     <script src="/socket.io/socket.io.js"></script>
     <script>
       // Initialise the game
+      APP_URL = <%= process.env.APP_URL %>;
       PORT = <%=process.env.PORT || 4000 %>;
       init();
       animate();
