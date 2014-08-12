@@ -2,10 +2,9 @@
   "name": "_dubs",
   "version": "0.0.0",
   "description": "GAME",
-  "main": "index.js",
+  "main": "web.js",
   "scripts": {
-    "test": "test",
-    "start": "node game.js"
+    "test": "test"
   },
   "keywords": [
     "GAME",
@@ -16,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "domready": "^1.0.6",
+    "logfmt": "^1.1.2",
     "socket.io": "^1.0.6"
   }
 }
