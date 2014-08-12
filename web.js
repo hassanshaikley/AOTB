@@ -1,10 +1,13 @@
 // web.js
-var port = Number(process.env.PORT || 4000);
+var port = Number(process.env.PORT || 5000);
 var express = require("express");
 var logfmt = require("logfmt");
 var app = express();
 app.set('views', __dirname + '/views');
 
+if (process.env['APP_URL'] == undefined){
+  process.env['APP_URL']="http://localhost:5000";
+}
 var util = require("util"),
     server = require('http').createServer(app)
     io = require("socket.io").listen(server),
@@ -17,7 +20,7 @@ function init() {
   // Create an empty array to store players
   players = [];
 
-  // Set up Socket.IO to listen on port 4000
+  // Set up Socket.IO to listen on port 5000
 
   // Configure Socket.IO
   io.set("transports", ["websocket"]);
