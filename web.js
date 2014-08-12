@@ -19,7 +19,7 @@ function init() {
   // Set up Socket.IO to listen on port 4000
 
   // Configure Socket.IO
-  io.set("transports", ["websocket"]);
+  io.set("transports", ["websocket", "polling"]);
 
   // Restrict log output
 
