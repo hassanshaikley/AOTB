@@ -34,7 +34,9 @@ function init() {
   localPlayer = new Player(startX, startY);
 
   // Initialise socket connection
-  socket = io.connect(APP_URL, {port: PORT, transports: ["websocket"]});
+  var host = location.origin;
+
+  socket = io.connect(host, {port: PORT, transports: ["websocket"]});
 
   // Initialise remote players array
   remotePlayers = [];

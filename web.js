@@ -5,9 +5,6 @@ var logfmt = require("logfmt");
 var app = express();
 app.set('views', __dirname + '/views');
 
-if (process.env['APP_URL'] == undefined){
-  process.env['APP_URL']="http://localhost:5000";
-}
 var util = require("util"),
     server = require('http').createServer(app)
     io = require("socket.io").listen(server),
