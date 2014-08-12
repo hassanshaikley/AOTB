@@ -1,0 +1,21 @@
+{
+  "name": "_dubs",
+  "version": "0.0.0",
+  "description": "GAME",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node game.js"
+  },
+  "keywords": [
+    "GAME",
+    "AMARA",
+    "AMARANTHIST"
+  ],
+  "author": "Hassan Shaikley",
+  "license": "ISC",
+  "dependencies": {
+    "domready": "^1.0.6",
+    "socket.io": "^1.0.6"
+  }
+}
