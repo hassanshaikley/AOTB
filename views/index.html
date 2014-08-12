@@ -1,3 +1,26 @@
-<html>
-  ya
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <title>A multiplayer game built using HTML5 canvas and WebSockets</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="styles/game.css">
+  </head>
+
+  <body>
+o
+    <canvas id="gameCanvas"></canvas>
+    <script src="http://localhost:4000/socket.io/socket.io.js"></script>
+    <script src="scripts/requestAnimationFrame.js"></script>
+    <script src="scripts/Keys.js"></script>
+    <script src="scripts/Player.js"></script>
+    <script src="scripts/game.js"></script>
+    <script>
+      // Initialise the game
+      init();
+      animate();
+    </script>
+  </body>
 </html>
