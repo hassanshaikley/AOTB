@@ -34,7 +34,7 @@ function init() {
   localPlayer = new Player(startX, startY);
 
   // Initialise socket connection
-  socket = io.connect("http://localhost", {port: PORT, transports: ["websocket"]});
+  socket = io.connect("http://amara.herokuapp.com/", {port: PORT, transports: ["websocket"]});
 
   // Initialise remote players array
   remotePlayers = [];
