@@ -5,7 +5,8 @@ var app = express();
 app.set('views', __dirname + '/views');
 
 var util = require("util"),
-    io = require("socket.io").listen(4000),
+    server = require('http').createServer(app)
+    io = require("socket.io").listen(server),
     Player = require("./player").Player;
 
 var socket,   // Socket controller
@@ -36,8 +37,8 @@ app.get('/', function(req, res) {
   res.render('index.html');
 });
 
-var port = Number(process.env.PORT || 5000);
-app.listen(port, function() {
+var port = Number(process.env.PORT || 4000);
+server.listen(port, function() {
   console.log("Listening on " + port);
 });
 
