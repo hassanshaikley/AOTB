@@ -1,5 +1,5 @@
 // web.js
-var port = Number(process.env.PORT || 55706);
+var port = Number(process.env.PORT || 4000);
 var express = require("express");
 var logfmt = require("logfmt");
 var app = express();
@@ -36,7 +36,7 @@ app.use("/styles", express.static(__dirname + '/styles'));
 app.use("/scripts", express.static(__dirname + '/scripts'));
 
 app.get('/', function(req, res) {
-  res.render('index.html');
+  res.render('index.ejs');
 });
 
 server.listen(port, function() {
