@@ -1,0 +1,11 @@
+body {
+  background: darkslategray;
+}
+
+#gameCanvas {
+  background-color: lightblue;
+  width: 800px;
+  height: 500px;
+  margin: auto;
+  display: block;
+}

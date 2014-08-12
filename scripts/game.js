@@ -148,7 +148,7 @@ function onRemovePlayer(data) {
   remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
 };
 
-
+var FPS = 60;
 /**************************************************
  ** GAME ANIMATION LOOP
  **************************************************/
@@ -156,8 +156,11 @@ function animate() {
   update();
   draw();
 
-  // Request a new animation frame using Paul Irish's shim
+  setTimeout(function(){
+    
   window.requestAnimFrame(animate);
+  }, 1000 /FPS);
+  // Request a new animation frame using Paul Irish's shim
 };
 
 
