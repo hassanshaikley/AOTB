@@ -11,6 +11,9 @@ var canvas,     // Canvas DOM element
 var ground = new Image();
 ground.src = "https://s3-us-west-2.amazonaws.com/amara-assets/earthenfloor.png";
 
+var CastleOfOne = new Image();
+CastleOfOne.src = 'https://s3-us-west-2.amazonaws.com/amara-assets/CastleOfOne.png';
+
 var drawX = 0;
 
 var setDrawX = function(x) {
@@ -257,6 +260,7 @@ function drawBackground(){
  ctx.drawImage(ground ,0,0, 400, 100, displacement,450, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement-400,450, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement-800,450, 400, 100); 
+  ctx.drawImage(CastleOfOne, displacement+90,340);
 
 };
 // Browser window resize
