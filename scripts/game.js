@@ -8,6 +8,18 @@ var canvas,     // Canvas DOM element
     remotePlayers,  // Remote players
     socket;     // Socket connection
 
+var ground = new Image();
+ground.src = "https://s3-us-west-2.amazonaws.com/amara-assets/earthenfloor.png";
+
+var drawX = 0;
+
+var setDrawX = function(x) {
+  drawX = x;
+};
+
+var getDrawX = function(){
+  return drawX;
+};
 
 /**************************************************
  ** GAME INITIALISATION
@@ -182,9 +194,12 @@ function update() {
 function draw() {
   // Wipe the canvas clean
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackground();
 
   // Draw the local player
   localPlayer.draw(ctx);
+
+
 
   // Draw the remote players
   var i;
@@ -193,6 +208,17 @@ function draw() {
   };
 };
 
+function drawBackground(){
+ var displacement = drawX-localPlayer.getX() ;
+ console.log(drawX);
+ console.log(localPlayer.getX());
+ ctx.drawImage(ground ,0,0, 400, 100, displacement+400,450, 400, 100); 
+ ctx.drawImage(ground ,0,0, 400, 100, displacement+800,450, 400, 100); 
+ ctx.drawImage(ground ,0,0, 400, 100, displacement,450, 400, 100); 
+ ctx.drawImage(ground ,0,0, 400, 100, displacement-400,450, 400, 100); 
+ ctx.drawImage(ground ,0,0, 400, 100, displacement-800,450, 400, 100); 
+
+}
 
 /**************************************************
  ** GAME HELPER FUNCTIONS
