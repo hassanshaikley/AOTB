@@ -1,5 +1,6 @@
 body {
-  background: darkslategray;
+  background: cornflowerblue;
+  background: crimson;
 }
 
 #gameCanvas {
@@ -8,6 +9,7 @@ body {
   height: 500px;
   margin: auto;
   display: block;
+  border: 5px solid black;
 }
 canvas {
   image-rendering: optimizeSpeed;             // Older versions of FF

@@ -202,9 +202,55 @@ function draw() {
     remotePlayers[i].draw(ctx);
   };
 };
+var flakeArray = [];
+var flakeTimer = null;
+var maxFlakes = 15;
+//function that adds a snowflake to the flakeArray!
+function Flake() {
+  this.x = Math.round(Math.random() * ctx.canvas.width);
+  this.y = -10;
+  this.drift = Math.random();
+  this.speed = Math.round(Math.random() * 5) + 1;
+  this.width = (Math.random() * 3) + 2;
+  this.height = this.width;
+}
+
+function addFlake() {
+
+  flakeArray[flakeArray.length] = new Flake();
+
+}
 
 function drawBackground(){
- var displacement = drawX-localPlayer.getX() ;
+  
+  if(flakeArray.length != maxFlakes)
+  addFlake();
+  
+  for(var i = 0; i < flakeArray.length; i++) {
+
+    //stops snow
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(flakeArray[i].x, flakeArray[i].y, flakeArray[i].width, flakeArray[i].height);
+  }
+  for(var i = 0; i < flakeArray.length; i++) {
+    if(flakeArray[i].y < ctx.canvas.height) {
+      flakeArray[i].y += flakeArray[i].speed; {
+        if(flakeArray[i].y > ctx.canvas.height) {
+          flakeArray[i].y = -5;
+          flakeArray[i].x += flakeArray[i].drift;
+        }
+        if(flakeArray[i].x > ctx.canvas.width) {
+
+          flakeArray[i].x = 0;
+        }
+      }
+    }
+  }
+
+ 
+ 
+  var displacement = drawX-localPlayer.getX() ;
  ctx.drawImage(ground ,0,0, 400, 100, displacement+400,450, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement+800,450, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement,450, 400, 100); 
