@@ -49,13 +49,17 @@ var Player = function(startX, startY) {
     } else if (keys.down) {
       y += moveAmount;
     };
-    if(wobble > 0){
+    if(wobble > 0 && y <=534){
       y+=1;
-    } else  {
+    } else if (y <= 534) {
       y-=.5;
     }
     if (wobble <=-20){
       wobble = 20;
+    }
+    if (y >=535){
+      y=535;
+      console.log('wyyy');
     }
     // Left key takes priority over right
     if (keys.left) {
