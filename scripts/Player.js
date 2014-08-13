@@ -3,7 +3,11 @@
  **************************************************/
 
 var fly = new Image();
+var silverShield = new Image();
+silverShield.src = 'https://s3-us-west-2.amazonaws.com/amara-assets/silverShield.png';
 fly.src = 'https://s3-us-west-2.amazonaws.com/amara-assets/flysheet.png';
+var silverSword = new Image();
+silverSword.src = 'https://s3-us-west-2.amazonaws.com/amara-assets/silverSword.png';
 var flyAnimate = 0;
 var localX;
 
@@ -80,6 +84,8 @@ var Player = function(startX, startY) {
     else if (flyAnimate <= 30){
       ctx.drawImage(fly,200,0, 100, 100, bugX,y-50, 100, 100);
     }
+          ctx.drawImage(silverShield, bugX+ 20, y-3);
+          ctx.drawImage(silverSword, bugX+ 60, y-40);
     flyAnimate++; 
   };
 

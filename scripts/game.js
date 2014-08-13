@@ -204,7 +204,7 @@ function draw() {
 };
 var flakeArray = [];
 var flakeTimer = null;
-var maxFlakes = 15;
+var maxFlakes = 30;
 //function that adds a snowflake to the flakeArray!
 function Flake() {
   this.x = Math.round(Math.random() * ctx.canvas.width);
@@ -223,8 +223,9 @@ function addFlake() {
 
 function drawBackground(){
   
-  if(flakeArray.length != maxFlakes)
-  addFlake();
+  if(flakeArray.length != maxFlakes && Math.round(Math.random()*20)==1){
+    addFlake();
+  }
   
   for(var i = 0; i < flakeArray.length; i++) {
 
