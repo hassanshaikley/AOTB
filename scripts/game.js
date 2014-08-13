@@ -195,7 +195,6 @@ function draw() {
   drawBackground();
 
   // Draw the local player
-  localPlayer.draw(ctx);
 
 
 
@@ -204,6 +203,7 @@ function draw() {
   for (i = 0; i < remotePlayers.length; i++) {
     remotePlayers[i].draw(ctx);
   };
+  localPlayer.draw(ctx);
 };
 var flakeArray = [];
 var flakeTimer = null;
