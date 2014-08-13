@@ -100,11 +100,6 @@ function onKeyup(e) {
 };
 
 // Browser window resize
-function onResize(e) {
-  // Maximise the canvas
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-};
 
 // Socket connected
 function onSocketConnected() {
@@ -210,16 +205,19 @@ function draw() {
 
 function drawBackground(){
  var displacement = drawX-localPlayer.getX() ;
- console.log(drawX);
- console.log(localPlayer.getX());
  ctx.drawImage(ground ,0,0, 400, 100, displacement+400,450, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement+800,450, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement,450, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement-400,450, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement-800,450, 400, 100); 
 
-}
-
+};
+// Browser window resize
+function onResize(e) {
+    // Maximise the canvas
+    canvas.width = 800;
+      canvas.height = 500;
+};
 /**************************************************
  ** GAME HELPER FUNCTIONS
  **************************************************/
