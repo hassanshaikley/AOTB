@@ -15,15 +15,15 @@
   <body>
     <canvas id="gameCanvas" height=500 width=800></canvas>
     <script src="scripts/requestAnimationFrame.js"></script>
-    <script src="scripts/Keys.js"></script>
     <script src="scripts/Player.js"></script>
     <script src="scripts/game.js"></script>
+    <script src="scripts/Keys.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       // Initialise the game
       PORT = <%=process.env.PORT || 5000%>;
       init();
-      animate();
+     animate();
     </script>
   </body>
 </html>

@@ -31,10 +31,20 @@ function init() {
   // Declare the canvas and rendering context
   canvas = document.getElementById("gameCanvas");
   ctx = canvas.getContext("2d");
+  
+  //disable context menu
+  canvas.oncontextmenu = function(e){return false;}
+
+  canvas.onmousedown = function(e){
+    switch (e.which) {
+      case 1: localPlayer.leftClick(); break;
+      case 2: alert('middle'); break;
+      case 3: localPlayer.rightClick(); break; }
+  }
 
   // Maximise the canvas
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  //canvas.width = window.innerWidth;
+  //canvas.height = window.innerHeight;
 
   // Initialise keyboard controls
   keys = new Keys();
@@ -225,6 +235,7 @@ function addFlake() {
 }
 
 function drawBackground(){
+  var displacement = drawX-localPlayer.getX() ;
   
   if(flakeArray.length != maxFlakes && Math.round(Math.random()*20)==1){
     addFlake();
@@ -254,13 +265,12 @@ function drawBackground(){
 
  
  
-  var displacement = drawX-localPlayer.getX() ;
- ctx.drawImage(ground ,0,0, 400, 100, displacement+400,450, 400, 100); 
- ctx.drawImage(ground ,0,0, 400, 100, displacement+800,450, 400, 100); 
- ctx.drawImage(ground ,0,0, 400, 100, displacement,450, 400, 100); 
- ctx.drawImage(ground ,0,0, 400, 100, displacement-400,450, 400, 100); 
- ctx.drawImage(ground ,0,0, 400, 100, displacement-800,450, 400, 100); 
-  ctx.drawImage(CastleOfOne, displacement+90,340);
+ ctx.drawImage(ground ,0,0, 400, 100, displacement+400,400, 400, 100); 
+ ctx.drawImage(ground ,0,0, 400, 100, displacement+800,400, 400, 100); 
+ ctx.drawImage(ground ,0,0, 400, 100, displacement,400, 400, 100); 
+ ctx.drawImage(ground ,0,0, 400, 100, displacement-400,400, 400, 100); 
+ ctx.drawImage(ground ,0,0, 400, 100, displacement-800,400, 400, 100); 
+  ctx.drawImage(CastleOfOne, displacement+90,295);
 
 };
 // Browser window resize
