@@ -107,7 +107,18 @@ function onNewPlayer(data) {
   players.push(newPlayer);
 };
 
+function onDescendAttack(data){
+  util.log( this.id + " attacks");
+  var attackingPlayer = playerById(this.id);
+  // Player not found
+  if (!attackingPlayer) {
+    util.log("Player not found: "+this.id);
+    return;
+  };
+  attackingPlayer.setDescendAttack(true);
+  this.broadcast.emit("descend attack", {id: attackingPlayer.id, descendAttack: attackingPlayer.getDescendAttack()});
 
+};
 // Player has moved
 function onMovePlayer(data) {
   // Find player in array

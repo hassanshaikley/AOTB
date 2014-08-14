@@ -89,6 +89,8 @@ var setEventHandlers = function() {
   // Player move message received
   socket.on("move player", onMovePlayer);
 
+  socket.on("descend attack", onDescendAttack);
+
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
 };
@@ -148,6 +150,16 @@ function onMovePlayer(data) {
   movePlayer.setY(data.y);
 };
 
+function onDescendAttack(data){
+  var attackingPlayer = playerById(data.id);
+  if (!attackingPlayer) {
+    console.log("Player not found: "+data.id);
+    return;
+  };
+  console.log(data.descendAttack);
+  attackingPlayer.setDescendAttack(data.descendAttack);
+};
+
 // Remove player
 function onRemovePlayer(data) {
   var removePlayer = playerById(data.id);
@@ -186,6 +198,10 @@ function update() {
   if (localPlayer.update(keys)) {
     // Send local player data to the game server
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
+  };
+  if (localPlayer.getDescendAttack()){ 
+    console.log("emiting attck");
+    socket.emit("descend attack");
   };
 };
 
