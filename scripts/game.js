@@ -8,11 +8,6 @@ var canvas,     // Canvas DOM element
     remotePlayers,  // Remote players
     socket;     // Socket connection
 
-var ground = new Image();
-ground.src = "https://s3-us-west-2.amazonaws.com/amara-assets/earthenfloor.png";
-
-var CastleOfOne = new Image();
-CastleOfOne.src = 'https://s3-us-west-2.amazonaws.com/amara-assets/CastleOfOne.png';
 
 var drawX = 0;
 
@@ -138,11 +133,10 @@ function onNewPlayer(data) {
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
 };
-
 // Move player
 function onMovePlayer(data) {
   var movePlayer = playerById(data.id);
-
+  
   // Player not found
   if (!movePlayer) {
     console.log("Player not found: "+data.id);

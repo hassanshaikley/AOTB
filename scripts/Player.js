@@ -2,12 +2,7 @@
  ** GAME PLAYER CLASS
  **************************************************/
 
-var fly = new Image();
-var silverShield = new Image();
-silverShield.src = 'https://s3-us-west-2.amazonaws.com/amara-assets/silverShield.png';
-fly.src = 'https://s3-us-west-2.amazonaws.com/amara-assets/flysheet.png';
-var silverSword = new Image();
-silverSword.src = 'https://s3-us-west-2.amazonaws.com/amara-assets/silverSword.png';
+
 var flyAnimate = 0;
 var localX;
 
@@ -83,11 +78,9 @@ var Player = function(startX, startY) {
         y = floorHeight+1;
         rightMouseActionHappening = false;
       } else {
-        y+=7;
+        y+=descendAttackSpeed;
       }
     }
-    console.log(y);
-    console.log(descendAttack);
     return (prevX != x || prevY != y) ? true : false;
   };
 
@@ -112,20 +105,16 @@ var Player = function(startX, startY) {
     if (rightMouseAction || rightMouseActionHappening){
         rightMouseAction = false;
         if (!rightMouseActionHappening){
-          swordRotation = 1;
           rightMouseActionHappening = true;
         }
-        swordRotation++;
+        swordRotation = 180;
+        descendAttack = true;
       ctx.save();
       ctx.translate(bugX+60+swordRotation/30, y-50 +swordRotation/2);
       ctx.rotate(swordRotation*Math.PI/180);
       ctx.drawImage(silverSword, 0, -10);
       ctx.restore();
       //200 is pretty badass
-      if (swordRotation >= 180){
-        swordRotation = 180;
-        descendAttack = true;
-      }
     } else {
       ctx.drawImage(silverSword, bugX+ 60, y-40);
     }

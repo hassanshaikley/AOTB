@@ -33,6 +33,7 @@ app.engine('html', require('ejs').renderFile);
 
 app.use(logfmt.requestLogger());
 app.use("/styles", express.static(__dirname + '/styles'));
+app.use("/localAssets", express.static(__dirname + '/localAssets'));
 app.use("/scripts", express.static(__dirname + '/scripts'));
 
 app.get('/', function(req, res) {
@@ -64,6 +65,9 @@ function onSocketConnection(client) {
 
   // Listen for move player message
   client.on("move player", onMovePlayer);
+  
+  // Listen for move player message
+  client.on("descend attack", onDescendAttack);
 };
 
 function onClientDisconnect() {
