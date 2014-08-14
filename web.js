@@ -115,13 +115,12 @@ function onDescendAttack(data){
     util.log("Player not found: "+this.id);
     return;
   };
-  attackingPlayer.setDescendAttack(true);
+  attackingPlayer.setDescendAttack(data.descendAttack);
   this.broadcast.emit("descend attack", {id: attackingPlayer.id, descendAttack: attackingPlayer.getDescendAttack()});
 
 };
 // Player has moved
 function onMovePlayer(data) {
-  // Find player in array
   var movePlayer = playerById(this.id);
 
   // Player not found

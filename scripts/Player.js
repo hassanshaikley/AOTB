@@ -117,16 +117,20 @@ var Player = function(startX, startY) {
       if (!rightMouseActionHappening){
         rightMouseActionHappening = true;
       }
-      descendAttack = true;
+      descendAttack = true; 
+      //200 is pretty badass
+    } 
+    
+    if (descendAttack) {
       ctx.save();
       ctx.translate(bugX+60, y-40 + 90);
       ctx.rotate(Math.PI);
       ctx.drawImage(silverSword, 0, -10);
       ctx.restore();
-      //200 is pretty badass
+
     } else {
-      ctx.drawImage(silverSword, bugX+ 60, y-40);
-    }
+        ctx.drawImage(silverSword, bugX+ 60, y-40);
+      }
     flyAnimate++; 
     ctx.fillStyle = "black";
     ctx.font = "bold 12px sans-serif";

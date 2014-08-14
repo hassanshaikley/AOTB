@@ -156,7 +156,6 @@ function onDescendAttack(data){
     console.log("Player not found: "+data.id);
     return;
   };
-  console.log(data.descendAttack);
   attackingPlayer.setDescendAttack(data.descendAttack);
 };
 
@@ -197,11 +196,8 @@ function update() {
   // Update local player and check for change
   if (localPlayer.update(keys)) {
     // Send local player data to the game server
+    socket.emit("descend attack", { descendAttack: localPlayer.getDescendAttack()});
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
-  };
-  if (localPlayer.getDescendAttack()){ 
-    console.log("emiting attck");
-    socket.emit("descend attack");
   };
 };
 
