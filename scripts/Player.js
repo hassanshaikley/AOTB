@@ -23,6 +23,13 @@ var Player = function(startX, startY) {
   var getX = function() {
     return x;
   };
+  var getHp = function(){
+    return hp;
+  };
+
+  var setHp = function(newHp){
+    hp = newHp;
+  };
 
   var getDescendAttack = function(){
     return rightMouseAction;
@@ -89,6 +96,18 @@ var Player = function(startX, startY) {
         console.log("reached floor");
       } else {
         y+=descendAttackSpeed;
+
+        //check for collision
+
+        for (i = 0; i < remotePlayers.length; i++) {
+          
+         
+            if (Math.abs(remotePlayers[i].getX() - x) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-y)) <=  4){
+            console.log("HIT"); 
+             
+          }
+
+        }
       }
     }
     return (prevX != x || prevY != y) ? true : false;
@@ -134,7 +153,7 @@ var Player = function(startX, startY) {
     flyAnimate++; 
     ctx.fillStyle = "black";
     ctx.font = "bold 12px sans-serif";
-    ctx.fillText(hp, bugX + 40, y-40);
+    ctx.fillText(hp, bugX + 37, y-40);
   };
   var rightClick = function(){
     console.log("RIGHT CLICK");
@@ -153,6 +172,8 @@ var Player = function(startX, startY) {
       setY: setY,
       update: update,
       draw: draw,
+      getHp : getHp,
+      setHp : setHp,
       rightClick: rightClick,
       leftClick: leftClick,
       getDescendAttack : getDescendAttack,

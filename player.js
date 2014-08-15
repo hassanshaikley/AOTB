@@ -5,11 +5,20 @@ var Player = function(startX, startY) {
   var x = startX,
       y = startY,
       id,
-      descendAttack = false;
+      descendAttack = false,
+      hp = 100;
 
   // Getters and setters
   var getX = function() {
     return x;
+  };
+  
+  var getHp = function(){
+    return hp;
+  };
+
+  var setHp = function(newHp){
+    hp = newHp;
   };
 
   var getY = function() {
@@ -35,6 +44,8 @@ var Player = function(startX, startY) {
       getY: getY,
       setX: setX,
       setY: setY,
+      getHp : getHp,
+      setHp : setHp,
       id: id,
       getDescendAttack : getDescendAttack,
       setDescendAttack : setDescendAttack
