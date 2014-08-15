@@ -93,7 +93,6 @@ var Player = function(startX, startY) {
         y = floorHeight+1;
         rightMouseActionHappening = false;
         rightMouseAction = false; 
-        console.log("reached floor");
       } else {
         y+=descendAttackSpeed;
 
@@ -156,11 +155,9 @@ var Player = function(startX, startY) {
     ctx.fillText(hp, bugX + 37, y-40);
   };
   var rightClick = function(){
-    console.log("RIGHT CLICK");
     rightMouseAction = true;
   }
   var leftClick = function(){
-    console.log("LEFT CLICK");
     lefttMouseAction = true;
   }
 
