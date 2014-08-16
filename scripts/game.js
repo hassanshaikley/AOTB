@@ -90,15 +90,13 @@ var setEventHandlers = function() {
   // Player move message received
   socket.on("move player", onMovePlayer);
 
+  socket.on("set health", onSetHealth);
+
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
 
-  socket.on("set health", yolo);
+};
 
-};
-function yolo(data){
-  console.log("fuck");
-};
 // Keyboard key down
 function onKeydown(e) {
   if (localPlayer) {
@@ -138,6 +136,20 @@ function onNewPlayer(data) {
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
 };
+
+function onSetHealth(data){
+  console.log("swag");
+  var player = playerById(data.id);
+      console.log("SHIT UPDATEING HEALTH");
+  // Player not found
+  if (!player) {
+    console.log("Player not found: "+data.id);
+    return;
+  };
+    player.setHp(data.hp);
+};
+
+
 // Move player
 function onMovePlayer(data) {
   var movePlayer = playerById(data.id);
@@ -156,7 +168,6 @@ function onMovePlayer(data) {
   if (data.descendAttack){
     console.log("SOMEONE IS DESCEND ATTACKING THAT ISNT ME");
   }
-  movePlayer.setHp(data.hp);
 };
 
 
@@ -205,7 +216,7 @@ function update() {
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
 
   };
-
+  socket.emit("update health", {hp: localPlayer.getHp()});
   //if HP changes
 };
 

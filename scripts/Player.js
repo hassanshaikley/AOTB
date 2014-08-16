@@ -10,7 +10,7 @@ var floorHeight = 474;
 var Player = function(startX, startY, startHp) {
   var x = startX,
       y = startY,
-      hp = startHp,
+      hp = 100,
       id,
       moveAmount = 3,
       wobble = 0,
@@ -51,6 +51,18 @@ var Player = function(startX, startY, startHp) {
 
   // Update player position
   var update = function(keys) {
+        for (i = 0; i < remotePlayers.length; i++) {
+      if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-localPlayer.getY())) <=  4 && remotePlayers[i].getDescendAttack()){
+        console.log("i have been hit");
+        localPlayer.setHp(localPlayer.getHp()-25);
+        //here tell server that I WAS HIT : (
+          socket.emit("descend attack hits");
+
+      }
+         
+            //only works if I HIT SOMEONE
+  }
+
     wobble--;
     localX = x;
     // Previous position
@@ -93,23 +105,6 @@ var Player = function(startX, startY, startHp) {
         rightMouseActionHappening = false;
       } else {
         y+=descendAttackSpeed;
-
-        //check for collision
-
-        for (i = 0; i < remotePlayers.length; i++) {
-          
-         
-            //only works if I HIT SOMEONE
-
-            if (Math.abs(remotePlayers[i].getX() - x) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-y)) <=  4){
-              console.log("HIT"); 
-              
-              remotePlayers[i].setHp(remotePlayers[i].getHp()-25);
-              socket.emit("descend attack hits", { remotePlayerId : remotePlayers[i].id});
-
-          }
-
-        }
       }
     }
     return (prevX != x || prevY != y) ? true : false;
@@ -117,6 +112,7 @@ var Player = function(startX, startY, startHp) {
 
   // Draw player
   var draw = function(ctx) {
+
     if (flyAnimate >= 30){
       flyAnimate = 0;
     }
@@ -146,7 +142,6 @@ var Player = function(startX, startY, startHp) {
       ctx.translate(bugX+60, y-40 + 90);
       ctx.rotate(Math.PI);
       ctx.drawImage(silverSword, 0, -10);
-        ctx.fillText(descendAttack, bugX + 37, y+50);
 
       ctx.restore();
 
@@ -156,7 +151,8 @@ var Player = function(startX, startY, startHp) {
     flyAnimate++; 
     ctx.fillStyle = "black";
     ctx.font = "bold 12px sans-serif";
-              ctx.fillText(hp, bugX + 37, y-40);
+    
+    ctx.fillText(hp, bugX + 37, y-40);
 
   };
   var rightClick = function(){

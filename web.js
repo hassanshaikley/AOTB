@@ -66,6 +66,7 @@ function onSocketConnection(client) {
   // Listen for move player message
   client.on("move player", onMovePlayer);
   
+    client.on("update health", onUpdateHealth);
 
 
   client.on("descend attack hits", onHitByDescendAttack);
@@ -112,28 +113,28 @@ function onNewPlayer(data) {
 
 
 function onHitByDescendAttack(data){
-  var attackingPlayer = playerById(this.id);
-  var hitPlayer =  playerById(data.remotePlayerId);
-  util.log( this.id + " hits " + data.remotePlayerId);
-    if (!attackingPlayer) {
-    util.log("Player not found: "+this.id);
-    return;
-  };
+  var hitPlayer = playerById(this.id);
+
   if (!hitPlayer){
     util.log("Player not found: "+hitPlayer.id);
     return;
   };
 
+
   //lower hit players health
   hitPlayer.setHp(hitPlayer.getHp() - 25);
+  util.log( this.id + " is hits and now has " + hitPlayer.getHp() + " hp");
+
   if (hitPlayer.getHp() <= 0){
     util.log("dude is dead " + hitPlayer.id);
   }
-  util.log(hitPlayer.getHp());
-  this.broadcast.emit('set health');
+
+  this.broadcast.emit('set health', { id: hitPlayer.id, hp: hitPlayer.getHp()});
   //emit that health to every1
 };
+function onUpdateHealth(data){
 
+};
 // Player has moved
 function onMovePlayer(data) {
   var movePlayer = playerById(this.id);
@@ -148,9 +149,7 @@ function onMovePlayer(data) {
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
   movePlayer.setDescendAttack(data.descendAttack);
-  if (movePlayer.getDescendAttack()){
-    util.log("fuck");
-  }
+
   // Broadcast updated position to connected socket clients
   this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
 };
