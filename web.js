@@ -1,4 +1,4 @@
-// web.js
+// web.js - Server
 var port = Number(process.env.PORT || 5000);
 var express = require("express");
 var logfmt = require("logfmt");
@@ -66,8 +66,10 @@ function onSocketConnection(client) {
   // Listen for move player message
   client.on("move player", onMovePlayer);
   
-  // Listen for move player message
-  client.on("descend attack", onDescendAttack);
+
+
+  client.on("descend attack hits", onHitByDescendAttack);
+
 };
 
 function onClientDisconnect() {
@@ -87,10 +89,11 @@ function onClientDisconnect() {
   // Broadcast removed player to connected socket clients
   this.broadcast.emit("remove player", {id: this.id});
 };
+
 // New player has joined
 function onNewPlayer(data) {
   // Create a new player
-  var newPlayer = new Player(data.x, data.y);
+  var newPlayer = new Player(data.x, data.y, data.hp);
   newPlayer.id = this.id;
 
   // Broadcast new player to connected socket clients
@@ -100,25 +103,37 @@ function onNewPlayer(data) {
   var i, existingPlayer;
   for (i = 0; i < players.length; i++) {
     existingPlayer = players[i];
-    this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY()});
+    this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp()});
   };
 
   // Add new player to the players array
   players.push(newPlayer);
 };
 
-function onDescendAttack(data){
-  util.log( this.id + " attacks");
+
+function onHitByDescendAttack(data){
   var attackingPlayer = playerById(this.id);
-  // Player not found
-  if (!attackingPlayer) {
+  var hitPlayer =  playerById(data.remotePlayerId);
+  util.log( this.id + " hits " + data.remotePlayerId);
+    if (!attackingPlayer) {
     util.log("Player not found: "+this.id);
     return;
   };
-  attackingPlayer.setDescendAttack(data.descendAttack);
-  this.broadcast.emit("descend attack", {id: attackingPlayer.id, descendAttack: attackingPlayer.getDescendAttack()});
+  if (!hitPlayer){
+    util.log("Player not found: "+hitPlayer.id);
+    return;
+  };
 
+  //lower hit players health
+  hitPlayer.setHp(hitPlayer.getHp() - 25);
+  if (hitPlayer.getHp() <= 0){
+    util.log("dude is dead " + hitPlayer.id);
+  }
+  util.log(hitPlayer.getHp());
+  this.broadcast.emit('set health');
+  //emit that health to every1
 };
+
 // Player has moved
 function onMovePlayer(data) {
   var movePlayer = playerById(this.id);
@@ -132,9 +147,12 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-
+  movePlayer.setDescendAttack(data.descendAttack);
+  if (movePlayer.getDescendAttack()){
+    util.log("fuck");
+  }
   // Broadcast updated position to connected socket clients
-  this.broadcast.emit("move player", {id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY()});
+  this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
 };
 
 /**************************************************

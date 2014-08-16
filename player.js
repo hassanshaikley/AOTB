@@ -1,7 +1,7 @@
 /**************************************************
- ** GAME PLAYER CLASS
+ ** GAME PLAYER CLASS in SERVER
  **************************************************/
-var Player = function(startX, startY) {
+var Player = function(startX, startY, startHp) {
   var x = startX,
       y = startY,
       id,
@@ -42,6 +42,7 @@ var Player = function(startX, startY) {
   return {
     getX: getX,
       getY: getY,
+      getX : getX,
       setX: setX,
       setY: setY,
       getHp : getHp,

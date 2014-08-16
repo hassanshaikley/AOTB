@@ -7,15 +7,14 @@ var flyAnimate = 0;
 var localX;
 
 var floorHeight = 474;
-var Player = function(startX, startY) {
+var Player = function(startX, startY, startHp) {
   var x = startX,
       y = startY,
-      hp = 100,
+      hp = startHp,
       id,
       moveAmount = 3,
       wobble = 0,
       leftMouseAction = false,
-      rightMouseAction = false,
       rightMouseActionHappening = false,
       descendAttack = false,
       descendAttackSpeed = 10;
@@ -32,12 +31,12 @@ var Player = function(startX, startY) {
   };
 
   var getDescendAttack = function(){
-    return rightMouseAction;
-  }
+    return descendAttack;
+  };
 
   var setDescendAttack = function(boolean_thing){
-    rightMouseAction = boolean_thing;
-  }
+    descendAttack = boolean_thing;
+  };
   var getY = function() {
     return y;
   };
@@ -88,11 +87,10 @@ var Player = function(startX, startY) {
       };
     }
     else {
-      if ( y >= floorHeight){
+      if ( y >= floorHeight-1){
         descendAttack = false;
         y = floorHeight+1;
         rightMouseActionHappening = false;
-        rightMouseAction = false; 
       } else {
         y+=descendAttackSpeed;
 
@@ -101,9 +99,14 @@ var Player = function(startX, startY) {
         for (i = 0; i < remotePlayers.length; i++) {
           
          
+            //only works if I HIT SOMEONE
+
             if (Math.abs(remotePlayers[i].getX() - x) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-y)) <=  4){
-            console.log("HIT"); 
-             
+              console.log("HIT"); 
+              
+              remotePlayers[i].setHp(remotePlayers[i].getHp()-25);
+              socket.emit("descend attack hits", { remotePlayerId : remotePlayers[i].id});
+
           }
 
         }
@@ -130,20 +133,21 @@ var Player = function(startX, startY) {
     ctx.drawImage(silverShield, bugX+ 20, y-3);
 
 
-    if (rightMouseAction || rightMouseActionHappening){
-      rightMouseAction = false;
+    if (descendAttack || rightMouseActionHappening){
       if (!rightMouseActionHappening){
         rightMouseActionHappening = true;
       }
-      descendAttack = true; 
       //200 is pretty badass
     } 
     
     if (descendAttack) {
       ctx.save();
+
       ctx.translate(bugX+60, y-40 + 90);
       ctx.rotate(Math.PI);
       ctx.drawImage(silverSword, 0, -10);
+        ctx.fillText(descendAttack, bugX + 37, y+50);
+
       ctx.restore();
 
     } else {
@@ -152,10 +156,12 @@ var Player = function(startX, startY) {
     flyAnimate++; 
     ctx.fillStyle = "black";
     ctx.font = "bold 12px sans-serif";
-    ctx.fillText(hp, bugX + 37, y-40);
+              ctx.fillText(hp, bugX + 37, y-40);
+
   };
   var rightClick = function(){
-    rightMouseAction = true;
+    //rightMouseAction = true;
+    setDescendAttack(true);
   }
   var leftClick = function(){
     lefttMouseAction = true;
@@ -165,6 +171,7 @@ var Player = function(startX, startY) {
   return {
     getX: getX,
       getY: getY,
+      getX: getX,
       setX: setX,
       setY: setY,
       update: update,

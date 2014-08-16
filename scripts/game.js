@@ -1,5 +1,5 @@
 /**************************************************
- ** GAME VARIABLES
+ ** GAME VARIABLES game.js - Front End
  **************************************************/
 var canvas,     // Canvas DOM element
     ctx,      // Canvas rendering context
@@ -33,7 +33,7 @@ function init() {
   canvas.onmousedown = function(e){
     switch (e.which) {
       case 1: localPlayer.leftClick(); break;
-      case 2: alert('middle'); break;
+      case 2: console.log('middle click'); break;
       case 3: localPlayer.rightClick(); break; }
   }
 
@@ -48,10 +48,11 @@ function init() {
   // The minus 5 (half a player size) stops the player being
   // placed right on the egde of the screen
   var startX = Math.round(Math.random()*(canvas.width-5)),
-      startY = Math.round(Math.random()*(canvas.height-5));
+      startY = Math.round(Math.random()*(canvas.height-5))
+      startHp = 100;
 
   // Initialise the local player
-  localPlayer = new Player(startX, startY);
+  localPlayer = new Player(startX, startY, startHp);
 
   // Initialise socket connection
   var host = location.origin;
@@ -89,12 +90,15 @@ var setEventHandlers = function() {
   // Player move message received
   socket.on("move player", onMovePlayer);
 
-  socket.on("descend attack", onDescendAttack);
-
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
-};
 
+  socket.on("set health", yolo);
+
+};
+function yolo(data){
+  console.log("fuck");
+};
 // Keyboard key down
 function onKeydown(e) {
   if (localPlayer) {
@@ -109,14 +113,13 @@ function onKeyup(e) {
   };
 };
 
-// Browser window resize
 
 // Socket connected
 function onSocketConnected() {
   console.log("Connected to socket server");
 
   // Send local player data to the game server
-  socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY()});
+  socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp()});
 };
 
 // Socket disconnected
@@ -129,7 +132,7 @@ function onNewPlayer(data) {
   console.log("New player connected: "+data.id);
 
   // Initialise the new player
-  var newPlayer = new Player(data.x, data.y);
+  var newPlayer = new Player(data.x, data.y, data.hp);
   newPlayer.id = data.id;
 
   // Add new player to the remote players array
@@ -148,16 +151,14 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
+  movePlayer.setDescendAttack(data.descendAttack);
+
+  if (data.descendAttack){
+    console.log("SOMEONE IS DESCEND ATTACKING THAT ISNT ME");
+  }
+  movePlayer.setHp(data.hp);
 };
 
-function onDescendAttack(data){
-  var attackingPlayer = playerById(data.id);
-  if (!attackingPlayer) {
-    console.log("Player not found: "+data.id);
-    return;
-  };
-  attackingPlayer.setDescendAttack(data.descendAttack);
-};
 
 // Remove player
 function onRemovePlayer(data) {
@@ -192,13 +193,20 @@ function animate() {
 /**************************************************
  ** GAME UPDATE
  **************************************************/
+var oldHp ;
 function update() {
+  if (!oldHp){
+    oldHp = localPlayer.getHp();
+    console.log(oldHp);
+  }
   // Update local player and check for change
   if (localPlayer.update(keys)) {
     // Send local player data to the game server
-    socket.emit("descend attack", { descendAttack: localPlayer.getDescendAttack()});
-    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
+    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+
   };
+
+  //if HP changes
 };
 
 
@@ -212,8 +220,6 @@ function draw() {
 
   // Draw the local player
 
-
-
   // Draw the remote players
   var i;
   for (i = 0; i < remotePlayers.length; i++) {
@@ -221,55 +227,12 @@ function draw() {
   };
   localPlayer.draw(ctx);
 };
-var flakeArray = [];
-var flakeTimer = null;
-var maxFlakes = 30;
-//function that adds a snowflake to the flakeArray!
-function Flake() {
-  this.x = Math.round(Math.random() * ctx.canvas.width);
-  this.y = -10;
-  this.drift = Math.random();
-  this.speed = Math.round(Math.random() * 5) + 1;
-  this.width = (Math.random() * 3) + 2;
-  this.height = this.width;
-}
 
-function addFlake() {
-
-  flakeArray[flakeArray.length] = new Flake();
-
-}
 
 function drawBackground(){
   var displacement = drawX-localPlayer.getX() ;
-  
-  if(flakeArray.length != maxFlakes && Math.round(Math.random()*20)==1){
-    addFlake();
-  }
-  
-  for(var i = 0; i < flakeArray.length; i++) {
 
-    //stops snow
 
-    ctx.fillStyle = "white";
-    ctx.fillRect(flakeArray[i].x, flakeArray[i].y, flakeArray[i].width, flakeArray[i].height);
-  }
-  for(var i = 0; i < flakeArray.length; i++) {
-    if(flakeArray[i].y < ctx.canvas.height) {
-      flakeArray[i].y += flakeArray[i].speed; {
-        if(flakeArray[i].y > ctx.canvas.height) {
-          flakeArray[i].y = -5;
-          flakeArray[i].x += flakeArray[i].drift;
-        }
-        if(flakeArray[i].x > ctx.canvas.width) {
-
-          flakeArray[i].x = 0;
-        }
-      }
-    }
-  }
-
- 
  
  ctx.drawImage(ground ,0,0, 400, 100, displacement+400,400, 400, 100); 
  ctx.drawImage(ground ,0,0, 400, 100, displacement+800,400, 400, 100); 
