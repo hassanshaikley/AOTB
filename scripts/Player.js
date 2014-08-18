@@ -58,7 +58,7 @@
     var update = function(keys) {
       for (i = 0; i < remotePlayers.length; i++) {
         if ((!remotePlayers[i].hitme || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500 )){
-        if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-localPlayer.getY())) <=  150 && remotePlayers[i].getDescendAttack()){
+        if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  150 && remotePlayers[i].getDescendAttack()){
           
           console.log("i have been hit");
           //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
@@ -125,6 +125,8 @@
         flyAnimate = 0;
       }
       var bugX = canvas.width/2 + x - localX - 50;
+      
+
       if (flyAnimate <= 10){
         ctx.drawImage(fly,0,0, 100, 100, bugX,y-50, 100, 100);
       }
