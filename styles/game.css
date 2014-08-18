@@ -26,11 +26,12 @@ body {
 }
 
 #chat_outer {
-	top: 358px;
+	/* SAIFS HOLY LINE*/
+/* O: */top: 358px; /* OMG OMG OMG */
+	/* DELETE AND U DIE */
 	width: 250px;
 	position: absolute;
 	padding-left: 10px;
-  background-color: cadetblue;
-	/*background-image: url(http://upload.wikimedia.org/wikipedia/commons/f/fc/Translucent_50_percent_white.png);
-*/
+	background-image: url(http://upload.wikimedia.org/wikipedia/commons/f/fc/Translucent_50_percent_white.png);
+
 }

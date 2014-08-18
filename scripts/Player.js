@@ -7,7 +7,10 @@
   var localX;
 
   var floorHeight = 474;
+  var toggle = 1;
+
   var Player = function(startX, startY, startHp) {
+
     var x = startX,
         y = startY,
         hp = 100, 

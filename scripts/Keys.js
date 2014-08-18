@@ -10,6 +10,10 @@ var Keys = function(up, left, right, down) {
 
 
   var onKeyDown = function(e) {
+   if ($("#text").is(":focus")){
+      return;
+   }
+
     var that = this,
         c = e.keyCode;
     switch (c) {

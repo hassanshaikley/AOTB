@@ -27,9 +27,9 @@
   
     <div id="gameCanvasMargin">
     <canvas id="gameCanvas" height=500 width=800></canvas>
-        <div id="chat_outer">
-            <div id="chat">
-            </div>
+    <div id="chat_outer">
+    <div id="chat">
+      </div>
                                                                                                                                                                 
        
     <input type="text" name="text" id="text">
@@ -41,25 +41,14 @@
     <script src="scripts/game.js"></script>
     <script src="scripts/Keys.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+
     <script>
       // Initialise the game
       PORT = <%=process.env.PORT || 5000%>;
       init();
      animate();
-    
-    var chat_scroll = document.getElementById("chat");
-    chat_scroll.scrollTop = chat_scroll.scrollHeight;
-     socket.on('message', function (data) {
-          $('#chat').append(data.text + '<br />');
-              chat_scroll.scrollTop = chat_scroll.scrollHeight;
-
-        });
-      
-        $('#send').click(function () {
-          socket.emit('sendMessage', { text: $('#text').val() });
-          $('text').val('');
-        });
 
     </script>
+    <script src="scripts/chat.js"></script>
   </body>
 </html>
