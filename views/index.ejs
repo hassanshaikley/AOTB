@@ -18,8 +18,12 @@
   </head>
 
   <body>
+    <%if  (authenticated ) {%>
+            <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    <% } else{ %>
         <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
     <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a>
+    <% } %>
   
 
     <canvas id="gameCanvas" height=500 width=800></canvas>

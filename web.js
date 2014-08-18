@@ -30,7 +30,7 @@ require('./config/passport')(passport); // pass passport for configuration
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
 app.use(flash()); 
-app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(session({ secret: 'hassooni' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
