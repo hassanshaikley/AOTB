@@ -32,6 +32,13 @@ body {
 	width: 250px;
 	position: absolute;
 	padding-left: 10px;
-	background-image: url(http://upload.wikimedia.org/wikipedia/commons/f/fc/Translucent_50_percent_white.png);
 
+}
+#text, #chat_outer, #send{
+	background-color: rgba(205, 205, 205, 0.5)
+}
+#text, #send {
+	border: 0px;
+	border-top: 1px solid black; 
+	height: 25px;
 }
