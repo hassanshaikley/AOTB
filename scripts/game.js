@@ -117,7 +117,7 @@ function onSocketConnected() {
   console.log("Connected to socket server");
 
 // Send local player data to the game server
-socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp()});
+  socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp()});
 };
 
 // Socket disconnected
@@ -135,10 +135,11 @@ newPlayer.id = data.id;
 
 // Add new player to the remote players array
 remotePlayers.push(newPlayer);
+      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+
 };
 
 function onSetHealth(data){
-  console.log("swag");
   var player = playerById(data.id);
   console.log("SHIT UPDATEING HEALTH");
 // Player not found
@@ -164,10 +165,10 @@ if (!movePlayer) {
 movePlayer.setX(data.x);
 movePlayer.setY(data.y);
 movePlayer.setDescendAttack(data.descendAttack);
+movePlayer.setHp(data.hp);
+  if (data.descendAttack){
 
-if (data.descendAttack){
-  console.log("SOMEONE IS DESCEND ATTACKING THAT ISNT ME");
-}
+  }
 };
 
 
@@ -206,6 +207,7 @@ function animate() {
 **************************************************/
 var oldHp ;
 function update() {
+
   if (!oldHp){
     oldHp = localPlayer.getHp();
     console.log(oldHp);
@@ -213,10 +215,10 @@ function update() {
 // Update local player and check for change
 if (localPlayer.update(keys)) {
 // Send local player data to the game server
-socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+  socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
 
 };
-socket.emit("update health", {hp: localPlayer.getHp()});
+  socket.emit("update health", {hp: localPlayer.getHp()});
 //if HP changes
 };
 

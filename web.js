@@ -66,7 +66,7 @@ function onSocketConnection(client) {
   // Listen for move player message
   client.on("move player", onMovePlayer);
   
-    client.on("update health", onUpdateHealth);
+  client.on("update health", onUpdateHealth);
 
 
   client.on("descend attack hits", onHitByDescendAttack);

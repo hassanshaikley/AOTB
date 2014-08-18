@@ -10,14 +10,15 @@
   var Player = function(startX, startY, startHp) {
     var x = startX,
         y = startY,
-        hp = 100,
+        hp = 100, 
         id,
         moveAmount = 3,
         wobble = 0,
         leftMouseAction = false,
         rightMouseActionHappening = false,
         descendAttack = false,
-        descendAttackSpeed = 10;
+        descendAttackSpeed = 10,
+        alive = true;
     // Getters and setters
     var getX = function() {
       return x;
@@ -28,6 +29,9 @@
 
     var setHp = function(newHp){
       hp = newHp;
+      if (hp <= 0){
+        alive = false;
+      }
     };
 
     var getDescendAttack = function(){
@@ -54,8 +58,7 @@
     var update = function(keys) {
       for (i = 0; i < remotePlayers.length; i++) {
         if ((!remotePlayers[i].hitme || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 250 )){
-          console.log("times okay stan");
-        if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-localPlayer.getY())) <=  4 && remotePlayers[i].getDescendAttack()){
+        if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-localPlayer.getY())) <=  20 && remotePlayers[i].getDescendAttack()){
           
           console.log("i have been hit");
           //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
@@ -78,7 +81,7 @@
 
       if (descendAttack == false){
         // Up key takes priority over down
-        if (keys.up) {
+        if (keys.up && y >-16) {
           y -= moveAmount;
         } else if (keys.down) {
           y += moveAmount;
@@ -157,7 +160,12 @@
       ctx.fillStyle = "black";
       ctx.font = "bold 12px sans-serif";
       
-      ctx.fillText(hp, bugX + 37, y-40);
+      if (alive){
+        ctx.fillText(hp, bugX + 37, y-40);
+      } else {
+         ctx.fillText("DEAD", bugX + 37, y-40);
+      }
+
 
     };
     var rightClick = function(){
