@@ -1,0 +1,2 @@
+sudo chown -R `id -u` /data/db
+/usr/local/Cellar/mongodb/2.6.1/bin/mongo

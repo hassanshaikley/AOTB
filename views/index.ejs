@@ -3,16 +3,25 @@
 <html lang="en">
 
   <head>
-    <title>A multiplayer game built using HTML5 canvas and WebSockets</title>
+    <title>AMARA</title>
     <meta charset="utf-8">
     <meta name="author" content="hassooni">
     <meta name="description" content="yolo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
     <meta name="viewport" content="width=device-width; initial-scale=1.0">
     <link rel="stylesheet" href="styles/game.css">
+  
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+
+
   </head>
 
   <body>
+        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
+    <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a>
+  
+
     <canvas id="gameCanvas" height=500 width=800></canvas>
     <script src="scripts/assetLoader.js"></script>
     <script src="scripts/requestAnimationFrame.js"></script>

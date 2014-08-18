@@ -3,12 +3,40 @@ var port = Number(process.env.PORT || 5000);
 var express = require("express");
 var logfmt = require("logfmt");
 var app = express();
+var mongoose = require('mongoose');
+var passport = require('passport');
+var flash    = require('connect-flash');
+
+
 app.set('views', __dirname + '/views');
 
 var util = require("util"),
     server = require('http').createServer(app)
     io = require("socket.io").listen(server),
     Player = require("./player").Player;
+
+var configDB = require('./config/database.js');
+mongoose.connect(configDB.url); // connect to our database
+
+
+
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
+
+require('./config/passport')(passport); // pass passport for configuration
+
+
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
+app.use(flash()); 
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+/* AAH NOT SURE ABOUT THIS RIGHT NOW*/
+require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+
 
 var socket,   // Socket controller
     players;  // Array of connected players
@@ -36,9 +64,6 @@ app.use("/styles", express.static(__dirname + '/styles'));
 app.use("/localAssets", express.static(__dirname + '/localAssets'));
 app.use("/scripts", express.static(__dirname + '/scripts'));
 
-app.get('/', function(req, res) {
-  res.render('index.ejs');
-});
 
 server.listen(port, function() {
   console.log("Listening on " + port);
