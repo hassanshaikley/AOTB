@@ -92,7 +92,11 @@ function onSocketConnection(client) {
 
   // Listen for client disconnected
   client.on("disconnect", onClientDisconnect);
-
+  
+  client.on('sendMessage', function (data) {
+    this.broadcast.emit('message', data);
+    this.emit('message', { text: data.text});   
+  });   
   // Listen for new player message
   client.on("new player", onNewPlayer);
 

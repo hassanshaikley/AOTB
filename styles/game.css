@@ -5,9 +5,31 @@ body {
 
 #gameCanvas {
   background-color: #A0CFEC;
-  width: 800px;
   height: 500px;
-  margin: auto;
-  display: block;
+
   border: 5px solid black;
+}
+#gameCanvasMargin{
+	  margin: auto;
+  display: block;
+  width: 800px;
+}
+
+#chat {
+	overflow-y: scroll;
+	height: 150px;
+	word-wrap: normal
+}
+
+#chat_outer #chat_text {
+	opacity: 1;
+}
+
+#chat_outer {
+	top: 350px;
+	width: 250px;
+	position: absolute;
+	padding-left: 10px;
+	background-image: url(http://upload.wikimedia.org/wikipedia/commons/f/fc/Translucent_50_percent_white.png);
+
 }
