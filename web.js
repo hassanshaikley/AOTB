@@ -1,4 +1,5 @@
 // web.js - Server
+require('newrelic');
 var port = Number(process.env.PORT || 5000);
 var express = require("express");
 var logfmt = require("logfmt");
@@ -30,8 +31,15 @@ require('./config/passport')(passport); // pass passport for configuration
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
 app.use(flash()); 
-app.use(session({ secret: 'hassooni' })); // session secret
-app.use(passport.initialize());
+app.use(session({secret: 'a secret'}, {
+  cookie: {
+    path: '/',
+    httpOnly: true,
+    secure: false,
+    maxAge: 10 * 60 * 1000
+  },
+  rolling: true
+}));app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 /* AAH NOT SURE ABOUT THIS RIGHT NOW*/

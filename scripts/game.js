@@ -136,7 +136,6 @@ newPlayer.id = data.id;
 // Add new player to the remote players array
 remotePlayers.push(newPlayer);
       socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
-
 };
 
 function onSetHealth(data){

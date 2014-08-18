@@ -11,7 +11,7 @@ module.exports = function(app, passport) {
       // LOGIN ===============================
       // =====================================
       // show the login form
-      app.get('/login', function(req, res) {
+      app.get('/login', isNotLoggedIn, function(req, res) {
 
             // render the page and pass in any flash data if it exists
             res.render('login.ejs', { message: req.flash('loginMessage') }); 
@@ -24,7 +24,7 @@ module.exports = function(app, passport) {
         // SIGNUP ==============================
         // =====================================
         // show the signup form
-        app.get('/signup', function(req, res) {
+        app.get('/signup', isNotLoggedIn, function(req, res) {
 
               // render the page and pass in any flash data if it exists
               res.render('signup.ejs', { message: req.flash('signupMessage') });
@@ -71,6 +71,16 @@ function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on 
     if (req.isAuthenticated())
+          return next();
+
+      // if they aren't redirect them to the home page
+      res.redirect('/');
+}
+
+function isNotLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (!req.isAuthenticated())
           return next();
 
       // if they aren't redirect them to the home page
