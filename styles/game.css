@@ -26,10 +26,11 @@ body {
 }
 
 #chat_outer {
-	top: 350px;
+	top: 358px;
 	width: 250px;
 	position: absolute;
 	padding-left: 10px;
-	background-image: url(http://upload.wikimedia.org/wikipedia/commons/f/fc/Translucent_50_percent_white.png);
-
+  background-color: cadetblue;
+	/*background-image: url(http://upload.wikimedia.org/wikipedia/commons/f/fc/Translucent_50_percent_white.png);
+*/
 }
