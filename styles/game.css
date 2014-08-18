@@ -34,11 +34,15 @@ body {
 	padding-left: 10px;
 
 }
-#text, #chat_outer, #send{
-	background-color: rgba(205, 205, 205, 0.5)
+#text, #chat_outer, #send,  ::-webkit-scrollbar{
+	background-color: rgba(47, 79, 79, 0.3)
 }
 #text, #send {
 	border: 0px;
 	border-top: 1px solid black; 
 	height: 25px;
+}
+
+#chat, #send, #text {
+	color: white;
 }

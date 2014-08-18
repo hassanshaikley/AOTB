@@ -2,9 +2,12 @@
       if(e.which == 13) {
         if ($("#text").is(":focus")){
           //send message
+          if( $("#text").val()) {
             $('#send').click();
-            $("#text").blur();
+          } else {
 
+          }
+          $("#text").blur();
 
         }
         if (toggle == 1){
