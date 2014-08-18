@@ -204,17 +204,20 @@ function animate() {
 /**************************************************
 ** GAME UPDATE
 **************************************************/
-var oldHp ;
-function update() {
 
-  if (!oldHp){
-    oldHp = localPlayer.getHp();
-    console.log(oldHp);
+var oldTime = Date.now();
+var newTime = Date.now();
+var updateTime = 250;
+function update() {
+  if (Date.now() -  oldTime >= updateTime){
+      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+      oldTime = Date.now();
   }
+
+
 // Update local player and check for change
 if (localPlayer.update(keys)) {
 // Send local player data to the game server
-  socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
 
 };
   socket.emit("update health", {hp: localPlayer.getHp()});

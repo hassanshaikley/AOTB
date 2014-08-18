@@ -57,8 +57,8 @@
     // Update player position
     var update = function(keys) {
       for (i = 0; i < remotePlayers.length; i++) {
-        if ((!remotePlayers[i].hitme || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 250 )){
-        if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-localPlayer.getY())) <=  20 && remotePlayers[i].getDescendAttack()){
+        if ((!remotePlayers[i].hitme || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500 )){
+        if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-localPlayer.getY())) <=  150 && remotePlayers[i].getDescendAttack()){
           
           console.log("i have been hit");
           //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
