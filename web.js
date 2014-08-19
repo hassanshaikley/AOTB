@@ -105,7 +105,6 @@ function onSocketConnection(client) {
   
   client.on("update health", onUpdateHealth);
 
-
   client.on("descend attack hits", onHitByDescendAttack);
 
 };
@@ -131,17 +130,18 @@ function onClientDisconnect() {
 // New player has joined
 function onNewPlayer(data) {
   // Create a new player
-  var newPlayer = new Player(data.x, data.y, data.hp);
+  var newPlayer = new Player(data.x, data.y, data.hp, data.name);
+  util.log("player connected with name " + data.name); //name is correct
   newPlayer.id = this.id;
 
   // Broadcast new player to connected socket clients
-  this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY()});
+  this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName()});
 
   // Send existing players to the new player
   var i, existingPlayer;
   for (i = 0; i < players.length; i++) {
     existingPlayer = players[i];
-    this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp()});
+    this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName()});
   };
 
   // Add new player to the players array

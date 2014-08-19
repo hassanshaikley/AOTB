@@ -1,16 +1,24 @@
 /**************************************************
  ** GAME PLAYER CLASS in SERVER
  **************************************************/
-var Player = function(startX, startY, startHp) {
+var Player = function(startX, startY, startHp, _name) {
   var x = startX,
       y = startY,
       id,
+      name = _name,
       descendAttack = false,
       hp = 100;
 
   // Getters and setters
   var getX = function() {
     return x;
+  };
+
+  var getName = function(){
+    return name;
+  };
+  var setName = function(newName){
+    name = newName;
   };
   
   var getHp = function(){
@@ -47,6 +55,8 @@ var Player = function(startX, startY, startHp) {
       setY: setY,
       getHp : getHp,
       setHp : setHp,
+      setName : setName,
+      getName : getName,
       id: id,
       getDescendAttack : getDescendAttack,
       setDescendAttack : setDescendAttack

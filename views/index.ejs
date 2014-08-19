@@ -45,6 +45,7 @@
     <script>
       // Initialise the game
       PORT = <%=process.env.PORT || 5000%>;
+     var localPlayerName = "<%= user && user.local.email || "unknown" %>";
       init();
      animate();
 

@@ -25,6 +25,10 @@ body {
 	opacity: 1;
 }
 
+#send {
+	opacity: .8;
+}
+
 #chat_outer {
 	/* SAIFS HOLY LINE*/
 /* O: */top: 358px; /* OMG OMG OMG */

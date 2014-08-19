@@ -52,7 +52,7 @@ startY = Math.round(Math.random()*(canvas.height-5))
 startHp = 100;
 
 // Initialise the local player
-localPlayer = new Player(startX, startY, startHp);
+localPlayer = new Player(startX, startY, startHp, localPlayerName);
 
 // Initialise socket connection
 var host = location.origin;
@@ -90,7 +90,6 @@ socket.on("new player", onNewPlayer);
 // Player move message received
 socket.on("move player", onMovePlayer);
 
-socket.on("set health", onSetHealth);
 
 // Player removed message received
 socket.on("remove player", onRemovePlayer);
@@ -115,9 +114,8 @@ function onKeyup(e) {
 // Socket connected
 function onSocketConnected() {
   console.log("Connected to socket server");
-
 // Send local player data to the game server
-  socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp()});
+  socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp(), name: localPlayer.getName()});
 };
 
 // Socket disconnected
@@ -128,25 +126,14 @@ function onSocketDisconnect() {
 // New player
 function onNewPlayer(data) {
   console.log("New player connected: "+data.id);
+  console.log("names " + data.name);
+  // Initialise the new player
+  var newPlayer = new Player(data.x, data.y, data.hp, data.name);
+  newPlayer.id = data.id;
 
-// Initialise the new player
-var newPlayer = new Player(data.x, data.y, data.hp);
-newPlayer.id = data.id;
-
-// Add new player to the remote players array
-remotePlayers.push(newPlayer);
-      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
-};
-
-function onSetHealth(data){
-  var player = playerById(data.id);
-  console.log("SHIT UPDATEING HEALTH");
-// Player not found
-if (!player) {
-  console.log("Player not found: "+data.id);
-  return;
-};
-player.setHp(data.hp);
+  // Add new player to the remote players array
+  remotePlayers.push(newPlayer);
+      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
 };
 
 
@@ -165,6 +152,8 @@ movePlayer.setX(data.x);
 movePlayer.setY(data.y);
 movePlayer.setDescendAttack(data.descendAttack);
 movePlayer.setHp(data.hp);
+
+
   if (data.descendAttack){
 
   }
@@ -220,7 +209,7 @@ if (localPlayer.update(keys)) {
 // Send local player data to the game server
 
 };
-  socket.emit("update health", {hp: localPlayer.getHp()});
+  //socket.emit("update health", {hp: localPlayer.getHp()});
 //if HP changes
 };
 
