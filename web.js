@@ -14,7 +14,8 @@ app.set('views', __dirname + '/views');
 var util = require("util"),
     server = require('http').createServer(app)
     io = require("socket.io").listen(server),
-    Player = require("./player").Player;
+    Fly = require("./fly").Fly;
+
 
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url); // connect to our database
@@ -130,7 +131,7 @@ function onClientDisconnect() {
 // New player has joined
 function onNewPlayer(data) {
   // Create a new player
-  var newPlayer = new Player(data.x, data.y, data.hp, data.name);
+  var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   util.log("player connected with name " + data.name); //name is correct
   newPlayer.id = this.id;
 

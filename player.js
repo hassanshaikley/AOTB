@@ -6,7 +6,6 @@ var Player = function(startX, startY, startHp, _name) {
       y = startY,
       id,
       name = _name,
-      descendAttack = false,
       hp = 100;
 
   // Getters and setters
@@ -40,12 +39,7 @@ var Player = function(startX, startY, startHp, _name) {
   var setY = function(newY) {
     y = newY;
   };
-  var setDescendAttack = function(boolean_thing){
-    descendAttack = boolean_thing;
-  };
-  var getDescendAttack = function(){
-    return descendAttack;
-  };
+
   // Define which variables and methods can be accessed
   return {
     getX: getX,
@@ -57,9 +51,7 @@ var Player = function(startX, startY, startHp, _name) {
       setHp : setHp,
       setName : setName,
       getName : getName,
-      id: id,
-      getDescendAttack : getDescendAttack,
-      setDescendAttack : setDescendAttack
+      id: id
   }
 };
 
