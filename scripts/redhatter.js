@@ -21,23 +21,36 @@ var Redhatter = function(x, y, hp, name){
 
   var draw = function(ctx) {
   	//var drawAtX = skeleton.getX()-50;
-    var drawAtX = canvas.width/2 + skeleton.getX() - localX - 50;
-
-    if (Animate <= 20){
+    var facing_left = true;
+    if (facing_left){
+    	ctx.save();
+    	var drawAtX = canvas.width/2 - skeleton.getX() + localX - 50;
+      	ctx.translate(canvas.width , 0);
+      	ctx.scale(-1, 1);
+  	}
+  	else {
+  		var drawAtX = canvas.width/2 + skeleton.getX() - localX - 50;
+  	}
+    if (Animate <= 20 && skeleton.moving()){
       ctx.drawImage(RedhatterSprite,0,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    else if (Animate <= 40){
+    else if (Animate <= 40 && skeleton.moving()){
       ctx.drawImage(RedhatterSprite,100,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    else if (Animate <= 60){
+    else if (Animate <= 60 && skeleton.moving()){
       ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
-    } 
+    } else{
+    	ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+    }
+    ctx.restore();
     Animate++;
     if(Animate >= 60){
     	Animate=0;
     }
 };
+/* Constantly called for the localPlayer */
   var update = function(keys) {
+
   	localX = skeleton.getX();
       if (keys.left) {
       	skeleton.setX(skeleton.getX()-moveSpeed);

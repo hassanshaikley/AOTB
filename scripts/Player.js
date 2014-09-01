@@ -38,6 +38,10 @@ var Player = function(startX, startY, startHp, _name) {
     }
   };
 
+  var moving = function(){
+    
+    return true;
+  };
 
   var getY = function() {
     return y;
@@ -71,6 +75,7 @@ var Player = function(startX, startY, startHp, _name) {
       update: update,
       getHp : getHp,
       setHp : setHp,
+      moving : moving,
       setName : setName,
       getName : getName
   };

@@ -7,7 +7,7 @@ var Player = function(startX, startY, startHp, _name) {
       id,
       name = _name,
       hp = 100,
-      character_type = "Unknown" ;
+      character_type = "Unknown";
 
 
 
