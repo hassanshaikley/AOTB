@@ -1,98 +1,98 @@
 /**************************************************
-** GAME VARIABLES game.js - Front End
-**************************************************/
+ ** GAME VARIABLES game.js - Front End
+ **************************************************/
 var canvas,     // Canvas DOM element
-ctx,      // Canvas rendering context
-keys,     // Keyboard input
-localPlayer,  // Local player
-remotePlayers,  // Remote players
-socket;     // Socket connection
+    ctx,      // Canvas rendering context
+    keys,     // Keyboard input
+    localPlayer,  // Local player
+    remotePlayers,  // Remote players
+    socket;     // Socket connection
 
 
 var drawX = 0;
 
-var setDrawX = function(x) {
-  drawX = x;
-};
+// var setDrawX = function(x) {
+//   drawX = x;
+// };
 
-var getDrawX = function(){
-  return drawX;
-};
+// var getDrawX = function(){
+//   return drawX;
+// };
 
 /**************************************************
-** GAME INITIALISATION
-**************************************************/
+ ** GAME INITIALISATION
+ **************************************************/
 function init() {
-// Declare the canvas and rendering context
-canvas = document.getElementById("gameCanvas");
-ctx = canvas.getContext("2d");
+  // Declare the canvas and rendering context
+  canvas = document.getElementById("gameCanvas");
+  ctx = canvas.getContext("2d");
 
-//disable context menu
-canvas.oncontextmenu = function(e){return false;}
+  //disable context menu
+  canvas.oncontextmenu = function(e){return false;}
 
-canvas.onmousedown = function(e){
-  switch (e.which) {
-    case 1: localPlayer.leftClick(); break;
-    case 2: console.log('middle click'); break;
-    case 3: localPlayer.rightClick(); break; }
+  canvas.onmousedown = function(e){
+    switch (e.which) {
+      case 1: localPlayer.leftClick(); break;
+      case 2: console.log('middle click'); break;
+      case 3: localPlayer.rightClick(); break; }
   }
 
-// Maximise the canvas
-//canvas.width = window.innerWidth;
-//canvas.height = window.innerHeight;
+  // Maximise the canvas
+  //canvas.width = window.innerWidth;
+  //canvas.height = window.innerHeight;
 
-// Initialise keyboard controls
-keys = new Keys();
+  // Initialise keyboard controls
+  keys = new Keys();
 
-// Calculate a random start position for the local player
-// The minus 5 (half a player size) stops the player being
-// placed right on the egde of the screen
-var startX = Math.round(Math.random()*(canvas.width-5)),
-startY = Math.round(Math.random()*(canvas.height-5))
-startHp = 100;
+  // Calculate a random start position for the local player
+  // The minus 5 (half a player size) stops the player being
+  // placed right on the egde of the screen
+  var startX = Math.round(Math.random()*(canvas.width-5)),
+      startY = Math.round(Math.random()*(canvas.height-5))
+        startHp = 100;
 
-// Initialise the local player
-localPlayer = new Player(startX, startY, startHp, localPlayerName);
+  // Initialise the local player
+  localPlayer = new Fly(startX, startY, startHp, localPlayerName);
 
-// Initialise socket connection
-var host = location.origin;
+  // Initialise socket connection
+  var host = location.origin;
 
-socket = io.connect(host, {port: PORT, transports: ["websocket"]});
+  socket = io.connect(host, {port: PORT, transports: ["websocket"]});
 
-// Initialise remote players array
-remotePlayers = [];
+  // Initialise remote players array
+  remotePlayers = [];
 
-// Start listening for events
-setEventHandlers();
+  // Start listening for events
+  setEventHandlers();
 };
 
 
 /**************************************************
-** GAME EVENT HANDLERS
-**************************************************/
+ ** GAME EVENT HANDLERS
+ **************************************************/
 var setEventHandlers = function() {
-// Keyboard
-window.addEventListener("keydown", onKeydown, false);
-window.addEventListener("keyup", onKeyup, false);
+  // Keyboard
+  window.addEventListener("keydown", onKeydown, false);
+  window.addEventListener("keyup", onKeyup, false);
 
-// Window resize
-window.addEventListener("resize", onResize, false);
+  // Window resize
+  window.addEventListener("resize", onResize, false);
 
-// Socket connection successful
-socket.on("connect", onSocketConnected);
+  // Socket connection successful
+  socket.on("connect", onSocketConnected);
 
-// Socket disconnection
-socket.on("disconnect", onSocketDisconnect);
+  // Socket disconnection
+  socket.on("disconnect", onSocketDisconnect);
 
-// New player message received
-socket.on("new player", onNewPlayer);
+  // New player message received
+  socket.on("new player", onNewPlayer);
 
-// Player move message received
-socket.on("move player", onMovePlayer);
+  // Player move message received
+  socket.on("move player", onMovePlayer);
 
 
-// Player removed message received
-socket.on("remove player", onRemovePlayer);
+  // Player removed message received
+  socket.on("remove player", onRemovePlayer);
 
 };
 
@@ -114,7 +114,7 @@ function onKeyup(e) {
 // Socket connected
 function onSocketConnected() {
   console.log("Connected to socket server");
-// Send local player data to the game server
+  // Send local player data to the game server
   socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp(), name: localPlayer.getName()});
 };
 
@@ -128,12 +128,12 @@ function onNewPlayer(data) {
   console.log("New player connected: "+data.id);
   console.log("names " + data.name);
   // Initialise the new player
-  var newPlayer = new Player(data.x, data.y, data.hp, data.name);
+  var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   newPlayer.id = data.id;
 
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
-      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
+  socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
 };
 
 
@@ -141,17 +141,17 @@ function onNewPlayer(data) {
 function onMovePlayer(data) {
   var movePlayer = playerById(data.id);
 
-// Player not found
-if (!movePlayer) {
-  console.log("Player not found: "+data.id);
-  return;
-};
+  // Player not found
+  if (!movePlayer) {
+    console.log("Player not found: "+data.id);
+    return;
+  };
 
-// Update player position
-movePlayer.setX(data.x);
-movePlayer.setY(data.y);
-movePlayer.setDescendAttack(data.descendAttack);
-movePlayer.setHp(data.hp);
+  // Update player position
+  movePlayer.setX(data.x);
+  movePlayer.setY(data.y);
+  movePlayer.setDescendAttack(data.descendAttack);
+  movePlayer.setHp(data.hp);
 
 
   if (data.descendAttack){
@@ -164,20 +164,20 @@ movePlayer.setHp(data.hp);
 function onRemovePlayer(data) {
   var removePlayer = playerById(data.id);
 
-// Player not found
-if (!removePlayer) {
-  console.log("Player not found: "+data.id);
-  return;
-};
+  // Player not found
+  if (!removePlayer) {
+    console.log("Player not found: "+data.id);
+    return;
+  };
 
-// Remove player from array
-remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
+  // Remove player from array
+  remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
 };
 
 var FPS = 60;
 /**************************************************
-** GAME ANIMATION LOOP
-**************************************************/
+ ** GAME ANIMATION LOOP
+ **************************************************/
 function animate() {
   update();
   draw();
@@ -186,58 +186,57 @@ function animate() {
 
     window.requestAnimFrame(animate);
   }, 1000 /FPS);
-// Request a new animation frame using Paul Irish's shim
+  // Request a new animation frame using Paul Irish's shim
 };
 
 
 /**************************************************
-** GAME UPDATE
-**************************************************/
+ ** GAME UPDATE
+ **************************************************/
 
 var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 250;
 function update() {
   if (Date.now() -  oldTime >= updateTime){
-      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
-      oldTime = Date.now();
+    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+    oldTime = Date.now();
   }
 
 
-// Update local player and check for change
-if (localPlayer.update(keys)) {
-// Send local player data to the game server
+  // Update local player and check for change
+  if (localPlayer.update(keys)) {
+    // Send local player data to the game server
 
-};
+  };
   //socket.emit("update health", {hp: localPlayer.getHp()});
-//if HP changes
+  //if HP changes
 };
 
 
 /**************************************************
-** GAME DRAW
-**************************************************/
+ ** GAME DRAW
+ **************************************************/
 function draw() {
-// Wipe the canvas clean
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-drawBackground();
+  // Wipe the canvas clean
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackground();
 
-// Draw the local player
+  // Draw the local player
 
-// Draw the remote players
-var i;
-for (i = 0; i < remotePlayers.length; i++) {
-  remotePlayers[i].draw(ctx);
-};
-localPlayer.draw(ctx);
+  // Draw the remote players
+  var i;
+  for (i = 0; i < remotePlayers.length; i++) {
+    remotePlayers[i].draw(ctx);
+  };
+  localPlayer.draw(ctx);
 };
 
 
 function drawBackground(){
   var displacement = drawX-localPlayer.getX() ;
-
-
-
+  //drawX is not changing aaah
+  console.log("displacement is " + displacement + " localPlayerx is " +localPlayer.getX() + " draw x is " + drawX);
   ctx.drawImage(ground ,0,0, 400, 100, displacement+400,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement+800,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement,400, 400, 100); 
@@ -248,13 +247,13 @@ function drawBackground(){
 };
 // Browser window resize
 function onResize(e) {
-// Maximise the canvas
-canvas.width = 800;
-canvas.height = 500;
+  // Maximise the canvas
+  canvas.width = 800;
+  canvas.height = 500;
 };
 /**************************************************
-** GAME HELPER FUNCTIONS
-**************************************************/
+ ** GAME HELPER FUNCTIONS
+ **************************************************/
 // Find player by ID
 function playerById(id) {
   var i;

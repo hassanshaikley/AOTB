@@ -1,6 +1,6 @@
 var url;
 
-var fly = new Image();
+var flySprite = new Image();
 var silverShield = new Image();
 var silverSword = new Image();
 var ground = new Image();
@@ -22,6 +22,6 @@ if (location.origin == "http://localhost:5000" && UrlExists("/localAssets/flyshe
 
 CastleOfOne.src = url + "CastleOfOne.png";
 ground.src = url +"earthenfloor.png";
-fly.src = url + "flysheet.png";
+flySprite.src = url + "flysheet.png";
 silverSword.src = url+ "silverSword.png";
 silverShield.src = url+ "silverShield.png";

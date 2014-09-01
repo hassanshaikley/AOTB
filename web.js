@@ -34,11 +34,11 @@ app.use(bodyParser()); // get information from html forms
 app.use(flash()); 
 app.use(session({secret: 'a secret'}, {
   cookie: {
-    path: '/',
-    httpOnly: true,
-    secure: false,
-    maxAge: 10 * 60 * 1000
-  },
+            path: '/',
+  httpOnly: true,
+  secure: false,
+  maxAge: 10 * 60 * 1000
+          },
   rolling: true
 }));app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -60,10 +60,10 @@ function init() {
   io.set("transports", ["websocket"]);
   io.set("polling duration", 10)
 
-  // Restrict log output
+    // Restrict log output
 
-  // Start listening for events
-  setEventHandlers();
+    // Start listening for events
+    setEventHandlers();
 };
 
 app.engine('html', require('ejs').renderFile);
@@ -93,7 +93,7 @@ function onSocketConnection(client) {
 
   // Listen for client disconnected
   client.on("disconnect", onClientDisconnect);
-  
+
   client.on('sendMessage', function (data) {
     this.broadcast.emit('message', data);
     this.emit('message', { text: data.text});   
@@ -103,7 +103,7 @@ function onSocketConnection(client) {
 
   // Listen for move player message
   client.on("move player", onMovePlayer);
-  
+
   client.on("update health", onUpdateHealth);
 
   client.on("descend attack hits", onHitByDescendAttack);

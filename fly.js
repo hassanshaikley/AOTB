@@ -1,8 +1,8 @@
 Player = require("./player").Player;
 var util = require("util");
 var Fly = function(x, y, hp, name){
-	var fly =  Player(x, y, hp, name);
-	var descendAttack = false;
+  var fly =  Player(x, y, hp, name);
+  var descendAttack = false;
 
   var setDescendAttack = function(boolean_thing){
     descendAttack = boolean_thing;
@@ -11,20 +11,20 @@ var Fly = function(x, y, hp, name){
     return descendAttack;
   };
 
- return {
- 	getX : fly.getX,
- 	getY : fly.getY,
- 	setX : fly.setX,
- 	setY : fly.setY,
- 	getHp : fly.getHp,
-    setHp : fly.setHp,
-    setName : fly.setName,
-    getName : fly.getName,
-    id: fly.id,
-  	setDescendAttack : setDescendAttack,
-  	getDescendAttack : getDescendAttack
-  	 };
- 	
+  return {
+    getX : fly.getX,
+         getY : fly.getY,
+         setX : fly.setX,
+         setY : fly.setY,
+         getHp : fly.getHp,
+         setHp : fly.setHp,
+         setName : fly.setName,
+         getName : fly.getName,
+         id: fly.id,
+         setDescendAttack : setDescendAttack,
+         getDescendAttack : getDescendAttack
+  };
+
 };
 
 

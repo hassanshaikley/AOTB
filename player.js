@@ -8,10 +8,7 @@ var Player = function(startX, startY, startHp, _name) {
       name = _name,
       hp = 100;
 
-  // Getters and setters
-  var getX = function() {
-    return x;
-  };
+
 
   var getName = function(){
     return name;
@@ -19,13 +16,18 @@ var Player = function(startX, startY, startHp, _name) {
   var setName = function(newName){
     name = newName;
   };
-  
+
   var getHp = function(){
     return hp;
   };
 
   var setHp = function(newHp){
     hp = newHp;
+  };
+  
+    // Getters and setters
+  var getX = function() {
+    return x;
   };
 
   var getY = function() {
@@ -52,7 +54,7 @@ var Player = function(startX, startY, startHp, _name) {
       setName : setName,
       getName : getName,
       id: id
-  }
+  };
 };
 
 // Export the Player class so you can use it in
