@@ -32,7 +32,7 @@ var Fly = function(x, y, hp, name){
 
     if (fly.getAlive()){
       ctx.fillStyle="#FF0000";
-      ctx.fillRect(bugX+30,fly.getY()-50,((hp/2.2)),6);
+      ctx.fillRect(bugX+30,fly.getY()-50,((fly.getHp()/2.2)),6);
     } else {
       ctx.fillText("DEAD", bugX + 37, fly.getY()-40);
     }
@@ -128,12 +128,10 @@ var Fly = function(x, y, hp, name){
       };
       // Left key takes priority over right
       if (keys.left) {
-      	  	console.log(fly.getX());
 
         fly.setX(fly.getX() - moveAmount);
         localX -= moveAmount;
       } else if (keys.right) {
-      	 console.log(x);
 
         fly.setX(fly.getX()+ moveAmount);
         localX += moveAmount;

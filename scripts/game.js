@@ -236,7 +236,6 @@ function draw() {
 function drawBackground(){
   var displacement = drawX-localPlayer.getX() ;
   //drawX is not changing aaah
-  console.log("displacement is " + displacement + " localPlayerx is " +localPlayer.getX() + " draw x is " + drawX);
   ctx.drawImage(ground ,0,0, 400, 100, displacement+400,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement+800,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement,400, 400, 100); 
