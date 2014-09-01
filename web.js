@@ -14,7 +14,8 @@ app.set('views', __dirname + '/views');
 var util = require("util"),
     server = require('http').createServer(app)
     io = require("socket.io").listen(server),
-    Fly = require("./fly").Fly;
+    Fly = require("./fly").Fly,
+    Redhatter = require("./redhatter").Redhatter;
 
 
 var configDB = require('./config/database.js');
@@ -131,7 +132,9 @@ function onClientDisconnect() {
 // New player has joined
 function onNewPlayer(data) {
   // Create a new player
-  var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
+
+  var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
+  
   util.log("player connected with name " + data.name); //name is correct
   newPlayer.id = this.id;
 
@@ -186,10 +189,14 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-  movePlayer.setDescendAttack(data.descendAttack);
-
+  if (movePlayer.getCharacterType() === "Fly"){
+    movePlayer.setDescendAttack(data.descendAttack);
+    this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
+  }
   // Broadcast updated position to connected socket clients
-  this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
+  else {
+    this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
+  }
 };
 
 /**************************************************

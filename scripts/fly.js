@@ -7,6 +7,7 @@ var toggle = 1;
 
 var Fly = function(x, y, hp, name){
   
+
   var fly =  Player(x, y, hp, name);
 
   var descendAttack = false,
@@ -156,7 +157,9 @@ var Fly = function(x, y, hp, name){
   var leftClick = function(){
     lefttMouseAction = true;
   }
-
+  var getCharacterType = function(){
+    return "Fly";
+  };
 
   return {
     	 getX : fly.getX,
@@ -171,6 +174,7 @@ var Fly = function(x, y, hp, name){
          getName : fly.getName,
          setDescendAttack : setDescendAttack,
          getDescendAttack : getDescendAttack,
+         getCharacterType : getCharacterType,
          update: update,
          draw: draw,
          rightClick: rightClick,

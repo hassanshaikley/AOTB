@@ -7,6 +7,7 @@ var canvas,     // Canvas DOM element
     localPlayer,  // Local player
     remotePlayers,  // Remote players
     socket;     // Socket connection
+var floorHeight = 474;
 
 
 var drawX = 0;
@@ -48,11 +49,11 @@ function init() {
   // The minus 5 (half a player size) stops the player being
   // placed right on the egde of the screen
   var startX = Math.round(Math.random()*(canvas.width-5)),
-      startY = Math.round(Math.random()*(canvas.height-5))
+      startY = floorHeight-10,
         startHp = 100;
 
   // Initialise the local player
-  localPlayer = new Fly(startX, startY, startHp, localPlayerName);
+  localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
 
   // Initialise socket connection
   var host = location.origin;
@@ -128,12 +129,17 @@ function onNewPlayer(data) {
   console.log("New player connected: "+data.id);
   console.log("names " + data.name);
   // Initialise the new player
-  var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
+  var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
   newPlayer.id = data.id;
 
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
-  socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
+  if (newPlayer.getCharacterType()=="Fly"){
+    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
+  } else {
+    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
+
+  }
 };
 
 
@@ -150,13 +156,10 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-  movePlayer.setDescendAttack(data.descendAttack);
-  movePlayer.setHp(data.hp);
-
-
-  if (data.descendAttack){
-
+  if (movePlayer.getCharacterType() == "Fly"){
+    movePlayer.setDescendAttack(data.descendAttack);
   }
+  movePlayer.setHp(data.hp);
 };
 
 
@@ -199,7 +202,13 @@ var newTime = Date.now();
 var updateTime = 250;
 function update() {
   if (Date.now() -  oldTime >= updateTime){
-    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+
+    if (localPlayer.getCharacterType() === "Fly"){
+      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+    }
+    else {
+      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
+    }
     oldTime = Date.now();
   }
 

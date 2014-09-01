@@ -11,6 +11,10 @@ var Fly = function(x, y, hp, name){
     return descendAttack;
   };
 
+  var getCharacterType = function(){
+  	return "Fly";
+  };
+
   return {
     getX : fly.getX,
          getY : fly.getY,
@@ -20,6 +24,7 @@ var Fly = function(x, y, hp, name){
          setHp : fly.setHp,
          setName : fly.setName,
          getName : fly.getName,
+         getCharacterType : getCharacterType,
          id: fly.id,
          setDescendAttack : setDescendAttack,
          getDescendAttack : getDescendAttack

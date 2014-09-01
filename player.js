@@ -6,9 +6,17 @@ var Player = function(startX, startY, startHp, _name) {
       y = startY,
       id,
       name = _name,
-      hp = 100;
+      hp = 100,
+      character_type = "Unknown" ;
 
 
+
+  var setCharacterType = function(newType){
+    this.character_type = newType;
+  };
+  var getCharacterType = function(){
+    return this.character_type;
+  }
 
   var getName = function(){
     return name;
@@ -53,6 +61,8 @@ var Player = function(startX, startY, startHp, _name) {
       setHp : setHp,
       setName : setName,
       getName : getName,
+      getCharacterType : getCharacterType,
+      setCharacterType : setCharacterType,
       id: id
   };
 };
