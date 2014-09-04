@@ -59,11 +59,15 @@ var Player = function(startX, startY, startHp, _name) {
   };
 
 
-
+  var walkAnimationTimer = Date.now();
   /* Function is only called when the window is focused */
   var updateVariables = function(){
     newerX = x;
-    moveDifference =(newerX - postX);
+    if (Math.abs(Date.now() - walkAnimationTimer > 500)){
+      moveDifference =(newerX - postX);
+      walkAnimationTimer = Date.now();
+    }
+
     if (moveDifference){
       if (moveDifference < 0){
        console.log('moving left');
