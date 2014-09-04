@@ -63,7 +63,7 @@ var Player = function(startX, startY, startHp, _name) {
   /* Function is only called when the window is focused */
   var updateVariables = function(){
     newerX = x;
-    if (id== undefined || Math.abs(Date.now() - walkAnimationTimer > 500)){
+    if (this.id== undefined || Math.abs(Date.now() - walkAnimationTimer > 100)){
       moveDifference =(newerX - postX);
       walkAnimationTimer = Date.now();
     }
