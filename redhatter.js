@@ -3,6 +3,7 @@ var util = require("util");
 
 var Redhatter = function(x, y, hp, name){
   var skeleton = Player(x, y, hp, name);
+
   //util.log("m type is" + skeleton.getCharacterType());  
   var getCharacterType = function(){
     return "Redhatter";

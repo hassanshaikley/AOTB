@@ -9,6 +9,10 @@ var Player = function(startX, startY, startHp, _name) {
       hp = 100, 
       id,
       alive = true;
+      var prevX =x;
+      var postX = x;
+    var moveDifference;
+
   // Getters and setters
   var getX = function() {
     return x;
@@ -38,9 +42,8 @@ var Player = function(startX, startY, startHp, _name) {
     }
   };
 
-  var moving = function(){
-    
-    return true;
+  var getMoveDifference = function(){
+    return moveDifference;
   };
 
   var getY = function() {
@@ -53,6 +56,24 @@ var Player = function(startX, startY, startHp, _name) {
 
   var setY = function(newY) {
     y = newY;
+  };
+
+
+
+  /* Function is only called when the window is focused */
+  var updateVariables = function(){
+    newerX = x;
+    moveDifference =(newerX - postX);
+    if (moveDifference){
+      if (moveDifference < 0){
+       console.log('moving left');
+      }
+      else {
+       console.log('moving right');
+
+      }
+      postX = x;
+    }
   };
 
 
@@ -75,9 +96,10 @@ var Player = function(startX, startY, startHp, _name) {
       update: update,
       getHp : getHp,
       setHp : setHp,
-      moving : moving,
+      getMoveDifference : getMoveDifference,
       setName : setName,
-      getName : getName
+      getName : getName,
+      updateVariables : updateVariables
   };
 };
 

@@ -237,7 +237,10 @@ function draw() {
   var i;
   for (i = 0; i < remotePlayers.length; i++) {
     remotePlayers[i].draw(ctx);
+    remotePlayers[i].updateVariables();
   };
+
+  localPlayer.updateVariables();
   localPlayer.draw(ctx);
 };
 

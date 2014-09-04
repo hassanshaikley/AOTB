@@ -176,6 +176,7 @@ var Fly = function(x, y, hp, name){
          getDescendAttack : getDescendAttack,
          getCharacterType : getCharacterType,
          update: update,
+        updateVariables : fly.updateVariables,
          draw: draw,
          rightClick: rightClick,
          leftClick: leftClick

@@ -18,10 +18,15 @@ var Redhatter = function(x, y, hp, name){
   	  var getCharacterType = function(){
     return "Redhatter";
   };
-
+  var facing_left 
   var draw = function(ctx) {
   	//var drawAtX = skeleton.getX()-50;
-    var facing_left = true;
+    if (skeleton.getMoveDifference() <0){
+     facing_left = true;
+    } else if (skeleton.getMoveDifference() > 0){
+      facing_left = false;
+    }
+
     if (facing_left){
     	ctx.save();
     	var drawAtX = canvas.width/2 - skeleton.getX() + localX - 50;
@@ -31,13 +36,13 @@ var Redhatter = function(x, y, hp, name){
   	else {
   		var drawAtX = canvas.width/2 + skeleton.getX() - localX - 50;
   	}
-    if (Animate <= 20 && skeleton.moving()){
+    if (Animate <= 20 && skeleton.getMoveDifference() !=0){
       ctx.drawImage(RedhatterSprite,0,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    else if (Animate <= 40 && skeleton.moving()){
+    else if (Animate <= 40 && skeleton.getMoveDifference() !=0){
       ctx.drawImage(RedhatterSprite,100,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    else if (Animate <= 60 && skeleton.moving()){
+    else if (Animate <= 60 && skeleton.getMoveDifference() !=0){
       ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     } else{
     	ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
@@ -59,7 +64,7 @@ var Redhatter = function(x, y, hp, name){
 	  }
 	  if (keys.right) {
 	  	skeleton.setX(skeleton.getX()+moveSpeed);
-	    localX -= moveSpeed;
+	    localX += moveSpeed;
 
 	  }
 	  if (keys.up) { }
@@ -75,7 +80,9 @@ var Redhatter = function(x, y, hp, name){
          getHp : skeleton.getHp,
          setHp : skeleton.setHp,
          getAlive : skeleton.getAlive,
+         updateVariables : skeleton.updateVariables,
          dies : skeleton.dies,
+         getMoveDifference : skeleton.getMoveDifference,
          setName : skeleton.setName,
          getName : skeleton.getName,
          update: update,
