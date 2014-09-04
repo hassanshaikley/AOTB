@@ -239,7 +239,6 @@ function draw() {
     remotePlayers[i].draw(ctx);
     remotePlayers[i].updateVariables();
   };
-
   localPlayer.updateVariables();
   localPlayer.draw(ctx);
 };
