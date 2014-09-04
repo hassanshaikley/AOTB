@@ -10,10 +10,14 @@ var Redhatter = function(x, y, hp, name){
 
 	 var rightClick = function(){
     //rightMouseAction = true;
-    	rightMouseAction = true;
+      castMeteor();
 	  };
+    var castMeteor = function(){
+      console.log("METEOR FALLING");
+      //ping all people to make a meteor fall
+    };
  	 var leftClick = function(){
- 	   lefttMouseAction = true;
+ 	   leftMouseAction = true;
   	};
   	  var getCharacterType = function(){
     return "Redhatter";

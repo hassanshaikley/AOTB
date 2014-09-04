@@ -69,13 +69,6 @@ var Player = function(startX, startY, startHp, _name) {
     }
 
     if (moveDifference){
-      if (moveDifference < 0){
-       console.log('moving left');
-      }
-      else {
-       console.log('moving right');
-
-      }
       postX = x;
     }
   };
