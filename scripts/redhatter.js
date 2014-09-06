@@ -58,6 +58,15 @@ var Redhatter = function(x, y, hp, name){
     	Animate=0;
     };
 
+
+    if (skeleton.getAlive()){
+      ctx.fillStyle="#FF0000";
+      ctx.fillRect(drawAtX+30,skeleton.getY()-50,((skeleton.getHp()/2.2)),6);
+    } else {
+      ctx.fillText("DEAD", drawAtX + 37, skeleton.getY()-40);
+    }
+
+
 };
 /* Constantly called for the localPlayer */
   var update = function(keys) {
