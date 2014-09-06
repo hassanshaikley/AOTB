@@ -10,12 +10,11 @@ var Redhatter = function(x, y, hp, name){
 
 	 var rightClick = function(){
     //rightMouseAction = true;
-      castMeteor();
+    //var spell = new Spell();
+    //  Spell.castMeteor();
+      socket.emit("meteor cast");
+      Spells.meteor();
 	  };
-    var castMeteor = function(){
-      console.log("METEOR FALLING");
-      //ping all people to make a meteor fall
-    };
  	 var leftClick = function(){
  	   leftMouseAction = true;
   	};
