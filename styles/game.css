@@ -1,6 +1,9 @@
+
 body {
   background: cornflowerblue;
   background: crimson;
+font-family: 'VT323';
+
 }
 
 #gameCanvas {
@@ -19,10 +22,13 @@ body {
 	overflow-y: scroll;
 	height: 150px;
 	word-wrap: normal
+	font-family:"12px Fipps";
+
 }
 
 #chat_outer #chat_text {
 	opacity: 1;
+
 }
 
 #send {

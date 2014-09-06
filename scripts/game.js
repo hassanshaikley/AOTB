@@ -100,7 +100,6 @@ var setEventHandlers = function() {
 };
 
 function onMeteorCast(data){
-  console.log("Meteor @ " + data.meteor_x);
   var m = new Meteor(data.meteor_x);
   Spells.spellsarray.push(m);
 };

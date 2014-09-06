@@ -7,10 +7,11 @@
 var Spells = {
   spellsarray: [],
 
-  meteor: function(clientX) {
-    var m = new Meteor(clientX);
+  meteor: function(clientX, clientY) {
+    var x = CalculateMeteorX(clientX, clientY);
+    console.log(x);
+    var m = new Meteor(x);
     //console.log(m.getX());
-    console.log(clientX);
     socket.emit("meteor cast", { meteor_x : m.getX()});
   },
 
@@ -19,11 +20,16 @@ var Spells = {
             }
 };
 
-/* startY isn't necessary, but neither is swag */
-var Meteor = function(startX){
-	console.log(startX);
-  var x = startX-25, y = -100;
+ function CalculateMeteorX(mouseX, mouseY){
+ 	var meteorX = mouseX;
+	return meteorX;
+}
 
+/* startY isn't necessary, but neither is swag */
+var Meteor = function(meteorX){
+console.log(meteorX);
+  var x =meteorX, 
+  y = -100;  
   var update = function(){
   	y += 15;
   	x += 2;
@@ -31,35 +37,21 @@ var Meteor = function(startX){
   	if (y >= 500){
   		Spells.spellsarray.splice(index, 1);
   	};
-
-
   };
+
+
   var getX = function(){
-    return x;
+     return x;
   };
   var getY = function(){
     return y;
   };
 
-  /* Should return what first y should be */
-  var calculateStartY = function(){
-    return 50;
-  };
-
-  
-
-
   var draw = function(ctx){
     ctx.save();
 
     ctx.globalCompositeOperation = "source-over";
-    ctx.globalCompositeOperation = "lighter";
-    var gradient = ctx.createRadialGradient(5, 5, 5, 5, 5, 5);
 
-      gradient.addColorStop(0, "rgba("+5+", "+5+", "+5+", "+5+")");
-      gradient.addColorStop(0.5, "rgba("+5+", "+5+", "+5+", "+5+")");
-      gradient.addColorStop(1, "rgba("+5+", "+5+", "+5+", 0)");
-      ctx.fillStyle = gradient;
 	ctx.drawImage(fireballSprite,0,0, 100, 100, x,y, 100, 100);
       //regenerate particles
 
@@ -71,6 +63,7 @@ var Meteor = function(startX){
       getX : getX,
       getY : getY,
       draw : draw,
-      update : update
+      update : update,
+      CalculateMeteorX : CalculateMeteorX
   }
 };

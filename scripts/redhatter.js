@@ -12,7 +12,7 @@ var Redhatter = function(x, y, hp, name){
     //rightMouseAction = true;
     //var spell = new Spell();
     //  Spell.castMeteor();
-      Spells.meteor(clientX);
+      Spells.meteor(clientX, clientY);
 	  };
  	 var leftClick = function(){
  	   leftMouseAction = true;
@@ -28,7 +28,7 @@ var Redhatter = function(x, y, hp, name){
     } else if (skeleton.getMoveDifference() > 0){
       facing_left = false;
     }
-    ctx.save();
+    
     ctx.globalCompositeOperation = "lighter";
 
     if (facing_left){
@@ -38,6 +38,8 @@ var Redhatter = function(x, y, hp, name){
       	ctx.scale(-1, 1);
   	}
   	else {
+          ctx.save();
+
   		var drawAtX = canvas.width/2 + skeleton.getX() - localX - 50;
   	}
     if (Animate <= 20 && skeleton.getMoveDifference() !=0){
@@ -51,8 +53,6 @@ var Redhatter = function(x, y, hp, name){
     } else{
     	ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    ctx.restore();
-    ctx.restore();
     Animate++;
     if(Animate >= 60){
     	Animate=0;
@@ -65,6 +65,14 @@ var Redhatter = function(x, y, hp, name){
     } else {
       ctx.fillText("DEAD", drawAtX + 37, skeleton.getY()-40);
     }
+
+        ctx.fillStyle = "#5ab039";
+    ctx.font = "bold 14px sans-serif";
+    ctx.fillText(name, drawAtX + 22, skeleton.getY()-60);
+    ctx.fillStyle = "black";
+    ctx.font = "bold 13px sans-serif";
+    ctx.fillText(name, drawAtX + 25, skeleton.getY()-60);
+    ctx.restore();
 
 
 };
