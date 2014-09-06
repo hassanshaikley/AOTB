@@ -6,6 +6,7 @@ var silverSword = new Image();
 var ground = new Image();
 var CastleOfOne = new Image();
 var RedhatterSprite = new Image();
+var fireballSprite = new Image();
 
 function UrlExists(url)
 {
@@ -27,3 +28,4 @@ flySprite.src = url + "flysheet.png";
 silverSword.src = url+ "silverSword.png";
 silverShield.src = url+ "silverShield.png";
 RedhatterSprite.src = url + "redHatter.png";
+fireballSprite.src = url + "fireball.png";

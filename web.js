@@ -109,6 +109,8 @@ function onSocketConnection(client) {
 
   client.on("descend attack hits", onHitByDescendAttack);
 
+  client.on("meteor cast", onMeteorCast)
+
 };
 
 function onClientDisconnect() {
@@ -152,6 +154,13 @@ function onNewPlayer(data) {
   players.push(newPlayer);
 };
 
+/* Sends message to all players except one that casted */
+function onMeteorCast(data){
+  util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
+  //util.log(data.meteorx);
+  this.emit('meteor cast', {meteor_x: data.meteor_x });
+    this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x });
+};
 
 function onHitByDescendAttack(data){
   var hitPlayer = playerById(this.id);
@@ -189,6 +198,7 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
+
   if (movePlayer.getCharacterType() === "Fly"){
     movePlayer.setDescendAttack(data.descendAttack);
     this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});

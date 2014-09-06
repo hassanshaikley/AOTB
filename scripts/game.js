@@ -33,9 +33,9 @@ function init() {
 
   canvas.onmousedown = function(e){
     switch (e.which) {
-      case 1: localPlayer.leftClick(); break;
+      case 1: localPlayer.leftClick();  break;
       case 2: console.log('middle click'); break;
-      case 3: localPlayer.rightClick(); break; }
+      case 3: localPlayer.rightClick(e.clientX, e.clientY); break; }
   }
 
   // Maximise the canvas
@@ -95,6 +95,14 @@ var setEventHandlers = function() {
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
 
+  socket.on("meteor cast", onMeteorCast);
+
+};
+
+function onMeteorCast(data){
+  console.log("Meteor @ " + data.meteor_x);
+  var m = new Meteor(data.meteor_x);
+  Spells.spellsarray.push(m);
 };
 
 // Keyboard key down
@@ -208,10 +216,15 @@ function update() {
     }
     else {
       socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
+    
     }
+
+
     oldTime = Date.now();
   }
-
+   for (i = 0; i < Spells.spellsarray.length; i++){
+    Spells.spellsarray[i].update();
+  };
 
   // Update local player and check for change
   if (localPlayer.update(keys)) {
@@ -238,6 +251,9 @@ function draw() {
   for (i = 0; i < remotePlayers.length; i++) {
     remotePlayers[i].draw(ctx);
     remotePlayers[i].updateVariables();
+  };
+  for (i = 0; i < Spells.spellsarray.length; i++){
+    Spells.spellsarray[i].draw(ctx)
   };
   localPlayer.updateVariables();
   localPlayer.draw(ctx);

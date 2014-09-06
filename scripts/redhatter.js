@@ -8,12 +8,11 @@ var Redhatter = function(x, y, hp, name){
   	rightMouseAction = false,
   	moveSpeed=1.7;
 
-	 var rightClick = function(){
+	 var rightClick = function(clientX, clientY){
     //rightMouseAction = true;
     //var spell = new Spell();
     //  Spell.castMeteor();
-      socket.emit("meteor cast");
-      Spells.meteor();
+      Spells.meteor(clientX);
 	  };
  	 var leftClick = function(){
  	   leftMouseAction = true;
@@ -29,6 +28,8 @@ var Redhatter = function(x, y, hp, name){
     } else if (skeleton.getMoveDifference() > 0){
       facing_left = false;
     }
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
 
     if (facing_left){
     	ctx.save();
@@ -51,10 +52,12 @@ var Redhatter = function(x, y, hp, name){
     	ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
     ctx.restore();
+    ctx.restore();
     Animate++;
     if(Animate >= 60){
     	Animate=0;
-    }
+    };
+
 };
 /* Constantly called for the localPlayer */
   var update = function(keys) {
