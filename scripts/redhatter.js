@@ -28,19 +28,18 @@ var Redhatter = function(x, y, hp, name){
       } else if (skeleton.getMoveDifference() > 0){
         facing_left = false;
       }
-
       ctx.globalCompositeOperation = "lighter";
 
       if (facing_left){
         ctx.save();
-        var drawAtX = canvas.width/2 - skeleton.getX() + localX - 50;
+        var drawAtX = canvas.width/2 - skeleton.getDrawAtX() + localX - 50;
         ctx.translate(canvas.width , 0);
         ctx.scale(-1, 1);
       }
       else {
         ctx.save();
 
-        var drawAtX = canvas.width/2 + skeleton.getX() - localX - 50;
+        var drawAtX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
       }
       if (Animate <= 20 && skeleton.getMoveDifference() !=0){
         ctx.drawImage(RedhatterSprite,0,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);

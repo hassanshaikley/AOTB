@@ -9,7 +9,6 @@ var Spells = {
 
   meteor: function(clientX, clientY) {
     var x = CalculateMeteorX(clientX, clientY);
-    console.log(x);
     var m = new Meteor(x);
     //console.log(m.getX());
     socket.emit("meteor cast", { meteor_x : m.getX()});
@@ -27,7 +26,6 @@ function CalculateMeteorX(mouseX, mouseY){
 
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX){
-  console.log(meteorX);
   var x =meteorX, 
       y = -100;  
   var update = function(){
@@ -53,7 +51,6 @@ var Meteor = function(meteorX){
     ctx.globalCompositeOperation = "source-over";
 
 	var fireballX = x  - localPlayer.getX() + 50;
-	console.log(fireballX);
     ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
     //regenerate particles
 

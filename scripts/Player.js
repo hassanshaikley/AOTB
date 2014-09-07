@@ -8,7 +8,9 @@ var Player = function(startX, startY, startHp, _name) {
       name = _name,
       hp = 100, 
       id,
-      alive = true;
+      alive = true,
+      drawAtX = x,
+      speed = 1.7; //if wrong will be buggy AF
   var prevX =x;
   var postX = x;
   var moveDifference;
@@ -71,9 +73,19 @@ var Player = function(startX, startY, startHp, _name) {
     if (moveDifference){
       postX = x;
     }
+    console.log(drawAtX - x);
+    if (drawAtX - x <= 2){
+      drawAtX+=speed;
+    }
+     if (drawAtX -x >= -2){
+      drawAtX-=speed;
+    }
   };
 
 
+  var getDrawAtX = function(){
+    return drawAtX;
+  };
   // var rightClick = function(){
   //   //rightMouseAction = true;
   //   setDescendAttack(true);
@@ -96,7 +108,8 @@ var Player = function(startX, startY, startHp, _name) {
       getMoveDifference : getMoveDifference,
       setName : setName,
       getName : getName,
-      updateVariables : updateVariables
+      updateVariables : updateVariables,
+      getDrawAtX : getDrawAtX
   };
 };
 
