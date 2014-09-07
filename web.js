@@ -92,6 +92,8 @@ var setEventHandlers = function() {
 function onSocketConnection(client) {
   util.log("New player has connected: "+client.id);
 
+  util.log("Number of connected players: " + (players.length +1));
+
   // Listen for client disconnected
   client.on("disconnect", onClientDisconnect);
 
@@ -152,6 +154,7 @@ function onNewPlayer(data) {
 
   // Add new player to the players array
   players.push(newPlayer);
+
 };
 
 /* Sends message to all players except one that casted */

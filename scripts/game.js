@@ -118,7 +118,6 @@ function onKeyup(e) {
   };
 };
 
-
 // Socket connected
 function onSocketConnected() {
   console.log("Connected to socket server");
@@ -262,6 +261,8 @@ function draw() {
 function drawBackground(){
   var displacement = drawX-localPlayer.getX() ;
   //drawX is not changing aaah
+  var count = "Number of players: " + (remotePlayers.length + 1);
+  ctx.fillText(count, 2,10);
   ctx.drawImage(ground ,0,0, 400, 100, displacement+400,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement+800,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement,400, 400, 100); 

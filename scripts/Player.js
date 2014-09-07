@@ -73,7 +73,6 @@ var Player = function(startX, startY, startHp, _name) {
     if (moveDifference){
       postX = x;
     }
-    console.log(drawAtX - x);
     if (drawAtX - x <= 2){
       drawAtX+=speed;
     }
