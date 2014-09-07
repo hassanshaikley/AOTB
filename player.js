@@ -32,8 +32,8 @@ var Player = function(startX, startY, startHp, _name) {
   var setHp = function(newHp){
     hp = newHp;
   };
-  
-    // Getters and setters
+
+  // Getters and setters
   var getX = function() {
     return x;
   };

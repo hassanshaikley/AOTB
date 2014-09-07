@@ -12,7 +12,7 @@ var Fly = function(x, y, hp, name){
   };
 
   var getCharacterType = function(){
-  	return "Fly";
+    return "Fly";
   };
 
   return {

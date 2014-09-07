@@ -9,9 +9,9 @@ var Player = function(startX, startY, startHp, _name) {
       hp = 100, 
       id,
       alive = true;
-      var prevX =x;
-      var postX = x;
-    var moveDifference;
+  var prevX =x;
+  var postX = x;
+  var moveDifference;
 
   // Getters and setters
   var getX = function() {
@@ -84,7 +84,7 @@ var Player = function(startX, startY, startHp, _name) {
 
   // Define which variables and methods can be accessed
   return {
-      getX: getX,
+    getX: getX,
       getY: getY,
       setX: setX,
       setY: setY,

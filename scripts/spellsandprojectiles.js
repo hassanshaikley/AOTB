@@ -20,28 +20,28 @@ var Spells = {
             }
 };
 
- function CalculateMeteorX(mouseX, mouseY){
- 	var meteorX = mouseX;
-	return meteorX;
+function CalculateMeteorX(mouseX, mouseY){
+  var meteorX = localPlayer.getX() + mouseX -200;
+  return meteorX;
 }
 
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX){
-console.log(meteorX);
+  console.log(meteorX);
   var x =meteorX, 
-  y = -100;  
+      y = -100;  
   var update = function(){
-  	y += 15;
-  	x += 2;
-  	var index = Spells.spellsarray.indexOf(this);
-  	if (y >= 500){
-  		Spells.spellsarray.splice(index, 1);
-  	};
+    y += 15;
+    x += 2;
+    var index = Spells.spellsarray.indexOf(this);
+    if (y >= 500){
+      Spells.spellsarray.splice(index, 1);
+    };
   };
 
 
   var getX = function(){
-     return x;
+    return x;
   };
   var getY = function(){
     return y;
@@ -52,18 +52,20 @@ console.log(meteorX);
 
     ctx.globalCompositeOperation = "source-over";
 
-	ctx.drawImage(fireballSprite,0,0, 100, 100, x,y, 100, 100);
-      //regenerate particles
+	var fireballX = x  - localPlayer.getX() + 50;
+	console.log(fireballX);
+    ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
+    //regenerate particles
 
-    
+
     ctx.restore();
   };
 
   return {
-      getX : getX,
-      getY : getY,
-      draw : draw,
-      update : update,
-      CalculateMeteorX : CalculateMeteorX
+    getX : getX,
+         getY : getY,
+         draw : draw,
+         update : update,
+         CalculateMeteorX : CalculateMeteorX
   }
 };

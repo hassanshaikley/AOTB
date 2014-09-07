@@ -136,7 +136,7 @@ function onNewPlayer(data) {
   // Create a new player
 
   var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
-  
+
   util.log("player connected with name " + data.name); //name is correct
   newPlayer.id = this.id;
 
@@ -159,7 +159,7 @@ function onMeteorCast(data){
   util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
   //util.log(data.meteorx);
   this.emit('meteor cast', {meteor_x: data.meteor_x });
-    this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x });
+  this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x });
 };
 
 function onHitByDescendAttack(data){
