@@ -90,9 +90,7 @@ var setEventHandlers = function() {
 
 // New socket connection
 function onSocketConnection(client) {
-  util.log("New player has connected: "+client.id);
-
-  util.log("Number of connected players: " + (players.length +1));
+  //player connected
 
   // Listen for client disconnected
   client.on("disconnect", onClientDisconnect);
@@ -116,13 +114,11 @@ function onSocketConnection(client) {
 };
 
 function onClientDisconnect() {
-  util.log("Player has disconnected: "+this.id);
 
   var removePlayer = playerById(this.id);
 
   // Player not found
   if (!removePlayer) {
-    util.log("Player not found: "+this.id);
     return;
   };
 
@@ -137,19 +133,23 @@ function onClientDisconnect() {
 function onNewPlayer(data) {
   // Create a new player
 
-  var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
-
-  util.log("player connected with name " + data.name); //name is correct
+  util.log("new char of type " + data.characterType + " connected");
+  if (data.characterType === "Fly"){
+    var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
+  }
+  else {
+    var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
+}
   newPlayer.id = this.id;
 
   // Broadcast new player to connected socket clients
-  this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName()});
+  this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType()});
 
   // Send existing players to the new player
   var i, existingPlayer;
   for (i = 0; i < players.length; i++) {
     existingPlayer = players[i];
-    this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName()});
+    this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : newPlayer.getCharacterType()});
   };
 
   // Add new player to the players array
@@ -159,7 +159,7 @@ function onNewPlayer(data) {
 
 /* Sends message to all players except one that casted */
 function onMeteorCast(data){
-  util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
+  //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
   //util.log(data.meteorx);
   this.emit('meteor cast', {meteor_x: data.meteor_x });
   this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x });
@@ -169,17 +169,16 @@ function onHitByDescendAttack(data){
   var hitPlayer = playerById(this.id);
 
   if (!hitPlayer){
-    util.log("Player not found: "+hitPlayer.id);
     return;
   };
 
 
   //lower hit players health
   hitPlayer.setHp(hitPlayer.getHp() - 25);
-  util.log( this.id + " is hits and now has " + hitPlayer.getHp() + " hp");
 
+  //if DIES
   if (hitPlayer.getHp() <= 0){
-    util.log("dude is dead " + hitPlayer.id);
+    //util.log("dude is dead " + hitPlayer.id);
   }
 
   this.broadcast.emit('set health', { id: hitPlayer.id, hp: hitPlayer.getHp()});
@@ -194,7 +193,6 @@ function onMovePlayer(data) {
 
   // Player not found
   if (!movePlayer) {
-    util.log("Player not found: "+this.id);
     return;
   };
 
@@ -204,6 +202,8 @@ function onMovePlayer(data) {
 
   if (movePlayer.getCharacterType() === "Fly"){
     movePlayer.setDescendAttack(data.descendAttack);
+
+    util.log("FLY DESCEND ATTACK TO " + data.descendAttack)
     this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
   }
   // Broadcast updated position to connected socket clients

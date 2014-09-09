@@ -33,7 +33,4 @@ var Fly = function(x, y, hp, name){
 };
 
 
-
-
-
 exports.Fly = Fly;

@@ -53,9 +53,14 @@ function init() {
         startHp = 100;
 
   // Initialise the local player
-  localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
-
+ // if (characterType === "Redhatter"){
+  //  localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
+  //} else if (characterType === "Fly"){
+        localPlayer = new Fly(startX, startY, startHp, localPlayerName);
+  //}
   // Initialise socket connection
+          console.log("my character type is " + localPlayer.getCharacterType());
+
   var host = location.origin;
 
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
@@ -120,32 +125,35 @@ function onKeyup(e) {
 
 // Socket connected
 function onSocketConnected() {
-  console.log("Connected to socket server");
   // Send local player data to the game server
-  socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp(), name: localPlayer.getName()});
+  socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp(), name: localPlayer.getName(), characterType:localPlayer.getCharacterType()});
 };
 
 // Socket disconnected
 function onSocketDisconnect() {
-  console.log("Disconnected from socket server");
+  //Player disconnected from socket server
 };
 
 // New player
 function onNewPlayer(data) {
-  console.log("New player connected: "+data.id);
-  console.log("names " + data.name);
+  console.log("connected player type is " + data.characterType)
   // Initialise the new player
-  var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
+//  if (data.playerType === "Fly"){
+  var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
+//  } else {
+ // var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
+ // }
   newPlayer.id = data.id;
 
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
-  if (newPlayer.getCharacterType()=="Fly"){
-    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
-  } else {
-    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
 
-  }
+  // if (newPlayer.getCharacterType()=="Fly"){
+     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
+  // } else {
+  //   socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
+
+  // }
 };
 
 
@@ -163,6 +171,7 @@ function onMovePlayer(data) {
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
   if (movePlayer.getCharacterType() == "Fly"){
+    console.log("d a " +data.descendAttack);
     movePlayer.setDescendAttack(data.descendAttack);
   }
   movePlayer.setHp(data.hp);
@@ -210,6 +219,7 @@ function update() {
   if (Date.now() -  oldTime >= updateTime){
 
     if (localPlayer.getCharacterType() === "Fly"){
+      console.log("Updating localdude descend attack to " + localPlayer.getDescendAttack());
       socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
     }
     else {

@@ -5,7 +5,9 @@ module.exports = function(app, passport) {
     // =====================================
     app.get('/', function(req, res) {
           res.render('index.ejs', { authenticated: req.isAuthenticated(), 
-                        user : req.user // get the user out of session and pass to template
+                        user : req.user,
+                        characterType : "Fly"
+                         // get the user out of session and pass to template
                       }); // load the index.ejs file
             });
 

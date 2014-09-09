@@ -10,7 +10,7 @@ var Redhatter = function(x, y, hp, name){
   };
 
   return {
-    getX : skeleton.getX,
+         getX : skeleton.getX,
          getY : skeleton.getY,
          setX : skeleton.setX,
          setY : skeleton.setY,
