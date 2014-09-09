@@ -133,7 +133,6 @@ function onClientDisconnect() {
 function onNewPlayer(data) {
   // Create a new player
 
-  util.log("new char of type " + data.characterType + " connected");
   if (data.characterType === "Fly"){
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   }
@@ -203,7 +202,6 @@ function onMovePlayer(data) {
   if (movePlayer.getCharacterType() === "Fly"){
     movePlayer.setDescendAttack(data.descendAttack);
 
-    util.log("FLY DESCEND ATTACK TO " + data.descendAttack)
     this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
   }
   // Broadcast updated position to connected socket clients

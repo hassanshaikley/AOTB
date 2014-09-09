@@ -38,10 +38,6 @@ function init() {
       case 3: localPlayer.rightClick(e.clientX, e.clientY); break; }
   }
 
-  // Maximise the canvas
-  //canvas.width = window.innerWidth;
-  //canvas.height = window.innerHeight;
-
   // Initialise keyboard controls
   keys = new Keys();
 
@@ -59,7 +55,6 @@ function init() {
         localPlayer = new Fly(startX, startY, startHp, localPlayerName);
   //}
   // Initialise socket connection
-          console.log("my character type is " + localPlayer.getCharacterType());
 
   var host = location.origin;
 
@@ -136,7 +131,6 @@ function onSocketDisconnect() {
 
 // New player
 function onNewPlayer(data) {
-  console.log("connected player type is " + data.characterType)
   // Initialise the new player
 //  if (data.playerType === "Fly"){
   var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
@@ -163,7 +157,6 @@ function onMovePlayer(data) {
 
   // Player not found
   if (!movePlayer) {
-    console.log("Player not found: "+data.id);
     return;
   };
 
@@ -171,7 +164,6 @@ function onMovePlayer(data) {
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
   if (movePlayer.getCharacterType() == "Fly"){
-    console.log("d a " +data.descendAttack);
     movePlayer.setDescendAttack(data.descendAttack);
   }
   movePlayer.setHp(data.hp);
@@ -184,7 +176,6 @@ function onRemovePlayer(data) {
 
   // Player not found
   if (!removePlayer) {
-    console.log("Player not found: "+data.id);
     return;
   };
 
@@ -219,7 +210,6 @@ function update() {
   if (Date.now() -  oldTime >= updateTime){
 
     if (localPlayer.getCharacterType() === "Fly"){
-      console.log("Updating localdude descend attack to " + localPlayer.getDescendAttack());
       socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
     }
     else {

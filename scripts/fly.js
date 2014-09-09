@@ -29,28 +29,28 @@ var Fly = function(x, y, hp, name){
     if (flyAnimate >= 30){
       flyAnimate = 0;
     }
-    var bugX = canvas.width/2 + fly.getX() - localX - 50;
+    var bugX = canvas.width/2 + fly.getDrawAtX() - localX - 50;
 
     if (fly.getAlive()){
       ctx.fillStyle="#FF0000";
-      ctx.fillRect(bugX+30,fly.getY()-50,((fly.getHp()/2.2)),6);
+      ctx.fillRect(bugX+30,fly.getDrawAtY()-50,((fly.getHp()/2.2)),6);
     } else {
-      ctx.fillText("DEAD", bugX + 37, fly.getY()-40);
+      ctx.fillText("DEAD", bugX + 37, fly.getDrawAtY()-40);
     }
 
 
 
 
     if (flyAnimate <= 10){
-      ctx.drawImage(flySprite,0,0, 100, 100, bugX,fly.getY()-50, 100, 100);
+      ctx.drawImage(flySprite,0,0, 100, 100, bugX,fly.getDrawAtY()-50, 100, 100);
     }
     else if (flyAnimate <= 20){
-      ctx.drawImage(flySprite,100,0, 100, 100, bugX,fly.getY()-50, 100, 100);
+      ctx.drawImage(flySprite,100,0, 100, 100, bugX,fly.getDrawAtY()-50, 100, 100);
     }
     else if (flyAnimate <= 30){
-      ctx.drawImage(flySprite,200,0, 100, 100, bugX,fly.getY()-50, 100, 100);
+      ctx.drawImage(flySprite,200,0, 100, 100, bugX,fly.getDrawAtY()-50, 100, 100);
     }
-    ctx.drawImage(silverShield, bugX+ 20, fly.getY()-3);
+    ctx.drawImage(silverShield, bugX+ 20, fly.getDrawAtY()-3);
 
 
     if (descendAttack || rightMouseActionHappening){
@@ -63,23 +63,23 @@ var Fly = function(x, y, hp, name){
     if (descendAttack) {
       ctx.save();
 
-      ctx.translate(bugX+60, fly.getY()-40 + 90);
+      ctx.translate(bugX+60, fly.getDrawAtY()-40 + 90);
       ctx.rotate(Math.PI);
       ctx.drawImage(silverSword, 0, -10);
 
       ctx.restore();
 
     } else {
-      ctx.drawImage(silverSword, bugX+ 60, fly.getY()-40);
+      ctx.drawImage(silverSword, bugX+ 60, fly.getDrawAtY()-40);
     }
     flyAnimate++; 
 
     ctx.fillStyle = "#5ab039";
     ctx.font = "bold 14px sans-serif";
-    ctx.fillText(name, bugX + 22, fly.getY()-60);
+    ctx.fillText(name, bugX + 22, fly.getDrawAtY()-60);
     ctx.fillStyle = "black";
     ctx.font = "bold 13px sans-serif";
-    ctx.fillText(name, bugX + 25, fly.getY()-60);
+    ctx.fillText(name, bugX + 25, fly.getDrawAtY-60);
 
 
   };
