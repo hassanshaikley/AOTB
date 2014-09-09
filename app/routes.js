@@ -6,10 +6,19 @@ module.exports = function(app, passport) {
     app.get('/', function(req, res) {
           res.render('index.ejs', { authenticated: req.isAuthenticated(), 
                         user : req.user,
+                        localPlayerType : "Not Logged In",
                         characterType : "Fly"
                          // get the user out of session and pass to template
                       }); // load the index.ejs file
             });
+    app.post('/', function(req, res) {
+                res.render('index.ejs', { authenticated: req.isAuthenticated(), 
+                        user : req.user,
+                        localPlayerType : req.body.localPlayerType,
+                        characterType : "Fly"
+                         // get the user out of session and pass to template
+                      }); 
+    });
 
       // =====================================
       // LOGIN ===============================

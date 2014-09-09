@@ -26,28 +26,45 @@
 					<p>
 						 <% user._id %>
 						<strong>email</strong>: <%= user.local.email %>
-						<% user.local.password %>
 					</p>
 
 			</div>
 
 
 		</div>
-		<a href="/">
+
+		<form action="/" method="post">
+		<button value="Fly" name="localPlayerType">
 		<div class="col-sm-6">
 			<div class="well">
 				<h3><span class="fa fa-user"></span> Play </h3>
 
 					<p>
 						<strong>Character </strong>: Fly
-						<% user.local.password %>
+
 					</p>
 
 			</div>
 
 		</div>
-		</a>
 
+	</button>
+			<button value="Redhatter" name="localPlayerType">
+		<div class="col-sm-6">
+			<div class="well">
+				<h3><span class="fa fa-user"></span> Play </h3>
+
+					<p>
+						<strong>Character </strong>: Fly
+
+					</p>
+
+			</div>
+
+		</div>
+		
+	</button>
+	</form>
 	</div>
 
 </div>

@@ -86,9 +86,8 @@ var Player = function(startX, startY, startHp, _name) {
 
      /* Can and should come up with a much better function for this */
      yDelta = Math.floor((drawAtY - y)/2);
-      console.log("yd is" + yDelta + " y is " + y + " drawAtY is" +drawAtY);
+      //console.log("yd is" + yDelta + " y is " + y + " drawAtY is" +drawAtY);
       if (Math.abs(y - drawAtY) >= 2){
-        console.log("AAA");
         drawAtY -= yDelta;
  
       }
