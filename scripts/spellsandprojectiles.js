@@ -15,12 +15,12 @@ var Spells = {
   },
 
   yoloswag: function() {
-              console.log("Yolo Swag");
-            }
+    console.log("Yolo Swag");
+  }
 };
 
 function CalculateMeteorX(mouseX, mouseY){
-  var meteorX = localPlayer.getX() + mouseX -200;
+  var meteorX = localPlayer.getX()/2 + mouseX;
   return meteorX;
 }
 

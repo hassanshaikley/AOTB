@@ -49,11 +49,12 @@ function init() {
         startHp = 100;
 
   // Initialise the local player
- // if (characterType === "Redhatter"){
-  //  localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
-  //} else if (characterType === "Fly"){
+ if (characterType === "Redhatter"){
+    console.log("makes a RH");
+    localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
+  } else if (characterType === "Fly"){
         localPlayer = new Fly(startX, startY, startHp, localPlayerName);
-  //}
+  }
   // Initialise socket connection
 
   var host = location.origin;
@@ -121,6 +122,7 @@ function onKeyup(e) {
 // Socket connected
 function onSocketConnected() {
   // Send local player data to the game server
+  console.log("LOCAL PLAYER CONNECTs");
   socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp(), name: localPlayer.getName(), characterType:localPlayer.getCharacterType()});
 };
 
@@ -132,22 +134,22 @@ function onSocketDisconnect() {
 // New player
 function onNewPlayer(data) {
   // Initialise the new player
-//  if (data.playerType === "Fly"){
-  var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
-//  } else {
- // var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
- // }
+  if (data.characterType === "Fly"){
+    var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
+  } else {
+    var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
+ }
   newPlayer.id = data.id;
 
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
 
-  // if (newPlayer.getCharacterType()=="Fly"){
+   if (newPlayer.getCharacterType()=="Fly"){
      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
-  // } else {
-  //   socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
+   } else {
+     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
 
-  // }
+  }
 };
 
 

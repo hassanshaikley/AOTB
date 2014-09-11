@@ -35,10 +35,10 @@ app.use(bodyParser()); // get information from html forms
 app.use(flash()); 
 app.use(session({secret: 'a secret'}, {
   cookie: {
-            path: '/',
-  httpOnly: true,
-  secure: false,
-  maxAge: 10 * 60 * 1000
+          path: '/',
+          httpOnly: true,
+          secure: false,
+          maxAge: 10 * 60 * 1000
           },
   rolling: true
 }));app.use(passport.initialize());
@@ -134,9 +134,11 @@ function onNewPlayer(data) {
   // Create a new player
 
   if (data.characterType === "Fly"){
+    util.log("MAKES A FLY");
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   }
   else {
+    util.log("MAKES A " + data.characterType);
     var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
 }
   newPlayer.id = this.id;
