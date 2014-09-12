@@ -20,7 +20,7 @@ var Spells = {
 };
 
 function CalculateMeteorX(mouseX, mouseY){
-  var meteorX = localPlayer.getX()/2 + mouseX;
+  var meteorX = localPlayer.getX() -canvas.width/2 +mouseX+120;
   return meteorX;
 }
 
@@ -30,7 +30,7 @@ var Meteor = function(meteorX){
       y = -100;  
   var update = function(){
     y += 15;
-    x += 2;
+    //x += 2;
     var index = Spells.spellsarray.indexOf(this);
     if (y >= 500){
       Spells.spellsarray.splice(index, 1);

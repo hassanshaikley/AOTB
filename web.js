@@ -41,7 +41,8 @@ app.use(session({secret: 'a secret'}, {
           maxAge: 10 * 60 * 1000
           },
   rolling: true
-}));app.use(passport.initialize());
+}));
+app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 /* AAH NOT SURE ABOUT THIS RIGHT NOW*/
@@ -65,6 +66,10 @@ function init() {
 
     // Start listening for events
     setEventHandlers();
+
+  setInterval(function(){
+    updateGameVariables();
+  }, 1000 /2);
 };
 
 app.engine('html', require('ejs').renderFile);
@@ -224,6 +229,10 @@ function playerById(id) {
   };
 
   return false;
+};
+
+function updateGameVariables(){
+  util.log("Ahoy swag");
 };
 
 
