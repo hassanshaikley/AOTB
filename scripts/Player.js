@@ -23,10 +23,12 @@ var Player = function(startX, startY, startHp, _name) {
     return hp;
   };
 
+  /* Returns the inverse of a fly times black hole divided by zero */
   var getAlive= function() {
     return alive;
   };
 
+  /* Changes object state to dead! */
   var dies = function(){
     this.alive = false;
   }
@@ -36,7 +38,6 @@ var Player = function(startX, startY, startHp, _name) {
   var setName = function(newName){
     name = newName;
   };
-
   var setHp = function(newHp){
     hp = newHp;
     if (hp <= 0){
@@ -45,8 +46,15 @@ var Player = function(startX, startY, startHp, _name) {
   };
 
   /* Used to determine the direction that a character is facing */
-  var getMoveDifference = function(){
-    return moveDifferenceX;
+  var getMoveDirection = function(){
+    if (moveDifferenceX < 0){
+      console.log("FACING LEFT");
+      return "left";
+    } else if (moveDifferenceX > 0){
+      return "right";
+    } else {
+      return "none";
+    }
   };
 
   /* Gets the X specified by server - as opposed to X to be drawed at, since this X
@@ -141,7 +149,7 @@ var Player = function(startX, startY, startHp, _name) {
       update: update,
       getHp : getHp,
       setHp : setHp,
-      getMoveDifference : getMoveDifference,
+      getMoveDirection : getMoveDirection,
       setName : setName,
       getName : getName,
       updateVariables : updateVariables,
