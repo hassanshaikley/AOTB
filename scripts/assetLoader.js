@@ -1,5 +1,8 @@
+/* assetLoader.js
+ * Loads assets, looks for resources locally. If it cannot find them 
+ * then uses AWS for the files!
+ */
 var url;
-
 var flySprite = new Image();
 var silverShield = new Image();
 var silverSword = new Image();
@@ -16,7 +19,8 @@ function UrlExists(url)
   return http.status!=404;
 }
 
-if (location.origin == "http://localhost:5000" && UrlExists("/localAssets/flysheet.png")){
+if (location.origin == "http://localhost:5000" 
+    && UrlExists("/localAssets/flysheet.png")){
   url ="localAssets/";
 } else {
   url = "https://s3-us-west-2.amazonaws.com/amara-assets/";

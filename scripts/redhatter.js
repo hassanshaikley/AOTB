@@ -12,7 +12,7 @@ var Redhatter = function(x, y, hp, name){
     //rightMouseAction = true;
     //var spell = new Spell();
     //  Spell.castMeteor();
-    Spells.meteor(clientX, clientY);
+    Spells.meteor(clientX-50, clientY);
   };
   var leftClick = function(){
     leftMouseAction = true;

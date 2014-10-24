@@ -232,7 +232,7 @@ function playerById(id) {
 };
 
 function updateGameVariables(){
-  util.log("Ahoy swag");
+  util.log("Updating Vars");
 };
 
 

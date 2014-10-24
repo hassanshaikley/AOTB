@@ -6,6 +6,9 @@ var canvas,     // Canvas DOM element
     keys,     // Keyboard input
     localPlayer,  // Local player
     remotePlayers,  // Remote players
+
+
+
     socket;     // Socket connection
 var floorHeight = 474;
 
