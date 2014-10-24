@@ -2,7 +2,7 @@
  ** GAME PLAYER CLASS
  **************************************************/
 
-var Player = function(startX, startY, startHp, _name) {
+var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var x =               startX,
       y =               startY,
       name =            _name,
@@ -11,7 +11,7 @@ var Player = function(startX, startY, startHp, _name) {
       alive =           true,
       drawAtX =         x,
       drawAtY =         y,
-      speed =           3,
+      speed =           _moveSpeed,
       xDelta =          0,
       yDelta =          0, //1.7 for redhatters tho //if wrong will be buggy AF
       prevX =           x,
@@ -48,7 +48,6 @@ var Player = function(startX, startY, startHp, _name) {
   /* Used to determine the direction that a character is facing */
   var getMoveDirection = function(){
     if (moveDifferenceX < 0){
-      console.log("FACING LEFT");
       return "left";
     } else if (moveDifferenceX > 0){
       return "right";
@@ -102,7 +101,6 @@ var Player = function(startX, startY, startHp, _name) {
       walkAnimationTimer = Date.now();
     }
 
-    console.log('the swags sons' + moveDifferenceX);
     if (moveDifferenceX){
       postX = x;
     }

@@ -8,7 +8,7 @@ var toggle = 1;
 var Fly = function(x, y, hp, name){
   
 
-  var fly =  Player(x, y, hp, name);
+  var fly =  Player(x, y, hp, name, 3);
 
   var descendAttack = false,
       moveAmount = 3,

@@ -3,13 +3,13 @@ var Animate = 0,
     localX = 0;
 
 var Redhatter = function(x, y, hp, name){
-  var skeleton =  Player(x, y, hp, name),
-      moveSpeed=1.7,
+  var moveSpeed = 2.3;
+  var skeleton =  Player(x, y, hp, name, moveSpeed),
       facing_left;
 
   /* CASTS A METEOR :D */
   var rightClick = function(clientX, clientY){
-    Spells.meteor(clientX-50, clientY);
+    Spells.meteor(clientX, clientY);
   };
 
   /* Maybe make this heal?? */ 
@@ -28,7 +28,7 @@ var Redhatter = function(x, y, hp, name){
     } else if (skeleton.getMoveDirection() === "right"){
       facing_left = false;
     }
-    ctx.globalCompositeOperation = "lighter";
+//    ctx.globalCompositeOperation = "lighter";
 
     //modified context based on direction facing - basically flips along vert axis
     if (facing_left){
@@ -54,11 +54,13 @@ var Redhatter = function(x, y, hp, name){
     } else{
       ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    Animate++;
+    console.log(skeleton.getMoveDirection()); 
+    if (skeleton.getMoveDirection() !== "none"){
+      Animate++;
+    }
     if(Animate >= 60){
       Animate=0;
     };
-
 
     /* If it's alive then write health*/
     if (skeleton.getAlive()){
@@ -67,7 +69,6 @@ var Redhatter = function(x, y, hp, name){
     } else { /* If it's dead, just write DEAD */
       ctx.fillText("DEAD", drawAtX + 37, skeleton.getY()-40);
     }
-
     ctx.fillStyle = "#5ab039";
     ctx.font = "bold 14px sans-serif";
     ctx.fillText(name, drawAtX + 22, skeleton.getY()-60);
@@ -75,26 +76,23 @@ var Redhatter = function(x, y, hp, name){
     ctx.font = "bold 13px sans-serif";
     ctx.fillText(name, drawAtX + 25, skeleton.getY()-60);
     ctx.restore();
-
-
   };
-  /* Constantly called for the localPlayer */
+  
+  /* Constantly called for the localPlayer, updates the actual 
+   * Position held by the server
+   */
   var update = function(keys) {
-
     localX = skeleton.getX();
     if (keys.left) {
       skeleton.setX(skeleton.getX()-moveSpeed);
       localX -= moveSpeed;
-
     }
     if (keys.right) {
       skeleton.setX(skeleton.getX()+moveSpeed);
       localX += moveSpeed;
-
     }
     if (keys.up) { }
     if (keys.down) { }
-
   };
   return {
     getX : skeleton.getX,
