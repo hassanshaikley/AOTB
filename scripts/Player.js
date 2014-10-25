@@ -99,22 +99,18 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       moveDifferenceX =(newerX - postX);
       walkAnimationTimer = Date.now();
     }
-
-    if (moveDifferenceX){
-      postX = x;
-    }
-    if (drawAtX - x <= 2){
+    if (moveDifferenceX){ postX = x; } /* USED TO TELL IF GOING LEFT OR RIGHT */
+    if (drawAtX - x <= 3){
       drawAtX+=speed;
     }
-    if (drawAtX -x >= -2){
+    else if (drawAtX -x >= -3){
       drawAtX-=speed;
     }
     var yDelta = Math.abs((drawAtY - y)/5);
-    console.log(drawAtY - y);
-    if (drawAtY - y <= 2){
+    if (drawAtY - y <= 3){
       drawAtY+=speed*yDelta;
     }
-    if (drawAtY -y >= -2){
+    else if (drawAtY -y >= -3){
       drawAtY-=speed*yDelta;
     }
 
