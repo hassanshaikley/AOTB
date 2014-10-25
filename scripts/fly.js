@@ -1,4 +1,3 @@
-
 var flyAnimate = 0;
 var localX;
 var floorHeight = 474;
@@ -6,7 +5,7 @@ var toggle = 1;
 
 
 var Fly = function(x, y, hp, name){
-  
+
   var descendAttack = false,
       moveAmount = 3,
       wobble = 0 ,
@@ -38,9 +37,6 @@ var Fly = function(x, y, hp, name){
       ctx.fillText("DEAD", bugX + 37, fly.getDrawAtY()-40);
     }
 
-
-
-
     if (flyAnimate <= 10){
       ctx.drawImage(flySprite,0,0, 100, 100, bugX,fly.getDrawAtY()-50, 100, 100);
     }
@@ -52,7 +48,6 @@ var Fly = function(x, y, hp, name){
     }
     ctx.drawImage(silverShield, bugX+ 20, fly.getDrawAtY()-3);
 
-
     if (descendAttack || rightMouseActionHappening){
       if (!rightMouseActionHappening){
         rightMouseActionHappening = true;
@@ -62,13 +57,10 @@ var Fly = function(x, y, hp, name){
 
     if (descendAttack) {
       ctx.save();
-
       ctx.translate(bugX+60, fly.getDrawAtY()-40 + 90);
       ctx.rotate(Math.PI);
       ctx.drawImage(silverSword, 0, -10);
-
       ctx.restore();
-
     } else {
       ctx.drawImage(silverSword, bugX+ 60, fly.getDrawAtY()-40);
     }
@@ -162,7 +154,7 @@ var Fly = function(x, y, hp, name){
   };
 
   return {
-    	 getX : fly.getX,
+    getX : fly.getX,
          getY : fly.getY,
          setX : fly.setX,
          setY : fly.setY,
@@ -176,7 +168,7 @@ var Fly = function(x, y, hp, name){
          getDescendAttack : getDescendAttack,
          getCharacterType : getCharacterType,
          update: update,
-        updateVariables : fly.updateVariables,
+         updateVariables : fly.updateVariables,
          draw: draw,
          rightClick: rightClick,
          leftClick: leftClick

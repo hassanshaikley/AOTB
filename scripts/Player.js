@@ -109,12 +109,13 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     if (drawAtX -x >= -2){
       drawAtX-=speed;
     }
+    var yDelta = Math.abs((drawAtY - y)/5);
+    console.log(drawAtY - y);
     if (drawAtY - y <= 2){
-      drawAtY+=speed;
+      drawAtY+=speed*yDelta;
     }
-
     if (drawAtY -y >= -2){
-      drawAtY-=speed;
+      drawAtY-=speed*yDelta;
     }
 
     /* Can and should come up with a much better function for this */
