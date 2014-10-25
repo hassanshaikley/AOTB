@@ -7,9 +7,6 @@ var toggle = 1;
 
 var Fly = function(x, y, hp, name){
   
-
-  var fly =  Player(x, y, hp, name, 3);
-
   var descendAttack = false,
       moveAmount = 3,
       wobble = 0 ,
@@ -17,6 +14,9 @@ var Fly = function(x, y, hp, name){
       rightMouseActionHappening = false,
       descendAttack = false,
       descendAttackSpeed = 10;
+
+  var fly =  Player(x, y, hp, name, 3);
+
 
   var setDescendAttack = function(boolean_thing){
     descendAttack = boolean_thing;

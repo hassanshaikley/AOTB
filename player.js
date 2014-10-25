@@ -9,8 +9,6 @@ var Player = function(startX, startY, startHp, _name) {
       hp = 100,
       character_type = "Unknown";
 
-
-
   var setCharacterType = function(newType){
     this.character_type = newType;
   };

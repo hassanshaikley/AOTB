@@ -12,8 +12,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       drawAtX =         x,
       drawAtY =         y,
       speed =           _moveSpeed,
-      xDelta =          0,
-      yDelta =          0, //1.7 for redhatters tho //if wrong will be buggy AF
       prevX =           x,
       postX =           x,
       moveDifferenceX = 0 ;
@@ -90,6 +88,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
    *
    */
   var updateVariables = function(){
+    //used to calculate direction
     newerX = x;
 
     /* this.id == undefined means if this is referring to the current player 
@@ -110,13 +109,15 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     if (drawAtX -x >= -2){
       drawAtX-=speed;
     }
+    if (drawAtY - y <= 2){
+      drawAtY+=speed;
+    }
+
+    if (drawAtY -y >= -2){
+      drawAtY-=speed;
+    }
 
     /* Can and should come up with a much better function for this */
-    yDelta = Math.floor((drawAtY - y)/2);
-    //console.log("yd is" + yDelta + " y is " + y + " drawAtY is" +drawAtY);
-    if (Math.abs(y - drawAtY) >= 2){
-      drawAtY -= yDelta;
-    }
   };
 
   /* The X that we want to draw at to give the illusion of smooth movement

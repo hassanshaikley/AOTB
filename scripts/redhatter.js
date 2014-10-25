@@ -54,15 +54,19 @@ var Redhatter = function(x, y, hp, name){
     } else{
       ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    console.log(skeleton.getMoveDirection()); 
+    
+    /* If not moving then should not animate! */
     if (skeleton.getMoveDirection() !== "none"){
       Animate++;
     }
+    /* There has to be a better way d: */
     if(Animate >= 60){
       Animate=0;
     };
 
+    ctx.restore();
     /* If it's alive then write health*/
+    
     if (skeleton.getAlive()){
       ctx.fillStyle="#FF0000";
       ctx.fillRect(drawAtX+30,skeleton.getY()-50,((skeleton.getHp()/2.2)),6);
@@ -75,7 +79,6 @@ var Redhatter = function(x, y, hp, name){
     ctx.fillStyle = "black";
     ctx.font = "bold 13px sans-serif";
     ctx.fillText(name, drawAtX + 25, skeleton.getY()-60);
-    ctx.restore();
   };
   
   /* Constantly called for the localPlayer, updates the actual 

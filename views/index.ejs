@@ -10,10 +10,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
     <meta name="viewport" content="width=device-width; initial-scale=1.0">
     <link rel="stylesheet" href="styles/game.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <% if ('development' === process.env.NODE_ENV) { %>
+    <% var url = "//localhost:5000/localAssets/";%>
+    <script src="//localhost:5000/localAssets/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="//localhost:5000/localAssets/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//localhost:5000/localAssets/font-awesome.min.css"> <!-- load fontawesome -->
+      <% } else {%>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-
+  <% } %>
 
   </head>
 
@@ -36,7 +42,7 @@
     <input type="text" name="text" id="text">
     <input type="button" name="send" id="send" value="send">
   </div>
-    <script src="scripts/assetLoader.js"></script>
+  <script src="scripts/assetLoader.js"></script>
     <script src="scripts/requestAnimationFrame.js"></script>
     <script src="scripts/Player.js"></script>
     <script src="scripts/fly.js"></script>
@@ -47,10 +53,11 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
+  console.log("env is <%= process.env.NODE_ENV %>");
       // Initialise the game
       PORT = <%=process.env.PORT || 5000%>;
      var localPlayerName = "<%= user && user.local.email || "unknown" %>";
-     var characterType = "<%= user && characterType || "Redhatter" %>";
+     var characterType = "<%= user && characterType || "Fly" %>";
       init();
      animate();
 
