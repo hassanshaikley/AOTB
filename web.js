@@ -166,7 +166,7 @@ function onNewPlayer(data) {
 /* Sends message to all players except one that casted */
 function onMeteorCast(data){
   //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
-  //util.log(data.meteorx);
+  util.log(data.meteor_x);
   this.emit('meteor cast', {meteor_x: data.meteor_x });
   this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x });
 };
@@ -232,7 +232,7 @@ function playerById(id) {
 };
 
 function updateGameVariables(){
-  util.log("Updating Vars");
+  //util.log("Updating Vars");
 };
 
 

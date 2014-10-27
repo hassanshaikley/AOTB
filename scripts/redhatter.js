@@ -28,7 +28,7 @@ var Redhatter = function(x, y, hp, name){
     } else if (skeleton.getMoveDirection() === "right"){
       facing_left = false;
     }
-//    ctx.globalCompositeOperation = "lighter";
+    //    ctx.globalCompositeOperation = "lighter";
 
     //modified context based on direction facing - basically flips along vert axis
     if (facing_left){

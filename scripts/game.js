@@ -265,6 +265,7 @@ function draw() {
 
 function drawBackground(){
   var displacement = drawX-localPlayer.getX() ;
+  console.log("displacement is " + displacement);
   //drawX is not changing aaah
   var count = "Number of players: " + (remotePlayers.length + 1);
   ctx.fillText(count, 2,10);

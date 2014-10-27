@@ -110,7 +110,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
 
     if ((drawAtX - x) <= 2){
       drawAtX+=speed;
-      console.log("Whatck");
     }
     if (drawAtX -x >= -2){
       drawAtX-=speed;

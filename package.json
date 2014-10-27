@@ -4,7 +4,7 @@
   "description": "GAME",
   "main": "web.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha test"
   },
   "keywords": [
     "GAME",

@@ -10,19 +10,21 @@ var Spells = {
   meteor: function(clientX, clientY) {
     var x = CalculateMeteorX(clientX, clientY);
     var m = new Meteor(x);
-    //console.log(m.getX());
     socket.emit("meteor cast", { meteor_x : m.getX()});
   },
-
   yoloswag: function() {
     console.log("Yolo Swag");
   }
 };
 
 function CalculateMeteorX(mouseX, mouseY){
-  var meteorX = localPlayer.getX() -canvas.width/2 +mouseX+120;
+  //location standing - canvas with + offset off mouse
+  //console.log(localPlayer.getX() + " - " + (canvas.width/2) + " + " + mouseX); 
+  console.log("localplayer x is " + localPlayer.getX());
+
+  var meteorX = localPlayer.getX() - (canvas.width/2) + mouseX +305;
   return meteorX;
-}
+};
 
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX){
