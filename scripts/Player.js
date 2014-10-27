@@ -14,11 +14,16 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       speed =           _moveSpeed,
       prevX =           x,
       postX =           x,
-      moveDifferenceX = 0 ;
+      moveDifferenceX = 0,
+      animate =         0;
 
   // Getters and setters
   var getHp = function(){
     return hp;
+  };
+
+  var getAnimate = function(){
+    return animate;
   };
 
   /* Returns the inverse of a fly times black hole divided by zero */
@@ -78,8 +83,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     y = newY;
   };
 
-
-
   var walkAnimationTimer = Date.now();
   /* UpdateVariables function is only called when the window is focused - at rate 
    * of FPS
@@ -90,31 +93,36 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var updateVariables = function(){
     //used to calculate direction
     newerX = x;
-
+    
+    if (getMoveDirection() !== "none"){
+      animate++;
+      if (animate >= 60){
+        animate = 0;
+      }
+    }
     /* this.id == undefined means if this is referring to the current player 
      * Checks the difference between 
-     * FUCK I have no idea
+     * 
      */
-    if (this.id == undefined || Math.abs(Date.now() - walkAnimationTimer > 50)){
-      moveDifferenceX =(newerX - postX);
-      walkAnimationTimer = Date.now();
-    }
+    moveDifferenceX =(newerX - postX);
+    
     if (moveDifferenceX){ postX = x; } /* USED TO TELL IF GOING LEFT OR RIGHT */
-    if (drawAtX - x <= 3){
+
+    if ((drawAtX - x) <= 2){
       drawAtX+=speed;
+      console.log("Whatck");
     }
-    else if (drawAtX -x >= -3){
+    if (drawAtX -x >= -2){
       drawAtX-=speed;
     }
     var yDelta = Math.abs((drawAtY - y)/5);
+    
     if (drawAtY - y <= 3){
       drawAtY+=speed*yDelta;
     }
-    else if (drawAtY -y >= -3){
+    if (drawAtY -y >= -3){
       drawAtY-=speed*yDelta;
     }
-
-    /* Can and should come up with a much better function for this */
   };
 
   /* The X that we want to draw at to give the illusion of smooth movement
@@ -150,6 +158,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       getName : getName,
       updateVariables : updateVariables,
       getDrawAtX : getDrawAtX,
-      getDrawAtY : getDrawAtY
+      getDrawAtY : getDrawAtY,
+      getAnimate : getAnimate
   };
 };

@@ -43,27 +43,18 @@ var Redhatter = function(x, y, hp, name){
     }
 
     /* Decides what sprite to draw*/
-    if (Animate <= 20){ 
+    if (skeleton.getAnimate() <= 20){ 
       ctx.drawImage(RedhatterSprite,0,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    else if (Animate <= 40){
+    else if (skeleton.getAnimate() <= 40){
       ctx.drawImage(RedhatterSprite,100,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
-    else if (Animate <= 60){
+    else if (skeleton.getAnimate() <= 60){
       ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     } else{
       ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
     }
     
-    /* If not moving then should not animate! */
-    if (skeleton.getMoveDirection() !== "none"){
-      Animate++;
-    }
-    /* There has to be a better way d: */
-    if(Animate >= 60){
-      Animate=0;
-    };
-
     ctx.restore();
     /* If it's alive then write health*/
     
