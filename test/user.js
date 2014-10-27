@@ -1,7 +1,9 @@
 var assert = require("assert");
 var mongoose = require('mongoose');
-
+var User = require('../app/models/user');
+var _users = mongoose.model('User');
 mongoose.connect('mongodb://localhost:27017/amara_test');  
+var testhelper = require('./testhelper');
 
 //test test lol
 describe("JSON", function() {
@@ -13,25 +15,27 @@ describe("JSON", function() {
 });
 
 describe("User model", function(){
-  var User = require('../app/models/user');
   describe(".save()", function(){
     it("should save new user", function(){
       var newUser = new User();
       newUser.local.email = 'hassan.shaikley@gmail.com';
       newUser.local.password = newUser.generateHash('1234');
       newUser.save();
-      var _users = mongoose.model('User');
       //assert.equal(_users.count(),1);
       assert.equal(newUser.local.email, 'hassan.shaikley@gmail.com');
-      var _findByEmail = function(email, success, fail){    
-        _users.findOne({email:email}, function(e, doc){      
-          if(e){        
-            fail(e)      
-          }else{       
-            success(doc);      
-          }    
-        });
-      }  
+    });
+  });
+});
+
+describe("Users have characters model", function(){
+  describe(".save()", function(){
+    it("should save new character", function(){
+      var newUser = testhelper.createTestUser('j@j.com', 'abcd1234'); 
+      /*_users.findOne({email: 'hassan.shaikley@gmail.com'}, function(e, doc){
+        if(e){
+          fail(e)
+        }
+      });*/
     });
   });
 });
