@@ -22,7 +22,8 @@ function CalculateMeteorX(mouseX, mouseY){
   //console.log(localPlayer.getX() + " - " + (canvas.width/2) + " + " + mouseX); 
   console.log("localplayer x is " + localPlayer.getX());
 
-  var meteorX = localPlayer.getX() - (canvas.width/2) + mouseX +305;
+  var meteorX = localPlayer.getX() - (canvas.width/2) + mouseX+170;
+
   return meteorX;
 };
 

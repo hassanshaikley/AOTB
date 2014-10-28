@@ -28,14 +28,27 @@ describe("User model", function(){
 });
 
 describe("Users have characters model", function(){
+  //add some test data    
+  var newUser; 
+    beforeEach(function(done){  
+newUser = testhelper.createTestUser('j@j.com', 'abcd1234');
+      done();
+      });  
+
+  afterEach(function(){
+    _users.remove({}, function() {      
+    });  
+  });
+
+
   describe(".save()", function(){
     it("should save new character", function(){
-      var newUser = testhelper.createTestUser('j@j.com', 'abcd1234'); 
       /*_users.findOne({email: 'hassan.shaikley@gmail.com'}, function(e, doc){
         if(e){
-          fail(e)
+        fail(e)
         }
-      });*/
+        });*/
+      assert.equal(1,1);
     });
   });
 });

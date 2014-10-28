@@ -1,34 +1,38 @@
 {
   "name": "_dubs",
-  "version": "0.0.0",
-  "description": "GAME",
-  "main": "web.js",
-  "scripts": {
-    "test": "mocha test"
-  },
-  "keywords": [
-    "GAME",
-    "AMARA",
-    "AMARANTHIST"
-  ],
-  "author": "Hassan Shaikley",
-  "license": "ISC",
-  "dependencies": {
-    "domready": "^1.0.6",
-    "ejs": "^1.0.0",
-    "connect-flash" : "~0.1.1",   
-    "express": "^4.8.3",
-    "logfmt": "^1.1.2",
-    "socket.io": "^1.0.6",
-    "mongoose": "*",
-     "cookie-parser": "~1.0.0",
+    "version": "0.0.0",
+    "description": "GAME",
+    "main": "views/index.ejs",
+    "scripts": {
+      "test": "mocha test",
+      "start": "nodewebkit"
+    },
+    "window" : {
+      "toolbar": false,
+      "width": 800,
+      "height" : 600
+    },
+    "keywords": [
+      "GAME", "AMARA", "AMARANTHIST"
+      ],
+    "author": "Hassan Shaikley",
+    "license": "ISC",
+    "dependencies": {
+      "domready": "^1.0.6",
+      "ejs": "^1.0.0",
+      "connect-flash" : "~0.1.1",   
+      "express": "^4.8.3",
+      "logfmt": "^1.1.2",
+      "socket.io": "^1.0.6",
+      "mongoose": "*",
+      "cookie-parser": "~1.0.0",
 
-    "bcrypt-nodejs" : "latest",
-    "body-parser": "~1.0.0",
-    "passport" : "~0.1.17",     
-    "passport-local" : "~0.1.6",
-    "express-session": "~1.0.0",
-    "newrelic" : "latest"   
+      "bcrypt-nodejs" : "latest",
+      "body-parser": "~1.0.0",
+      "passport" : "~0.1.17",     
+      "passport-local" : "~0.1.6",
+      "express-session": "~1.0.0",
+      "newrelic" : "latest"   
 
-  }
+    }
 }
