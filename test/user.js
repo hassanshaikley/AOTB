@@ -30,10 +30,10 @@ describe("User model", function(){
 describe("Users have characters model", function(){
   //add some test data    
   var newUser; 
-    beforeEach(function(done){  
-newUser = testhelper.createTestUser('j@j.com', 'abcd1234');
-      done();
-      });  
+  beforeEach(function(done){  
+    newUser = testhelper.createTestUser('j@j.com', 'abcd1234');
+    done();
+  });  
 
   afterEach(function(){
     _users.remove({}, function() {      
@@ -48,7 +48,9 @@ newUser = testhelper.createTestUser('j@j.com', 'abcd1234');
         fail(e)
         }
         });*/
-      assert.equal(1,1);
+      assert.notEqual(newUser.email, "j@j.com");
+      newUser.createCharacter("hassan", "fly"); 
+      assert.equal(1, newUser.characters.count());
     });
   });
 });
