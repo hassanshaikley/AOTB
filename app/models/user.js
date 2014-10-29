@@ -56,43 +56,8 @@ UserSchema.methods.createCharacter = function(name, race, cb){
   });
 };
 
-/*
-
-   userSchema.methods.createCharacter = function(name, race, cb){
-   var newCharacter = new Character();
-   newCharacter.name = name;
-   newCharacter.race = race;
-   newCharacter.save(function (err) {
-   if (err) return cb(err);
-   util.log(user.local.email);
-   util.log(user.characters);
-   user.characters.append(newCharacter);
-   user.save(function (err) { cb(err, newCharacter) });
-   });
-   };
- */
 var User = mongoose.model('User', UserSchema);
 
-/*
-User.find(function (err, users) {
-  if (err) return console.error(err);
-  var user = users[0];
-  console.log(user);
-  console.log("users char is " + user.characters);
-  user.createCharacter("lol", "Fly", function (err, character) {
-    console.log("CHARACTER IS " + character);
-
-    User.findOne({ email: user.email }).populate('characters').exec(function(err, updatedUser) {
-      console.log(err, updatedUser);
-    });
-  });
-});
-*/
-
-/*
-User.findOne(function(err, chara){
-console.log("the swags " + chara); 
-});*/
 
 
 /* WORKS WORKS WORK
@@ -103,6 +68,7 @@ __user.save(
   var _char = new Character();
   _char.name = 'HKS';
   _char.race = "Fly";
+  _char._user = __user._id;
   _char.save(function(err, dude){
     if (err) console.log("aah " + err);
     console.log("SAVED " + dude.name); 
@@ -113,6 +79,10 @@ __user.save(
 });*/
 User.findOne().populate('Characters').exec(function(err, user){
   if (err) { return console.log(err); }
-  console.log("chars are " + user.characters); 
+  user.characters.forEach(function(err1, i){
+    Character.findOne({ "_id" :user.characters[i] }).exec(function(err2, dude){
+      console.log(dude.name);
+    });
+  });
 });
 
