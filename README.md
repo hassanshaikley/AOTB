@@ -8,7 +8,7 @@ if you installed nodemon, then simply run:
     nodemon web.js
 
 if not, then this will do the trick:
-  node web.js
+    node web.js
 
 ##Testing
 
