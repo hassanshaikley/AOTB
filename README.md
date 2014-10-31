@@ -14,19 +14,19 @@ http://amara-staging.herokuapp.com
 
 ##Running
 
+Simply clone and run.
+
     git clone https://hassanshaikley@bitbucket.org/hassanshaikley/amara-game.git && cd amara-game
 
-Also recommend nodemon!
+    node web.js
+
+##Alternatively, running it like a pro
+
+Nodemon restarts the application after changes.
 
     npm install -g nodemon
 
-if you installed nodemon, then simply run:
-
     nodemon web.js
-
-if not, then this will do the trick:
-
-    node web.js
 
 ##Testing
 
