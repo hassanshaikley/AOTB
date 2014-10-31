@@ -18,7 +18,7 @@ http://amara-staging.herokuapp.com
 
 Also recommend nodemon!
 
-    npm install -g nodemon.
+    npm install -g nodemon
 
 if you installed nodemon, then simply run:
 
