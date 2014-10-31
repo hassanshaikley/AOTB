@@ -50,8 +50,16 @@ module.exports = function(app, passport) {
   // we will want this protected so you have to be logged in to visit
   // we will use route middleware to verify this (the isLoggedIn function)
   app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile.ejs', {
-      user : req.user // get the user out of session and pass to template
+    var mongoose = require('mongoose');
+    var Character = mongoose.model('Character');
+    //console.log(req.user._id);
+    Character.find({ "_user" : req.user._id }, function(err, _characters){
+      if (err) console.log("Shit");
+      console.log("CHARS ARE " + _characters);
+        res.render('profile.ejs', {
+          user : req.user, // get the user out of session and pass to template
+          characters : _characters
+        });
     });
   });
 
