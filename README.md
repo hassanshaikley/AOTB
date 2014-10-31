@@ -8,9 +8,11 @@ If you have any tips please comment! Especially with respect to design patterns 
 
 This project is still in a really early stage and has a lot of bugs that I am aware! [As well as a lot that I am not, I am sure!]
 
-Demo is here:
+##Demo
 
 http://amara-staging.herokuapp.com 
+
+##Running
 
     git clone https://hassanshaikley@bitbucket.org/hassanshaikley/amara-game.git && cd amara-game
 
