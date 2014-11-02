@@ -66,33 +66,38 @@ var Fly = function(x, y, hp, name){
     }
     flyAnimate++; 
 
-    ctx.fillStyle = "#5ab039";
-    ctx.font = "bold 14px sans-serif";
-    ctx.fillText(name, bugX + 22, fly.getDrawAtY()-60);
     ctx.fillStyle = "black";
     ctx.font = "bold 13px sans-serif";
-    ctx.fillText(name, bugX + 25, fly.getDrawAtY-60);
+    ctx.fillText(name, bugX + 22, fly.getDrawAtY()-60);
 
 
   };
 
+  var did_i_get_hit_by_a_fly = function(){
+
+    for (i = 0; i < remotePlayers.length; i++) {
+      
+     // console.log(remotePlayers[i].getCharacterType() + " can hit me");
+      if (remotePlayers[i].getCharacterType() === "Fly"){
+       // console.log("Got a fly in the region");
+        if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
+          if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
+
+            console.log("i have been hit");
+            //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
+            localPlayer.setHp(localPlayer.getHp()-25);
+            socket.emit("descend attack hits");
+            remotePlayers[i].hitme = Date.now();
+          }
+        }
+    }
+    //only works if I HIT SOMEONE
+    }
+  };
+
   // Update player position
   var update = function(keys) {
-    for (i = 0; i < remotePlayers.length; i++) {
-      if ((!remotePlayers[i].hitme || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500 )){
-        if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
-
-          console.log("i have been hit");
-          //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
-          localPlayer.setHp(localPlayer.getHp()-25);
-          socket.emit("descend attack hits");
-          remotePlayers[i].hitme = Date.now();
-        }
-      }
-
-      //only works if I HIT SOMEONE
-    }
-
+    //did_i_get_hit_by_a_fly();
     wobble--;
     localX = fly.getX();
     // Previous position

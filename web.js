@@ -1,5 +1,3 @@
-// web.js - Server
-//require('newrelic');
 var port = Number(process.env.PORT || 5000);
 var express = require("express");
 var logfmt = require("logfmt");
@@ -7,32 +5,37 @@ var app = express();
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
-
-
 app.set('views', __dirname + '/views');
-
 var util = require("util"),
     server = require('http').createServer(app)
     io = require("socket.io").listen(server),
     Fly = require("./fly").Fly,
     Redhatter = require("./redhatter").Redhatter;
-
-
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url); // connect to our database
-
-
-
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
+var MongoStore   = require('connect-mongo')(session);
+
 require('./config/passport')(passport); // pass passport for configuration
-
-
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
 app.use(flash()); 
+app.use(session({
+  secret:'secret',
+  maxAge: new Date(Date.now() + 3600000),
+  store: new MongoStore(
+    {url: configDB.url },
+    function(err){
+      console.log(err || 'connect-mongodb setup ok');
+    })
+}));
+
+
+
+/*
 app.use(session({secret: 'a secret'}, {
   cookie: {
           path: '/',
@@ -44,7 +47,7 @@ app.use(session({secret: 'a secret'}, {
 }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
+*/
 /* AAH NOT SURE ABOUT THIS RIGHT NOW*/
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
@@ -143,11 +146,11 @@ function onNewPlayer(data) {
   if (data.characterType === "Fly"){
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   }
-  else {
+  else if (data.characterType === "Redhatter"){
     var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
 }
   newPlayer.id = this.id;
-
+  util.log("CReating a " + newPlayer.getCharacterType());
   // Broadcast new player to connected socket clients
   this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType()});
 
