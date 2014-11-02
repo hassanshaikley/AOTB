@@ -73,12 +73,12 @@ UserSchema.methods.createCharacter = function(user, name, race, cb){
    });*/
 /*
 User.findOne(function(err, __user){ 
-  UserSchema.methods.createCharacter(__user, "hassan", "Fly", function(err, character){
+  UserSchema.methods.createCharacter(__user, "theotherfly", "Fly", function(err, character){
     if(err) console.log(err);
     console.log(character);
   });
-});
-*/
+}); */
+
 UserSchema.methods.usersCharacters = function(email,cb){
   User.findOne( {'local.email' : email }).exec(function(err, user){
     if (err) console.log("shit");

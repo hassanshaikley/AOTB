@@ -1,54 +1,33 @@
 module.exports = function(app, passport) {
-
-  // =====================================
-  // HOME PAGE (with login links) ========
-  // =====================================
   app.get('/', function(req, res) {
     res.render('index.ejs', { authenticated: req.isAuthenticated(), 
       user : req.user,
     characterType : "Fly"
-      // get the user out of session and pass to template
-    }); // load the index.ejs file
-  });
-  app.post('/', function(req, res) {
-    res.render('index.ejs', { authenticated: req.isAuthenticated(), 
-      user : req.user,
-      characterType : req.body.localPlayerType
-      // get the user out of session and pass to template
     }); 
   });
+  app.post('/', function(req, res) {
+    var mongoose = require('mongoose');
+    var Character = mongoose.model('Character');
+    Character.findOne({ "_id" : req.body.charId }, function(err, _character){
+      if (err) console.log("Shit");
+      res.render('index.ejs', {
+        authenticated: req.isAuthenticated(),
+        user : req.user, // get the user out of session and pass to template
+        character : _character
+      });
+    });
+  });
 
-  // =====================================
-  // LOGIN ===============================
-  // =====================================
-  // show the login form
   app.get('/login', isNotLoggedIn, function(req, res) {
-
-    // render the page and pass in any flash data if it exists
     res.render('login.ejs', { message: req.flash('loginMessage') }); 
   });
 
-  // process the login form
-  // app.post('/login', do all our passport stuff here);
-
-  // =====================================
-  // SIGNUP ==============================
-  // =====================================
-  // show the signup form
   app.get('/signup', isNotLoggedIn, function(req, res) {
 
     // render the page and pass in any flash data if it exists
     res.render('signup.ejs', { message: req.flash('signupMessage') });
   });
 
-  // process the signup form
-  // app.post('/signup', do all our passport stuff here);
-
-  // =====================================
-  // PROFILE SECTION =====================
-  // =====================================
-  // we will want this protected so you have to be logged in to visit
-  // we will use route middleware to verify this (the isLoggedIn function)
   app.get('/profile', isLoggedIn, function(req, res) {
     var mongoose = require('mongoose');
     var Character = mongoose.model('Character');

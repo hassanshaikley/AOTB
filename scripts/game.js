@@ -53,7 +53,6 @@ function init() {
 
   // Initialise the local player
  if (characterType === "Redhatter"){
-    console.log("makes a RH");
     localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
   } else if (characterType === "Fly"){
         localPlayer = new Fly(startX, startY, startHp, localPlayerName);
@@ -125,7 +124,6 @@ function onKeyup(e) {
 // Socket connected
 function onSocketConnected() {
   // Send local player data to the game server
-  console.log("LOCAL PLAYER CONNECTs");
   socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp(), name: localPlayer.getName(), characterType:localPlayer.getCharacterType()});
 };
 
@@ -265,7 +263,6 @@ function draw() {
 
 function drawBackground(){
   var displacement = drawX-localPlayer.getX() ;
-  console.log("displacement is " + displacement);
   //drawX is not changing aaah
   var count = "Number of players: " + (remotePlayers.length + 1);
   ctx.fillText(count, 2,10);

@@ -31,6 +31,6 @@ socket.on('message', function (data) {
 });
 
 $('#send').click(function () {
-  socket.emit('sendMessage', { text: $('#text').val() });
+  socket.emit('sendMessage', { text: "<b>"+localPlayerName + "</b>: " +$('#text').val() });
   $('#text').val('');
 });

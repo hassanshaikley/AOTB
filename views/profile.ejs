@@ -14,69 +14,21 @@
         <h1><span class="fa fa-anchor"></span> Profile Page</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
       </div>
-
-      <div class="row">
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-      <% for( var i= 0; i< characters.length; i++ ){ %>
-          <div class="well">
-            <h3><span class="fa fa-user"></span> Local</h3>
-            <p>
-            <strong>email</strong>: <%= user.local.email %>
-            </p>
-          </div>
-      <% } %>
-          </div>
-        </div>
-      
-      
-      
-      <div class="row">
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-          <div class="well">
-            <h3><span class="fa fa-user"></span> Local</h3>
-            <p>
-            <% user._id %>
-            <strong>email</strong>: <%= user.local.email %>
-            </p>
+      <form action="/" method="post">
+        <div class="row">
+          <div class="col-sm-12">
+            <% for( var i= 0; i< characters.length; i++ ){ %>
+            <button value="<%= characters[i].id %>" name="charId">
+              <h3><span class="fa fa-user"></span> Play </h3>
+              <p>
+              <strong>Character </strong>: <%= characters[i].race %>
+              <h3><span class="fa fa-user"></span> <%= characters[i].name %></h3>
+              </p>
+            </button>
+            <% } %>
           </div>
         </div>
-
-        <form action="/" method="post">
-          <button value="Fly" name="localPlayerType">
-            <div class="col-sm-6">
-              <div class="well">
-                <h3><span class="fa fa-user"></span> Play </h3>
-
-                <p>
-                <strong>Character </strong>: Fly
-
-                </p>
-
-              </div>
-
-            </div>
-
-          </button>
-          <button value="Redhatter" name="localPlayerType">
-            <div class="col-sm-6">
-              <div class="well">
-                <h3><span class="fa fa-user"></span> Play </h3>
-
-                <p>
-                <strong>Character </strong>: Fly
-
-                </p>
-
-              </div>
-
-            </div>
-
-          </button>
-        </form>
-      </div>
-
+      </form>
     </div>
   </body>
 </html>

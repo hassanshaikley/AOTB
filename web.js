@@ -137,13 +137,13 @@ function onClientDisconnect() {
 // New player has joined
 function onNewPlayer(data) {
   // Create a new player
+  
 
+  util.log("A " + (data.characterType || "unknown") + " has joined the game.");
   if (data.characterType === "Fly"){
-    util.log("MAKES A FLY");
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   }
   else {
-    util.log("MAKES A " + data.characterType);
     var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
 }
   newPlayer.id = this.id;

@@ -7,6 +7,8 @@ var Redhatter = function(x, y, hp, name){
   var skeleton =  Player(x, y, hp, name, moveSpeed),
       facing_left;
 
+  var spritesheet_offset_y = 0;
+  
   /* CASTS A METEOR :D */
   var rightClick = function(clientX, clientY){
     Spells.meteor(clientX, clientY);
@@ -28,48 +30,42 @@ var Redhatter = function(x, y, hp, name){
     } else if (skeleton.getMoveDirection() === "right"){
       facing_left = false;
     }
-    //    ctx.globalCompositeOperation = "lighter";
+    
+    
 
+    //    ctx.globalCompositeOperation = "lighter";
     //modified context based on direction facing - basically flips along vert axis
     if (facing_left){
-      ctx.save();
-      var drawAtX = canvas.width/2 - skeleton.getDrawAtX() + localX - 50;
-      ctx.translate(canvas.width , 0);
-      ctx.scale(-1, 1);
+      spritesheet_offset_y = 100;
     }
     else {
-      ctx.save();
-      var drawAtX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
+      spritesheet_offset_y = 0;
     }
-
-    /* Decides what sprite to draw*/
-    if (skeleton.getAnimate() <= 20){ 
-      ctx.drawImage(RedhatterSprite,0,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
-    }
-    else if (skeleton.getAnimate() <= 40){
-      ctx.drawImage(RedhatterSprite,100,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
-    }
-    else if (skeleton.getAnimate() <= 60){
-      ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
-    } else{
-      ctx.drawImage(RedhatterSprite,200,0, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
-    }
-    
-    ctx.restore();
-    /* If it's alive then write health*/
+   var   drawAtX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
     
     if (skeleton.getAlive()){
       ctx.fillStyle="#FF0000";
       ctx.fillRect(drawAtX+30,skeleton.getY()-50,((skeleton.getHp()/2.2)),6);
+      ctx.fillStyle = "black";
     } else { /* If it's dead, just write DEAD */
       ctx.fillText("DEAD", drawAtX + 37, skeleton.getY()-40);
     }
-    ctx.fillStyle = "#5ab039";
-    ctx.font = "bold 14px sans-serif";
-    ctx.fillText(name, drawAtX + 22, skeleton.getY()-60);
     ctx.fillStyle = "black";
     ctx.font = "bold 13px sans-serif";
     ctx.fillText(name, drawAtX + 25, skeleton.getY()-60);
+
+    /* Decides what sprite to draw*/
+    if (skeleton.getAnimate() <= 20){ 
+      ctx.drawImage(RedhatterSprite,0,spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+    }
+    else if (skeleton.getAnimate() <= 40){
+      ctx.drawImage(RedhatterSprite,100,spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+    }
+    else if (skeleton.getAnimate() <= 60){
+      ctx.drawImage(RedhatterSprite,200,spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+    } else{
+      ctx.drawImage(RedhatterSprite,200,spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+    }
   };
   
   /* Constantly called for the localPlayer, updates the actual 
