@@ -8,6 +8,8 @@ var canvas,     // Canvas DOM element
     remotePlayers,  // Remote players
     socket;     // Socket connection
 
+
+
 var floorHeight = 474;
     var drawX = 0;
 
@@ -20,12 +22,29 @@ var floorHeight = 474;
       ctx = canvas.getContext("2d");
       //disable right click default behavior
       canvas.oncontextmenu = function(e){return false;}
+      var clientRect;
+      var adjustedX, adjustedY;
       canvas.onmousedown = function(e){
         switch (e.which) {
-          case 1: localPlayer.leftClick();  break;
-          case 2: console.log('middle click'); break;
-          case 3: localPlayer.rightClick(e.clientX, e.clientY); break; }
+          case 1: 
+          clientRect = ctx.canvas.getBoundingClientRect();
+            localPlayer.leftClick();  
+            var y = e.clientY - clientRect.top;
+                  break;
+          case 2: console.log('middle click'); 
+                  
+                  break;
+          case 3: 
+            clientRect = ctx.canvas.getBoundingClientRect();
+            adjustedX = e.clientX - clientRect.left;
+            adjustedY = e.clientY - clientRect.top;
+            localPlayer.rightClick(adjustedX, adjustedY); 
+                  break; 
+        }
       }
+
+
+
 
       // Initialise keyboard controls
       keys = new Keys();

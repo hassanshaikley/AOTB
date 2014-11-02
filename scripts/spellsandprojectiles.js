@@ -21,8 +21,8 @@ function CalculateMeteorX(mouseX, mouseY){
   //location standing - canvas with + offset off mouse
   //console.log(localPlayer.getX() + " - " + (canvas.width/2) + " + " + mouseX); 
   console.log("localplayer x is " + localPlayer.getX());
-
-  var meteorX = localPlayer.getX() - (canvas.width/2) + mouseX+170;
+  var meteorX = localPlayer.getX() - (canvas.width/2) + mouseX;
+  console.log("meteor x is " + meteorX); 
 
   return meteorX;
 };
@@ -52,7 +52,6 @@ var Meteor = function(meteorX){
     ctx.save();
 
     ctx.globalCompositeOperation = "source-over";
-
 	var fireballX = x  - localPlayer.getX() + 50;
     ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
     //regenerate particles

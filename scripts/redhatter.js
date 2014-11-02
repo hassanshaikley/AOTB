@@ -8,9 +8,10 @@ var Redhatter = function(x, y, hp, name){
       facing_left;
 
   var spritesheet_offset_y = 0;
-  
+
   /* CASTS A METEOR :D */
   var rightClick = function(clientX, clientY){
+    console.log("x is " + clientX + " y is "+ clientY);
     Spells.meteor(clientX, clientY);
   };
 
