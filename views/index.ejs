@@ -27,9 +27,22 @@
     <%if  (authenticated ) {%>
     <a href="/profile" class="btn btn-default"><span class="fa fa-user"></span> Profile</a>
     <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    <% if (typeof character === 'undefined'){%>
+      <script> 
+      window.location.assign('/profile');
+      </script>
+      <%} else { %>
     <%= character %>
     <br><%= characterRace = character.race %> 
-    <% } else{ %>
+    <script>
+      var localPlayerName = "<%= user && character.name || "unknown" %>";
+      var characterType = "<%= user && characterRace || "Redhatter" %>";
+    </script>
+    <% }} else{ %>
+    <script>
+      var localPlayerName = "unknown";
+      var characterType = "Redhatter";
+    </script>
     <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
     <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a>
     <% } %>
@@ -58,8 +71,6 @@
     <script>
       // Initialise the game
       PORT = <%=process.env.PORT || 5000%>;
-      var localPlayerName = "<%= user && character.name || "unknown" %>";
-      var characterType = "<%= user && characterRace || "Redhatter" %>";
       init();
       animate();
 
