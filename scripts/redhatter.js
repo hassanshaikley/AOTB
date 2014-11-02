@@ -11,7 +11,8 @@ var Redhatter = function(x, y, hp, name){
 
   /* CASTS A METEOR :D */
   var rightClick = function(clientX, clientY){
-    console.log("x is " + clientX + " y is "+ clientY);
+   // console.log("meteor right click - x is " + clientX + " y is "+ clientY);
+
     Spells.meteor(clientX, clientY);
   };
 

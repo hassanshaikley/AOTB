@@ -27,19 +27,24 @@ var floorHeight = 474;
       canvas.onmousedown = function(e){
         switch (e.which) {
           case 1: 
-          clientRect = ctx.canvas.getBoundingClientRect();
+            clientRect = ctx.canvas.getBoundingClientRect();
             localPlayer.leftClick();  
             var y = e.clientY - clientRect.top;
-                  break;
+            break;
           case 2: console.log('middle click'); 
-                  
                   break;
           case 3: 
             clientRect = ctx.canvas.getBoundingClientRect();
-            adjustedX = e.clientX - clientRect.left;
-            adjustedY = e.clientY - clientRect.top;
+            
+            adjustedX = drawX + localPlayer.getX(); 
+            console.log("first adjustment "+ localPlayer.getX()+ " to " + drawX+" to " + adjustedX);
+            adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
+           
+            console.log("localPlayer x " + localPlayer.getX() + "\nclicked at " + (e.clientX - clientRect.left) ); 
+            adjustedY += e.clientY - clientRect.topy;
+            //console.log(" clicked at " + e.clientX + " adjusted to " + adjustedX);
             localPlayer.rightClick(adjustedX, adjustedY); 
-                  break; 
+          break; 
         }
       }
 
@@ -244,7 +249,7 @@ function drawBackground(){
   ctx.drawImage(ground ,0,0, 400, 100, displacement,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement-400,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement-800,400, 400, 100); 
-  ctx.drawImage(CastleOfOne, displacement+90,295);
+  ctx.drawImage(CastleOfOne, displacement,295);
 };
 // Browser window resize
 

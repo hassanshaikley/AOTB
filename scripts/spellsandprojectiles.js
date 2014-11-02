@@ -20,11 +20,11 @@ var Spells = {
 function CalculateMeteorX(mouseX, mouseY){
   //location standing - canvas with + offset off mouse
   //console.log(localPlayer.getX() + " - " + (canvas.width/2) + " + " + mouseX); 
-  console.log("localplayer x is " + localPlayer.getX());
-  var meteorX = localPlayer.getX() - (canvas.width/2) + mouseX;
-  console.log("meteor x is " + meteorX); 
+  //console.log("localplayer x is " + localPlayer.getX());
+ // var meteorX = localPlayer.getX() - (canvas.width/2) + mouseX;
+ // console.log("meteor x is " + meteorX); 
 
-  return meteorX;
+  return mouseX;
 };
 
 /* startY isn't necessary, but neither is swag */
