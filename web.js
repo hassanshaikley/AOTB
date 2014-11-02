@@ -45,9 +45,9 @@ app.use(session({secret: 'a secret'}, {
           },
   rolling: true
 }));
+*/
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-*/
 /* AAH NOT SURE ABOUT THIS RIGHT NOW*/
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
