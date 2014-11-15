@@ -18,7 +18,11 @@ http://amara-staging.herokuapp.com
 
 ##Running
 
-Simply clone and run.
+Before running You need to have MongoDB.
+
+Installation of MongoDB depends on your system. Look at the MongoDB documentation to learn how to install! 
+
+If MongoDB is already installed, then simply clone and run.
 
     git clone https://hassanshaikley@bitbucket.org/hassanshaikley/amara-game.git && cd amara-game
 
