@@ -28,7 +28,7 @@ If MongoDB is already installed, then simply clone and run.
 
     node web.js
 
-    go to localhost:5000
+Now go to localhost:5000 and enjoy!
 
 ##Alternatively, running it like a pro
 
