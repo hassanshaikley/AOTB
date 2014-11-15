@@ -24,6 +24,8 @@ Simply clone and run.
 
     node web.js
 
+    go to localhost:5000
+
 ##Alternatively, running it like a pro
 
 Nodemon restarts the application after changes.
