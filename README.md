@@ -10,6 +10,8 @@ This project is still in a really early stage and has a lot of bugs that I am aw
 
 ##Demo
 
+Keys are w - a - s - d AND spacebar!
+
 http://amara-staging.herokuapp.com 
 
 ##Running
