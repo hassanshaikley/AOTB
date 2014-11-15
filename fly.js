@@ -1,3 +1,7 @@
+/**************************************************
+ ** FLY CLASS IN SERVER
+ **************************************************/
+
 Player = require("./player").Player;
 var util = require("util");
 var Fly = function(x, y, hp, name){
@@ -7,6 +11,10 @@ var Fly = function(x, y, hp, name){
   var setDescendAttack = function(boolean_thing){
     descendAttack = boolean_thing;
   };
+
+  /* Descend attack is the Flys signature move 
+   * While true it damages players it crosses!
+   */
   var getDescendAttack = function(){
     return descendAttack;
   };
@@ -29,8 +37,6 @@ var Fly = function(x, y, hp, name){
          setDescendAttack : setDescendAttack,
          getDescendAttack : getDescendAttack
   };
-
 };
-
 
 exports.Fly = Fly;

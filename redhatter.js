@@ -1,16 +1,18 @@
+/**************************************************
+ ** REDHATTER CLASS IN SERVER
+ **************************************************/
 Player = require("./player").Player;
 var util = require("util");
 
 var Redhatter = function(x, y, hp, name){
   var skeleton = Player(x, y, hp, name);
 
-  //util.log("m type is" + skeleton.getCharacterType());  
   var getCharacterType = function(){
     return "Redhatter";
   };
 
   return {
-         getX : skeleton.getX,
+    getX : skeleton.getX,
          getY : skeleton.getY,
          setX : skeleton.setX,
          setY : skeleton.setY,

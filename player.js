@@ -1,5 +1,5 @@
 /**************************************************
- ** GAME PLAYER CLASS in SERVER
+ ** PLAYER CLASS IN SERVER
  **************************************************/
 var Player = function(startX, startY, startHp, _name) {
   var x = startX,
@@ -9,9 +9,11 @@ var Player = function(startX, startY, startHp, _name) {
       hp = 100,
       character_type = "Unknown";
 
+  /* Every character has a type - this is sent from the client */
   var setCharacterType = function(newType){
     this.character_type = newType;
   };
+
   var getCharacterType = function(){
     return this.character_type;
   }
@@ -31,7 +33,6 @@ var Player = function(startX, startY, startHp, _name) {
     hp = newHp;
   };
 
-  // Getters and setters
   var getX = function() {
     return x;
   };
@@ -48,7 +49,7 @@ var Player = function(startX, startY, startHp, _name) {
     y = newY;
   };
 
-  // Define which variables and methods can be accessed
+  // Define which variables and methods can be accessed by the world outside
   return {
     getX: getX,
       getY: getY,
@@ -65,6 +66,4 @@ var Player = function(startX, startY, startHp, _name) {
   };
 };
 
-// Export the Player class so you can use it in
-// other files by using require("Player").Player
 exports.Player = Player;
