@@ -2,7 +2,7 @@
 
 This is code for a multiplayer game written in JS. 
 
-I plan to use MVC as well as better design patterns...and write more tests all in the near future!
+I plan to use MVC as well as better design patterns...and write more tests all in the near future! If you are a JS ninja please tell me what I can do better! [JS IS SO WEIRD]
 
 Then after more of the foundation has been layed / framework for the game has been built then I plan on creating more art and adding more to the game.
 

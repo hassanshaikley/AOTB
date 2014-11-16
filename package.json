@@ -34,6 +34,5 @@
       "passport-local" : "~0.1.6",
       "express-session": "^1.0.0",
       "connect-mongo" : "latest" 
-
     }
 }

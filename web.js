@@ -12,16 +12,17 @@ var express = require("express"), // Express JS
 var app = express(); //Express for server
 
 app.set('views', __dirname + '/views');
+
 var util = require("util"),
     server = require('http').createServer(app)
     io = require("socket.io").listen(server),
     Fly = require("./fly").Fly,
-    Redhatter = require("./redhatter").Redhatter;
-var configDB = require('./config/database.js');
+    Redhatter = require("./redhatter").Redhatter,
+    configDB = require('./config/database.js'),
+    cookieParser = require('cookie-parser'),
+    bodyParser   = require('body-parser'),
+    session      = require('express-session');
 mongoose.connect(configDB.url); // connect to our database
-var cookieParser = require('cookie-parser');
-var bodyParser   = require('body-parser');
-var session      = require('express-session');
 
 var MongoStore   = require('connect-mongo')(session);
 
@@ -39,24 +40,11 @@ app.use(session({
     })
 }));
 
-
-
-/*
-   app.use(session({secret: 'a secret'}, {
-   cookie: {
-   path: '/',
-   httpOnly: true,
-   secure: false,
-   maxAge: 10 * 60 * 1000
-   },
-   rolling: true
-   }));
- */
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
 /* AAH NOT SURE ABOUT THIS RIGHT NOW*/
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-
 
 var socket,   // Socket controller
     players;  // Array of connected players
@@ -64,17 +52,12 @@ var socket,   // Socket controller
 function init() {
   // Create an empty array to store players
   players = [];
-
   // Set up Socket.IO to listen on port 5000
-
   // Configure Socket.IO
   io.set("transports", ["websocket"]);
-  io.set("polling duration", 10)
-
-    // Restrict log output
-
+  io.set("polling duration", 10);
     // Start listening for events
-    setEventHandlers();
+  setEventHandlers();
 
   setInterval(function(){
     updateGameVariables();
@@ -82,12 +65,10 @@ function init() {
 };
 
 app.engine('html', require('ejs').renderFile);
-
 app.use(logfmt.requestLogger());
 app.use("/styles", express.static(__dirname + '/styles'));
 app.use("/localAssets", express.static(__dirname + '/localAssets'));
 app.use("/scripts", express.static(__dirname + '/scripts'));
-
 
 server.listen(port, function() {
   console.log("Listening on " + port);
@@ -105,7 +86,6 @@ var setEventHandlers = function() {
 // New socket connection
 function onSocketConnection(client) {
   //player connected
-
   // Listen for client disconnected
   client.on("disconnect", onClientDisconnect);
 
@@ -187,7 +167,6 @@ function onHitByDescendAttack(data){
     return;
   };
 
-
   //lower hit players health
   hitPlayer.setHp(hitPlayer.getHp() - 25);
 
@@ -243,7 +222,6 @@ function playerById(id) {
 function updateGameVariables(){
   //util.log("Updating Vars");
 };
-
 
 /**************************************************
  ** RUN THE GAME
