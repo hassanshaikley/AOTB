@@ -143,7 +143,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
 
   // Define which variables and methods can be accessed
   return {
-    getX: getX,
+      getX: getX,
       getY: getY,
       setX: setX,
       setY: setY,

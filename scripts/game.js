@@ -24,19 +24,15 @@ var floorHeight = 474;
       canvas.oncontextmenu = function(e){return false;}
       var clientRect;
       var adjustedX, adjustedY;
-      canvas.ontouchstart = function(e){
+      /* canvas.ontouchstart = function(e){
             clientRect = ctx.canvas.getBoundingClientRect();
-            
             adjustedX = drawX + localPlayer.getX(); 
             console.log("first adjustment "+ localPlayer.getX()+ " to " + drawX+" to " + adjustedX);
-            adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
-           
+            adjustedX += (e.clientX - clientRect.left) -100;
             console.log("localPlayer x " + localPlayer.getX() + "\nclicked at " + (e.clientX - clientRect.left) ); 
             adjustedY += e.clientY - clientRect.topy;
-            //console.log(" clicked at " + e.clientX + " adjusted to " + adjustedX);
             localPlayer.rightClick(adjustedX, adjustedY); 
-       
-      }
+      } */
 
       canvas.onmousedown = function(e){
         switch (e.which) {
