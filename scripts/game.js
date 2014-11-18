@@ -24,7 +24,6 @@ var floorHeight = 4;
             clientRect = ctx.canvas.getBoundingClientRect();
             adjustedX = drawX + localPlayer.getX(); 
             adjustedX += (e.clientX - clientRect.left) -100;
-            console.log("localPlayer x " + localPlayer.getX() + "\nclicked at " + (e.clientX - clientRect.left) ); 
             adjustedY += e.clientY - clientRect.topy;
             localPlayer.rightClick(adjustedX, adjustedY); 
       } */
