@@ -4,3 +4,4 @@ node_modules
 *.swp
 /localAssets
 .DS_Store
+Procfile
