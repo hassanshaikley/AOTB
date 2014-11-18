@@ -8,7 +8,7 @@ This project is still in an early stage and is buggy. Efficiently synchronizing 
 
 ##Demo
 
-[Keys are w - a - s - d AND spacebar! ](http://amara-staging.herokuapp.com )
+[Keys are w, a, s, d & right click! ](http://amara-staging.herokuapp.com )
 
 ##Running
 
