@@ -17,6 +17,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       moveDifferenceX = 0,
       animate =         0,
       fallspeed =       1;
+
   // Getters and setters
   var getHp = function(){
     return hp;
@@ -30,7 +31,10 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     x = newX;
     y = newY;
     hp = 100;
-    socket.emit("RESPAWNS");
+    console.log("respawning");
+    if (localPlayer.id === undefined) {
+      socket.emit("respawning");
+    }
   };
   var getAnimate = function(){
     return animate;
@@ -45,7 +49,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var dies = function(){
     if (alive == true) {
       alive = false;
-      setTimeout(function(){ console.log("respawning"); respawn();}, 2000);
+      respawn();
     }
   }
   var getName = function(){
@@ -56,7 +60,9 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   };
   var setHp = function(newHp){
     hp = newHp;
+
     if (hp <= 0 && getAlive()){
+      console.log("WTF");
       dies();
     }
   };
@@ -106,7 +112,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       if (remotePlayers[i].getCharacterType() === "Fly"){
         // console.log("Got a fly in the region");
         if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
-        console.log("AAH");
           if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
             console.log("i have been hit");
             //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
@@ -122,7 +127,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var updateVariables = function(){
     did_i_get_hit_by_a_fly();
     if ( y > floorHeight ){
-      y = (y-fallspeed);
+      y = (y+fallspeed);
     };
     //used to calculate direction
     newerX = x;

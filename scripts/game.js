@@ -1,5 +1,5 @@
 /**************************************************
- ** GAME VARIABLES game.js - Front End
+ ** GAME JS -CLIENT SIDE
  **************************************************/
 var canvas,     // Canvas DOM element
     ctx,      // Canvas rendering context
@@ -8,14 +8,10 @@ var canvas,     // Canvas DOM element
     remotePlayers,  // Remote players
     socket;     // Socket connection
 
+var floorHeight = 4;
+    // variable that tracks how much the player has moved, everything is drawn
+    var drawX = 0;//in relation to this variable 
 
-
-var floorHeight = 474;
-    var drawX = 0;
-
-    /**************************************************
-     ** GAME INITIALISATION
-     **************************************************/
     function init() {
       // Declare the canvas and rendering context
       canvas = document.getElementById("gameCanvas");
@@ -64,23 +60,18 @@ var floorHeight = 474;
       var startX = Math.round(Math.random()*(canvas.width-5)),
           startY = floorHeight-10,
           startHp = 100;
-
       // Initialise the local player
       if (characterType === "Redhatter"){
         localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
       } else if (characterType === "Fly"){
         localPlayer = new Fly(startX, startY, startHp, localPlayerName);
-      }
+      } else {
+        alert("Something has went wrong");
+      };
       // Initialise socket connection
-
       var host = location.origin;
-
       socket = io.connect(host, {port: PORT, transports: ["websocket"]});
-
-      // Initialise remote players array
       remotePlayers = [];
-
-      // Start listening for events
       setEventHandlers();
     };
 
@@ -103,6 +94,7 @@ var setEventHandlers = function() {
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
   socket.on("meteor cast", onMeteorCast);
+  socket.on("respawn player", onRespawnPlayer);
 };
 
 function onMeteorCast(data){
@@ -139,8 +131,7 @@ function onSocketDisconnect() {
 function onNewPlayer(data) {
   console.log("player data: " + JSON.stringify(data));
   // Initialise the new player
-  /* FOR SOME REASON THINKS ITSELF IS THE NEW PLAYER D: */
- 
+  
   if (data.characterType === "Fly"){
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   } else {
@@ -149,7 +140,7 @@ function onNewPlayer(data) {
   newPlayer.id = data.id;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
-  if (newPlayer.getCharacterType()=="Fly"){
+  if (newPlayer.getCharacterType()=== "Fly"){
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
   } else {
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
@@ -182,6 +173,12 @@ function onRemovePlayer(data) {
   };
   // Remove player from array
   remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
+};
+
+function onRespawnPlayer(data) {
+  var respawnPlayer = playerById(data.id);
+  console.log("respawning ->" + respawnPlayer);
+  respawnPlayer.respawn();
 };
 
 var FPS = 60;

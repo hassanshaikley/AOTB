@@ -90,21 +90,24 @@ function onSocketConnection(client) {
   client.on("move player", onMovePlayer);
   client.on("update health", onUpdateHealth);
   client.on("attack hits", onHitByAttack);
-  client.on("meteor cast", onMeteorCast)
+  client.on("meteor cast", onMeteorCast);
+  client.on("respawning", onRespawn);
 };
-
+function onRespawn(){
+  var respawnPlayer = playerById(this.id);
+  util.log("a player has respawned (id:" + this.id + ")");
+  respawnPlayer.alive = true;
+  respawnPlayer.hp = 100;
+  this.emit("respawn Player", {id: this.id});
+};
 function onClientDisconnect() {
-
   var removePlayer = playerById(this.id);
-
   // Player not found
   if (!removePlayer) {
     return;
   };
-
   // Remove player from players array
   players.splice(players.indexOf(removePlayer), 1);
-
   // Broadcast removed player to connected socket clients
   this.broadcast.emit("remove player", {id: this.id});
 };
@@ -112,8 +115,6 @@ function onClientDisconnect() {
 // New player has joined
 function onNewPlayer(data) {
   // Create a new player
-
-
   util.log("A " + (data.characterType || "unknown") + " has joined the game.");
   if (data.characterType === "Fly"){
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
@@ -204,5 +205,6 @@ function playerById(id) {
 function updateGameVariables(){
   //util.log("Updating Vars");
 };
+
 
 init();

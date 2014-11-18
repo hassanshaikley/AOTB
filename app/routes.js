@@ -35,10 +35,10 @@ module.exports = function(app, passport) {
     Character.find({ "_user" : req.user._id }, function(err, _characters){
       if (err) console.log("Shit");
       console.log("CHARS ARE " + _characters);
-        res.render('profile.ejs', {
-          user : req.user, // get the user out of session and pass to template
-          characters : _characters
-        });
+      res.render('profile.ejs', {
+        user : req.user, // get the user out of session and pass to template
+        characters : _characters
+      });
     });
   });
 
