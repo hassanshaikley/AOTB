@@ -21,7 +21,16 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var getHp = function(){
     return hp;
   };
-
+  var respawn = function(){
+    alive = true;
+    var newX = Math.random(50);
+    var newY = 50;
+    drawAtX = newX;
+    drawAtY = newY;
+    x = newX;
+    y = newY;
+    hp = 100;
+  };
   var getAnimate = function(){
     return animate;
   };
@@ -33,7 +42,10 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
 
   /* Changes object state to dead! */
   var dies = function(){
-    this.alive = false;
+    if (alive == true) {
+      alive = false;
+      setTimeout(function(){ console.log("respawning"); respawn();}, 2000);
+    }
   }
   var getName = function(){
     return name;
@@ -43,8 +55,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   };
   var setHp = function(newHp){
     hp = newHp;
-    if (hp <= 0){
-      alive = false;
+    if (hp <= 0 && getAlive()){
+      dies();
     }
   };
 
