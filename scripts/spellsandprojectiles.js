@@ -51,7 +51,6 @@ var Meteor = function(meteorX){
       }
     }
     ctx.save();
-    ctx.globalCompositeOperation = "lighter";
     var fireballX = x  - localPlayer.getX() + 50;
     ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
     ctx.restore();
