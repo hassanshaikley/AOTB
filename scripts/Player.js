@@ -1,7 +1,7 @@
 /**************************************************
  ** GAME PLAYER CLASS
  **************************************************/
-
+var floorHeight = 474;
 var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var x =               startX,
       y =               startY,
@@ -15,8 +15,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       prevX =           x,
       postX =           x,
       moveDifferenceX = 0,
-      animate =         0;
-
+      animate =         0,
+      fallspeed =       1;
   // Getters and setters
   var getHp = function(){
     return hp;
@@ -30,6 +30,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     x = newX;
     y = newY;
     hp = 100;
+    socket.emit("RESPAWNS");
   };
   var getAnimate = function(){
     return animate;
@@ -62,6 +63,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
 
   /* Used to determine the direction that a character is facing */
   var getMoveDirection = function(){
+
     if (moveDifferenceX < 0){
       return "left";
     } else if (moveDifferenceX > 0){
@@ -98,11 +100,11 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var walkAnimationTimer = Date.now();
   /* UpdateVariables function is only called when the window is focused - at rate 
    * of FPS
-   *
-   *
-   *
    */
   var updateVariables = function(){
+    if ( y > floorHeight ){
+      y = (y-fallspeed);
+    };
     //used to calculate direction
     newerX = x;
     
@@ -148,10 +150,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var getDrawAtY = function(){
     return drawAtY;
   };
-  // var rightClick = function(){
-  // }
-  // var leftClick = function(){
-  // }
 
   // Define which variables and methods can be accessed
   return {

@@ -58,9 +58,6 @@ var floorHeight = 474;
         }
       }
 
-
-
-
       // Initialise keyboard controls
       keys = new Keys();
 

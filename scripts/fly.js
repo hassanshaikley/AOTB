@@ -86,7 +86,7 @@ var Fly = function(x, y, hp, name){
             console.log("i have been hit");
             //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
             localPlayer.setHp(localPlayer.getHp()-25);
-            socket.emit("descend attack hits");
+            socket.emit("attack hits");
             remotePlayers[i].hitme = Date.now();
           }
         }
