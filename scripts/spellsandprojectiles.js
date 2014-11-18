@@ -38,7 +38,7 @@ var Meteor = function(meteorX){
   var getY = function(){
     return y;
   };
-
+  var hitby = [];
   var draw = function(ctx){
     /* Check if a spell hits - going to need to be refactored*/
     for (var i = 0; i < Spells.spellsarray.length; i++){
@@ -46,9 +46,14 @@ var Meteor = function(meteorX){
       //if (yDist <= 100)
         //console.log(yDist);
       var xDist = (Spells.spellsarray[i].getX() - localPlayer.getX()-canvas.width/2 + 155);
-      console.log("xd "+ xDist);
-      if (xDist <= 90 && xDist >= 20) 
+      console.log("hit by " +hitby[i]);
+      if (xDist <= 85 && xDist >= 25 && yDist <= 100 && yDist >= 50 && (hitby[i] === undefined || (Date.now() -hitby[i] >= 600)) ) {
         console.log("HIT");
+        /* TELL LE SERVER I GOT HIT */
+        localPlayer.setHp(localPlayer.getHp()-25);
+        socket.emit("descend attack hits");
+        hitby[i] = Date.now();
+      }
     }
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
