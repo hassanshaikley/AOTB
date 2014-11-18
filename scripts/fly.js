@@ -1,3 +1,7 @@
+/*
+FLY
+   */
+
 var flyAnimate = 0;
 var localX;
 var floorHeight = 474;
@@ -76,10 +80,10 @@ var Fly = function(x, y, hp, name){
   var did_i_get_hit_by_a_fly = function(){
 
     for (i = 0; i < remotePlayers.length; i++) {
-      
-     // console.log(remotePlayers[i].getCharacterType() + " can hit me");
+
+      // console.log(remotePlayers[i].getCharacterType() + " can hit me");
       if (remotePlayers[i].getCharacterType() === "Fly"){
-       // console.log("Got a fly in the region");
+        // console.log("Got a fly in the region");
         if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
           if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
 
@@ -90,8 +94,8 @@ var Fly = function(x, y, hp, name){
             remotePlayers[i].hitme = Date.now();
           }
         }
-    }
-    //only works if I HIT SOMEONE
+      }
+      //only works if I HIT SOMEONE
     }
   };
 

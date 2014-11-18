@@ -27,7 +27,6 @@ var floorHeight = 474;
       /* canvas.ontouchstart = function(e){
             clientRect = ctx.canvas.getBoundingClientRect();
             adjustedX = drawX + localPlayer.getX(); 
-            console.log("first adjustment "+ localPlayer.getX()+ " to " + drawX+" to " + adjustedX);
             adjustedX += (e.clientX - clientRect.left) -100;
             console.log("localPlayer x " + localPlayer.getX() + "\nclicked at " + (e.clientX - clientRect.left) ); 
             adjustedY += e.clientY - clientRect.topy;
@@ -47,10 +46,8 @@ var floorHeight = 474;
             clientRect = ctx.canvas.getBoundingClientRect();
             
             adjustedX = drawX + localPlayer.getX(); 
-            console.log("first adjustment "+ localPlayer.getX()+ " to " + drawX+" to " + adjustedX);
             adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
            
-            console.log("localPlayer x " + localPlayer.getX() + "\nclicked at " + (e.clientX - clientRect.left) ); 
             adjustedY += e.clientY - clientRect.topy;
             //console.log(" clicked at " + e.clientX + " adjusted to " + adjustedX);
             localPlayer.rightClick(adjustedX, adjustedY); 
