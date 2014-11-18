@@ -128,7 +128,6 @@ function onSocketDisconnect() {
 
 // New player
 function onNewPlayer(data) {
-  console.log("player data: " + JSON.stringify(data));
   // Initialise the new player
   
   if (data.characterType === "Fly"){
