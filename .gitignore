@@ -2,6 +2,7 @@ node_modules
 
 *.swo
 *.swp
+*.swn
 /localAssets
 .DS_Store
 Procfile

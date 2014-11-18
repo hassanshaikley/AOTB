@@ -31,8 +31,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     x = newX;
     y = newY;
     hp = 100;
-    console.log("respawning");
-    if (localPlayer.id === undefined) {
+    if (id === undefined) {
+      console.log("respawning: " + id);
       socket.emit("respawning");
     }
   };

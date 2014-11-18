@@ -91,7 +91,7 @@ function onSocketConnection(client) {
   client.on("update health", onUpdateHealth);
   client.on("attack hits", onHitByAttack);
   client.on("meteor cast", onMeteorCast);
-  client.on("respawning", onRespawn);
+  //client.on("respawning", onRespawn);
 };
 function onRespawn(){
   var respawnPlayer = playerById(this.id);
@@ -205,6 +205,5 @@ function playerById(id) {
 function updateGameVariables(){
   //util.log("Updating Vars");
 };
-
 
 init();
