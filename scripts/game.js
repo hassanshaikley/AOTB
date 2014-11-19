@@ -8,7 +8,7 @@ var canvas,     // Canvas DOM element
     remotePlayers,  // Remote players
     socket;     // Socket connection
 
-var floorHeight = 4;
+var floorHeight = 474;
     // variable that tracks how much the player has moved, everything is drawn
     var drawX = 0;//in relation to this variable 
 

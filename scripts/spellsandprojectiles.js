@@ -11,7 +11,7 @@ var Spells = {
   },
   yoloswag: function() {
               console.log("Yolo Swag");
-            }
+  }
 };
 
 /* startY isn't necessary, but neither is swag */
@@ -27,7 +27,6 @@ var Meteor = function(meteorX){
     };
   };
 
-
   var getX = function(){
     return x;
   };
@@ -42,12 +41,14 @@ var Meteor = function(meteorX){
       var yDist = Math.abs(Spells.spellsarray[i].getY() - localPlayer.getY());
       //if (yDist <= 100)
       //console.log(yDist);
+      
+
       var xDist = (Spells.spellsarray[i].getX() - localPlayer.getX()-canvas.width/2 + 155);
-      if (xDist <= 85 && xDist >= 25 && yDist <= 100 && yDist >= 50 && (hitby[i] === undefined || (Date.now() -hitby[i] >= 600)) ) {
-        /* TELL LE SERVER I GOT HIT */
+      if (xDist <= 85 && xDist >= 25 && yDist <= 100 && yDist >= 50 ) {
+        Spells.spellsarray.splice(i, 1);
         localPlayer.setHp(localPlayer.getHp()-25);
         socket.emit("attack hits");
-        hitby[i] = Date.now();
+        console.log("aah");
       }
     }
     ctx.save();
@@ -57,9 +58,9 @@ var Meteor = function(meteorX){
   };
 
   return {
-    getX : getX,
-         getY : getY,
-         draw : draw,
-         update : update
+          getX : getX,
+          getY : getY,
+          draw : draw,
+          update : update
   }
 };

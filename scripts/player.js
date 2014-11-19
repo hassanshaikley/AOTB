@@ -24,15 +24,16 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   };
   var respawn = function(){
     alive = true;
-    var newX = Math.random(50);
-    var newY = 50;
+    var newY = floorHeight-10;
+    var newX = 50;
     drawAtX = newX;
     drawAtY = newY;
     x = newX;
     y = newY;
     hp = 100;
+
     if (id === undefined) {
-      console.log("respawning: " + id);
+      console.log("respawning: " + id + " at " + x);
       socket.emit("respawning");
     }
   };
