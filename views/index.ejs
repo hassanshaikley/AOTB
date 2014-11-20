@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
   <head>
     <title>AMARA</title>
     <meta charset="utf-8">
@@ -21,9 +19,7 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
     <% } %>
-
   </head>
-
   <body>
     <%if  (authenticated ) {%>
     <a href="/profile" class="btn btn-default"><span class="fa fa-user"></span> Profile</a>
@@ -47,7 +43,6 @@
     <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
     <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a>
     <% } %>
-
     <div id="gameCanvasMargin">
       <canvas id="gameCanvas" height=500 width=800></canvas>
       <div id="chat_outer">
@@ -57,7 +52,6 @@
         <input type="button" name="send" id="send" value="send">
       </div>
     </div>
-
     <script src="scripts/assetLoader.js"></script>
     <script src="scripts/animationframe.js"></script>
     <script src="scripts/player.js"></script>

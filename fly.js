@@ -1,7 +1,6 @@
 /**************************************************
  ** FLY CLASS IN SERVER
  **************************************************/
-
 Player = require("./player").Player;
 var util = require("util");
 var Fly = function(x, y, hp, name){
