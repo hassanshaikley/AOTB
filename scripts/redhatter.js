@@ -30,18 +30,14 @@ var Redhatter = function(x, y, hp, name){
 
   var draw = function(ctx) {
     //var drawAtX = skeleton.getX()-50;
+    skeleton.drawText();
     if (skeleton.getMoveDirection() === "left"){
       facing_left = true;
     } else if (skeleton.getMoveDirection() === "right"){
       facing_left = false;
     }
-    
-    
-
-    //    ctx.globalCompositeOperation = "lighter";
-    //modified context based on direction facing - basically flips along vert axis
     if (facing_left){
-      spritesheet_offset_y = 100;
+      spritesheet_offset_y = 102;
     }
     else {
       spritesheet_offset_y = 0;
@@ -106,6 +102,7 @@ var Redhatter = function(x, y, hp, name){
          update: update,
          draw: draw,
          rightClick: rightClick,
-         leftClick: leftClick
+         leftClick: leftClick,
+         speaks: skeleton.speaks
   };
 };

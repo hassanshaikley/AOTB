@@ -21,16 +21,24 @@ $(document).keypress(function(e) {
   }
 });
 
-
 var chat_scroll = document.getElementById("chat");
 chat_scroll.scrollTop = chat_scroll.scrollHeight;
 socket.on('message', function (data) {
-  $('#chat').append(data.text + '<br />');
+  var speaker = playerById(data.id);
+  console.log("id: " + data.id);
+  console.log(speaker);
+  if (speaker == false){
+  $('#chat').append("<strong>" + localPlayer.getName() +":</strong> " + data.text + '<br />');
+    localPlayer.speaks(data.text);
+  } else {
+  $('#chat').append("<strong>" + speaker.getName() +"</strong> " + data.text + '<br />');
+    speaker.speaks(data.text);
+  }
   chat_scroll.scrollTop = chat_scroll.scrollHeight;
-
 });
 
 $('#send').click(function () {
-  socket.emit('sendMessage', { text: "<b>"+localPlayerName + "</b>: " +$('#text').val() });
+  socket.emit('sendMessage', 
+    { text: $('#text').val() });
   $('#text').val('');
 });

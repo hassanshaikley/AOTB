@@ -73,8 +73,6 @@ var Fly = function(x, y, hp, name){
     ctx.fillStyle = "black";
     ctx.font = "bold 13px sans-serif";
     ctx.fillText(name, bugX + 22, fly.getDrawAtY()-60);
-
-
   };
 
   var did_i_get_hit_by_a_fly = function(){
@@ -180,6 +178,7 @@ var Fly = function(x, y, hp, name){
          updateVariables : fly.updateVariables,
          draw: draw,
          rightClick: rightClick,
-         leftClick: leftClick
+         leftClick: leftClick,
+         speaks: skeleton.speaks
   };
 };

@@ -81,8 +81,9 @@ function onSocketConnection(client) {
   // Listen for client disconnected
   client.on("disconnect", onClientDisconnect);
   client.on('sendMessage', function (data) {
-    this.broadcast.emit('message', data);
-    this.emit('message', { text: data.text});   
+    this.broadcast.emit('message', { text: data.text, id: this.id});
+    util.log("chat"+this.id);
+    this.emit('message', { text: data.text, id: this.id});   
   });   
   // Listen for new player message
   client.on("new player", onNewPlayer);
@@ -142,7 +143,6 @@ function onNewPlayer(data) {
 /* Sends message to all players except one that casted */
 function onMeteorCast(data){
   //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
-  util.log(data.meteor_x);
   this.emit('meteor cast', {meteor_x: data.meteor_x });
   this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x });
 };

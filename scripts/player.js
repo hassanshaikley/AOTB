@@ -16,8 +16,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       postX =           x,
       moveDifferenceX = 0,
       animate =         0,
-      fallspeed =       1;
-
+      fallspeed =       1,
+      lastsaid = {};
   // Getters and setters
   var getHp = function(){
     return hp;
@@ -32,10 +32,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     y = newY;
     hp = 100;
 
-    if (id === undefined) {
-      console.log("respawning: " + id + " at " + x);
-      socket.emit("respawning");
-    }
   };
   var getAnimate = function(){
     return animate;
@@ -126,6 +122,10 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
 
   var updateVariables = function(){
     did_i_get_hit_by_a_fly();
+
+    if (Date.now() - lastsaid.time >= 500 ){
+      
+    }
     if ( y > floorHeight ){
       y = (y+fallspeed);
     };
@@ -174,9 +174,24 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var getDrawAtY = function(){
     return drawAtY;
   };
-
+  
+  var speaks = function(words){
+    lastsaid.time = Date.now();
+    lastsaid.text = words;
+  };
+  var drawText = function(){
+      //console.log("SPEAKING");
+    
+    if (Date.now() - lastsaid.time  <= 2000){
+      var text_x = canvas.width/2 + drawAtX - localX - 50;
+      ctx.fillStyle = "black";
+      ctx.font = "bold 13px sans-serif";
+      ctx.fillText(lastsaid.text, text_x + 25, y-100); 
+    }
+  };
   // Define which variables and methods can be accessed
   return {
+    drawText : drawText,
       getX: getX,
       getY: getY,
       setX: setX,
@@ -192,6 +207,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       updateVariables : updateVariables,
       getDrawAtX : getDrawAtX,
       getDrawAtY : getDrawAtY,
-      getAnimate : getAnimate
+      getAnimate : getAnimate,
+      speaks : speaks
   };
 };
