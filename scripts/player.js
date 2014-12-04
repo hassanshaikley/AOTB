@@ -58,7 +58,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var setHp = function(newHp){
     hp = newHp;
     if (hp <= 0 && getAlive()){
-      console.log("WTF");
       dies();
     }
   };
@@ -119,13 +118,10 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       }
     }
   };
-
+  var yDelta = 1;
   var updateVariables = function(){
     did_i_get_hit_by_a_fly();
 
-    if (Date.now() - lastsaid.time >= 500 ){
-      
-    }
     if ( y > floorHeight ){
       y = (y+fallspeed);
     };
@@ -140,10 +136,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     }
     /* this.id == undefined means if this is referring to the current player 
      * Checks the difference between 
-     * 
      */
     moveDifferenceX =(newerX - postX);
-    
     if (moveDifferenceX){ postX = x; } /* USED TO TELL IF GOING LEFT OR RIGHT */
 
     if ((drawAtX - x) <= 2){
@@ -152,12 +146,18 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     if (drawAtX -x >= -2){
       drawAtX-=speed;
     }
-  // var yDelta = Math.abs((drawAtY - y)/5);
-    var yDelta = 1;
-    if (drawAtY - y <= 3){
+    if (drawAtY - y > 50 || drawAtY - y < -50){ //50 && -50 were cool
+      console.log("speeding");
+      yDelta = 2.9;
+    } else {
+      yDelta = 1;
+    }
+    
+    //var yDelta = 2.2; //2.2 for descend attack - 1 otherwise
+    if (drawAtY - y <= 2){
       drawAtY+=speed*yDelta;
     }
-    if (drawAtY -y >= -3){
+    if (drawAtY -y >= -2){
       drawAtY-=speed*yDelta;
     }
   };

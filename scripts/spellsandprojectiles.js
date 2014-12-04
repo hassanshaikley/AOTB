@@ -48,7 +48,6 @@ var Meteor = function(meteorX){
         Spells.spellsarray.splice(i, 1);
         localPlayer.setHp(localPlayer.getHp()-25);
         socket.emit("attack hits");
-        console.log("aah");
       }
     }
     ctx.save();

@@ -157,9 +157,9 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-//  if (movePlayer.getCharacterType() == "Fly"){
-//    movePlayer.setDescendAttack(data.descendAttack);
-//  }
+  if (movePlayer.getCharacterType() == "Fly"){
+    movePlayer.setDescendAttack(data.descendAttack);
+  }
   movePlayer.setHp(data.hp);
 };
 // Remove player
@@ -180,6 +180,7 @@ function onRespawnPlayer(data) {
 };
 
 var FPS = 60;
+
 /**************************************************
  ** GAME ANIMATION LOOP
  **************************************************/
