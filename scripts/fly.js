@@ -18,7 +18,7 @@ var Fly = function(x, y, hp, name){
       descendAttack = false,
       descendAttackSpeed = 10;
 
-  var fly =  Player(x, y, hp, name, 3);
+  var skeleton =  Player(x, y, hp, name, 3);
 
 
   var setDescendAttack = function(boolean_thing){
@@ -28,29 +28,29 @@ var Fly = function(x, y, hp, name){
     return descendAttack;
   };
   var draw = function(ctx) {
-
+    skeleton.drawText();
     if (flyAnimate >= 30){
       flyAnimate = 0;
     }
-    var bugX = canvas.width/2 + fly.getDrawAtX() - localX - 50;
+    var bugX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
 
-    if (fly.getAlive()){
+    if (skeleton.getAlive()){
       ctx.fillStyle="#FF0000";
-      ctx.fillRect(bugX+30,fly.getDrawAtY()-50,((fly.getHp()/2.2)),6);
+      ctx.fillRect(bugX+30,skeleton.getDrawAtY()-50,((skeleton.getHp()/2.2)),6);
     } else {
-      ctx.fillText("DEAD", bugX + 37, fly.getDrawAtY()-40);
+      ctx.fillText("DEAD", bugX + 37, skeleton.getDrawAtY()-40);
     }
 
     if (flyAnimate <= 10){
-      ctx.drawImage(flySprite,0,0, 100, 100, bugX,fly.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,0,0, 100, 100, bugX,skeleton.getDrawAtY()-50, 100, 100);
     }
     else if (flyAnimate <= 20){
-      ctx.drawImage(flySprite,100,0, 100, 100, bugX,fly.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,100,0, 100, 100, bugX,skeleton.getDrawAtY()-50, 100, 100);
     }
     else if (flyAnimate <= 30){
-      ctx.drawImage(flySprite,200,0, 100, 100, bugX,fly.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,200,0, 100, 100, bugX,skeleton.getDrawAtY()-50, 100, 100);
     }
-    ctx.drawImage(silverShield, bugX+ 20, fly.getDrawAtY()-3);
+    ctx.drawImage(silverShield, bugX+ 20, skeleton.getDrawAtY()-3);
 
     if (descendAttack || rightMouseActionHappening){
       if (!rightMouseActionHappening){
@@ -61,18 +61,18 @@ var Fly = function(x, y, hp, name){
 
     if (descendAttack) {
       ctx.save();
-      ctx.translate(bugX+60, fly.getDrawAtY()-40 + 90);
+      ctx.translate(bugX+60, skeleton.getDrawAtY()-40 + 90);
       ctx.rotate(Math.PI);
       ctx.drawImage(silverSword, 0, -10);
       ctx.restore();
     } else {
-      ctx.drawImage(silverSword, bugX+ 60, fly.getDrawAtY()-40);
+      ctx.drawImage(silverSword, bugX+ 60, skeleton.getDrawAtY()-40);
     }
     flyAnimate++; 
 
     ctx.fillStyle = "black";
     ctx.font = "bold 13px sans-serif";
-    ctx.fillText(name, bugX + 22, fly.getDrawAtY()-60);
+    ctx.fillText(name, bugX + 22, skeleton.getDrawAtY()-60);
   };
 
   var did_i_get_hit_by_a_fly = function(){
@@ -101,49 +101,49 @@ var Fly = function(x, y, hp, name){
   var update = function(keys) {
     //did_i_get_hit_by_a_fly();
     wobble--;
-    localX = fly.getX();
+    localX = skeleton.getX();
     // Previous position
-    var prevX = fly.getX(),
-        prevY = fly.getY();
+    var prevX = skeleton.getX(),
+        prevY = skeleton.getY();
 
     //if (Math.floor(Math.random()*50) == 1)
 
     if (descendAttack == false){
       // Up key takes priority over down
-      if (keys.up && fly.getY() >-16) {
-        fly.setY(fly.getY()- moveAmount);
+      if (keys.up && skeleton.getY() >-16) {
+        skeleton.setY(skeleton.getY()- moveAmount);
       } else if (keys.down) {
-        fly.setY(fly.getY()+ moveAmount);
+        skeleton.setY(skeleton.getY()+ moveAmount);
       };
-      if(wobble > 0 && fly.getY() <= floorHeight){
-        fly.setY(fly.getY()+1);
-      } else if (fly.getY() <= floorHeight) {
-        fly.setY(fly.getY()-.5);
+      if(wobble > 0 && skeleton.getY() <= floorHeight){
+        skeleton.setY(skeleton.getY()+1);
+      } else if (skeleton.getY() <= floorHeight) {
+        skeleton.setY(skeleton.getY()-.5);
       };
       if (wobble <=-20){
         wobble = 20;
       };
-      if (fly.getY() >=floorHeight+1){
-        fly.setY(floorHeight+1);
+      if (skeleton.getY() >=floorHeight+1){
+        skeleton.setY(floorHeight+1);
       };
       // Left key takes priority over right
       if (keys.left) {
 
-        fly.setX(fly.getX() - moveAmount);
+        skeleton.setX(skeleton.getX() - moveAmount);
         localX -= moveAmount;
       } else if (keys.right) {
 
-        fly.setX(fly.getX()+ moveAmount);
+        skeleton.setX(skeleton.getX()+ moveAmount);
         localX += moveAmount;
       };
     }
     else {
-      if ( fly.getY() >= floorHeight-1){
+      if ( skeleton.getY() >= floorHeight-1){
         descendAttack = false;
-        fly.setY( floorHeight+1);
+        skeleton.setY( floorHeight+1);
         rightMouseActionHappening = false;
       } else {
-        fly.setY(fly.getY()+descendAttackSpeed);
+        skeleton.setY(skeleton.getY()+descendAttackSpeed);
       }
     }
     return (prevX != x || prevY != y) ? true : false;
@@ -161,21 +161,21 @@ var Fly = function(x, y, hp, name){
   };
 
   return {
-    getX : fly.getX,
-         getY : fly.getY,
-         setX : fly.setX,
-         setY : fly.setY,
-         getHp : fly.getHp,
-         setHp : fly.setHp,
-         getAlive : fly.getAlive,
-         dies : fly.dies,
-         setName : fly.setName,
-         getName : fly.getName,
+    getX : skeleton.getX,
+         getY : skeleton.getY,
+         setX : skeleton.setX,
+         setY : skeleton.setY,
+         getHp : skeleton.getHp,
+         setHp : skeleton.setHp,
+         getAlive : skeleton.getAlive,
+         dies : skeleton.dies,
+         setName : skeleton.setName,
+         getName : skeleton.getName,
          setDescendAttack : setDescendAttack,
          getDescendAttack : getDescendAttack,
          getCharacterType : getCharacterType,
          update: update,
-         updateVariables : fly.updateVariables,
+         updateVariables : skeleton.updateVariables,
          draw: draw,
          rightClick: rightClick,
          leftClick: leftClick,

@@ -186,9 +186,11 @@ var FPS = 60;
 function animate() {
   update();
   draw();
+  setTimeout(animate, 1000/FPS);
+  /*
   setTimeout(function(){
     window.requestAnimFrame(animate);
-  }, 1000 /FPS);
+  }, 1000 /FPS);*/
 };
 
 

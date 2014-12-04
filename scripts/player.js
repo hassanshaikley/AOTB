@@ -152,8 +152,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     if (drawAtX -x >= -2){
       drawAtX-=speed;
     }
-    var yDelta = Math.abs((drawAtY - y)/5);
-    
+  // var yDelta = Math.abs((drawAtY - y)/5);
+    var yDelta = 1;
     if (drawAtY - y <= 3){
       drawAtY+=speed*yDelta;
     }
