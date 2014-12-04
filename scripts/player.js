@@ -22,7 +22,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var getHp = function(){
     return hp;
   };
-  var respawn = function(){
+  var respawn = function(){ /* Function that is called for local player*/
     alive = true;
     var newY = floorHeight-10;
     var newX = 50;
@@ -46,7 +46,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var dies = function(){
     if (alive == true) {
       alive = false;
-      respawn();
+      socket.emit("respawn player")
+    //  respawn();
     }
   }
   var getName = function(){
@@ -208,6 +209,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       getDrawAtX : getDrawAtX,
       getDrawAtY : getDrawAtY,
       getAnimate : getAnimate,
-      speaks : speaks
+      speaks : speaks,
+      respawn : respawn
   };
 };

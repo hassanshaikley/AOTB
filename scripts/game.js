@@ -175,8 +175,12 @@ function onRemovePlayer(data) {
 
 function onRespawnPlayer(data) {
   var respawnPlayer = playerById(data.id);
-  console.log("respawning ->" + respawnPlayer);
-  respawnPlayer.respawn();
+  if (respawnPlayer == false) {
+    respawnPlayer = localPlayer;
+  } else {
+  }
+    console.log("respawning ->" + respawnPlayer.getName());
+    respawnPlayer.respawn();
 };
 
 var FPS = 60;

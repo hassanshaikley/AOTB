@@ -92,14 +92,15 @@ function onSocketConnection(client) {
   client.on("update health", onUpdateHealth);
   client.on("attack hits", onHitByAttack);
   client.on("meteor cast", onMeteorCast);
-  //client.on("respawning", onRespawn);
+  client.on("respawn player", onRespawn);
 };
 function onRespawn(){
   var respawnPlayer = playerById(this.id);
   util.log("a player has respawned (id:" + this.id + ")");
   respawnPlayer.alive = true;
   respawnPlayer.hp = 100;
-  this.emit("respawn Player", {id: this.id});
+  this.emit("respawn player", {id: this.id});
+  this.broadcast.emit("respawn player", {id: this.id});
 };
 function onClientDisconnect() {
   var removePlayer = playerById(this.id);

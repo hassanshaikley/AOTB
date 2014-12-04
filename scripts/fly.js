@@ -179,6 +179,7 @@ var Fly = function(x, y, hp, name){
          draw: draw,
          rightClick: rightClick,
          leftClick: leftClick,
-         speaks: skeleton.speaks
+         speaks: skeleton.speaks,
+         respawn : skeleton.respawn
   };
 };
