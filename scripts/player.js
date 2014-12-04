@@ -61,7 +61,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   };
   var setHp = function(newHp){
     hp = newHp;
-
     if (hp <= 0 && getAlive()){
       console.log("WTF");
       dies();

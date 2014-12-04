@@ -160,6 +160,7 @@ function onHitByAttack(data){
   //if DIES
   if (hitPlayer.getHp() <= 0){
     //util.log("dude is dead " + hitPlayer.id);
+    hitPlayer.setHp(100);
   }
   this.broadcast.emit('set health', { id: hitPlayer.id, hp: hitPlayer.getHp()});
   //emit that health to every1
