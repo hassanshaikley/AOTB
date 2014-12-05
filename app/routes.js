@@ -23,9 +23,12 @@ module.exports = function(app, passport) {
   });
 
   app.get('/signup', isNotLoggedIn, function(req, res) {
-
     // render the page and pass in any flash data if it exists
     res.render('signup.ejs', { message: req.flash('signupMessage') });
+  });
+
+  app.get('/create_character', isLoggedIn, function(req, res){
+    res.render('create_character.ejs');
   });
 
   app.get('/profile', isLoggedIn, function(req, res) {
