@@ -17,7 +17,20 @@ module.exports = function(app, passport) {
       });
     });
   });
+  app.post('/create_char', isLoggedIn, function(req, res){
+    var mongoose = require('mongoose');
+    var Character = mongoose.model('Character');
+ //   req.body.char_type
+    var _char = new Character({ race: req.body.char_type, _user: req.user._id, name: req.body.c_name });
 
+    _char.save(function(err) {
+      if (err) return handleError(err); 
+      //saved
+      res.redirect('/profile');
+    });
+//req.user._id 
+ //   res.render('sup'); 
+  });
   app.get('/login', isNotLoggedIn, function(req, res) {
     res.render('login.ejs', { message: req.flash('loginMessage') }); 
   });
@@ -69,21 +82,17 @@ module.exports = function(app, passport) {
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-
   // if user is authenticated in the session, carry on 
   if (req.isAuthenticated())
     return next();
-
   // if they aren't redirect them to the home page
   res.redirect('/');
 }
 
 function isNotLoggedIn(req, res, next) {
-
   // if user is authenticated in the session, carry on 
   if (!req.isAuthenticated())
     return next();
-
   // if they aren't redirect them to the home page
   res.redirect('/');
 }
