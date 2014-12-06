@@ -245,6 +245,8 @@ function draw() {
   localPlayer.updateVariables();
   localPlayer.draw(ctx);
 };
+var z = 0;
+var _anim = 0;
 function drawBackground(){
   var displacement = drawX-localPlayer.getX() ;
   //drawX is not changing aaah
@@ -256,6 +258,16 @@ function drawBackground(){
   ctx.drawImage(ground ,0,0, 400, 100, displacement-400,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement-800,400, 400, 100); 
   ctx.drawImage(CastleOfOne, displacement,295);
+  if (_anim %20 == 0){ 
+    z+=100;
+  }
+//  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
+  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+900, 395, 100, 100);
+  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1000, 395, 100, 100);
+    if (z >= 300){
+      z =0;
+    }
+    _anim++;
 };
 // Browser window resize
 
