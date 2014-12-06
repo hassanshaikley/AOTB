@@ -21,7 +21,8 @@ module.exports = function(app, passport) {
     var mongoose = require('mongoose');
     var Character = mongoose.model('Character');
  //   req.body.char_type
-    var _char = new Character({ race: req.body.char_type, _user: req.user._id, name: req.body.c_name });
+    var c_name = req.body.c_name.replace(/ /g, "");
+    var _char = new Character({ race: req.body.char_type, _user: req.user._id, name: c_name });
 
     _char.save(function(err) {
       if (err) return handleError(err); 
