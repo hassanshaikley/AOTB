@@ -1,8 +1,7 @@
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
     res.render('index.ejs', { authenticated: req.isAuthenticated(), 
-      user : req.user,
-    characterType : "Fly"
+      res.redirect('/profile');
     }); 
   });
   app.post('/', function(req, res) {
@@ -20,7 +19,7 @@ module.exports = function(app, passport) {
   app.post('/create_char', isLoggedIn, function(req, res){
     var mongoose = require('mongoose');
     var Character = mongoose.model('Character');
- //   req.body.char_type
+    //   req.body.char_type
     var c_name = req.body.c_name.replace(/ /g, "");
     var _char = new Character({ race: req.body.char_type, _user: req.user._id, name: c_name });
 
@@ -29,8 +28,8 @@ module.exports = function(app, passport) {
       //saved
       res.redirect('/profile');
     });
-//req.user._id 
- //   res.render('sup'); 
+    //req.user._id 
+    //   res.render('sup'); 
   });
   app.get('/login', isNotLoggedIn, function(req, res) {
     res.render('login.ejs', { message: req.flash('loginMessage') }); 
