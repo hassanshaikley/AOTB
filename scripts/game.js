@@ -276,8 +276,8 @@ function drawBackground(){
     z+=100;
   }
 //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
-  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+900, 395, 100, 100);
-  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1000, 395, 100, 100);
+  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+900, 393, 100, 100);
+  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1000, 393, 100, 100);
     if (z >= 300){
       z =0;
     }

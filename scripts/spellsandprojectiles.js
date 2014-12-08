@@ -17,7 +17,8 @@ var Spells = {
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX){
   var x =meteorX, 
-      y = -100;  
+      y = -100,
+      active = true; //active spells can hurt this specific client 
   var update = function(){
     y += 15;
     //x += 2;
@@ -34,7 +35,6 @@ var Meteor = function(meteorX){
   var getY = function(){
     return y;
   };
-  var hitby = [];
   var draw = function(ctx){
     /* Check if a spell hits - going to need to be refactored*/
     for (var i = 0; i < Spells.spellsarray.length; i++){
@@ -42,11 +42,11 @@ var Meteor = function(meteorX){
       //if (yDist <= 100)
       //console.log(yDist);
       
-
       var xDist = (Spells.spellsarray[i].getX() - localPlayer.getX()-canvas.width/2 + 155);
-      if (xDist <= 85 && xDist >= 25 && yDist <= 100 && yDist >= 50 ) {
-        Spells.spellsarray.splice(i, 1);
+      if (xDist <= 85 && xDist >= 25 && yDist <= 100 && yDist >= 50 && Spells.spellsarray[i].active) {
+//        Spells.spellsarray.splice(i, 1);
         localPlayer.setHp(localPlayer.getHp()-25);
+        Spells.spellsarray[i].active = false;
         socket.emit("attack hits");
       }
     }
@@ -60,6 +60,7 @@ var Meteor = function(meteorX){
           getX : getX,
           getY : getY,
           draw : draw,
-          update : update
+          update : update,
+          active : active
   }
 };

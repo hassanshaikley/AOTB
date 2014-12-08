@@ -91,6 +91,9 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
 
   /* Mutator for server x variable! */
   var setX = function(newX) {
+    if (newX <= -800){
+      return;
+    }
     x = newX;
   };
 
