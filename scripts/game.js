@@ -157,7 +157,7 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-  if (movePlayer.getCharacterType() == "Fly"){
+  if (movePlayer.getCharacterType() === "Fly"){
     movePlayer.setDescendAttack(data.descendAttack);
   }
   movePlayer.setHp(data.hp);
