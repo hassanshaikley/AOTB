@@ -9,73 +9,73 @@ var canvas,     // Canvas DOM element
     socket;     // Socket connection
 
 var floorHeight = 474;
-    // variable that tracks how much the player has moved, everything is drawn
-    var drawX = 0;//in relation to this variable 
+// variable that tracks how much the player has moved, everything is drawn
+var drawX = 0;//in relation to this variable 
 
-    function init() {
-      // Declare the canvas and rendering context
-      canvas = document.getElementById("gameCanvas");
-      ctx = canvas.getContext("2d");
-      //disable right click default behavior
-      canvas.oncontextmenu = function(e){return false;}
-      var clientRect;
-      var adjustedX, adjustedY;
-      /* canvas.ontouchstart = function(e){
-            clientRect = ctx.canvas.getBoundingClientRect();
-            adjustedX = drawX + localPlayer.getX(); 
-            adjustedX += (e.clientX - clientRect.left) -100;
-            adjustedY += e.clientY - clientRect.topy;
-            localPlayer.rightClick(adjustedX, adjustedY); 
-      } */
+function init() {
+  // Declare the canvas and rendering context
+  canvas = document.getElementById("gameCanvas");
+  ctx = canvas.getContext("2d");
+  //disable right click default behavior
+  canvas.oncontextmenu = function(e){return false;}
+  var clientRect;
+  var adjustedX, adjustedY;
+  /* canvas.ontouchstart = function(e){
+     clientRect = ctx.canvas.getBoundingClientRect();
+     adjustedX = drawX + localPlayer.getX(); 
+     adjustedX += (e.clientX - clientRect.left) -100;
+     adjustedY += e.clientY - clientRect.topy;
+     localPlayer.rightClick(adjustedX, adjustedY); 
+     } */
 
-      canvas.onmousedown = function(e){
-        switch (e.which) {
-          case 1: 
-            clientRect = ctx.canvas.getBoundingClientRect();
-            localPlayer.leftClick();  
-            var y = e.clientY - clientRect.top;
-            break;
-          case 2: console.log('middle click'); 
-                  break;
-          case 3: 
-            clientRect = ctx.canvas.getBoundingClientRect();
-            
-            adjustedX = drawX + localPlayer.getX(); 
-            adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
-           
-            adjustedY += e.clientY - clientRect.topy;
-            //console.log(" clicked at " + e.clientX + " adjusted to " + adjustedX);
-            localPlayer.rightClick(adjustedX, adjustedY); 
-          break; 
-        }
-      }
+  canvas.onmousedown = function(e){
+    switch (e.which) {
+      case 1: 
+        clientRect = ctx.canvas.getBoundingClientRect();
+        localPlayer.leftClick();  
+        var y = e.clientY - clientRect.top;
+        break;
+      case 2: console.log('middle click'); 
+              break;
+      case 3: 
+              clientRect = ctx.canvas.getBoundingClientRect();
 
-      // Initialise keyboard controls
-      keys = new Keys();
+              adjustedX = drawX + localPlayer.getX(); 
+              adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
 
-      // Calculate a random start position for the local player
-      // The minus 5 (half a player size) stops the player being
-      // placed right on the egde of the screen
-      var startX = Math.round(Math.random()*(canvas.width-5)),
-          startY = floorHeight-10,
-          startHp = 100;
-      // Initialise the local player
-      if (characterType === "Redhatter"){
-        localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
-      } else if (characterType === "Fly"){
-        localPlayer = new Fly(startX, startY, startHp, localPlayerName);
-      } else if (characterType === "Bowman"){
-        localPlayer = new Bowman(startX, startY, startHp, localPlayerName);
-      } 
-      else {
-        alert("Something has went wrong");
-      };
-      // Initialise socket connection
-      var host = location.origin;
-      socket = io.connect(host, {port: PORT, transports: ["websocket"]});
-      remotePlayers = [];
-      setEventHandlers();
-    };
+              adjustedY += e.clientY - clientRect.topy;
+              //console.log(" clicked at " + e.clientX + " adjusted to " + adjustedX);
+              localPlayer.rightClick(adjustedX, adjustedY); 
+              break; 
+    }
+  }
+
+  // Initialise keyboard controls
+  keys = new Keys();
+
+  // Calculate a random start position for the local player
+  // The minus 5 (half a player size) stops the player being
+  // placed right on the egde of the screen
+  var startX = Math.round(Math.random()*(canvas.width-5)),
+      startY = floorHeight-10,
+      startHp = 100;
+  // Initialise the local player
+  if (characterType === "Redhatter"){
+    localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
+  } else if (characterType === "Fly"){
+    localPlayer = new Fly(startX, startY, startHp, localPlayerName);
+  } else if (characterType === "Bowman"){
+    localPlayer = new Bowman(startX, startY, startHp, localPlayerName);
+  } 
+  else {
+    alert("Something has went wrong");
+  };
+  // Initialise socket connection
+  var host = location.origin;
+  socket = io.connect(host, {port: PORT, transports: ["websocket"]});
+  remotePlayers = [];
+  setEventHandlers();
+};
 
 
 /**************************************************
@@ -101,12 +101,12 @@ var setEventHandlers = function() {
 };
 
 function onDescendAttackChanges(data){
- var _player = playerById(data.id); 
- if (_player === undefined){
+  var _player = playerById(data.id); 
+  if (_player === undefined){
 
- }else {
+  }else {
     _player.setDescendAttack(data.descendAttack);
- }
+  }
 };
 function onMeteorCast(data){
   var m = new Meteor(data.meteor_x);
@@ -141,7 +141,7 @@ function onSocketDisconnect() {
 // New player
 function onNewPlayer(data) {
   // Initialise the new player
-  
+
   if (data.characterType === "Fly"){
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   } else if (data.characterType === "Redhatter") {
@@ -152,12 +152,8 @@ function onNewPlayer(data) {
   newPlayer.id = data.id;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
-//  if (newPlayer.getCharacterType()=== "Fly"){
-//    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
-//  } else {
-    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
+  socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
 
-//  }
 };
 
 
@@ -171,9 +167,9 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-//  if (movePlayer.getCharacterType() === "Fly"){
- //   movePlayer.setDescendAttack(data.descendAttack);
-//  }
+  //  if (movePlayer.getCharacterType() === "Fly"){
+  //   movePlayer.setDescendAttack(data.descendAttack);
+  //  }
   movePlayer.setHp(data.hp);
 };
 // Remove player
@@ -192,7 +188,7 @@ function onRespawnPlayer(data) {
   if (respawnPlayer == false) {
     respawnPlayer = localPlayer;
   } else { 
-  
+
   }
   console.log("respawning ->" + respawnPlayer.getName());
   respawnPlayer.respawn();
@@ -208,9 +204,9 @@ function animate() {
   draw();
   setTimeout(animate, 1000/FPS);
   /*
-  setTimeout(function(){
-    window.requestAnimFrame(animate);
-  }, 1000 /FPS);*/
+     setTimeout(function(){
+     window.requestAnimFrame(animate);
+     }, 1000 /FPS);*/
 };
 
 
@@ -223,12 +219,12 @@ var newTime = Date.now();
 var updateTime = 50;
 function update() {
   if (Date.now() -  oldTime >= updateTime){
-//    if (localPlayer.getCharacterType() === "Fly"){
-//      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
-//    }
-//    else {
-      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
-//    }
+    //    if (localPlayer.getCharacterType() === "Fly"){
+    //      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+    //    }
+    //    else {
+    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
+    //    }
     oldTime = Date.now();
   }
   for (i = 0; i < Spells.spellsarray.length; i++){
@@ -275,13 +271,13 @@ function drawBackground(){
   if (_anim %20 == 0){ 
     z+=100;
   }
-//  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
+  //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
   ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+900, 393, 100, 100);
   ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1000, 393, 100, 100);
-    if (z >= 300){
-      z =0;
-    }
-    _anim++;
+  if (z >= 300){
+    z =0;
+  }
+  _anim++;
 };
 // Browser window resize
 

@@ -150,7 +150,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       drawAtX-=speed;
     }
     if (drawAtY - y > 50 || drawAtY - y < -50){ //50 && -50 were cool
-      console.log("speeding");
       yDelta = 3.05;//was 2.9
     } else {
       yDelta = 1;
