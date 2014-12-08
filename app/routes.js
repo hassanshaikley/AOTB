@@ -1,8 +1,13 @@
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
-    res.render('index.ejs', { authenticated: req.isAuthenticated(), 
+ //   res.render('index.ejs', { authenticated: req.isAuthenticated(),
+   if (req.isAuthenticated()){ 
       res.redirect('/profile');
+   } else {
+    res.render('index.ejs', { authenticated: req.isAuthenticated(),
     }); 
+
+   }
   });
   app.post('/', function(req, res) {
     var mongoose = require('mongoose');
