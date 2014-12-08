@@ -15,6 +15,7 @@ var util = require("util"),
     io = require("socket.io").listen(server),
     Fly = require("./fly").Fly,
     Redhatter = require("./redhatter").Redhatter,
+    Bowman = require("./bowman").Bowman,
     configDB = require('./config/database.js'),
     cookieParser = require('cookie-parser'),
     bodyParser   = require('body-parser'),
@@ -123,6 +124,9 @@ function onNewPlayer(data) {
   else if (data.characterType === "Redhatter"){
     var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
   }
+  else if (data.characterType === "Bowman"){
+    var newPlayer = new Bowman(data.x, data.y, data.hp, data.name);
+  }
   newPlayer.id = this.id;
   util.log("CReating a " + newPlayer.getCharacterType());
   // Broadcast new player to connected socket clients
@@ -187,7 +191,7 @@ function onMovePlayer(data) {
     movePlayer.setDescendAttack(data.descendAttack);
     this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
   }
-  else { //redhatter
+  else { //redhatter or bowman
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
   }
 };

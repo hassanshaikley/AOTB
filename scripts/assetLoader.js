@@ -12,6 +12,7 @@ var RedhatterSprite = new Image();
 var fireballSprite = new Image();
 var burningBuildingSide = new Image();
 var castleLeft = new Image();
+var bowMan = new Image();
 function UrlExists(url)
 {
   var http = new XMLHttpRequest();
@@ -36,3 +37,4 @@ RedhatterSprite.src = url + "redHatter.png";
 fireballSprite.src = url + "fireball.png";
 burningBuildingSide.src = url + "burning_side.png";
 castleLeft.src = url + "castleleft.png";
+bowMan.src = url + "bowman.png";

@@ -64,7 +64,10 @@ var floorHeight = 474;
         localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
       } else if (characterType === "Fly"){
         localPlayer = new Fly(startX, startY, startHp, localPlayerName);
-      } else {
+      } else if (characterType === "Bowman"){
+        localPlayer = new Bowman(startX, startY, startHp, localPlayerName);
+      } 
+      else {
         alert("Something has went wrong");
       };
       // Initialise socket connection
@@ -132,8 +135,10 @@ function onNewPlayer(data) {
   
   if (data.characterType === "Fly"){
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
-  } else {
+  } else if (data.characterType === "Redhatter") {
     var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
+  } else if (data.characterType === "Bowman") {
+    var newPlayer = new Bowman(data.x, data.y, data.hp, data.name);
   }
   newPlayer.id = data.id;
   // Add new player to the remote players array
