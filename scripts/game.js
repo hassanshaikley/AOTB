@@ -182,10 +182,11 @@ function onRespawnPlayer(data) {
   var respawnPlayer = playerById(data.id);
   if (respawnPlayer == false) {
     respawnPlayer = localPlayer;
-  } else {
+  } else { 
+  
   }
-    console.log("respawning ->" + respawnPlayer.getName());
-    respawnPlayer.respawn();
+  console.log("respawning ->" + respawnPlayer.getName());
+  respawnPlayer.respawn();
 };
 
 var FPS = 60;
@@ -218,7 +219,6 @@ function update() {
     }
     else {
       socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
-
     }
     oldTime = Date.now();
   }
