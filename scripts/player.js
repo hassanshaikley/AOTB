@@ -105,10 +105,10 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
    */
   var did_i_get_hit_by_a_fly = function(){
     for (i = 0; i < remotePlayers.length; i++) {
-      if (remotePlayers[i].getCharacterType() === "Fly"){
+      if (remotePlayers[i].getCharacterType() === "Fly" && remotePlayers[i].getDescendAttack()){
         // console.log("Got a fly in the region");
         if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
-          if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
+          if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-localPlayer.getY())) <=  55){
             console.log("i have been hit");
             //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
             localPlayer.setHp(localPlayer.getHp()-25);
@@ -122,7 +122,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var yDelta = 1;
   var updateVariables = function(){
     did_i_get_hit_by_a_fly();
-
     if ( y > floorHeight ){
       y = (y+fallspeed);
     };

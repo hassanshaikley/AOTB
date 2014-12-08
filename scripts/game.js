@@ -220,7 +220,7 @@ function animate() {
 
 var oldTime = Date.now();
 var newTime = Date.now();
-var updateTime = 250;
+var updateTime = 150;
 function update() {
   if (Date.now() -  oldTime >= updateTime){
 //    if (localPlayer.getCharacterType() === "Fly"){
