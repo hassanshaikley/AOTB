@@ -33,12 +33,12 @@
     <br><%= characterRace = character.race %> 
     <script>
       var localPlayerName = "<%= user && character.name || "unknown" %>";
-      var characterType = "<%= user && characterRace || "Redhatter" %>";
+      var characterType = "<%= user && characterRace || "Fly" %>";
     </script>
     <% }} else{ %>
     <script>
       var localPlayerName = "unknown";
-      var characterType = "Redhatter";
+      var characterType = "Fly";
     </script>
     <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
     <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a>

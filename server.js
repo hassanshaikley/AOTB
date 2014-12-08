@@ -66,7 +66,6 @@ server.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/
@@ -182,12 +181,12 @@ function onMovePlayer(data) {
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
 
+  // Broadcast updated position to connected socket clients
   if (movePlayer.getCharacterType() === "Fly"){
     movePlayer.setDescendAttack(data.descendAttack);
     this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
   }
-  // Broadcast updated position to connected socket clients
-  else {
+  else { //redhatter
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
   }
 };
