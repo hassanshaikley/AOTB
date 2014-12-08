@@ -93,7 +93,14 @@ function onSocketConnection(client) {
   client.on("attack hits", onHitByAttack);
   client.on("meteor cast", onMeteorCast);
   client.on("respawn player", onRespawn);
+  client.on("descend attack change", onDescendAttackChange);
 };
+function onDescendAttackChange(data){
+  var dAP = playerById(this.id);
+  dAP.setDescendAttack(data.descendAttack);
+  //this.emit("descend attack changes", data.descendAttack);
+  this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: data.descendAttack});
+}
 function onRespawn(){
   var respawnPlayer = playerById(this.id);
   util.log("a player has respawned (id:" + this.id + ")");
@@ -185,15 +192,7 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-
-  // Broadcast updated position to connected socket clients
-//  if (movePlayer.getCharacterType() === "Fly"){
-//    movePlayer.setDescendAttack(data.descendAttack);
-//    this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
- // }
- // else { //redhatter or bowman
-    this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
- // }
+  this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
 };
 
 /**************************************************

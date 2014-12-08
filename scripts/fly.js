@@ -21,8 +21,12 @@ var Fly = function(x, y, hp, name){
   var skeleton =  Player(x, y, hp, name, 3);
 
 
-  var setDescendAttack = function(boolean_thing){
+  var setDescendAttack = function(boolean_thing, local){
+//    console.log("descend attack changes");
     descendAttack = boolean_thing;
+    if (local) {
+      socket.emit("descend attack change", { descendAttack: boolean_thing });
+    }
   };
   var getDescendAttack = function(){
     return descendAttack;
@@ -139,7 +143,7 @@ var Fly = function(x, y, hp, name){
     }
     else {
       if ( skeleton.getY() >= floorHeight-1){
-        descendAttack = false;
+        setDescendAttack(false, true);
         skeleton.setY( floorHeight+1);
         rightMouseActionHappening = false;
       } else {
@@ -151,7 +155,7 @@ var Fly = function(x, y, hp, name){
 
   var rightClick = function(){
     //rightMouseAction = true;
-    setDescendAttack(true);
+    setDescendAttack(true, true);
   }
   var leftClick = function(){
     lefttMouseAction = true;

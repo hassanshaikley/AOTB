@@ -97,8 +97,17 @@ var setEventHandlers = function() {
   socket.on("remove player", onRemovePlayer);
   socket.on("meteor cast", onMeteorCast);
   socket.on("respawn player", onRespawnPlayer);
+  socket.on("descend attack changes", onDescendAttackChanges);
 };
 
+function onDescendAttackChanges(data){
+ var _player = playerById(data.id); 
+ if (_player === undefined){
+
+ }else {
+    _player.setDescendAttack(data.descendAttack);
+ }
+};
 function onMeteorCast(data){
   var m = new Meteor(data.meteor_x);
   Spells.spellsarray.push(m);
