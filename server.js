@@ -134,6 +134,7 @@ function onNewPlayer(data) {
     existingPlayer = players[i];
     this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType()});
   };
+  util.log("Total # of players is " + players.length);
 
   // Add new player to the players array
   players.push(newPlayer);
