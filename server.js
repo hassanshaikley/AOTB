@@ -187,13 +187,13 @@ function onMovePlayer(data) {
   movePlayer.setY(data.y);
 
   // Broadcast updated position to connected socket clients
-  if (movePlayer.getCharacterType() === "Fly"){
-    movePlayer.setDescendAttack(data.descendAttack);
-    this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
-  }
-  else { //redhatter or bowman
+//  if (movePlayer.getCharacterType() === "Fly"){
+//    movePlayer.setDescendAttack(data.descendAttack);
+//    this.broadcast.emit("move player", {descendAttack : movePlayer.getDescendAttack(), id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
+ // }
+ // else { //redhatter or bowman
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
-  }
+ // }
 };
 
 /**************************************************

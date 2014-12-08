@@ -143,12 +143,12 @@ function onNewPlayer(data) {
   newPlayer.id = data.id;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
-  if (newPlayer.getCharacterType()=== "Fly"){
-    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
-  } else {
+//  if (newPlayer.getCharacterType()=== "Fly"){
+//    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack(), name: localPlayer.getName()});
+//  } else {
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
 
-  }
+//  }
 };
 
 
@@ -162,9 +162,9 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-  if (movePlayer.getCharacterType() === "Fly"){
-    movePlayer.setDescendAttack(data.descendAttack);
-  }
+//  if (movePlayer.getCharacterType() === "Fly"){
+ //   movePlayer.setDescendAttack(data.descendAttack);
+//  }
   movePlayer.setHp(data.hp);
 };
 // Remove player
@@ -214,12 +214,12 @@ var newTime = Date.now();
 var updateTime = 250;
 function update() {
   if (Date.now() -  oldTime >= updateTime){
-    if (localPlayer.getCharacterType() === "Fly"){
-      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
-    }
-    else {
+//    if (localPlayer.getCharacterType() === "Fly"){
+//      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
+//    }
+//    else {
       socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
-    }
+//    }
     oldTime = Date.now();
   }
   for (i = 0; i < Spells.spellsarray.length; i++){
