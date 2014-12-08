@@ -220,7 +220,7 @@ function animate() {
 
 var oldTime = Date.now();
 var newTime = Date.now();
-var updateTime = 150;
+var updateTime = 50;
 function update() {
   if (Date.now() -  oldTime >= updateTime){
 //    if (localPlayer.getCharacterType() === "Fly"){
@@ -271,7 +271,7 @@ function drawBackground(){
   ctx.drawImage(ground ,0,0, 400, 100, displacement,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement-400,400, 400, 100); 
   ctx.drawImage(ground ,0,0, 400, 100, displacement-800,400, 400, 100); 
-  ctx.drawImage(CastleOfOne, displacement,295);
+  ctx.drawImage(CastleOfOne, displacement-100,295);
   if (_anim %20 == 0){ 
     z+=100;
   }
