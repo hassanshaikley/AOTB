@@ -9,12 +9,9 @@ var Shanker = function(x, y, hp, name){
   var moveSpeed = 4.0;
   var skeleton =  Player(x, y, hp, name, moveSpeed),
       facing_left;
-
   var spritesheet_offset_y = 0;
-
   var rightClick = function(clientX, clientY){
-    console.log("bowman clicks");
-
+    console.log("sh clicks");
   };
 
   /* Maybe make this heal?? */ 
@@ -41,17 +38,6 @@ var Shanker = function(x, y, hp, name){
       spritesheet_offset_y = 100;
     }
    var   drawAtX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
-    
-    if (skeleton.getAlive()){
-      ctx.fillStyle="#FF0000";
-      ctx.fillRect(drawAtX+30,skeleton.getY()-50,((skeleton.getHp()/2.2)),6);
-      ctx.fillStyle = "black";
-    } else { /* If it's dead, just write DEAD */
-      ctx.fillText("DEAD", drawAtX + 37, skeleton.getY()-40);
-    }
-    ctx.fillStyle = "black";
-    ctx.font = "bold 13px sans-serif";
-    ctx.fillText(name, drawAtX + 25, skeleton.getY()-60);
 
     /* Decides what sprite to draw*/
     if (skeleton.getAnimate()%40 <= 10){ 

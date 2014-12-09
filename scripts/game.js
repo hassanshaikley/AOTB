@@ -194,7 +194,6 @@ function onRespawnPlayer(data) {
   } else { 
 
   }
-  console.log("respawning ->" + respawnPlayer.getName());
   respawnPlayer.respawn();
 };
 

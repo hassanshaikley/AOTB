@@ -44,16 +44,6 @@ var Redhatter = function(x, y, hp, name){
     }
    var   drawAtX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
     
-    if (skeleton.getAlive()){
-      ctx.fillStyle="#FF0000";
-      ctx.fillRect(drawAtX+30,skeleton.getY()-50,((skeleton.getHp()/2.2)),6);
-      ctx.fillStyle = "black";
-    } else { /* If it's dead, just write DEAD */
-      ctx.fillText("DEAD", drawAtX + 37, skeleton.getY()-40);
-    }
-    ctx.fillStyle = "black";
-    ctx.font = "bold 13px sans-serif";
-    ctx.fillText(name, drawAtX + 25, skeleton.getY()-60);
 
     /* Decides what sprite to draw*/
     if (skeleton.getAnimate() <= 20){ 

@@ -143,10 +143,10 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     moveDifferenceX =(newerX - postX);
     if (moveDifferenceX){ postX = x; } /* USED TO TELL IF GOING LEFT OR RIGHT */
 
-    if ((drawAtX - x) <= 2){
+    if ((drawAtX - x) <= speed){
       drawAtX+=speed;
     }
-    if (drawAtX -x >= -2){
+    if (drawAtX -x >= speed){
       drawAtX-=speed;
     }
     if (drawAtY - y > 50 || drawAtY - y < -50){ //50 && -50 were cool
@@ -181,11 +181,23 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     lastsaid.time = Date.now();
     lastsaid.text = words;
   };
+  var text_x;
   var drawText = function(){
-      //console.log("SPEAKING");
+      //console.log("SPEAKING")
+      text_x = canvas.width/2 + drawAtX - localX - 50;
+    if (alive){
+      ctx.fillStyle="#000000";
+      ctx.fillRect(text_x+30,drawAtY-50,100/2.2,6);
+      ctx.fillStyle="#FF0000";
+      ctx.fillRect(text_x+30,drawAtY-50,((hp/2.2)),6);
+    } else {
+      ctx.fillText("DEAD", text_x+ 37, drawAtY-40);
+    };
+    ctx.fillStyle = "black";
+    ctx.font = "bold 13px sans-serif";
+    ctx.fillText(name, text_x + 25, drawAtY-60);
     
     if (Date.now() - lastsaid.time  <= 2000){
-      var text_x = canvas.width/2 + drawAtX - localX - 50;
       ctx.fillStyle = "black";
       ctx.font = "bold 13px sans-serif";
       ctx.fillText(lastsaid.text, text_x + 25, y-100); 

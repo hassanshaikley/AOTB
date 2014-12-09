@@ -22,7 +22,6 @@ var Fly = function(x, y, hp, name){
 
 
   var setDescendAttack = function(boolean_thing, local){
-//    console.log("descend attack changes");
     descendAttack = boolean_thing;
     if (local) {
       socket.emit("descend attack change", { descendAttack: boolean_thing });
@@ -38,12 +37,6 @@ var Fly = function(x, y, hp, name){
     }
     var bugX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
 
-    if (skeleton.getAlive()){
-      ctx.fillStyle="#FF0000";
-      ctx.fillRect(bugX+30,skeleton.getDrawAtY()-50,((skeleton.getHp()/2.2)),6);
-    } else {
-      ctx.fillText("DEAD", bugX + 37, skeleton.getDrawAtY()-40);
-    }
 
     if (flyAnimate <= 10){
       ctx.drawImage(flySprite,0,0, 100, 100, bugX,skeleton.getDrawAtY()-50, 100, 100);
@@ -74,9 +67,6 @@ var Fly = function(x, y, hp, name){
     }
     flyAnimate++; 
 
-    ctx.fillStyle = "black";
-    ctx.font = "bold 13px sans-serif";
-    ctx.fillText(name, bugX + 22, skeleton.getDrawAtY()-60);
   };
 
   var did_i_get_hit_by_a_fly = function(){
@@ -132,11 +122,9 @@ var Fly = function(x, y, hp, name){
       };
       // Left key takes priority over right
       if (keys.left) {
-
         skeleton.setX(skeleton.getX() - moveAmount);
         localX -= moveAmount;
       } else if (keys.right) {
-
         skeleton.setX(skeleton.getX()+ moveAmount);
         localX += moveAmount;
       };
