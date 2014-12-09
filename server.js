@@ -16,6 +16,7 @@ var util = require("util"),
     Fly = require("./fly").Fly,
     Redhatter = require("./redhatter").Redhatter,
     Bowman = require("./bowman").Bowman,
+    Shanker = require("./shanker").Shanker,
     configDB = require('./config/database.js'),
     cookieParser = require('cookie-parser'),
     bodyParser   = require('body-parser'),
@@ -133,6 +134,8 @@ function onNewPlayer(data) {
   }
   else if (data.characterType === "Bowman"){
     var newPlayer = new Bowman(data.x, data.y, data.hp, data.name);
+  } else if (data.characterType === "Shanker"){
+    var newPlayer = new Shanker(data.x, data.y, data.hp, data.name);
   }
   newPlayer.id = this.id;
   util.log("CReating a " + newPlayer.getCharacterType());

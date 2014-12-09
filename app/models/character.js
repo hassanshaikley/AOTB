@@ -8,7 +8,7 @@ var CharacterSchema = mongoose.Schema({
     _user: { type: mongoose.Schema.ObjectId, ref: 'User' },
  	  name          : { type: String, default: "Stillname"},
     race     	  : { type: String, default: "Fly" },
-    experience  : { type: Number, default: 0},
+    honor  : { type: Number, default: 0},
     gold 		    : { type: Number, default: 0}
 });
 

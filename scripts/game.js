@@ -66,6 +66,8 @@ function init() {
     localPlayer = new Fly(startX, startY, startHp, localPlayerName);
   } else if (characterType === "Bowman"){
     localPlayer = new Bowman(startX, startY, startHp, localPlayerName);
+  } else if (characterType === "Shanker"){
+    localPlayer = new Shanker(startX, startY, startHp, localPlayerName);
   } 
   else {
     alert("Something has went wrong");
@@ -148,6 +150,8 @@ function onNewPlayer(data) {
     var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
   } else if (data.characterType === "Bowman") {
     var newPlayer = new Bowman(data.x, data.y, data.hp, data.name);
+  } else if (data.characterType === "Shanker") {
+    var newPlayer = new Shanker(data.x, data.y, data.hp, data.name);
   }
   newPlayer.id = data.id;
   // Add new player to the remote players array
