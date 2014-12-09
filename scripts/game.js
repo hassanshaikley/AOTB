@@ -83,9 +83,16 @@ function init() {
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/
+var focus_tab = true;
 var setEventHandlers = function() {
   window.addEventListener("keydown", onKeydown, false);
   window.addEventListener("keyup", onKeyup, false);
+  window.addEventListener('blur', function() {
+    focus_tab = false
+  },false);
+  window.addEventListener('focus', function() {
+    focus_tab = true;
+  },false);
   // Window resize
   //  window.addEventListener("resize", onResize, false);
   socket.on("connect", onSocketConnected);
@@ -202,14 +209,10 @@ var FPS = 60;
 /**************************************************
  ** GAME ANIMATION LOOP
  **************************************************/
-function animate() {
+function animate() { 
   update();
   draw();
-  setTimeout(animate, 1000/FPS);
-  /*
-     setTimeout(function(){
-     window.requestAnimFrame(animate);
-     }, 1000 /FPS);*/
+   window.requestAnimFrame(animate);
 };
 
 
