@@ -274,6 +274,9 @@ function drawBackground(){
   ctx.drawImage(CastleOfOne, displacement-100,295);
   if (_anim %20 == 0){ 
     z+=100;
+    if (z >= 400){
+      z =0;
+    }
   }
   ctx.drawImage(cloud, displacement+cloud_x-800, 80);
   ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
@@ -293,9 +296,6 @@ function drawBackground(){
   //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
   ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+900, 393, 100, 100);
   ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1000, 393, 100, 100);
-  if (z >= 300){
-    z =0;
-  }
   _anim++;
 };
 // Browser window resize
