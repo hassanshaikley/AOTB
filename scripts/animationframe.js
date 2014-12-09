@@ -5,7 +5,7 @@ window.requestAnimFrame = (function(){
   window.webkitRequestAnimationFrame || 
   window.msRequestAnimationFrame     || 
   window.mozRequestAnimationFrame    || 
-  function(/* function */ callback, /* DOMElement */ element){
+  function( callback){
     window.setTimeout(callback, 1000 / 60);
   };
 })();

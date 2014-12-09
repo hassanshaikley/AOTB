@@ -210,9 +210,9 @@ var FPS = 60;
  ** GAME ANIMATION LOOP
  **************************************************/
 function animate() { 
+  window.requestAnimFrame(animate); //palce this before render to ensure as close to wanted fps
   update();
   draw();
-   window.requestAnimFrame(animate);
 };
 
 
@@ -225,12 +225,7 @@ var newTime = Date.now();
 var updateTime = 50;
 function update() {
   if (Date.now() -  oldTime >= updateTime){
-    //    if (localPlayer.getCharacterType() === "Fly"){
-    //      socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), descendAttack: localPlayer.getDescendAttack()});
-    //    }
-    //    else {
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
-    //    }
     oldTime = Date.now();
   }
   for (i = 0; i < Spells.spellsarray.length; i++){
@@ -280,21 +275,21 @@ function drawBackground(){
   if (_anim %20 == 0){ 
     z+=100;
   }
-    ctx.drawImage(cloud, displacement+cloud_x-800, 80);
-    ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
-    ctx.drawImage(cloud, displacement+cloud_x-400, 150);
-    ctx.drawImage(cloud, displacement+cloud_x, 50);
-    ctx.drawImage(cloud, displacement+cloud_x+300, 20);
-    ctx.drawImage(cloud, displacement+cloud_x+1300, 120);
-    ctx.drawImage(cloud, displacement+cloud_x+900, 50);
-    ctx.drawImage(cloud, displacement+cloud_x+1600, 90);
-    ctx.drawImage(cloud, displacement+cloud_x+1900, 20);
-    ctx.drawImage(cloud, displacement+cloud_x+2000, 150);
-    ctx.drawImage(cloud, displacement+cloud_x+2500, 80);
-    ctx.drawImage(cloud, displacement+cloud_x+3000, 200);
-    ctx.drawImage(cloud, displacement+cloud_x+3500, 150);
-    ctx.drawImage(cloud, displacement+cloud_x+4000, 50);
-    ctx.drawImage(cloud, displacement+cloud_x+5000, 20);
+  ctx.drawImage(cloud, displacement+cloud_x-800, 80);
+  ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
+  ctx.drawImage(cloud, displacement+cloud_x-400, 150);
+  ctx.drawImage(cloud, displacement+cloud_x, 50);
+  ctx.drawImage(cloud, displacement+cloud_x+300, 20);
+  ctx.drawImage(cloud, displacement+cloud_x+1300, 120);
+  ctx.drawImage(cloud, displacement+cloud_x+900, 50);
+  ctx.drawImage(cloud, displacement+cloud_x+1600, 90);
+  ctx.drawImage(cloud, displacement+cloud_x+1900, 20);
+  ctx.drawImage(cloud, displacement+cloud_x+2000, 150);
+  ctx.drawImage(cloud, displacement+cloud_x+2500, 80);
+  ctx.drawImage(cloud, displacement+cloud_x+3000, 200);
+  ctx.drawImage(cloud, displacement+cloud_x+3500, 150);
+  ctx.drawImage(cloud, displacement+cloud_x+4000, 50);
+  ctx.drawImage(cloud, displacement+cloud_x+5000, 20);
   //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
   ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+900, 393, 100, 100);
   ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1000, 393, 100, 100);
