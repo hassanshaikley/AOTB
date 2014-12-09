@@ -54,15 +54,16 @@ var Shanker = function(x, y, hp, name){
     ctx.fillText(name, drawAtX + 25, skeleton.getY()-60);
 
     /* Decides what sprite to draw*/
-    if (skeleton.getAnimate() <= 20){ 
+    if (skeleton.getAnimate()%40 <= 10){ 
     ctx.drawImage(shanker, 0, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
     }
-    else if (skeleton.getAnimate() <= 40){
+    else if (skeleton.getAnimate()%40 <= 20){
     ctx.drawImage(shanker, 100, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
     }
-    else if (skeleton.getAnimate() <= 60){
-    ctx.drawImage(shanker, 200, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
+    else if (skeleton.getAnimate()%40 <= 30){
+    ctx.drawImage(shanker, 0, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
     } else{
+    ctx.drawImage(shanker, 200, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
     }
   };
   
