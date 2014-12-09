@@ -184,7 +184,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var text_x;
   var drawText = function(){
       //console.log("SPEAKING")
-      text_x = canvas.width/2 + drawAtX - localX - 50;
+    text_x = canvas.width/2 + drawAtX - localX - 50;
     if (alive){
       ctx.fillStyle="#000000";
       ctx.fillRect(text_x+30,drawAtY-50,100/2.2,6);
@@ -197,7 +197,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     ctx.font = "bold 13px sans-serif";
     ctx.fillText(name, text_x + 25, drawAtY-60);
     
-    if (Date.now() - lastsaid.time  <= 2000){
+    if (Date.now() - lastsaid.time  <= 3000){
       ctx.fillStyle = "black";
       ctx.font = "bold 13px sans-serif";
       ctx.fillText(lastsaid.text, text_x + 25, y-100); 
