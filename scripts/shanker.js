@@ -41,15 +41,15 @@ var Shanker = function(x, y, hp, name){
 
     /* Decides what sprite to draw*/
     if (skeleton.getAnimate()%40 <= 10){ 
-    ctx.drawImage(shanker, 0, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
+    ctx.drawImage(shanker, 0, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-18,100,100);
     }
     else if (skeleton.getAnimate()%40 <= 20){
-    ctx.drawImage(shanker, 100, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
+    ctx.drawImage(shanker, 100, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-18,100,100);
     }
     else if (skeleton.getAnimate()%40 <= 30){
-    ctx.drawImage(shanker, 0, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
+    ctx.drawImage(shanker, 0, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-18,100,100);
     } else{
-    ctx.drawImage(shanker, 200, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-15,100,100);
+    ctx.drawImage(shanker, 200, spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-18,100,100);
     }
   };
   

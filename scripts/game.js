@@ -269,7 +269,7 @@ function drawBackground(){
     ctx.drawImage(ground ,0,0, 400, 100, displacement+1600 +400*_i,400, 400, 100);
   } 
   for (var _i = 0; _i < 8; _i++){
-    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-800 +_i*300, 400, 300, 100); 
+    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-800 +_i*300, 405, 300, 100); 
   }
   ctx.drawImage(CastleOfOne, displacement-100,295);
   if (_anim %20 == 0){ 
