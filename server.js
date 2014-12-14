@@ -16,6 +16,7 @@ var util = require("util"),
     Fly = require("./fly").Fly,
     Redhatter = require("./redhatter").Redhatter,
     Bowman = require("./bowman").Bowman,
+    Skelly = require("./skelly").Skelly,
     Shanker = require("./shanker").Shanker,
     configDB = require('./config/database.js'),
     cookieParser = require('cookie-parser'),
@@ -50,6 +51,12 @@ var socket,   // Socket controller
 function init() {
   // Create an empty array to store players
   players = [];
+  hostiles = [];
+
+  /* Add Neutrals to Server */
+  var sk = new Skelly( 200, 400,100, "Skelly");
+  hostiles.push(sk); 
+
   io.set("transports", ["websocket"]);
   io.set("polling duration", 10);
   setEventHandlers();
@@ -211,7 +218,9 @@ function playerById(id) {
 };
 
 function updateGameVariables(){
-  //util.log("Updating Vars");
+
+  var hostile = hostiles[0];
+  io.emit("update hostile", {id: hostile.id, x: hostile.getX(), y: hostile.getY(), name: hostile.getName(), characterType : hostile.getCharacterType()});
 };
 
 init();

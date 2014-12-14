@@ -6,7 +6,8 @@ var canvas,     // Canvas DOM element
     keys,     // Keyboard input
     localPlayer,  // Local player
     remotePlayers,  // Remote players
-    socket;     // Socket connection
+    socket,
+    hostiles;     // Socket connection
 
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
@@ -76,6 +77,7 @@ function init() {
   var host = location.origin;
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
   remotePlayers = [];
+  hostiles = [];
   setEventHandlers();
 };
 
@@ -107,7 +109,28 @@ var setEventHandlers = function() {
   socket.on("meteor cast", onMeteorCast);
   socket.on("respawn player", onRespawnPlayer);
   socket.on("descend attack changes", onDescendAttackChanges);
+  socket.on("update hostile", onUpdateHostile);
+
 };
+function onUpdateHostile(data){
+  console.log(data);
+  var _h;
+  if (!hostileById(data.id)){ // then create
+    console.log("creating hotile of type: "+ data.characterType);
+    if (data.characterType === "Skelly"){
+      _h = new Skelly(data.x, data.y, data.id);
+      hostiles.push(_h);
+    }
+
+  } else {// just update
+    _h = hostileById(data.id);
+    _h.setHp(data.hp);
+    _h.setX(data.x);
+    _h.setY(data.y);
+  }
+  console.log("number of hostiles: " + hostiles.length);
+};
+
 
 function onDescendAttackChanges(data){
   var _player = playerById(data.id); 
@@ -245,6 +268,7 @@ function draw() {
   // Wipe the canvas clean
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawBackground();
+  drawNPCs();
   var i;
   for (i = 0; i < remotePlayers.length; i++) {
     remotePlayers[i].draw(ctx);
@@ -255,6 +279,13 @@ function draw() {
   };
   localPlayer.updateVariables();
   localPlayer.draw(ctx);
+};
+function drawNPCs(){
+  var _i;
+  for (_i = 0 ; _i < hostiles.length; _i++){
+    hostiles[i].update();
+    hostiles[i].draw(ctx);
+  };
 };
 var z = 0;
 var _anim = 0;
@@ -311,6 +342,14 @@ function playerById(id) {
   for (i = 0; i < remotePlayers.length; i++) {
     if (remotePlayers[i].id == id)
       return remotePlayers[i];
+  };
+  return false;
+};
+function hostileById(id) {
+  var i;
+  for (i = 0; i < hostiles.length; i++) {
+    if (hostiles[i].id == id)
+      return hostiles[i];
   };
   return false;
 };
