@@ -284,7 +284,9 @@ function drawNPCs(){
   var _i;
   for (_i = 0 ; _i < hostiles.length; _i++){
     hostiles[i].updateVariables();
+    if (hostiles[i] != undefined){
     hostiles[i].draw(ctx);
+    }
   };
 };
 var z = 0;
