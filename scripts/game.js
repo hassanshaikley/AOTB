@@ -283,7 +283,7 @@ function draw() {
 function drawNPCs(){
   var _i;
   for (_i = 0 ; _i < hostiles.length; _i++){
-    hostiles[i].update();
+    hostiles[i].updateVariables();
     hostiles[i].draw(ctx);
   };
 };

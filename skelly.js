@@ -6,7 +6,7 @@ var util = require("util");
 
 var Skelly = function(x,y,  hp, name){
   var skeleton = Player(x, y, hp, name);
-  var id = 1;
+  skeleton.setId(1);
   var getCharacterType = function(){
     return "Skelly";
   };

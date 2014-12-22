@@ -48,7 +48,9 @@ var Player = function(startX, startY, startHp, _name) {
   var setY = function(newY) {
     y = newY;
   };
-
+  var setId = function(newId){
+    id = newId;
+  };
   // Define which variables and methods can be accessed by the world outside
   return {
     getX: getX,
@@ -62,6 +64,7 @@ var Player = function(startX, startY, startHp, _name) {
       getName : getName,
       getCharacterType : getCharacterType,
       setCharacterType : setCharacterType,
+      setId : setId,
       id: id
   };
 };

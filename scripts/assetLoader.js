@@ -34,9 +34,9 @@ if (location.origin == "http://localhost:5000"
 
 CastleOfOne.src = url + "CastleOfOne.png";
 ground.src = url +"earthenfloor.png";
-flySprite.src = url + "flysheet.png";
-silverSword.src = url+ "silverSword.png";
-silverShield.src = url+ "silverShield.png";
+flySprite.src = url + "flysheet2.png";
+silverSword.src = url+ "silverSword2.png";
+silverShield.src = url+ "silverShield2.png";
 RedhatterSprite.src = url + "redHatter.png";
 fireballSprite.src = url + "fireball.png";
 burningBuildingSide.src = url + "burning_side.png";

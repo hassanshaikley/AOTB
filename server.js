@@ -54,7 +54,7 @@ function init() {
   hostiles = [];
 
   /* Add Neutrals to Server */
-  var sk = new Skelly( 200, 400,100, "Skelly");
+  var sk = new Skelly( 800, 400,100, "Skelly");
   hostiles.push(sk); 
 
   io.set("transports", ["websocket"]);
@@ -220,7 +220,7 @@ function playerById(id) {
 function updateGameVariables(){
 
   var hostile = hostiles[0];
-  io.emit("update hostile", {id: hostile.id, x: hostile.getX(), y: hostile.getY(), name: hostile.getName(), characterType : hostile.getCharacterType()});
+  io.emit("update hostile", {id: hostile.id, x: hostile.getX(), y: hostile.getY(), name: hostile.getName(), characterType : hostile.getCharacterType(), hp : hostile.getHp()});
 };
 
 init();
