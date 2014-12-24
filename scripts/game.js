@@ -57,7 +57,7 @@ function init() {
   // Calculate a random start position for the local player
   // The minus 5 (half a player size) stops the player being
   // placed right on the egde of the screen
-  var startX = Math.round(Math.random()*(canvas.width-5)),
+  var startX = 0,
       startY = floorHeight-10,
       startHp = 100;
   // Initialise the local player
@@ -114,7 +114,7 @@ var setEventHandlers = function() {
 };
 function onUpdateHostile(data){
   console.log(data);
-  var _h;
+  var _h;/*
   if (!hostileById(data.id)){ // then create
     console.log("creating hotile of type: "+ data.characterType);
     if (data.characterType === "Skelly"){
@@ -127,7 +127,7 @@ function onUpdateHostile(data){
     _h.setHp(data.hp);
     _h.setX(data.x);
     _h.setY(data.y);
-  }
+  }*/
   console.log("number of hostiles: " + hostiles.length);
 };
 

@@ -25,7 +25,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var respawn = function(){ /* Function that is called for local player*/
     alive = true;
     var newY = floorHeight-10;
-    var newX = 50;
+    var newX = 0;
     drawAtX = newX;
     drawAtY = newY;
     x = newX;
@@ -92,6 +92,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   /* Mutator for server x variable! */
   var setX = function(newX) {
     if (newX <= -800){
+      return;
+    } else if (newX >=2500  ){
       return;
     }
     x = newX;

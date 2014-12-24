@@ -7,6 +7,7 @@ var CharacterSchema = mongoose.Schema({
    */
     _user: { type: mongoose.Schema.ObjectId, ref: 'User' },
  	  name          : { type: String, default: "Stillname"},
+    loc_x       : { type: Number, default: 0 },
     race     	  : { type: String, default: "Fly" },
     honor  : { type: Number, default: 0},
     gold 		    : { type: Number, default: 0}
