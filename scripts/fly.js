@@ -140,10 +140,6 @@ var Fly = function(x, y, hp, name){
     }
     return (prevX != x || prevY != y) ? true : false;
   };
-
-  $("#gameCanvas").on(isMobile ? 'touchend' : 'click', function(e) {
-    alert("okai");
-  });
   var rightClick = function(){
     //rightMouseAction = true;
     setDescendAttack(true, true);

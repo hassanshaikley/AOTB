@@ -183,6 +183,7 @@ function onHitByAttack(data){
   if (hitPlayer.getHp() <= 0){
     //util.log("dude is dead " + hitPlayer.id);
     hitPlayer.setHp(100);
+    //give the player that killed 1+ honor and 1+gold
   }
   this.broadcast.emit('set health', { id: hitPlayer.id, hp: hitPlayer.getHp()});
   //emit that health to every1

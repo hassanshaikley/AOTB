@@ -28,7 +28,11 @@ function init() {
      adjustedY += e.clientY - clientRect.topy;
      localPlayer.rightClick(adjustedX, adjustedY); 
      } */
-
+ 
+  $( "#gameCanvas" ).on( "tap", function(e) {
+      rightclick();
+        alert("okai");
+  });
   canvas.onmousedown = function(e){
     switch (e.which) {
       case 1: 
@@ -113,7 +117,6 @@ var setEventHandlers = function() {
 
 };
 function onUpdateHostile(data){
-  console.log(data);
   var _h;/*
   if (!hostileById(data.id)){ // then create
     console.log("creating hotile of type: "+ data.characterType);
@@ -128,7 +131,6 @@ function onUpdateHostile(data){
     _h.setX(data.x);
     _h.setY(data.y);
   }*/
-  console.log("number of hostiles: " + hostiles.length);
 };
 
 
@@ -168,6 +170,8 @@ function onSocketConnected() {
 // Socket disconnected
 function onSocketDisconnect() {
   //Player disconnected from socket server
+  console.log("okai");
+  remotePlayers = [];
 };
 
 // New player
