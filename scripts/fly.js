@@ -93,6 +93,7 @@ var Fly = function(x, y, hp, name){
 
   // Update player position
   var update = function(keys) {
+     
     //did_i_get_hit_by_a_fly();
     wobble--;
     localX = skeleton.getX();
@@ -171,6 +172,6 @@ var Fly = function(x, y, hp, name){
          rightClick: rightClick,
          leftClick: leftClick,
          speaks: skeleton.speaks,
-         respawn : skeleton.respawn
+         respawn : skeleton.respawn,
   };
 };

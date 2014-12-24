@@ -225,6 +225,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       getDrawAtY : getDrawAtY,
       getAnimate : getAnimate,
       speaks : speaks,
-      respawn : respawn
+      respawn : respawn, 
   };
 };

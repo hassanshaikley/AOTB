@@ -98,6 +98,7 @@ var setEventHandlers = function() {
   },false);
   window.addEventListener('focus', function() {
     focus_tab = true;
+    keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
   },false);
   // Window resize
   //  window.addEventListener("resize", onResize, false);
@@ -260,9 +261,8 @@ function update() {
   };
 
   // Update local player and check for change
-  if (localPlayer.update(keys)) {
+  localPlayer.update(keys);
     // Send local player data to the game server
-  };
   //socket.emit("update health", {hp: localPlayer.getHp()});
 };
 /**************************************************

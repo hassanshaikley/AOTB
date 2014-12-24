@@ -3,17 +3,16 @@
  **************************************************/
 
 var Keys = function(up, left, right, down) {
+  //if just switched to this page make them all false
   var up = up || false,
       left = left || false,
       right = right || false,
       down = down || false;
 
-
   var onKeyDown = function(e) {
     if ($("#text").is(":focus")){
       return;
     }
-
     var that = this,
         c = e.keyCode;
     switch (c) {
@@ -58,6 +57,6 @@ var Keys = function(up, left, right, down) {
       right: right,
       down: down,
       onKeyDown: onKeyDown,
-      onKeyUp: onKeyUp
+      onKeyUp: onKeyUp,
   };
 };

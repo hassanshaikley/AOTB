@@ -88,6 +88,6 @@ var Bowman = function(x, y, hp, name){
          rightClick: rightClick,
          leftClick: leftClick,
          speaks: skeleton.speaks,
-         respawn : skeleton.respawn
+         respawn : skeleton.respawn,
   };
 };
