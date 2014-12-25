@@ -94,10 +94,20 @@ var setEventHandlers = function() {
   window.addEventListener("keydown", onKeydown, false);
   window.addEventListener("keyup", onKeyup, false);
   window.addEventListener('blur', function() {
-    focus_tab = false
+    focus_tab = false;
+
+    if (!debug){
+    socket.disconnect();
+    };
+
   },false);
   window.addEventListener('focus', function() {
     focus_tab = true;
+
+    if (!debug){
+      socket.connect();
+    };
+
     keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
   },false);
   // Window resize
@@ -118,7 +128,8 @@ var setEventHandlers = function() {
 
 };
 function onUpdateHostile(data){
-  var _h;/*
+  var _h;
+  /*
   if (!hostileById(data.id)){ // then create
     console.log("creating hotile of type: "+ data.characterType);
     if (data.characterType === "Skelly"){
