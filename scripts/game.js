@@ -106,7 +106,7 @@ var setEventHandlers = function() {
     if (!debug){
       socket.connect();
     };
-    Spells.spellsarray = [];
+    Spells.spellsarray = []; //remove all rockets, or else its cray cray
 
     keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
   },false);
