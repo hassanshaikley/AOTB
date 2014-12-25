@@ -99,7 +99,6 @@ var setEventHandlers = function() {
     if (!debug){
     socket.disconnect();
     };
-
   },false);
   window.addEventListener('focus', function() {
     focus_tab = true;
@@ -107,6 +106,7 @@ var setEventHandlers = function() {
     if (!debug){
       socket.connect();
     };
+    Spells.spellsarray = [];
 
     keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
   },false);
