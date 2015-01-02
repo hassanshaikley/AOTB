@@ -20,6 +20,16 @@ $(document).keypress(function(e) {
 
   }
 });
+if (localPlayerName === "unknown"){
+  $('#chat').append("<strong>ADMIN:</strong> hi <br />");
+  $('#chat').append("<strong>ADMIN:</strong> Move with WASD <br />");
+  $('#chat').append("<strong>ADMIN:</strong> Attack with Right Click <br />");
+  $('#chat').append("<strong>ADMIN:</strong> Chat with enter <br />");
+  if (remotePlayers.length == 0){
+
+    $('#chat').append("<strong>ADMIN:</strong> Nobody else is connected right now : (<br />");
+  }
+}
 
 var chat_scroll = document.getElementById("chat");
 chat_scroll.scrollTop = chat_scroll.scrollHeight;

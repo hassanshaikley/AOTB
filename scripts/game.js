@@ -304,8 +304,8 @@ function drawBackground(){
   cloud_x+=.01;
   var displacement = drawX-localPlayer.getX() ;
   //drawX is not changing aaah
-  var count = "Number of players: " + (remotePlayers.length + 1);
-  ctx.fillText(count, 2,10);
+  var count = "Players: " + (remotePlayers.length + 1);
+  ctx.fillText(count, 40,10);
   for (var _i = 0; _i < 5; _i ++){
     ctx.drawImage(ground ,0,0, 400, 100, displacement+1600 +400*_i,400, 400, 100);
   } 
