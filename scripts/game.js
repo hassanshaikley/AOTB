@@ -96,16 +96,9 @@ var setEventHandlers = function() {
   window.addEventListener('blur', function() {
     focus_tab = false;
 
-   // if (!debug){
-    socket.disconnect();
-   // };
   },false);
   window.addEventListener('focus', function() {
     focus_tab = true;
-
-    //if (!debug){
-      socket.connect();
-    //};
     
     Spells.spellsarray = []; //remove all rockets, or else its cray cray
 
@@ -320,7 +313,7 @@ function drawBackground(){
   for (var _i = 0; _i < 8; _i++){
     ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-800 +_i*300, 405, 300, 100); 
   }
-  ctx.drawImage(CastleOfOne, displacement-100,295);
+  ctx.drawImage(CastleOfOne, displacement-100,95, 1000, 398);
   if (_anim %20 == 0){ 
     z+=100;
     if (z >= 400){

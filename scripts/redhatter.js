@@ -37,7 +37,7 @@ var Redhatter = function(x, y, hp, name){
       facing_left = false;
     }
     if (facing_left){
-      spritesheet_offset_y = 102;
+      spritesheet_offset_y = 100;
     }
     else {
       spritesheet_offset_y = 0;
@@ -46,16 +46,16 @@ var Redhatter = function(x, y, hp, name){
     
 
     /* Decides what sprite to draw*/
-    if (skeleton.getAnimate() <= 20){ 
-      ctx.drawImage(RedhatterSprite,0,spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+    if (skeleton.getAnimate() <= 15){ 
+      ctx.drawImage(RedhatterSprite,0,spritesheet_offset_y, 75, 100, drawAtX+20,skeleton.getY()-70, 75, 100);
     }
-    else if (skeleton.getAnimate() <= 40){
-      ctx.drawImage(RedhatterSprite,100,spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+    else if (skeleton.getAnimate() <= 30){
+      ctx.drawImage(RedhatterSprite,75,spritesheet_offset_y, 75, 100, drawAtX+20,skeleton.getY()-70, 75, 100);
     }
-    else if (skeleton.getAnimate() <= 60){
-      ctx.drawImage(RedhatterSprite,200,spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+    else if (skeleton.getAnimate() <= 45){
+      ctx.drawImage(RedhatterSprite,150,spritesheet_offset_y, 75, 100, drawAtX+20,skeleton.getY()-70, 75, 100);
     } else{
-      ctx.drawImage(RedhatterSprite,200,spritesheet_offset_y, 100, 100, drawAtX,skeleton.getY()-50, 100, 100);
+      ctx.drawImage(RedhatterSprite,225,spritesheet_offset_y, 75, 100, drawAtX+20,skeleton.getY()-70, 75, 100);
     }
   };
   
