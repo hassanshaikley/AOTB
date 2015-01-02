@@ -96,10 +96,10 @@ var setEventHandlers = function() {
   window.addEventListener('blur', function() {
     focus_tab = false;
     socket.disconnect();
+    alert("Must refresh to play, dont support tabbing out yet : (");
   },false);
   window.addEventListener('focus', function() {
     focus_tab = true;
-    alert("Must refresh to play, dont support tabbing out yet : (");
     Spells.spellsarray = []; //remove all rockets, or else its cray cray
 
     keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
