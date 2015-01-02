@@ -96,16 +96,17 @@ var setEventHandlers = function() {
   window.addEventListener('blur', function() {
     focus_tab = false;
 
-    if (!debug){
+   // if (!debug){
     socket.disconnect();
-    };
+   // };
   },false);
   window.addEventListener('focus', function() {
     focus_tab = true;
 
-    if (!debug){
+    //if (!debug){
       socket.connect();
-    };
+    //};
+    
     Spells.spellsarray = []; //remove all rockets, or else its cray cray
 
     keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
