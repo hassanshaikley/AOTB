@@ -94,9 +94,6 @@ var setEventHandlers = function() {
   window.addEventListener("keydown", onKeydown, false);
   window.addEventListener("keyup", onKeyup, false);
   window.addEventListener('blur', function() {
-    if (focus_tab){
-      alert("Must refresh. Don't support tabbing out yet");
-    }
     focus_tab = false;
     socket.disconnect();
   },false);

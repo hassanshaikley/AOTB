@@ -31,8 +31,7 @@
       window.location.assign('/profile');
       </script>
       <%} else { %>
-    <%= character %>
-    <br><%= characterRace = character.race %> 
+    <br><% characterRace = character.race %> 
     <script>
       var localPlayerName = "<%= user && character.name || "unknown" %>";
       var characterType = "<%= user && characterRace || "Fly" %>";
