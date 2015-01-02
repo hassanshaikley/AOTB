@@ -16,7 +16,7 @@ body {
 #gameCanvasMargin{
 	  margin: auto;
   display: block;
-  width: 800px;
+  width: 1050px;
 }
 
 #chat {
@@ -41,7 +41,6 @@ body {
 /* O: */top: 358px; /* OMG OMG OMG */
 	/* DELETE AND U DIE */
 	width: 250px;
-	position: absolute;
 	padding-left: 10px;
 
 }
@@ -56,4 +55,14 @@ body {
 
 #chat, #send, #text {
 	color: black;
+}
+
+#utilityCanvas {
+  width:250px;
+  height: 320px;
+  background: black;
+}
+
+#c_right {
+float: right;
 }

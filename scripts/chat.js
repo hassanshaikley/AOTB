@@ -25,7 +25,6 @@ var chat_scroll = document.getElementById("chat");
 chat_scroll.scrollTop = chat_scroll.scrollHeight;
 socket.on('message', function (data) {
   var speaker = playerById(data.id);
-  console.log("id: " + data.id);
   console.log(speaker);
   if (speaker == false){
   $('#chat').append("<strong>" + localPlayer.getName() +":</strong> " + data.text + '<br />');
@@ -42,3 +41,8 @@ $('#send').click(function () {
     { text: $('#text').val() });
   $('#text').val('');
 });
+
+$('#chat_outer').mousedown(function(e){
+  e.preventDefault();
+});
+ $('#chat_outer').bind('contextmenu', function(){ return false });
