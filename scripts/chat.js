@@ -37,9 +37,12 @@ socket.on('message', function (data) {
 });
 
 $('#send').click(function () {
-  socket.emit('sendMessage', 
-    { text: $('#text').val() });
-  $('#text').val('');
+
+  if ($("#text").val()){
+    socket.emit('sendMessage', 
+      { text: $('#text').val() });
+    $('#text').val('');
+  }
 });
 
 $('#chat_outer').mousedown(function(e){
