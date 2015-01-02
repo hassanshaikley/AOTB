@@ -203,7 +203,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     if (Date.now() - lastsaid.time  <= 3000){
       ctx.fillStyle = "black";
       ctx.font = "bold 13px sans-serif";
-      ctx.fillText(lastsaid.text, text_x + 25, y-100); 
+      ctx.fillText(lastsaid.text, text_x + 25, drawAtY-100); 
     }
   };
   // Define which variables and methods can be accessed

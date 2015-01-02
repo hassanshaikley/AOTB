@@ -66,3 +66,8 @@ body {
 #c_right {
 float: right;
 }
+#infoBar  {
+  background: black;
+  height: 50px;
+  width: 100%;
+}

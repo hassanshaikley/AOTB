@@ -79,8 +79,6 @@ var Fly = function(x, y, hp, name){
         if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
           if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
 
-            console.log("i have been hit");
-            //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
             localPlayer.setHp(localPlayer.getHp()-25);
             socket.emit("attack hits");
             remotePlayers[i].hitme = Date.now();
@@ -100,8 +98,6 @@ var Fly = function(x, y, hp, name){
     // Previous position
     var prevX = skeleton.getX(),
         prevY = skeleton.getY();
-
-    //if (Math.floor(Math.random()*50) == 1)
 
     if (descendAttack == false){
       // Up key takes priority over down
@@ -130,13 +126,13 @@ var Fly = function(x, y, hp, name){
         localX += moveAmount;
       };
     }
-    else {
+    else {  //descend attack hits ground
       if ( skeleton.getY() >= floorHeight-1){
         setDescendAttack(false, true);
         skeleton.setY( floorHeight+1);
         rightMouseActionHappening = false;
       } else {
-        skeleton.setY(skeleton.getY()+descendAttackSpeed);
+        skeleton.setY(skeleton.getY()+descendAttackSpeed); //descend attack still
       }
     }
     return (prevX != x || prevY != y) ? true : false;
