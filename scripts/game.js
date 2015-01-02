@@ -336,8 +336,8 @@ function drawBackground(){
   ctx.drawImage(cloud, displacement+cloud_x+4000, 50);
   ctx.drawImage(cloud, displacement+cloud_x+5000, 20);
   //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
-  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+900, 393, 100, 100);
-  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1000, 393, 100, 100);
+  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+1100, 293, 200, 200);
+  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1300, 293, 200, 200);
   _anim++;
 };
 // Browser window resize
