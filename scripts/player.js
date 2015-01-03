@@ -186,6 +186,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   var text_x;
   var drawText = function(){
       //console.log("SPEAKING")
+    ctx.save();
     ctx.textAlign = 'center';
     text_x = canvas.width/2 + drawAtX - localX;
     if (alive){
@@ -194,17 +195,18 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       ctx.fillStyle="#FF0000";
       ctx.fillRect(text_x-20,drawAtY-50,((hp/2.2)),6);
     } else {
-      ctx.fillText("DEAD", text_x+ 37, drawAtY-40);
+      ctx.fillText("| | | | | |", text_x-20, drawAtY-40);
     };
     ctx.fillStyle = "black";
     ctx.font = "bold 13px sans-serif";
     ctx.fillText(name, text_x, drawAtY-60);
     
     if (Date.now() - lastsaid.time  <= 3000){
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "teal";
       ctx.font = "bold 13px sans-serif";
-      ctx.fillText(lastsaid.text, text_x + 25, drawAtY-100); 
+      ctx.fillText(lastsaid.text, text_x, drawAtY-80); 
     }
+    ctx.restore();
   };
   // Define which variables and methods can be accessed
   return {
