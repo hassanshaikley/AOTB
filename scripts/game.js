@@ -7,7 +7,8 @@ var canvas,     // Canvas DOM element
     localPlayer,  // Local player
     remotePlayers,  // Remote players
     socket,
-    hostiles;     // Socket connection
+    hostiles,
+    _alert = { time : undefined, type: "NONE"};     // Socket connection
 
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
@@ -31,7 +32,7 @@ function init() {
  
   $( "#gameCanvas" ).on( "tap", function(e) {
       rightclick();
-        alert("okai");
+      alert("okai");
   });
   canvas.onmousedown = function(e){
     switch (e.which) {
@@ -40,18 +41,18 @@ function init() {
         localPlayer.leftClick();  
         var y = e.clientY - clientRect.top;
         break;
-      case 2: console.log('middle click'); 
-              break;
+      case 2: 
+        console.log('middle click'); 
+        break;
       case 3: 
-              clientRect = ctx.canvas.getBoundingClientRect();
+        clientRect = ctx.canvas.getBoundingClientRect();
+        adjustedX = drawX + localPlayer.getX(); 
+        adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
 
-              adjustedX = drawX + localPlayer.getX(); 
-              adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
-
-              adjustedY += e.clientY - clientRect.topy;
-              //console.log(" clicked at " + e.clientX + " adjusted to " + adjustedX);
-              localPlayer.rightClick(adjustedX, adjustedY); 
-              break; 
+        adjustedY += e.clientY - clientRect.topy;
+        //console.log(" clicked at " + e.clientX + " adjusted to " + adjustedX);
+        localPlayer.rightClick(adjustedX, adjustedY); 
+        break; 
     }
   }
 
@@ -118,7 +119,15 @@ var setEventHandlers = function() {
   socket.on("respawn player", onRespawnPlayer);
   socket.on("descend attack changes", onDescendAttackChanges);
   socket.on("update hostile", onUpdateHostile);
-
+  socket.on("arena confirmation", onArenaPrompt);
+  socket.on("port to arena", onPortToArena);
+};
+function onPortToArena(data){
+  console.log("porting you to arena");
+};
+function onArenaPrompt(data){
+  //make button appear for confirmation to join arena
+  _alert = { time: Date.now(), type:  "arena"}; 
 };
 function onUpdateHostile(data){
   var _h;
@@ -269,6 +278,18 @@ function update() {
     // Send local player data to the game server
   //socket.emit("update health", {hp: localPlayer.getHp()});
 };
+
+function drawAlerts(){
+  if(_alert){
+    ctx.save();
+    ctx.fillRect(300,200,200,100);
+    ctx.stroke();
+    ctx.textAlign = 'center';
+    ctx.fillStyle="#FFF"; 
+    ctx.fillText("CLICK TO JOIN ARENA", 400,250);
+    ctx.restore();
+  };
+};
 /**************************************************
  ** GAME DRAW
  **************************************************/
@@ -287,6 +308,7 @@ function draw() {
   };
   localPlayer.updateVariables();
   localPlayer.draw(ctx);
+  drawAlerts();
 };
 function drawNPCs(){
   var _i;

@@ -208,6 +208,13 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     }
     ctx.restore();
   };
+  var leftClick = function(){
+    if(_alert){
+      console.log("lolswag");
+      _alert = undefined;
+      socket.emit("ready for arena")
+    };
+  };
   // Define which variables and methods can be accessed
   return {
     drawText : drawText,
@@ -228,6 +235,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       getDrawAtY : getDrawAtY,
       getAnimate : getAnimate,
       speaks : speaks,
+      leftClick : leftClick,
       respawn : respawn, 
   };
 };

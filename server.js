@@ -102,6 +102,73 @@ function onSocketConnection(client) {
   client.on("meteor cast", onMeteorCast);
   client.on("respawn player", onRespawn);
   client.on("descend attack change", onDescendAttackChange);
+  client.on("queue for arena", onEnterArenaQueue);
+  client.on("ready for arena", onReadyForArena);
+};
+var arenaSize = 1; //arena holds exactly this many players
+var arenaQueue = [];
+var arenaList = [];
+var arenaCount = 0;
+
+function onReadyForArena(){ //set all to ready, when they all are, port them to the arena
+  var _p = playerById(this.id); 
+  _p.ready = true;
+  // util.log("dudes ready" + _p.ready);
+  var all_ready = true;
+  var the_arena;
+  for (var _i = 0; _i < arenaList.length ; _i++){
+    if (arenaList[_i].arena_players.indexOf(this.id) != -1){
+      the_arena = arenaList[_i];
+    };
+  };
+  if (!the_arena){ //arena doesn't exist, error
+    util.log("Error, arena doesn't exist!");
+    return; //return and remove players from the arena 
+  }
+  //check if everyone in this specific room is ready
+  for (var _i = 0; _i < arenaSize ;_i++){
+    if (!playerById(the_arena.arena_players[_i]).ready){
+      all_ready = false;
+    };
+  };
+  if (all_ready){ //if all ready in this specific arena list
+    //teleport all to game
+    util.log("porting to arena");
+    for (var _i = 0 ; _i < the_arena.arena_players.length; _i++){
+      util.log("LETTING PLAYER KNPW " + the_arena.arena_players[_i]);
+      io.sockets.connected[the_arena.arena_players[_i]].emit('port to arena', 'please');
+    };
+  };
+};
+
+var Arena = function(){ //arena constructor 
+   var arena_players = [];//should take the first 6 players from the queu
+   for (var _i =0; _i < arenaSize; _i++){
+     arena_players.push(arenaQueue.shift()); //removes first element from queue adds to arena players
+   };
+   return {
+    arena_players: arena_players
+   }
+};
+function createArena(){ //linkedlist might be better
+  //create arena
+  var newArena = new Arena();
+  arenaList[arenaCount] = newArena;
+  arenaCount++;
+  //emit to everyone in the queue to join this server 
+  
+  for(var _i = 0; _i < newArena.arena_players.length ; _i++){
+    util.log("id " + newArena.arena_players[_i]);
+    io.sockets.connected[newArena.arena_players[_i]].emit('arena confirmation', 'Confirm'); 
+  };
+};
+function onEnterArenaQueue(data){
+  arenaQueue.push(this.id);
+    util.log("arena queue " + arenaQueue.length); 
+  if(arenaQueue.length === arenaSize){
+    //create an arena
+    createArena();
+  };
 };
 function onDescendAttackChange(data){
   var dAP = playerById(this.id);

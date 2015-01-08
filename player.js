@@ -4,7 +4,7 @@
 var Player = function(startX, startY, startHp, _name) {
   var x = startX,
       y = startY,
-      id,
+      id, //id of the socket
       name = _name,
       hp = 100,
       character_type = "Unknown";

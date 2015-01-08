@@ -92,8 +92,9 @@ var Redhatter = function(x, y, hp, name){
          update: update,
          draw: draw,
          rightClick: rightClick,
-         leftClick: leftClick,
+         leftClick: skeleton.leftClick,
          speaks: skeleton.speaks,
          respawn : skeleton.respawn,
+         leftClick : skeleton.leftClick,
   };
 };
