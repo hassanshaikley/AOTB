@@ -187,6 +187,7 @@ function onRespawn(){
 function onClientDisconnect() {
   var removePlayer = playerById(this.id);
   // Player not found
+  util.log(removePlayer.id +" has left");
   if (!removePlayer) {
     return;
   };
