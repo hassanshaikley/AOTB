@@ -13,7 +13,6 @@ var Fly = function(x, y, hp, name){
   var descendAttack = false,
       moveAmount = 3,
       wobble = 0 ,
-      leftMouseAction = false,
       rightMouseActionHappening = false,
       descendAttack = false,
       descendAttackSpeed = 10;
@@ -141,9 +140,6 @@ var Fly = function(x, y, hp, name){
     //rightMouseAction = true;
     setDescendAttack(true, true);
   }
-  var leftClick = function(){
-    lefttMouseAction = true;
-  }
   var getCharacterType = function(){
     return "Fly";
   };
@@ -162,12 +158,15 @@ var Fly = function(x, y, hp, name){
          setDescendAttack : setDescendAttack,
          getDescendAttack : getDescendAttack,
          getCharacterType : getCharacterType,
+         leftClick : skeleton.leftClick,
          update: update,
          updateVariables : skeleton.updateVariables,
          draw: draw,
          rightClick: rightClick,
-         leftClick: leftClick,
+         leftClick: skeleton.leftClick,
          speaks: skeleton.speaks,
          respawn : skeleton.respawn,
+         setZone : skeleton.setZone,
+         getZone :skeleton.getZone
   };
 };

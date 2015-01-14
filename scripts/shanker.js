@@ -89,5 +89,8 @@ var Shanker = function(x, y, hp, name){
          leftClick: leftClick,
          speaks: skeleton.speaks,
          respawn : skeleton.respawn,
+         leftClick : skeleton.leftClick,
+         setZone : skeleton.setZone,
+         getZone :skeleton.getZone
   };
 };

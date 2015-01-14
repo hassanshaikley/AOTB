@@ -34,7 +34,9 @@ var Fly = function(x, y, hp, name){
          getCharacterType : getCharacterType,
          id: fly.id,
          setDescendAttack : setDescendAttack,
-         getDescendAttack : getDescendAttack
+         getDescendAttack : getDescendAttack,
+         getZone : fly.getZone,
+         setZone : fly.setZone
   };
 };
 

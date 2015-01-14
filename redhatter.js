@@ -21,6 +21,8 @@ var Redhatter = function(x, y, hp, name){
          setHp : skeleton.setHp,
          setName : skeleton.setName,
          getName : skeleton.getName,
+         setZone : skeleton.setZone,
+          getZone : skeleton.getZone,
          id: skeleton.id
   };
 };

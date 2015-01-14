@@ -40,7 +40,6 @@ UserSchema.methods.createCharacter = function(user, name, race, cb){
         _char.name = name;
         _char.race = race;
         _char._user = user._id;
-        console.log(user);
         _char.save(function(err, dude){
           if (err) console.log("aah " + err);
           console.log("SAVED " + dude.name);

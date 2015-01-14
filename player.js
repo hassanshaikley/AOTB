@@ -4,10 +4,11 @@
 var Player = function(startX, startY, startHp, _name) {
   var x = startX,
       y = startY,
-      id,
+      id, //id of the socket
       name = _name,
       hp = 100,
-      character_type = "Unknown";
+      character_type = "Unknown", 
+      zone = "The Borough";
 
   /* Every character has a type - this is sent from the client */
   var setCharacterType = function(newType){
@@ -51,6 +52,12 @@ var Player = function(startX, startY, startHp, _name) {
   var setId = function(newId){
     id = newId;
   };
+  var setZone = function(newZone){
+    zone = newZone;
+  };
+  var getZone = function(){
+    return zone;
+  };
   // Define which variables and methods can be accessed by the world outside
   return {
     getX: getX,
@@ -65,6 +72,8 @@ var Player = function(startX, startY, startHp, _name) {
       getCharacterType : getCharacterType,
       setCharacterType : setCharacterType,
       setId : setId,
+      setZone : setZone,
+      getZone : getZone,
       id: id
   };
 };
