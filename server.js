@@ -204,6 +204,9 @@ function onClientDisconnect() {
       arenaList[_i].splice(arenaList[_i].arena_players.indexOf(this.id), 1);
     };
   };
+  if (arenaQueue.indexOf(this.id) != -1){
+    arenaQueue.splice(arenaQueue.indexOf(this.id),1);
+  }
 
   // Player not found
   util.log(removePlayer.id +" has left");
