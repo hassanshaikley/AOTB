@@ -21,6 +21,7 @@ var Skelly = function(x,y,  hp, name){
          setHp : skeleton.setHp,
          setName : skeleton.setName,
          getName : skeleton.getName,
+         setZone : skeleton.setZone,
          id: skeleton.id
   };
 };

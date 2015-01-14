@@ -21,7 +21,10 @@ var Shanker = function(x, y, hp, name){
          setHp : skeleton.setHp,
          setName : skeleton.setName,
          getName : skeleton.getName,
-         id: skeleton.id
+         setZone : skeleton.setZone,
+         id: skeleton.id,
+         getZone : skeleton.getZone,
+         setZone : skeleton.setZone
   };
 };
 

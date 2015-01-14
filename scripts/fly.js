@@ -166,5 +166,7 @@ var Fly = function(x, y, hp, name){
          leftClick: skeleton.leftClick,
          speaks: skeleton.speaks,
          respawn : skeleton.respawn,
+         setZone : skeleton.setZone,
+         getZone :skeleton.getZone
   };
 };

@@ -96,5 +96,7 @@ var Redhatter = function(x, y, hp, name){
          speaks: skeleton.speaks,
          respawn : skeleton.respawn,
          leftClick : skeleton.leftClick,
+         setZone : skeleton.setZone,
+         getZone :skeleton.getZone
   };
 };

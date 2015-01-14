@@ -17,7 +17,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       moveDifferenceX = 0,
       animate =         0,
       fallspeed =       1,
-      lastsaid = {};
+      lastsaid = {},
+      zone = "";
   // Getters and setters
   var getHp = function(){
     return hp;
@@ -215,6 +216,13 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       socket.emit("ready for arena")
     };
   };
+  var getZone = function(){
+  return zone;
+  };
+  var setZone = function(newZone, number){
+    zone = newZone;
+    zone.number = number;
+  };
   // Define which variables and methods can be accessed
   return {
     drawText : drawText,
@@ -234,6 +242,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       getDrawAtX : getDrawAtX,
       getDrawAtY : getDrawAtY,
       getAnimate : getAnimate,
+      setZone: setZone,
+      getZone : getZone,
       speaks : speaks,
       leftClick : leftClick,
       respawn : respawn, 

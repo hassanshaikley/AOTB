@@ -78,6 +78,7 @@ function init() {
   else {
     alert("Something has went wrong");
   };
+  localPlayer.setZone("The Borough");
   // Initialise socket connection
   var host = location.origin;
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
@@ -121,9 +122,15 @@ var setEventHandlers = function() {
   socket.on("update hostile", onUpdateHostile);
   socket.on("arena confirmation", onArenaPrompt);
   socket.on("port to arena", onPortToArena);
+  socket.on("some event", onSomeEvent);
+};
+function onSomeEvent(data){
+  console.log("oh some evnet");
 };
 function onPortToArena(data){
-  console.log("porting you to arena");
+  console.log("porting you to arena number " + data.number);
+  localPlayer.setZone("Arena", data.number);
+  /* Remove all players not in the arena from your thing*/
 };
 function onArenaPrompt(data){
   //make button appear for confirmation to join arena
@@ -184,7 +191,6 @@ function onSocketConnected() {
 // Socket disconnected
 function onSocketDisconnect() {
   //Player disconnected from socket server
-  console.log("okai");
   remotePlayers = [];
 };
 
@@ -201,6 +207,7 @@ function onNewPlayer(data) {
   } else if (data.characterType === "Shanker") {
     var newPlayer = new Shanker(data.x, data.y, data.hp, data.name);
   }
+  newPlayer.setZone(data.zone);
   newPlayer.id = data.id;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
@@ -265,6 +272,7 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
+  console.log("local player zone" + localPlayer.getZone());
   if (Date.now() -  oldTime >= updateTime){
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
     oldTime = Date.now();
@@ -273,10 +281,7 @@ function update() {
     Spells.spellsarray[i].update();
   };
 
-  // Update local player and check for change
   localPlayer.update(keys);
-    // Send local player data to the game server
-  //socket.emit("update health", {hp: localPlayer.getHp()});
 };
 
 function drawAlerts(){
@@ -299,9 +304,13 @@ function draw() {
   drawBackground();
   drawNPCs();
   var i;
+
   for (i = 0; i < remotePlayers.length; i++) {
-    remotePlayers[i].draw(ctx);
-    remotePlayers[i].updateVariables();
+    /* Inefficient implementation, lazy yolo*/
+    if (remotePlayers[i].getZone() === localPlayer.getZone()){
+      remotePlayers[i].draw(ctx);
+      remotePlayers[i].updateVariables();
+    }
   };
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].draw(ctx)
