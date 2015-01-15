@@ -123,18 +123,11 @@ function onReadyForArena(data){ //set all to ready, when they all are, port them
       the_arena.arenaListIndex = _i;
     };
   };
-  
 
   if (!the_arena){ //arena doesn't exist, error
-    util.log("Error, arena doesn't exist!");
     return; //return and remove players from the arena 
   }
   
-  util.log("num of players = " + the_arena);
-  util.log(" num " +the_arena.arena_players.length);
-  if (!the_arena.arena_players.length === arenaSize) {
-    return;
-  }
   //add to arena room
   //check if everyone in this specific room is ready
   for (var _i = 0; _i < arenaSize ;_i++){
@@ -147,9 +140,8 @@ function onReadyForArena(data){ //set all to ready, when they all are, port them
     util.log("porting to arena");
     for (var _i = 0 ; _i < the_arena.arena_players.length; _i++){ 
       //set a players zone to that. 
-      playerById(the_arena.arena_players[_i]).setZone("Arena " + the_arena.arenaListIndex);
+      playerById(the_arena.arena_players[_i]).setZone("Arena" + the_arena.arenaListIndex);
       io.sockets.connected[the_arena.arena_players[_i]].emit('port to arena', { number: the_arena.arenaListIndex});
-      
     };
   };
 };
@@ -201,7 +193,7 @@ function onClientDisconnect() {
   for (var _i = 0; _i < arenaList.length ; _i++){
     if (arenaList[_i].arena_players.indexOf(this.id) != -1){
       the_arena = arenaList[_i];
-      arenaList[_i].splice(arenaList[_i].arena_players.indexOf(this.id), 1);
+      arenaList[_i].arena_players.splice(arenaList[_i].arena_players.indexOf(this.id), 1);
     };
   };
   if (arenaQueue.indexOf(this.id) != -1){
@@ -243,7 +235,7 @@ function onNewPlayer(data) {
   var i, existingPlayer;
   for (i = 0; i < players.length; i++) {
     existingPlayer = players[i];
-    this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType()});
+    this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType(), zone: existingPlayer.getZone()});
   };
   util.log("Total # of players is " + (players.length+1));
 
@@ -293,7 +285,7 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
-  this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp()});
+  this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone()});
 };
 
 /**************************************************
@@ -309,9 +301,14 @@ function playerById(id) {
 };
 
 function updateGameVariables(){
-
+  /*
+  for (var _i = 0; _i <players.length; _i++){
+    util.log("player " + _i+" in Zone " +players[_i].getZone());
+  }
+  */
   var hostile = hostiles[0];
   io.emit("update hostile", {id: hostile.id, x: hostile.getX(), y: hostile.getY(), name: hostile.getName(), characterType : hostile.getCharacterType(), hp : hostile.getHp()});
+  
 };
 
 init();

@@ -50,7 +50,6 @@ function init() {
         adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
 
         adjustedY += e.clientY - clientRect.topy;
-        //console.log(" clicked at " + e.clientX + " adjusted to " + adjustedX);
         localPlayer.rightClick(adjustedX, adjustedY); 
         break; 
     }
@@ -122,14 +121,10 @@ var setEventHandlers = function() {
   socket.on("update hostile", onUpdateHostile);
   socket.on("arena confirmation", onArenaPrompt);
   socket.on("port to arena", onPortToArena);
-  socket.on("some event", onSomeEvent);
-};
-function onSomeEvent(data){
-  console.log("oh some evnet");
 };
 function onPortToArena(data){
   console.log("porting you to arena number " + data.number);
-  localPlayer.setZone("Arena", data.number);
+  localPlayer.setZone("Arena"+data.number);
   /* Remove all players not in the arena from your thing*/
 };
 function onArenaPrompt(data){
@@ -226,6 +221,7 @@ function onMovePlayer(data) {
   // Update player position
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
+  movePlayer.setZone(data.zone);
   //  if (movePlayer.getCharacterType() === "Fly"){
   //   movePlayer.setDescendAttack(data.descendAttack);
   //  }
@@ -272,7 +268,6 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
-  console.log("local player zone" + localPlayer.getZone());
   if (Date.now() -  oldTime >= updateTime){
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
     oldTime = Date.now();
@@ -301,12 +296,15 @@ function drawAlerts(){
 function draw() {
   // Wipe the canvas clean
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawBackground();
+  if (localPlayer.getZone() === "The Borough"){
+    drawBackground();
+  }
   drawNPCs();
   var i;
-
+  console.log("local players zone is " + localPlayer.getZone());
   for (i = 0; i < remotePlayers.length; i++) {
     /* Inefficient implementation, lazy yolo*/
+    console.log("other players zone is "+ remotePlayers[i].getZone());
     if (remotePlayers[i].getZone() === localPlayer.getZone()){
       remotePlayers[i].draw(ctx);
       remotePlayers[i].updateVariables();
