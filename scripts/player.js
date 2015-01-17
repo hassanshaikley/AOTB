@@ -18,8 +18,16 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       animate =         0,
       fallspeed =       1,
       lastsaid = {},
+      gold = 0,
       zone = "";
   // Getters and setters
+
+  var getGold = function(){
+    return gold;
+  }
+  var setGold = function(newGold){
+    gold = newGold;
+  }
   var getHp = function(){
     return hp;
   };
@@ -249,6 +257,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       getZone : getZone,
       speaks : speaks,
       leftClick : leftClick,
-      respawn : respawn, 
+      respawn : respawn,
+     setGold : setGold,
+    getGold : getGold 
   };
 };

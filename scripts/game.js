@@ -319,7 +319,7 @@ var utilityCanvas = document.getElementById("utilityCanvas");
 var utility_ctx = utilityCanvas.getContext("2d");
 function drawRightCanvas(){
   utility_ctx.fillStyle="#888";
-  utility_ctx.fillText("HII", 0, 0);
+  utility_ctx.fillText("gold: " + localPlayer.getGold(), 20, 20);
 };
 var z = 0;
 var _anim = 0;

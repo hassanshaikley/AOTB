@@ -10,16 +10,16 @@ var Shanker = function(x, y, hp, name){
   var skeleton = Player(x, y, hp, name, moveSpeed),
       facing_left;
   var spritesheet_offset_y = 0;
-  var rightClick = function(clientX, clientY){
+  skeleton.rightClick = function(clientX, clientY){
     console.log("sh clicks");
   };
 
   /* Maybe make this heal?? */ 
-  var leftClick = function(){
+  skeleton.leftClick = function(){
   };
 
   /* Lolswagz */
-  var getCharacterType = function(){
+  skeleton.getCharacterType = function(){
     return "Shanker";
   };
 
