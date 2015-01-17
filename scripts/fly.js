@@ -7,7 +7,6 @@ var localX;
 var floorHeight = 474;
 var toggle = 1;
 
-
 var Fly = function(x, y, hp, name){
 
   var descendAttack = false,
@@ -20,33 +19,33 @@ var Fly = function(x, y, hp, name){
   var skeleton =  Player(x, y, hp, name, 3);
 
 
-  var setDescendAttack = function(boolean_thing, local){
+  skeleton.setDescendAttack = function(boolean_thing, local){
     descendAttack = boolean_thing;
     if (local) {
       socket.emit("descend attack change", { descendAttack: boolean_thing });
     }
   };
-  var getDescendAttack = function(){
+  skeleton.getDescendAttack = function(){
     return descendAttack;
   };
-  var draw = function(ctx) {
-    skeleton.drawText();
+  skeleton.draw = function(ctx) {
+    this.drawText();
     if (flyAnimate >= 30){
       flyAnimate = 0;
     }
-    var bugX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
+    var bugX = canvas.width/2 + this.getDrawAtX() - localX - 50;
 
 
     if (flyAnimate <= 10){
-      ctx.drawImage(flySprite,0,0, 100, 100, bugX,skeleton.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,0,0, 100, 100, bugX,this.getDrawAtY()-50, 100, 100);
     }
     else if (flyAnimate <= 20){
-      ctx.drawImage(flySprite,100,0, 100, 100, bugX,skeleton.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,100,0, 100, 100, bugX,this.getDrawAtY()-50, 100, 100);
     }
     else if (flyAnimate <= 30){
-      ctx.drawImage(flySprite,200,0, 100, 100, bugX,skeleton.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,200,0, 100, 100, bugX, this.getDrawAtY()-50, 100, 100);
     }
-    ctx.drawImage(silverShield, bugX+ 20, skeleton.getDrawAtY()-3);
+    ctx.drawImage(silverShield, bugX+ 20, this.getDrawAtY()-3);
 
     if (descendAttack || rightMouseActionHappening){
       if (!rightMouseActionHappening){
@@ -57,12 +56,12 @@ var Fly = function(x, y, hp, name){
 
     if (descendAttack) {
       ctx.save();
-      ctx.translate(bugX+60, skeleton.getDrawAtY()-40 + 90);
+      ctx.translate(bugX+60, this.getDrawAtY()-40 + 90);
       ctx.rotate(Math.PI);
       ctx.drawImage(silverSword, 0, -10);
       ctx.restore();
     } else {
-      ctx.drawImage(silverSword, bugX+ 60, skeleton.getDrawAtY()-40);
+      ctx.drawImage(silverSword, bugX+ 60, this.getDrawAtY()-40);
     }
     flyAnimate++; 
 
@@ -84,89 +83,64 @@ var Fly = function(x, y, hp, name){
           }
         }
       }
-      //only works if I HIT SOMEONE
     }
   };
 
   // Update player position
-  var update = function(keys) {
+  skeleton.update = function(keys) {
      
     //did_i_get_hit_by_a_fly();
     wobble--;
-    localX = skeleton.getX();
+    localX = this.getX();
     // Previous position
-    var prevX = skeleton.getX(),
-        prevY = skeleton.getY();
+    var prevX = this.getX(),
+        prevY = this.getY();
 
     if (descendAttack == false){
       // Up key takes priority over down
-      if (keys.up && skeleton.getY() >-16) {
-        skeleton.setY(skeleton.getY()- moveAmount);
+      if (keys.up && this.getY() >-16) {
+        this.setY(this.getY()- moveAmount);
       } else if (keys.down) {
-        skeleton.setY(skeleton.getY()+ moveAmount);
+        this.setY(this.getY()+ moveAmount);
       };
-      if(wobble > 0 && skeleton.getY() <= floorHeight){
-        skeleton.setY(skeleton.getY()+1);
-      } else if (skeleton.getY() <= floorHeight) {
-        skeleton.setY(skeleton.getY()-.5);
+      if(wobble > 0 && this.getY() <= floorHeight){
+        this.setY(this.getY()+1);
+      } else if (this.getY() <= floorHeight) {
+        this.setY(this.getY()-.5);
       };
       if (wobble <=-20){
         wobble = 20;
       };
-      if (skeleton.getY() >=floorHeight+1){
-        skeleton.setY(floorHeight+1);
+      if (this.getY() >=floorHeight+1){
+        this.setY(floorHeight+1);
       };
       // Left key takes priority over right
       if (keys.left) {
-        skeleton.setX(skeleton.getX() - moveAmount);
+        this.setX(this.getX() - moveAmount);
         localX -= moveAmount;
       } else if (keys.right) {
-        skeleton.setX(skeleton.getX()+ moveAmount);
+        this.setX(this.getX()+ moveAmount);
         localX += moveAmount;
       };
     }
     else {  //descend attack hits ground
-      if ( skeleton.getY() >= floorHeight-1){
-        setDescendAttack(false, true);
-        skeleton.setY( floorHeight+1);
+      if ( this.getY() >= floorHeight-1){
+        skeleton.setDescendAttack(false, true);
+        this.setY( floorHeight+1);
         rightMouseActionHappening = false;
       } else {
-        skeleton.setY(skeleton.getY()+descendAttackSpeed); //descend attack still
+        this.setY(this.getY()+descendAttackSpeed); //descend attack still
       }
     }
     return (prevX != x || prevY != y) ? true : false;
   };
-  var rightClick = function(){
+  skeleton.rightClick = function(){
     //rightMouseAction = true;
-    setDescendAttack(true, true);
+    skeleton.setDescendAttack(true, true);
   }
-  var getCharacterType = function(){
+  skeleton.getCharacterType = function(){
     return "Fly";
   };
 
-  return {
-    getX : skeleton.getX,
-         getY : skeleton.getY,
-         setX : skeleton.setX,
-         setY : skeleton.setY,
-         getHp : skeleton.getHp,
-         setHp : skeleton.setHp,
-         getAlive : skeleton.getAlive,
-         dies : skeleton.dies,
-         setName : skeleton.setName,
-         getName : skeleton.getName,
-         setDescendAttack : setDescendAttack,
-         getDescendAttack : getDescendAttack,
-         getCharacterType : getCharacterType,
-         leftClick : skeleton.leftClick,
-         update: update,
-         updateVariables : skeleton.updateVariables,
-         draw: draw,
-         rightClick: rightClick,
-         leftClick: skeleton.leftClick,
-         speaks: skeleton.speaks,
-         respawn : skeleton.respawn,
-         setZone : skeleton.setZone,
-         getZone :skeleton.getZone
-  };
+  return skeleton; 
 };

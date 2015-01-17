@@ -211,9 +211,12 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   };
   var leftClick = function(){
     if(_alert){
-      console.log("lolswag");
+      if (_alert.type == "arena"){
+        enterQueue();
+        console.log("Ready for arena");
+        socket.emit("ready for arena");
+      }
       _alert = undefined;
-      socket.emit("ready for arena")
     };
   };
   var getZone = function(){

@@ -7,12 +7,13 @@ var util = require("util");
 var Redhatter = function(x, y, hp, name){
   var skeleton = Player(x, y, hp, name);
 
-  var getCharacterType = function(){
+  skeleton.getCharacterType = function(){
     return "Redhatter";
   };
 
-  return {
-    getX : skeleton.getX,
+  return skeleton; 
+  /*{
+         getX : skeleton.getX,
          getY : skeleton.getY,
          setX : skeleton.setX,
          setY : skeleton.setY,
@@ -25,6 +26,7 @@ var Redhatter = function(x, y, hp, name){
           getZone : skeleton.getZone,
          id: skeleton.id
   };
+          */
 };
 
 exports.Redhatter = Redhatter;

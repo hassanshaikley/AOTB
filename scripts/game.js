@@ -8,7 +8,7 @@ var canvas,     // Canvas DOM element
     remotePlayers,  // Remote players
     socket,
     hostiles,
-    _alert = { time : undefined, type: "NONE"};     // Socket connection
+    _alert;     // Socket connection
 
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
@@ -286,7 +286,9 @@ function drawAlerts(){
     ctx.stroke();
     ctx.textAlign = 'center';
     ctx.fillStyle="#FFF"; 
-    ctx.fillText("CLICK TO JOIN ARENA", 400,250);
+    if (_alert.type === "arena"){
+      ctx.fillText("CLICK TO JOIN ARENA", 400,250);
+    }
     ctx.restore();
   };
 };
@@ -301,10 +303,8 @@ function draw() {
   }
   drawNPCs();
   var i;
-  console.log("local players zone is " + localPlayer.getZone());
   for (i = 0; i < remotePlayers.length; i++) {
     /* Inefficient implementation, lazy yolo*/
-    console.log("other players zone is "+ remotePlayers[i].getZone());
     if (remotePlayers[i].getZone() === localPlayer.getZone()){
       remotePlayers[i].draw(ctx);
       remotePlayers[i].updateVariables();
@@ -316,6 +316,7 @@ function draw() {
   localPlayer.updateVariables();
   localPlayer.draw(ctx);
   drawAlerts();
+  drawRightCanvas();
 };
 function drawNPCs(){
   var _i;
@@ -325,6 +326,12 @@ function drawNPCs(){
     hostiles[i].draw(ctx);
     }
   };
+};
+var utilityCanvas = document.getElementById("utilityCanvas");
+var utility_ctx = utilityCanvas.getContext("2d");
+function drawRightCanvas(){
+  utility_ctx.fillStyle="#888";
+  utility_ctx.fillText("HII", 0, 0);
 };
 var z = 0;
 var _anim = 0;
