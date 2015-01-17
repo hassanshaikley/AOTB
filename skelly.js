@@ -7,23 +7,11 @@ var util = require("util");
 var Skelly = function(x,y,  hp, name){
   var skeleton = Player(x, y, hp, name);
   skeleton.setId(1);
-  var getCharacterType = function(){
+  skeleton.getCharacterType = function(){
     return "Skelly";
   };
 
-  return {
-    getX : skeleton.getX,
-         getY : skeleton.getY,
-         setX : skeleton.setX,
-         setY : skeleton.setY,
-         getCharacterType : getCharacterType,
-         getHp : skeleton.getHp,
-         setHp : skeleton.setHp,
-         setName : skeleton.setName,
-         getName : skeleton.getName,
-         setZone : skeleton.setZone,
-         id: skeleton.id
-  };
+  return skeleton;
 };
 
 exports.Skelly = Skelly;
