@@ -22,18 +22,6 @@ function init() {
   canvas.oncontextmenu = function(e){return false;}
   var clientRect;
   var adjustedX, adjustedY;
-  /* canvas.ontouchstart = function(e){
-     clientRect = ctx.canvas.getBoundingClientRect();
-     adjustedX = drawX + localPlayer.getX(); 
-     adjustedX += (e.clientX - clientRect.left) -100;
-     adjustedY += e.clientY - clientRect.topy;
-     localPlayer.rightClick(adjustedX, adjustedY); 
-     } */
- 
-  $( "#gameCanvas" ).on( "tap", function(e) {
-      rightclick();
-      alert("okai");
-  });
   canvas.onmousedown = function(e){
     switch (e.which) {
       case 1: 

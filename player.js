@@ -9,12 +9,20 @@ var Player = function(startX, startY, startHp, _name) {
       hp = 100,
       character_type = "Unknown", 
       zone = "The Borough";
-
+      gold = 1;
   /* Every character has a type - this is sent from the client */
   var setCharacterType = function(newType){
     this.character_type = newType;
   };
-
+  
+  var setGold = function(amount){
+    gold = amount;
+  };
+  
+  var getGold = function(){
+    return gold
+  };
+  
   var getCharacterType = function(){
     return this.character_type;
   }
@@ -60,7 +68,7 @@ var Player = function(startX, startY, startHp, _name) {
   };
   // Define which variables and methods can be accessed by the world outside
   return {
-    getX: getX,
+      getX: getX,
       getY: getY,
       getX : getX,
       setX: setX,

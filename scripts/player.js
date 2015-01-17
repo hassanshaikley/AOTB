@@ -228,7 +228,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   };
   // Define which variables and methods can be accessed
   return {
-    drawText : drawText,
+      drawText : drawText,
       getX: getX,
       getY: getY,
       setX: setX,
