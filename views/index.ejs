@@ -31,7 +31,9 @@
       window.location.assign('/profile');
       </script>
       <%} else { %>
-    <br><% characterRace = character.race %> 
+      <br><% characterRace = character.race %>
+      <br><% characterGold = character.gold %>
+      <%= characterGold %>
     <script>
       var localPlayerName = "<%= user && character.name || "unknown" %>";
       var characterType = "<%= user && characterRace || "Fly" %>";
@@ -74,6 +76,8 @@
       PORT = <%=process.env.PORT || 5000%>;
       init();
       animate();
+      
+      localPlayer.setGold(<%= user && characterGold || "0" %>);
     </script>
     <script src="scripts/chat.js"></script>
     <script src="scripts/connecttoarena.js"></script>

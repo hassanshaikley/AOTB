@@ -10,6 +10,8 @@ var canvas,     // Canvas DOM element
     hostiles,
     _alert;     // Socket connection
 
+var utilityCanvas = document.getElementById("utilityCanvas");
+var utility_ctx = utilityCanvas.getContext("2d");
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
 var drawX = 0;//in relation to this variable 
@@ -286,6 +288,7 @@ function drawAlerts(){
 function draw() {
   // Wipe the canvas clean
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  utility_ctx.clearRect(0, 0, utilityCanvas.width, utilityCanvas.height);
   if (localPlayer.getZone() === "The Borough"){
     drawBackground();
   }
@@ -315,11 +318,12 @@ function drawNPCs(){
     }
   };
 };
-var utilityCanvas = document.getElementById("utilityCanvas");
-var utility_ctx = utilityCanvas.getContext("2d");
 function drawRightCanvas(){
-  utility_ctx.fillStyle="#888";
-  utility_ctx.fillText("gold: " + localPlayer.getGold(), 20, 20);
+  utility_ctx.save();
+  utility_ctx.fillStyle="#CCC";
+  utility_ctx.font="bold 13px sans-serif";
+  utility_ctx.fillText("gold: " + localPlayer.getGold(), 10, 140);
+  utility_ctx.restore();
 };
 var z = 0;
 var _anim = 0;
