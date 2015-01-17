@@ -82,6 +82,8 @@ var Player = function(startX, startY, startHp, _name) {
       setId : setId,
       setZone : setZone,
       getZone : getZone,
+      getGold : getGold,
+      setGold : setGold,
       id: id
   };
 };

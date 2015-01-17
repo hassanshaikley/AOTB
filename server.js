@@ -253,19 +253,17 @@ function onMeteorCast(data){
 
 function onHitByAttack(data){
   var hitPlayer = playerById(this.id);
-
   if (!hitPlayer){
     return;
   };
-
-  //lower hit players health
   hitPlayer.setHp(hitPlayer.getHp() - 25);
-
+  util.log("Was hit by " + data.hit_by);
   //if DIES
   if (hitPlayer.getHp() <= 0){
-    //util.log("dude is dead " + hitPlayer.id);
+    var hitBy = playerById(data.hit_by);
+    console.log(" is a playa " + hitBy.getName());
+    hitBy.setGold(hitBy.getGold()+1);
     hitPlayer.setHp(100);
-    //give the player that killed 1+ honor and 1+gold
   }
   this.broadcast.emit('set health', { id: hitPlayer.id, hp: hitPlayer.getHp()});
   //emit that health to every1

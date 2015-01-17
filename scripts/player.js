@@ -126,7 +126,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
             console.log("i have been hit");
             //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
             localPlayer.setHp(localPlayer.getHp()-25);
-            socket.emit("attack hits");
+            console.log(remotePlayers[i].id + " is the id");
+            socket.emit("attack hits", { hit_by: remotePlayers[i] });
             remotePlayers[i].hitme = Date.now();
           }
         }
