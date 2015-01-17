@@ -78,7 +78,7 @@ var Fly = function(x, y, hp, name){
           if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
 
             localPlayer.setHp(localPlayer.getHp()-25);
-            socket.emit("attack hits");
+            socket.emit("attack hits", { hit_by: remotePlayers[i].id });
             remotePlayers[i].hitme = Date.now();
           }
         }

@@ -247,8 +247,8 @@ function onNewPlayer(data) {
 /* Sends message to all players except one that casted */
 function onMeteorCast(data){
   //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
-  this.emit('meteor cast', {meteor_x: data.meteor_x });
-  this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x });
+  this.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id });
+  this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id});
 };
 
 function onHitByAttack(data){

@@ -15,7 +15,8 @@ var Spells = {
 };
 
 /* startY isn't necessary, but neither is swag */
-var Meteor = function(meteorX){
+var Meteor = function(meteorX, mCaster){
+  var caster = mCaster;
   var x =meteorX, 
       y = -100,
       active = true; //active spells can hurt this specific client 
@@ -47,7 +48,7 @@ var Meteor = function(meteorX){
 //        Spells.spellsarray.splice(i, 1);
         localPlayer.setHp(localPlayer.getHp()-25);
         Spells.spellsarray[i].active = false;
-        socket.emit("attack hits");
+        socket.emit("attack hits", {hit_by: Spells.spellsarray[i].caster });
       }
     }
     ctx.save();
@@ -61,6 +62,7 @@ var Meteor = function(meteorX){
           getY : getY,
           draw : draw,
           update : update,
-          active : active
+          active : active,
+          caster : caster
   }
 };

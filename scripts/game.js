@@ -149,7 +149,7 @@ function onDescendAttackChanges(data){
   }
 };
 function onMeteorCast(data){
-  var m = new Meteor(data.meteor_x);
+  var m = new Meteor(data.meteor_x, data.caster);
   Spells.spellsarray.push(m);
 };
 
