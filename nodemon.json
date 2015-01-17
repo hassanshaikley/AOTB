@@ -1,4 +1,3 @@
-{
-  "verbose": true,
-  "ignore": ["scripts/*"],
+{   
+    "ignore": ["scripts/*.js", "README.md"] 
 }
