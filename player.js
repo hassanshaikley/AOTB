@@ -9,7 +9,7 @@ var Player = function(startX, startY, startHp, _name) {
       hp = 100,
       character_type = "Unknown", 
       zone = "The Borough";
-      gold = 1;
+      gold = 0;
   /* Every character has a type - this is sent from the client */
   var setCharacterType = function(newType){
     this.character_type = newType;

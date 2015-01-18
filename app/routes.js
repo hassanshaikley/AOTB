@@ -28,7 +28,7 @@ module.exports = function(app, passport) {
     var c_name = req.body.c_name.replace(/ /g, "");
     var _char = new Character({ race: req.body.char_type, _user: req.user._id, name: c_name });
 
-    _char.save(function(err) {
+ _char.save(function(err) {
       if (err) return handleError(err); 
       //saved
       res.redirect('/profile');

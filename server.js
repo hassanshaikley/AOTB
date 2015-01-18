@@ -262,6 +262,7 @@ function onHitByAttack(data){
   if (hitPlayer.getHp() <= 0){
     var hitBy = playerById(data.hit_by);
     console.log(" is a playa " + hitBy.getName());
+    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
     hitBy.setGold(hitBy.getGold()+1);
     hitPlayer.setHp(100);
   }

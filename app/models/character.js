@@ -6,7 +6,7 @@ var CharacterSchema = mongoose.Schema({
    * http://mongoosejs.com/docs/populate.html
    */
     _user: { type: mongoose.Schema.ObjectId, ref: 'User' },
- 	  name          : { type: String, default: "Stillname"},
+ 	  name          : { type: String, default: "Stillname", min: 1},
     loc_x       : { type: Number, default: 0 },
     race     	  : { type: String, default: "Fly" },
     honor  : { type: Number, default: 0},

@@ -111,6 +111,12 @@ var setEventHandlers = function() {
   socket.on("update hostile", onUpdateHostile);
   socket.on("arena confirmation", onArenaPrompt);
   socket.on("port to arena", onPortToArena);
+  socket.on("set gold", onSetGold);
+};
+
+function onSetGold(data){
+  console.log("hi");
+  localPlayer.setGold(data.gold);
 };
 function onPortToArena(data){
   console.log("porting you to arena number " + data.number);
