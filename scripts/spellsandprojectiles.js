@@ -33,7 +33,6 @@ var Spells = {
       var xDist = (Spells.spellsarray[i].getX() - localPlayer.getX()-canvas.width/2 + 155);
       if (xDist <= 85 && xDist >= 25 && yDist <= 100 && yDist >= 50 && Spells.spellsarray[i].active) {
 //        Spells.spellsarray.splice(i, 1);
-        console.log(Spells.spellsarray[i].constructor);
         localPlayer.setHp(localPlayer.getHp()-Spells.spellsarray[i].getDamage());
         Spells.spellsarray[i].active = false;
         socket.emit("attack hits", {hit_by: Spells.spellsarray[i].caster, damage: Spells.spellsarray[i].getDamage() });
@@ -53,7 +52,7 @@ var HealingSpike = function(startX, caster){
   var ticker = 0;
   var update = function(){
     y += y_t;
-    y_t+=y_t;
+    y_t+=y_t*.5;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
     if (y >= 410){
