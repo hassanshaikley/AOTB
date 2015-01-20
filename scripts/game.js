@@ -278,6 +278,7 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
+  Spells.didAnyHit();
   if (Date.now() -  oldTime >= updateTime){
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
     oldTime = Date.now();

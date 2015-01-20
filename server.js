@@ -266,7 +266,7 @@ function onHitByAttack(data){
   if (!hitPlayer){
     return;
   };
-  hitPlayer.setHp(hitPlayer.getHp() - 25);
+  hitPlayer.setHp(hitPlayer.getHp() - data.damage);
   util.log("Was hit by " + data.hit_by);
   //if DIES
   if (hitPlayer.getHp() <= 0){

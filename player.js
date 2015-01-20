@@ -7,6 +7,7 @@ var Player = function(startX, startY, startHp, _name) {
       id, //id of the socket
       name = _name,
       hp = 100,
+      maxHp = hp,
       character_type = "Unknown", 
       zone = "The Borough";
       gold = 0;
@@ -39,6 +40,9 @@ var Player = function(startX, startY, startHp, _name) {
   };
 
   var setHp = function(newHp){
+    if (newHp >= maxHp){
+      hp = maxHp;
+    }
     hp = newHp;
   };
 

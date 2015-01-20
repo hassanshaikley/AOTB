@@ -19,7 +19,8 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       fallspeed =       1,
       lastsaid = {},
       gold = 0,
-      zone = "";
+      zone = "",
+        maxHp = hp;
   // Getters and setters
 
   var getGold = function(){
@@ -67,6 +68,9 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   };
   var setHp = function(newHp){
     hp = newHp;
+    if (hp > maxHp){
+      hp = maxHp;
+    }
     if (hp <= 0 && getAlive()){
       dies();
     }
