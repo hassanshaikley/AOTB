@@ -321,15 +321,16 @@ function draw() {
   drawAction();
 };
 function drawAction(){
-  action_ctx.fillStyle="red";
-  action_ctx.globalAlpha = .3;
-  action_ctx.font="20px sans-serif";
+  action_ctx.save();
+  action_ctx.fillStyle="#CCC";
+  action_ctx.font="bold 13px sans-serif";
   if (Date.now() - localPlayer.meteor < m_cd ){
-    var maths = Math.round(((Date.now() - localPlayer.meteor )*actionBarCanvas.height)/ m_cd);
-  console.log("maths is " + maths);
-  action_ctx.fillRect(0, maths, 10, actionBarCanvas.height);
+
+  action_ctx.fillText(Math.round((Date.now() - localPlayer.meteor)/100) , 10, 10);
   } else {
+  action_ctx.fillText( "0" , 10, 10);
   }
+  action_ctx.restore();
 };
 function drawNPCs(){
   var _i;

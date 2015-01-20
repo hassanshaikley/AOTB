@@ -1,13 +1,17 @@
 /**************************************************
  ** Spells, Projectile and Attacks all messed with here
  **************************************************/
+m_cd = 1000;
 var Spells = {
   spellsarray: [],
 
   meteor: function(clientX, clientY) {
-    var x = clientX;
-    var m = new Meteor(x);
-    socket.emit("meteor cast", { meteor_x : m.getX()});
+    if (!localPlayer.meteor  || Date.now()-localPlayer.meteor > m_cd){
+      var x = clientX;
+      var m = new Meteor(x);
+      socket.emit("meteor cast", { meteor_x : m.getX()});
+      localPlayer.meteor = Date.now();
+    }
   },
   yoloswag: function() {
               console.log("Yolo Swag");
