@@ -66,6 +66,9 @@ function init() {
     localPlayer = new Bowman(startX, startY, startHp, localPlayerName);
   } else if (characterType === "Shanker"){
     localPlayer = new Shanker(startX, startY, startHp, localPlayerName);
+
+  } else if (characterType === "Crevice"){
+    localPlayer = new Crevice(startX, startY, startHp, localPlayerName);
   } 
   else {
     alert("Something has went wrong");
@@ -118,7 +121,6 @@ var setEventHandlers = function() {
 };
 
 function onSetGold(data){
-  console.log("hi");
   localPlayer.setGold(data.gold);
 };
 function onPortToArena(data){
@@ -200,6 +202,8 @@ function onNewPlayer(data) {
     var newPlayer = new Bowman(data.x, data.y, data.hp, data.name);
   } else if (data.characterType === "Shanker") {
     var newPlayer = new Shanker(data.x, data.y, data.hp, data.name);
+  } else if (data.characterType === "Crevice") {
+    var newPlayer = new Crevice(data.x, data.y, data.hp, data.name);
   }
   newPlayer.setZone(data.zone);
   newPlayer.id = data.id;
@@ -326,7 +330,6 @@ function drawAction(){
   action_ctx.font="20px sans-serif";
   if (Date.now() - localPlayer.meteor < m_cd ){
     var maths = Math.round(((Date.now() - localPlayer.meteor )*actionBarCanvas.height)/ m_cd);
-  console.log("maths is " + maths);
   action_ctx.fillRect(0, maths, 10, actionBarCanvas.height);
   } else {
   }

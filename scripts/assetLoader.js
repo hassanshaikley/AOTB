@@ -17,6 +17,7 @@ var bowMan = new Image();
 var shanker = new Image();
 var cloud = new Image();
 var skelly = new Image();
+var crevice = new Image();
 function UrlExists(url)
 {
   var http = new XMLHttpRequest();
@@ -46,3 +47,4 @@ shanker.src = url + "shanker_2.png";
 cobbleStone.src = url + "cobblestone_ground.png";
 cloud.src = url + "cloud.png";
 skelly.src = url + "skelly.png";
+crevice.src = url + "crevice.png";

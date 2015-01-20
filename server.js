@@ -18,6 +18,7 @@ var util = require("util"),
     Bowman = require("./bowman").Bowman,
     Skelly = require("./skelly").Skelly,
     Shanker = require("./shanker").Shanker,
+    Crevice = require("./crevice").Crevice,
     configDB = require('./config/database.js'),
     cookieParser = require('cookie-parser'),
     bodyParser   = require('body-parser'),
@@ -225,6 +226,9 @@ function onNewPlayer(data) {
     var newPlayer = new Bowman(data.x, data.y, data.hp, data.name);
   } else if (data.characterType === "Shanker"){
     var newPlayer = new Shanker(data.x, data.y, data.hp, data.name);
+  }
+   else if (data.characterType === "Crevice"){
+    var newPlayer = new Crevice(data.x, data.y, data.hp, data.name);
   }
   newPlayer.id = this.id;
   util.log("CReating a " + newPlayer.getCharacterType());
