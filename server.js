@@ -101,6 +101,7 @@ function onSocketConnection(client) {
   client.on("update health", onUpdateHealth);
   client.on("attack hits", onHitByAttack);
   client.on("meteor cast", onMeteorCast);
+  client.on("healing spike cast", onHealingSpikeCast);
   client.on("respawn player", onRespawn);
   client.on("descend attack change", onDescendAttackChange);
   client.on("queue for arena", onEnterArenaQueue);
@@ -253,6 +254,11 @@ function onMeteorCast(data){
   //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
   this.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id });
   this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id});
+};
+function onHealingSpikeCast(data){
+  //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
+  this.emit('healing spike cast', {_x: data._x, caster: this.id });
+  this.broadcast.emit('healing spike cast', {_x: data._x, caster: this.id});
 };
 
 function onHitByAttack(data){

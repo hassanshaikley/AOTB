@@ -18,6 +18,7 @@ var shanker = new Image();
 var cloud = new Image();
 var skelly = new Image();
 var crevice = new Image();
+var healingcross = new Image();
 function UrlExists(url)
 {
   var http = new XMLHttpRequest();
@@ -48,3 +49,4 @@ cobbleStone.src = url + "cobblestone_ground.png";
 cloud.src = url + "cloud.png";
 skelly.src = url + "skelly.png";
 crevice.src = url + "crevice.png";
+healingcross.src = url + "healingcross.png";

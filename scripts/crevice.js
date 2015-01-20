@@ -1,5 +1,5 @@
 /**************************************************
-   ** REDHATTER CLASS IN CLIENT
+   ** CREVICE CLASS IN CLIENT
     **************************************************/
 var Animate = 0,
     floorHeight = 474,
@@ -10,12 +10,15 @@ var Crevice = function(x, y, hp, name){
   var skeleton = Player(x, y, hp, name, moveSpeed),
       facing_left;
   var spritesheet_offset_y = 0;
-  skeleton.rightClick = function(clientX, clientY){
-    console.log("sh clicks");
-  };
 
   /* Maybe make this heal?? */ 
   skeleton.leftClick = function(){
+  };
+  /* CASTS A sPIKE :D */
+  skeleton.rightClick = function(clientX, clientY){
+    // console.log("meteor right click - x is " + clientX + " y is "+ clientY);
+
+    Spells.healingSpike(clientX, clientY);
   };
 
   /* Lolswagz */
@@ -33,7 +36,6 @@ var Crevice = function(x, y, hp, name){
     }
     skeleton.animate = skeleton.animate+1;
    var drawAtX = canvas.width/2 + this.getDrawAtX() - localX - 50;
-    
     /* Decides what sprite to draw*/
     if (skeleton.animate%40 <= 10){ 
     ctx.drawImage(crevice, 0, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
@@ -47,7 +49,6 @@ var Crevice = function(x, y, hp, name){
     ctx.drawImage(crevice, 200, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
     }
   };
-  
   /* Constantly called for the localPlayer, updates the actual 
    * Position held by the server
    */

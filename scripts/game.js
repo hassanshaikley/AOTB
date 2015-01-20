@@ -112,6 +112,7 @@ var setEventHandlers = function() {
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
   socket.on("meteor cast", onMeteorCast);
+  socket.on("healing spike cast", onHealingSpikeCast);
   socket.on("respawn player", onRespawnPlayer);
   socket.on("descend attack changes", onDescendAttackChanges);
   socket.on("update hostile", onUpdateHostile);
@@ -163,6 +164,12 @@ function onMeteorCast(data){
   var m = new Meteor(data.meteor_x, data.caster);
   Spells.spellsarray.push(m);
 };
+function onHealingSpikeCast(data){
+  var m = new HealingSpike(data._x, data.caster);
+  Spells.spellsarray.push(m);
+};
+
+
 
 // Keyboard key down
 function onKeydown(e) {
