@@ -10,7 +10,7 @@ var CharacterSchema = mongoose.Schema({
     loc_x       : { type: Number, default: 0 },
     race     	  : { type: String, default: "Fly" },
     honor  : { type: Number, default: 0},
-    gold 		    : { type: Number, default: 5}
+    gold 		    : { type: Number, default: 0}
 });
 
 module.exports = mongoose.model('Character', CharacterSchema);

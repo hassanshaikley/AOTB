@@ -14,7 +14,10 @@ var utilityCanvas = document.getElementById("utilityCanvas");
 var utility_ctx = utilityCanvas.getContext("2d");
 var actionBarCanvas = document.getElementById("infoBar");
 var action_ctx = actionBarCanvas.getContext("2d");
- 
+if (!development){
+  $('body').bind('contextmenu', function(){ return false });
+}
+console.log(!development);
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
 var drawX = 0;//in relation to this variable 
