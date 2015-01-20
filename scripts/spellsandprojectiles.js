@@ -28,7 +28,8 @@ var Spells = {
 };
 
 var HealingSpike = function(startX, caster){
-  var x  = startX, active = true, y = 0;
+  var x  = startX, active = true, y = -100;
+  y_t = 1;
   var caster = caster;
   var draw = function(ctx){
     var trueX = x  - localPlayer.getX() + 50;
@@ -36,7 +37,8 @@ var HealingSpike = function(startX, caster){
   };
   var ticker = 0;
   var update = function(){
-    y += 30;
+    y += y_t;
+    y_t+=y_t;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
     if (y >= 410){
