@@ -82,8 +82,9 @@
       PORT = <%=process.env.PORT || 5000%>;
       init();
       animate();
-      
+    <% if (typeof character === 'undefined'){%>   
       localPlayer.setGold(<%= characterGold || "0" %>);
+      <%} %>
     </script>
     <script src="scripts/chat.js"></script>
     <script src="scripts/connecttoarena.js"></script>
