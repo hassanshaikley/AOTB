@@ -83,7 +83,7 @@
       init();
       animate();
     <% if (typeof characterGold === 'undefined'){%>   
-      localPlayer.setGold(<%= characterGold || "0" %>);
+      localPlayer.setGold(<%= characterGold %>);
       <%} %>
     </script>
     <script src="scripts/chat.js"></script>
