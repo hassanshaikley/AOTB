@@ -3,6 +3,7 @@
  * then uses AWS for the files!
  */
 var url;
+var goldCoins = new Image();
 var flySprite = new Image();
 var silverShield = new Image();
 var silverSword = new Image();
@@ -50,3 +51,4 @@ cloud.src = url + "cloud.png";
 skelly.src = url + "skelly.png";
 crevice.src = url + "crevice.png";
 healingcross.src = url + "healingcross.png";
+goldCoins.src = url + "gold.png";

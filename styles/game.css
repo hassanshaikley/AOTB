@@ -58,8 +58,6 @@ body {
 }
 
 #utilityCanvas {
-  width:250px;
-  height: 320px;
   background: black;
 }
 
@@ -68,6 +66,4 @@ float: right;
 }
 #infoBar  {
   background: black;
-  height: 50px;
-  width: 100%;
 }

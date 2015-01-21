@@ -39,7 +39,6 @@
       <%} else { %>
       <br><% characterRace = character.race %>
       <br><% characterGold = character.gold %>
-      <%= characterGold %>
     <script>
       var localPlayerName = "<%= user && character.name || "unknown" %>";
       var characterType = "<%= user && characterRace || "Fly" %>";
@@ -55,7 +54,7 @@
     <div id="gameCanvasMargin">
       <canvas id="gameCanvas" height=500 width=800></canvas>
       <div id="c_right">
-      <canvas id="utilityCanvas"></canvas>
+      <canvas id="utilityCanvas" width="250px" height="320px"></canvas>
       <div id="chat_outer">
         <div id="chat">
         </div>
@@ -63,7 +62,7 @@
         <input type="button" name="send" id="send" value="send">
       </div>
     </div>
-    <canvas id="infoBar"> </canvas>
+    <canvas id="infoBar" height="50px" width="1050px"> </canvas>
     </div>
     <script src="scripts/assetLoader.js"></script>
     <script src="scripts/animationframe.js"></script>

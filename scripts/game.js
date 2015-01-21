@@ -337,7 +337,6 @@ function draw() {
 };
 function drawAction(){
   action_ctx.fillStyle="red";
-  action_ctx.globalAlpha = .3;
   action_ctx.font="20px sans-serif";
   if (Date.now() - localPlayer.meteor < m_cd ){
     var maths = Math.round(((Date.now() - localPlayer.meteor )*actionBarCanvas.height)/ m_cd);
@@ -358,7 +357,8 @@ function drawRightCanvas(){
   utility_ctx.save();
   utility_ctx.fillStyle="#CCC";
   utility_ctx.font="bold 13px sans-serif";
-  utility_ctx.fillText("gold: " + localPlayer.getGold(), 10, 140);
+  utility_ctx.drawImage(goldCoins, 30, 100);
+  utility_ctx.fillText(localPlayer.getGold(), 10, 140);
   utility_ctx.restore();
 };
 var z = 0;
@@ -376,13 +376,6 @@ function drawBackground(){
   for (var _i = 0; _i < 8; _i++){
     ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-800 +_i*300, 405, 300, 100); 
   }
-  ctx.drawImage(CastleOfOne, displacement-100,95, 1000, 398);
-  if (_anim %20 == 0){ 
-    z+=100;
-    if (z >= 400){
-      z =0;
-    }
-  }
   ctx.drawImage(cloud, displacement+cloud_x-800, 80);
   ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
   ctx.drawImage(cloud, displacement+cloud_x-400, 150);
@@ -399,6 +392,13 @@ function drawBackground(){
   ctx.drawImage(cloud, displacement+cloud_x+4000, 50);
   ctx.drawImage(cloud, displacement+cloud_x+5000, 20);
   //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
+  ctx.drawImage(CastleOfOne, displacement-100,95, 1000, 398);
+  if (_anim %20 == 0){ 
+    z+=100;
+    if (z >= 400){
+      z =0;
+    }
+  }
   ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+1100, 293, 200, 200);
   ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1300, 293, 200, 200);
   _anim++;
