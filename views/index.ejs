@@ -82,7 +82,7 @@
       PORT = <%=process.env.PORT || 5000%>;
       init();
       animate();
-    <% if (typeof characterGold === 'undefined'){%>   
+    <% if (typeof characterGold !== 'undefined'){%>   
       localPlayer.setGold(<%= characterGold %>);
       <%} %>
     </script>
