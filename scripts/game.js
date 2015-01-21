@@ -357,8 +357,8 @@ function drawRightCanvas(){
   utility_ctx.save();
   utility_ctx.fillStyle="#CCC";
   utility_ctx.font="bold 13px sans-serif";
-  utility_ctx.drawImage(goldCoins, 30, 100);
-  utility_ctx.fillText(localPlayer.getGold(), 10, 140);
+  utility_ctx.drawImage(goldCoins, 30, 260);
+  utility_ctx.fillText(localPlayer.getGold(), 10, 300);
   utility_ctx.restore();
 };
 var z = 0;
