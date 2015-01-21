@@ -16,14 +16,13 @@ body {
 #gameCanvasMargin{
 	  margin: auto;
   display: block;
-  width: 1050px;
+  width: 1065px;
 }
 
 #chat {
 	overflow-y: scroll;
 	height: 150px;
 	word-wrap: normal
-	font-family:"12px Fipps";
 
 }
 
@@ -42,6 +41,7 @@ body {
 	/* DELETE AND U DIE */
 	width: 250px;
 	padding-left: 10px;
+  border: 5px solid black;
 
 }
 #text, #chat_outer, #send,  ::-webkit-scrollbar{
@@ -49,21 +49,20 @@ body {
 }
 #text, #send {
 	border: 0px;
-	border-bottom: 1px solid lightgray; 
+	border-bottom: 1px solid #333; 
 	height: 25px;
 }
 
 #chat, #send, #text {
-	color: black;
+	color: #bbb;
 }
 
-#utilityCanvas {
-  background: black;
+#utilityCanvas ,#infoBar { 
+  background: #888;
+  border: 5px solid black;
+  background-color: rgba(135, 8, 25, 0.59);
 }
 
 #c_right {
 float: right;
-}
-#infoBar  {
-  background: black;
 }
