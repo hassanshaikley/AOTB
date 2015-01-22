@@ -95,7 +95,7 @@ var setEventHandlers = function() {
   window.addEventListener("keyup", onKeyup, false);
   window.addEventListener('blur', function() {
     focus_tab = false;
-    //socket.disconnect();
+    socket.disconnect();
   },false);
   window.addEventListener('focus', function() {
     focus_tab = true;
