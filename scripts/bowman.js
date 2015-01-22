@@ -12,26 +12,26 @@ var Bowman = function(x, y, hp, name){
 
   var spritesheet_offset_y = 0;
 
-  var rightClick = function(clientX, clientY){
+  skeleton.rightClick = function(clientX, clientY){
     console.log("bowman clicks");
 
   };
 
   /* Maybe make this heal?? */ 
-  var leftClick = function(){
+  skeleton.leftClick = function(){
   };
 
   /* Lolswagz */
-  var getCharacterType = function(){
+  skeleton.getCharacterType = function(){
     return "Bowman";
   };
 
-  var draw = function(ctx) {
+  skeleton.draw = function(ctx) {
     //var drawAtX = skeleton.getX()-50;
-    skeleton.drawText();
-    if (skeleton.getMoveDirection() === "left"){
+    this.drawText();
+    if (this.getMoveDirection() === "left"){
       facing_left = true;
-    } else if (skeleton.getMoveDirection() === "right"){
+    } else if (this.getMoveDirection() === "right"){
       facing_left = false;
     }
     if (facing_left){
@@ -40,15 +40,15 @@ var Bowman = function(x, y, hp, name){
     else {
       spritesheet_offset_y = 0;
     }
-   var   drawAtX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
+   var drawAtX = canvas.width/2 + this.getDrawAtX() - localX - 50;
     ctx.rect(drawAtX,20,150,100);
     ctx.stroke();
     /* Decides what sprite to draw*/
-    if (skeleton.getAnimate() <= 20){ 
+    if (this.getAnimate() <= 20){ 
     }
-    else if (skeleton.getAnimate() <= 40){
+    else if (this.getAnimate() <= 40){
     }
-    else if (skeleton.getAnimate() <= 60){
+    else if (this.getAnimate() <= 60){
     } else{
     }
   };
@@ -56,38 +56,18 @@ var Bowman = function(x, y, hp, name){
   /* Constantly called for the localPlayer, updates the actual 
    * Position held by the server
    */
-  var update = function(keys) {
-    localX = skeleton.getX();
+  skeleton.update = function(keys) {
+    localX = this.getX();
     if (keys.left) {
-      skeleton.setX(skeleton.getX()-moveSpeed);
+      this.setX(this.getX()-moveSpeed);
       localX -= moveSpeed;
     }
     if (keys.right) {
-      skeleton.setX(skeleton.getX()+moveSpeed);
+      this.setX(ths.getX()+moveSpeed);
       localX += moveSpeed;
     }
     if (keys.up) { }
     if (keys.down) { }
   };
-  return {
-    getX : skeleton.getX,
-         getY : skeleton.getY,
-         setX : skeleton.setX,
-         setY : skeleton.setY,
-         getCharacterType : getCharacterType,
-         getHp : skeleton.getHp,
-         setHp : skeleton.setHp,
-         getAlive : skeleton.getAlive,
-         updateVariables : skeleton.updateVariables,
-         dies : skeleton.dies,
-         getMoveDirection : skeleton.getMoveDirection,
-         setName : skeleton.setName,
-         getName : skeleton.getName,
-         update: update,
-         draw: draw,
-         rightClick: rightClick,
-         leftClick: leftClick,
-         speaks: skeleton.speaks,
-         respawn : skeleton.respawn,
-  };
+  return skeleton;
 };

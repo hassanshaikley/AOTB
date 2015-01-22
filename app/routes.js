@@ -26,9 +26,12 @@ module.exports = function(app, passport) {
     var Character = mongoose.model('Character');
     //   req.body.char_type
     var c_name = req.body.c_name.replace(/ /g, "");
+    if( c_name.length == 0 || c_name.length > 16){
+      res.render('create_character.ejs', { message: "Name must be between 1 and 16 character"});
+      return;
+    }
     var _char = new Character({ race: req.body.char_type, _user: req.user._id, name: c_name });
-
- _char.save(function(err) {
+    _char.save(function(err) {
       if (err) return handleError(err); 
       //saved
       res.redirect('/profile');
@@ -46,7 +49,7 @@ module.exports = function(app, passport) {
   });
 
   app.get('/create_character', isLoggedIn, function(req, res){
-    res.render('create_character.ejs');
+    res.render('create_character.ejs', { message: ""});
   });
 
   app.get('/profile', isLoggedIn, function(req, res) {
