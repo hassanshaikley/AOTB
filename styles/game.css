@@ -3,7 +3,7 @@ body {
   	background: cornflowerblue;
   	background: crimson;
     background-color: #222;
-    background-color: darkblue;
+    background-color: white;
 
 }
 
@@ -55,13 +55,13 @@ body {
 }
 
 #chat, #send, #text {
-	color: #bbb;
+	color: #222;
 }
 
 #utilityCanvas ,#infoBar { 
   background: #888;
   border: 5px solid black;
-  background-color: rgba(135, 8, 25, 0.59);
+  background-color: rgba(135, 8, 25);
 }
 
 #c_right {
