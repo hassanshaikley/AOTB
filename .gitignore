@@ -5,3 +5,7 @@ node_modules
 *.swn
 /localAssets
 .DS_Store
+
+*#
+.#*
+*~

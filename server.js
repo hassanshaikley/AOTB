@@ -317,8 +317,8 @@ function updateGameVariables(){
     util.log("player " + _i+" in Zone " +players[_i].getZone());
   }
   */
-  var hostile = hostiles[0];
-  io.emit("update hostile", {id: hostile.id, x: hostile.getX(), y: hostile.getY(), name: hostile.getName(), characterType : hostile.getCharacterType(), hp : hostile.getHp()});
+ // var hostile = hostiles[0];
+//  io.emit("update hostile", {id: hostile.id, x: hostile.getX(), y: hostile.getY(), name: hostile.getName(), characterType : hostile.getCharacterType(), hp : hostile.getHp()});
   
 };
 
