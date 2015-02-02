@@ -44,7 +44,7 @@ var Events = function(){
     dAP.setDescendAttack(data.descendAttack);
     //this.emit("descend attack changes", data.descendAttack);
     this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: data.descendAttack});
-  }
+  };
   function onRespawn(){
     var respawnPlayer = playerById(this.id);
     util.log("a player has respawned (id:" + this.id + ")");
@@ -170,8 +170,5 @@ var Events = function(){
     setEventHandlers : setEventHandlers
   };
 };
-
-
-
 
 exports.Events = Events;

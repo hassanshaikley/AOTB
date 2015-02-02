@@ -33,7 +33,7 @@ var Player = function(startX, startY, startHp, _name) {
   
   var getCharacterType = function(){
     return this.character_type;
-  }
+  };
 
   var getName = function(){
     return name;

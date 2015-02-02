@@ -13,13 +13,11 @@ module.exports = {
            bodyParser    = require('body-parser');
            session       = require('express-session');
            mongoose.connect(configDB.url); // connect to our database
-
            app = express(); //Express for server
            server        = require('http').createServer(app);
            util          = require("util");
            io            = require("socket.io").listen(server);
            MongoStore   = require('connect-mongo')(session);
-
            require('./config/passport')(passport); // pass passport for configuration
            app.use(cookieParser()); // read cookies (needed for auth)
            app.use(bodyParser()); // get information from html forms
@@ -33,18 +31,26 @@ module.exports = {
                  console.log(err || 'connect-mongodb setup ok');
                })
            }));
-
-
            app.use(passport.initialize());
            app.use(passport.session()); // persistent login sessions
            app.set('views', __dirname + '/views');
            require('./app/routes.js')(app, passport); 
-
            app.engine('html', require('ejs').renderFile);
            app.use(logfmt.requestLogger());
            app.use("/styles", express.static(__dirname + '/styles'));
            app.use("/localAssets", express.static(__dirname + '/localAssets'));
            app.use("/scripts", express.static(__dirname + '/scripts'));
+
+
+           //Game Related Stuff
+           players = [];  // Array of connected players
+           NPCs = [];
+ 
+
+           //at the end get this server to listen up friends : D
+           server.listen(port, function() {
+  				console.log("Listening on " + port);
+			});
 
          }
 };
