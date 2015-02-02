@@ -10,8 +10,15 @@ var Player = function(startX, startY, startHp, _name) {
       maxHp = hp,
       character_type = "Unknown", 
       zone = "The Borough";
-      gold = 0;
-  /* Every character has a type - this is sent from the client */
+      gold = 0,
+    //team is determined randomly
+      team = Math.round(Math.random() * (1));
+    
+    var getTeam = function(){
+	     return this.team;
+    };
+
+/* Every character has a type - this is sent from the client */
   var setCharacterType = function(newType){
     this.character_type = newType;
   };
@@ -88,6 +95,7 @@ var Player = function(startX, startY, startHp, _name) {
       getZone : getZone,
       getGold : getGold,
       setGold : setGold,
+      getTeam : getTeam,
       id: id
   };
 };

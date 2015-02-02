@@ -20,8 +20,15 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       lastsaid = {},
       gold = 0,
       zone = "",
-        maxHp = hp;
+      maxHp = hp,
+      team;
   // Getters and setters
+  var setTeam = function(_team){
+      team = _team;
+  }
+  var getTeam = function(){
+      return team;
+  }
 
   var getGold = function(){
     return gold;

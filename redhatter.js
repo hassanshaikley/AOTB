@@ -1,7 +1,8 @@
 /**************************************************
  ** REDHATTER CLASS IN SERVER
  **************************************************/
-Player = require("./player").Player;
+
+Player = require("./player").Player; // so it can inherits :D 
 var util = require("util");
 
 var Redhatter = function(x, y, hp, name){
