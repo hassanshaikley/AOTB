@@ -13,10 +13,11 @@ var Player = function(startX, startY, startHp, _name) {
       gold = 0,
     //team is determined randomly
       team = Math.round(Math.random() * (1));
-    
+  var hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
     var getTeam = function(){
 	     return this.team;
     };
+
 
 /* Every character has a type - this is sent from the client */
   var setCharacterType = function(newType){
@@ -104,6 +105,7 @@ var Player = function(startX, startY, startHp, _name) {
       getGold : getGold,
       setGold : setGold,
       getTeam : getTeam,
+      hitby : hitby,
       id: id
   };
 };

@@ -21,17 +21,18 @@ function init() {
 
 /* Function for performing computations on the server! ..I think. */
 function updateGameVariables(){
-  /* Algorithm for determining who's hit */
+  /* Algorithm for determining who's hit by a fly... */
   var i;
   var j;
   for (i = 0; i < players.length; i++) {
     if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
       for (j = 0; j < players.length; j++){
         if (i != j){  //so a player does not attack him/herself
-          if (Math.abs(players[i].getX() - players[j].getX()) <= 30){
+          if (Math.abs(players[i].getX() - players[j].getX()) <= 30 && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
             if (Math.abs(players[i].getY() - players[j].getY() <= 100)){
               var life_status = players[j].setHp(players[j].getHp() - 25);
               util.log("new hp " + players[j].getHp());
+              players[j].hitby[i] = Date.now();
             }
           }
         }
@@ -42,10 +43,10 @@ function updateGameVariables(){
   /* Iterate through every spell, if it hits someone then let them take the hit son : D */
   for (i = 0; i < Spells.spellsarray.length; i++){
     for (j = 0; j < players.length; j++) {
-      if (Math.abs(Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 ){
-        //   util.log("M_x " + Spells.spellsarray[i].getX() + "\t P_x:" + players[j].getX());
+      //indexof garbage so a player can only be hurt once by any given spell
+      if (Math.abs(Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 && Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
         if (Math.abs(Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
-//          util.log("M_y " + Spells.spellsarray[i].getY() + "\t P_y:" + players[j].getY());
+          Spells.spellsarray[i].hit.push(players[j].id); 
           var life_status = players[j].setHp(players[j].getHp() - Spells.spellsarray[i].getDamage());
         }
       }

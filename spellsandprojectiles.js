@@ -14,6 +14,7 @@ var Spells = {
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
   var caster = mCaster;
+  var hit = [];
   var x =meteorX, 
       y = -100,
       active = true; //active spells can hurt this specific client 
@@ -43,7 +44,8 @@ var Meteor = function(meteorX, mCaster){
          update : update,
          active : active,
          caster : caster,
-         getDamage: getDamage
+         getDamage: getDamage,
+         hit : hit
   }
 };
 exports.Meteor = Meteor;
