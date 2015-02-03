@@ -30,7 +30,8 @@ function updateGameVariables(){
         if (i != j){  //so a player does not attack him/herself
           if (Math.abs(players[i].getX() - players[j].getX()) <= 30 && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
             if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
-              var life_status = players[j].setHp(players[j].getHp() - 25);
+            //  var life_status = players[j].setHp(players[j].getHp() - 25);
+              setHp(players[j], 25);
               util.log("new hp " + players[j].getHp());
               players[j].hitby[i] = Date.now();
             }
@@ -47,7 +48,8 @@ function updateGameVariables(){
       if (Math.abs(Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 && Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
         if (Math.abs(Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
           Spells.spellsarray[i].hit.push(players[j].id); 
-          var life_status = players[j].setHp(players[j].getHp() - Spells.spellsarray[i].getDamage());
+          //var life_status = players[j].setHp(players[j].getHp() - Spells.spellsarray[i].getDamage());
+          setHp( players[j], Spells.spellsarray[i].getDamage());
         }
       }
     }
@@ -65,5 +67,15 @@ function updateGameVariables(){
 // var hostile = NPCs[0];
 //  io.emit("update hostile", {id: hostile.id, x: hostile.getX(), y: hostile.getY(), name: hostile.getName(), characterType : hostile.getCharacterType(), hp : hostile.getHp()});
 
+function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
+  var alive =  hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
+  //    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
+  //emits to only the player that was hit
+  io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
+
+  if (alive !== "alive"){ //dudes dead
+  }
+
+}
 
 init();

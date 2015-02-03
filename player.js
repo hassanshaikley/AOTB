@@ -50,6 +50,9 @@ var Player = function(startX, startY, startHp, _name) {
   /* Returns "dies" or "lives"*/
   var setHp = function(newHp){
 
+      //send a message to this player
+      
+      //
     if (newHp >= maxHp){
       hp = maxHp;
     } else if ( newHp <= 0){

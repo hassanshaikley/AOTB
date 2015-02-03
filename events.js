@@ -49,7 +49,7 @@ var Events = function(){
           //util.log("made x");
           if (Math.abs(players[i].getY() - attacker.getY()) <= 100){
             //util.log("made y");
-            players[i].setHp(players[i].getHp() -25);
+            setHp(players[i],25);
           }
         }
       }
@@ -137,7 +137,11 @@ var Events = function(){
 
   //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
   //hitBy.setGold(hitBy.getGold()+1);
-
+  function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
+    hitPlayer.setHp(hitPlayer.getHp() -damage);
+//    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
+    io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
+  }
   function onUpdateHealth(data){
 
   };
@@ -151,8 +155,9 @@ var Events = function(){
     };
  
     /* How we handle moving the player after she/he dies */
-    if (movePlayer.getHp() <= 0){
+    if (movePlayer.getHp() <= 0){ // hacky way of handling respawn
       movePlayer.setHp(100);  // palyer is dead
+      this.emit("move player", { x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
     } else { 
       movePlayer.setX(data.x);
       movePlayer.setY(data.y);
@@ -161,7 +166,6 @@ var Events = function(){
     util.log("move player x:\t" +movePlayer.getX() + "\ty:\t" +movePlayer.getY());
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone()});
     // keeps the playerz zone nad HP handled lol
-    //this.emit("move player", { x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
   };
 
 

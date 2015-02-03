@@ -122,8 +122,12 @@ var setEventHandlers = function() {
   socket.on("arena confirmation", onArenaPrompt);
   socket.on("port to arena", onPortToArena);
   socket.on("set gold", onSetGold);
+  socket.on("set hp", onSetHp);
 };
+function onSetHp(data){
 
+  localPlayer.setHp(data.hp);
+};
 function onSetGold(data){
   localPlayer.setGold(data.gold);
 };
@@ -139,19 +143,19 @@ function onArenaPrompt(data){
 function onUpdateHostile(data){
   var _h;
   /*
-  if (!hostileById(data.id)){ // then create
-    console.log("creating hotile of type: "+ data.characterType);
-    if (data.characterType === "Skelly"){
-      _h = new Skelly(data.x, data.y, data.id);
-      hostiles.push(_h);
-    }
+     if (!hostileById(data.id)){ // then create
+     console.log("creating hotile of type: "+ data.characterType);
+     if (data.characterType === "Skelly"){
+     _h = new Skelly(data.x, data.y, data.id);
+     hostiles.push(_h);
+     }
 
-  } else {// just update
-    _h = hostileById(data.id);
-    _h.setHp(data.hp);
-    _h.setX(data.x);
-    _h.setY(data.y);
-  }*/
+     } else {// just update
+     _h = hostileById(data.id);
+     _h.setHp(data.hp);
+     _h.setX(data.x);
+     _h.setY(data.y);
+     }*/
 };
 
 
@@ -228,14 +232,22 @@ function onNewPlayer(data) {
 function onMovePlayer(data) {
   var movePlayer = playerById(data.id);
   // Player not found
-  if (!movePlayer) {
-    return;
-  };
+  if (data.me === "true"){ //literally jsut handles respawn
+    movePlayer = localPlayer;
+    movePlayer.setHp(data.hp);
+    movePlayer.setX(data.x);
+    movePlayer.setY(data.y);
+  } else {
+    if (!movePlayer) {
+      return;
+    };
+    movePlayer.setX(data.x);
+    movePlayer.setY(data.y);
+    movePlayer.setZone(data.zone);
+    movePlayer.setHp(data.hp);
+
+  }
   // Update player position
-  movePlayer.setX(data.x);
-  movePlayer.setY(data.y);
-  movePlayer.setZone(data.zone);
-  movePlayer.setHp(data.hp);
 };
 // Remove player
 function onRemovePlayer(data) {
@@ -341,7 +353,7 @@ function drawAction(){
   action_ctx.font="20px sans-serif";
   if (Date.now() - localPlayer.meteor < m_cd ){
     var maths = Math.round(((Date.now() - localPlayer.meteor )*actionBarCanvas.height)/ m_cd);
-  action_ctx.fillRect(0, maths, 10, actionBarCanvas.height);
+    action_ctx.fillRect(0, maths, 10, actionBarCanvas.height);
   } else {
   }
 };
@@ -350,7 +362,7 @@ function drawNPCs(){
   for (_i = 0 ; _i < hostiles.length; _i++){
     hostiles[i].updateVariables();
     if (hostiles[i] != undefined){
-    hostiles[i].draw(ctx);
+      hostiles[i].draw(ctx);
     }
   };
 };
@@ -372,7 +384,7 @@ function drawForeground(){
 
 }
 function drawBackground(){
-  
+
 
   cloud_x+=.01;
   var displacement = drawX-localPlayer.getX() ;
