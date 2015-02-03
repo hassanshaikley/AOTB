@@ -216,6 +216,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     ctx.restore();
   };
   var leftClick = function(){
+    console.log("left click");
     if(_alert){
       if (_alert.type == "arena"){
         enterQueue();

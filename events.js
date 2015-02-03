@@ -31,6 +31,7 @@ var Events = function(){
     client.on("healing spike cast", onHealingSpikeCast);
     client.on("respawn player", onRespawn);
     client.on("descend attack change", onDescendAttackChange);
+    client.on("meelee attack", onMeeleeAttack);
   };
 
   var setEventHandlers = function() {
@@ -39,7 +40,21 @@ var Events = function(){
     io.set("polling duration", 10);
     io.sockets.on("connection", onSocketConnection);
   };
-
+  function onMeeleeAttack(data){
+    var attacker = playerById(this.id);
+    var i;
+    for (i = 0; i< players.length; i++){
+      if ( players[i].id != this.id){
+        if  (Math.abs(players[i].getX()- attacker.getX()) <= 100 ){
+          util.log("made x");
+          if (Math.abs(players[i].getY() - attacker.getY()) <= 100){
+            util.log("made y");
+            players[i].setHp(players[i].getHp() -25);
+          }
+        }
+      }
+    }
+  }
   function onDescendAttackChange(data){
     var dAP = playerById(this.id);
     dAP.setDescendAttack(data.descendAttack);
