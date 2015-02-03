@@ -28,10 +28,8 @@ function updateGameVariables(){
     if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
       for (j = 0; j < players.length; j++){
         if (i != j){  //so a player does not attack him/herself
-          if (Math.abs(players[i].getX() - players[j].getX() <= 100)){
-            util.log("WITHIN X's");
+          if (Math.abs(players[i].getX() - players[j].getX()) <= 30){
             if (Math.abs(players[i].getY() - players[j].getY() <= 100)){
-              util.log("WITHIN Y's");
               var life_status = players[j].setHp(players[j].getHp() - 25);
               util.log("new hp " + players[j].getHp());
             }
@@ -44,12 +42,11 @@ function updateGameVariables(){
   /* Iterate through every spell, if it hits someone then let them take the hit son : D */
   for (i = 0; i < Spells.spellsarray.length; i++){
     for (j = 0; j < players.length; j++) {
-      if (Math.abs(Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 100 ){
+      if (Math.abs(Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 ){
         //   util.log("M_x " + Spells.spellsarray[i].getX() + "\t P_x:" + players[j].getX());
         if (Math.abs(Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
 //          util.log("M_y " + Spells.spellsarray[i].getY() + "\t P_y:" + players[j].getY());
           var life_status = players[j].setHp(players[j].getHp() - Spells.spellsarray[i].getDamage());
-          
         }
       }
     }

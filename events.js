@@ -45,10 +45,10 @@ var Events = function(){
     var i;
     for (i = 0; i< players.length; i++){
       if ( players[i].id != this.id){
-        if  (Math.abs(players[i].getX()- attacker.getX()) <= 100 ){
-          util.log("made x");
+        if  (Math.abs(players[i].getX()- attacker.getX()) <= 50 ){
+          //util.log("made x");
           if (Math.abs(players[i].getY() - attacker.getY()) <= 100){
-            util.log("made y");
+            //util.log("made y");
             players[i].setHp(players[i].getHp() -25);
           }
         }
