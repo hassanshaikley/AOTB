@@ -20,7 +20,7 @@ if (!development){
 console.log(!development);
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
-drawX = 0;//in relation to this variable 
+var drawX = 0;//in relation to this variable 
 
 function init() {
   // Declare the canvas and rendering context
