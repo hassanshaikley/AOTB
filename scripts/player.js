@@ -153,7 +153,10 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     } else {
       yDelta = 1;
     }
-   
+  
+    /* Basically if super far from your actual location, just teleport there 
+     * Especially useful in the case of a respawn 
+     */ 
     if (Math.abs(drawAtX - x  >= 70)) {
       drawAtX = x;
     }
