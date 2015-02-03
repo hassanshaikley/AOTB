@@ -52,7 +52,8 @@ var Player = function(startX, startY, startHp, _name) {
     if (newHp >= maxHp){
       hp = maxHp;
     } else if ( newHp <= 0){
-      hp = maxHp;
+      setX(0); //sets X to zero,  
+      hp = 0;
       return "dies";
     } else {
       hp = newHp;

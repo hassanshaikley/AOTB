@@ -134,11 +134,18 @@ var Events = function(){
     if (!movePlayer) {
       return;
     };
-
+ 
+    /* How we handle moving the player after she/he dies */
+    if (movePlayer.getHp() <= 0){
+      movePlayer.setHp(100); 
+    } else { 
+      movePlayer.setX(data.x);
+      movePlayer.setY(data.y);
+    }
     // Update player position
-    movePlayer.setX(data.x);
-    movePlayer.setY(data.y);
+    
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone()});
+    // keeps the playerz zone nad HP handled lol
     this.emit("move player", { x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
   };
 

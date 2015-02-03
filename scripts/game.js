@@ -224,7 +224,7 @@ function onNewPlayer(data) {
 };
 
 
-// Move player
+/* Server triggers this functio noften */
 function onMovePlayer(data) {
   var movePlayer = playerById(data.id);
   if (data.me === "true"){
@@ -283,10 +283,12 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
+  /* Updates like 20 times a second or something*/
   if (Date.now() -  oldTime >= updateTime){
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
     oldTime = Date.now();
   }
+  /* Updates the spells locations :D */
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].update();
   };
@@ -420,6 +422,7 @@ function playerById(id) {
   };
   return false;
 };
+
 function hostileById(id) {
   var i;
   for (i = 0; i < hostiles.length; i++) {
