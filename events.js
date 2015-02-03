@@ -152,7 +152,7 @@ var Events = function(){
  
     /* How we handle moving the player after she/he dies */
     if (movePlayer.getHp() <= 0){
-      movePlayer.setHp(100); 
+      movePlayer.setHp(100);  
     } else { 
       movePlayer.setX(data.x);
       movePlayer.setY(data.y);
