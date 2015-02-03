@@ -132,6 +132,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
  
   var yDelta = 1;
   var updateVariables = function(){
+    console.log("player x:\t" + x+ "\tdrawAtX:\t" +drawAtX);
     if ( y > floorHeight ){
       y = (y+fallspeed);
     };

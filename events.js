@@ -158,7 +158,7 @@ var Events = function(){
       movePlayer.setY(data.y);
     }
     // Update player position
-    
+    util.log("move player x:\t" +movePlayer.getX() + "\ty:\t" +movePlayer.getY());
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone()});
     // keeps the playerz zone nad HP handled lol
     this.emit("move player", { x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
