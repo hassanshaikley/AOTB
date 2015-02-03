@@ -386,7 +386,7 @@ function drawBackground(){
     ctx.drawImage(ground ,0,0, 400, 100, displacement+1600 +400*_i,400, 400, 100);
   } 
   for (var _i = 0; _i < 9; _i++){
-    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-1200 +_i*300, 405, 300, 100); 
+    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-1100 +_i*300, 405, 300, 100); 
   }
   ctx.drawImage(cloud, displacement+cloud_x-800, 80);
   ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
@@ -413,8 +413,8 @@ function drawBackground(){
   }
   ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+1100, 293, 200, 200);
   ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1300, 293, 200, 200);
-  ctx.drawImage(spire, displacement+3000, 293);
-  ctx.drawImage(trees, 100, 0, 100, 100, displacement-400, 293, 200, 200);
+  ctx.drawImage(spire, displacement-400, 293);
+  ctx.drawImage(trees, 200, 0, 100, 100, displacement+3000, 293, 200, 200);
   _anim++;
 };
 // Browser window resize
