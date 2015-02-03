@@ -6,7 +6,9 @@ var  Fly           = require("./fly").Fly,
      Bowman        = require("./bowman").Bowman,
      Skelly        = require("./skelly").Skelly,
      Shanker       = require("./shanker").Shanker,
-     Crevice       = require("./crevice").Crevice;
+     Crevice       = require("./crevice").Crevice,
+     Spells        = require("./spellsandprojectiles.js").Spells,
+     Meteor        = require("./spellsandprojectiles.js").Meteor;
 
 
 var Events = function(){
@@ -25,7 +27,6 @@ var Events = function(){
     // Listen for move player message
     client.on("move player", onMovePlayer);
     client.on("update health", onUpdateHealth);
-    client.on("attack hits", onHitByAttack);
     client.on("meteor cast", onMeteorCast);
     client.on("healing spike cast", onHealingSpikeCast);
     client.on("respawn player", onRespawn);
@@ -109,6 +110,9 @@ var Events = function(){
     //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
     this.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id });
     this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id});
+
+    // spell is maintained on the server :D
+    Spells.spellsarray.push(new Meteor(data.meteor_x, this.id));
   };
   function onHealingSpikeCast(data){
     //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
@@ -116,26 +120,9 @@ var Events = function(){
     this.broadcast.emit('healing spike cast', {_x: data._x, caster: this.id});
   };
 
-  function onHitByAttack(data){
-    var hitPlayer = playerById(this.id);
-    if (!hitPlayer){
-      return;
-    };
-    hitPlayer.setHp(hitPlayer.getHp() - data.damage);
-    util.log("Was hit by " + data.hit_by);
-    //if DIES
-    if (hitPlayer.getHp() <= 0){
-      var hitBy = playerById(data.hit_by);
-      console.log(" is a playa " + hitBy.getName());
-      if (this.id != data.hit_by){
-        io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-        hitBy.setGold(hitBy.getGold()+1);
-      } 
-      hitPlayer.setHp(100);
-    }
-    this.broadcast.emit('set health', { id: hitPlayer.id, hp: hitPlayer.getHp()});
-    //emit that health to every1
-  };
+  //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
+  //hitBy.setGold(hitBy.getGold()+1);
+
   function onUpdateHealth(data){
 
   };
@@ -152,6 +139,7 @@ var Events = function(){
     movePlayer.setX(data.x);
     movePlayer.setY(data.y);
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone()});
+    this.emit("move player", { x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
   };
 
   /**************************************************

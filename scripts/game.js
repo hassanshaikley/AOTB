@@ -227,6 +227,9 @@ function onNewPlayer(data) {
 // Move player
 function onMovePlayer(data) {
   var movePlayer = playerById(data.id);
+  if (data.me === "true"){
+    movePlayer = localPlayer;
+  }
   // Player not found
   if (!movePlayer) {
     return;
@@ -235,9 +238,6 @@ function onMovePlayer(data) {
   movePlayer.setX(data.x);
   movePlayer.setY(data.y);
   movePlayer.setZone(data.zone);
-  //  if (movePlayer.getCharacterType() === "Fly"){
-  //   movePlayer.setDescendAttack(data.descendAttack);
-  //  }
   movePlayer.setHp(data.hp);
 };
 // Remove player
@@ -251,6 +251,8 @@ function onRemovePlayer(data) {
   remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
 };
 
+
+/* Should only be able to do this on yourself */
 function onRespawnPlayer(data) {
   var respawnPlayer = playerById(data.id);
   if (respawnPlayer == false) {
@@ -281,7 +283,6 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
-  Spells.didAnyHit();
   if (Date.now() -  oldTime >= updateTime){
     socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
     oldTime = Date.now();

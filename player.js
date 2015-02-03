@@ -46,11 +46,18 @@ var Player = function(startX, startY, startHp, _name) {
     return hp;
   };
 
+  /* Returns "dies" or "lives"*/
   var setHp = function(newHp){
+
     if (newHp >= maxHp){
       hp = maxHp;
+    } else if ( newHp <= 0){
+      hp = maxHp;
+      return "dies";
+    } else {
+      hp = newHp;
     }
-    hp = newHp;
+    return "lives";
   };
 
   var getX = function() {

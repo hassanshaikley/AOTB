@@ -60,13 +60,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
   };
 
   /* Changes object state to dead! */
-  var dies = function(){
-    if (alive == true) {
-      alive = false;
-      socket.emit("respawn player")
-    //  respawn();
-    }
-  }
   var getName = function(){
     return name;
   };
@@ -79,7 +72,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       hp = maxHp;
     }
     if (hp <= 0 && getAlive()){
-      dies();
+      respawn();
     }
   };
 
@@ -124,30 +117,13 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     y = newY;
   };
 
-  var walkAnimationTimer = Date.now();
+
   /* UpdateVariables function is only called when the window is focused - at rate 
    * of FPS
    */
-  var did_i_get_hit_by_a_fly = function(){
-    for (i = 0; i < remotePlayers.length; i++) {
-      if (remotePlayers[i].getCharacterType() === "Fly" && remotePlayers[i].getDescendAttack()){
-        // console.log("Got a fly in the region");
-        if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
-          if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.abs(Math.ceil(remotePlayers[i].getY()-localPlayer.getY())) <=  55){
-            console.log("i have been hit");
-            //hit by a guy so I shouldnt be ablet o be hit by them for a few seconds
-            localPlayer.setHp(localPlayer.getHp()-25);
-            console.log(remotePlayers[i].id + " is the id");
-            socket.emit("attack hits", { hit_by: remotePlayers[i].id });
-            remotePlayers[i].hitme = Date.now();
-          }
-        }
-      }
-    }
-  };
+ 
   var yDelta = 1;
   var updateVariables = function(){
-    did_i_get_hit_by_a_fly();
     if ( y > floorHeight ){
       y = (y+fallspeed);
     };
@@ -254,7 +230,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       setX: setX,
       setY: setY,
       getAlive : getAlive,
-      dies : dies,
       update: update,
       getHp : getHp,
       setHp : setHp,

@@ -2,7 +2,7 @@
 
 module.exports = {
   load : function() {
-           __express = require("express"); // Express JS
+           express = require("express"); // Express JS
            logfmt = require("logfmt"); // Heroku key-value logger
            mongoose = require('mongoose'); // DB simplifier
            passport = require('passport'); // Authentication
