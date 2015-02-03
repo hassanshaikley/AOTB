@@ -227,9 +227,6 @@ function onNewPlayer(data) {
 /* Server triggers this functio noften */
 function onMovePlayer(data) {
   var movePlayer = playerById(data.id);
-  if (data.me === "true"){
-    movePlayer = localPlayer;
-  }
   // Player not found
   if (!movePlayer) {
     return;

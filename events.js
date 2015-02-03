@@ -152,7 +152,7 @@ var Events = function(){
  
     /* How we handle moving the player after she/he dies */
     if (movePlayer.getHp() <= 0){
-      movePlayer.setHp(100);  
+      movePlayer.setHp(100);  // palyer is dead
     } else { 
       movePlayer.setX(data.x);
       movePlayer.setY(data.y);
@@ -161,8 +161,10 @@ var Events = function(){
     util.log("move player x:\t" +movePlayer.getX() + "\ty:\t" +movePlayer.getY());
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone()});
     // keeps the playerz zone nad HP handled lol
-    this.emit("move player", { x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
+    //this.emit("move player", { x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
   };
+
+
 
   /**************************************************
    ** GAME HELPER FUNCTIONS
