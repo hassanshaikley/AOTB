@@ -20,7 +20,7 @@ if (!development){
 console.log(!development);
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
-var drawX = 0;//in relation to this variable 
+drawX = 0;//in relation to this variable 
 
 function init() {
   // Declare the canvas and rendering context
@@ -337,6 +337,7 @@ function draw() {
   drawAlerts();
   drawRightCanvas();
   drawAction();
+  drawForeground();
 };
 function drawAction(){
   action_ctx.fillStyle="red";
@@ -367,17 +368,25 @@ function drawRightCanvas(){
 var z = 0;
 var _anim = 0;
 var cloud_x = 0;
+function drawForeground(){
+  for (var _i = 0; _i < bloods.length; _i++){
+    bloods[i].draw();
+  }
+
+}
 function drawBackground(){
+  
+
   cloud_x+=.01;
   var displacement = drawX-localPlayer.getX() ;
   //drawX is not changing aaah
   var count = "Players: " + (remotePlayers.length + 1);
   ctx.fillText(count, 40,10);
-  for (var _i = 0; _i < 5; _i ++){
+  for (var _i = 0; _i < 7; _i ++){
     ctx.drawImage(ground ,0,0, 400, 100, displacement+1600 +400*_i,400, 400, 100);
   } 
-  for (var _i = 0; _i < 8; _i++){
-    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-800 +_i*300, 405, 300, 100); 
+  for (var _i = 0; _i < 9; _i++){
+    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-1200 +_i*300, 405, 300, 100); 
   }
   ctx.drawImage(cloud, displacement+cloud_x-800, 80);
   ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
@@ -404,6 +413,8 @@ function drawBackground(){
   }
   ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+1100, 293, 200, 200);
   ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1300, 293, 200, 200);
+  ctx.drawImage(spire, displacement+3000, 293);
+  ctx.drawImage(trees, 100, 0, 100, 100, displacement-400, 293, 200, 200);
   _anim++;
 };
 // Browser window resize

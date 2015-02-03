@@ -29,7 +29,7 @@ function updateGameVariables(){
       for (j = 0; j < players.length; j++){
         if (i != j){  //so a player does not attack him/herself
           if (Math.abs(players[i].getX() - players[j].getX()) <= 30 && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
-            if (Math.abs(players[i].getY() - players[j].getY() <= 100)){
+            if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
               var life_status = players[j].setHp(players[j].getHp() - 25);
               util.log("new hp " + players[j].getHp());
               players[j].hitby[i] = Date.now();

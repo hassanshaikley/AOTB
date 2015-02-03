@@ -67,10 +67,16 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     name = newName;
   };
   var setHp = function(newHp){
+    if (newHp < hp ){ //has taken damage
+      var v = new Blood(x, y-30);
+      bloods.push(v);
+      console.log("created a blood");
+    }
     hp = newHp;
     if (hp > maxHp){
       hp = maxHp;
     }
+
     if (hp <= 0 && getAlive()){
       respawn();
     }
@@ -104,9 +110,9 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
 
   /* Mutator for server x variable! */
   var setX = function(newX) {
-    if (newX <= -800){
+    if (newX <= -1200){
       return;
-    } else if (newX >=2500  ){
+    } else if (newX >=3500  ){
       return;
     }
     x = newX;

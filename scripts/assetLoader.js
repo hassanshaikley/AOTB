@@ -4,6 +4,8 @@
  */
 var url;
 var goldCoins = new Image();
+var blood = new Image();
+var trees = new Image();
 var flySprite = new Image();
 var silverShield = new Image();
 var silverSword = new Image();
@@ -20,6 +22,7 @@ var cloud = new Image();
 var skelly = new Image();
 var crevice = new Image();
 var healingcross = new Image();
+var spire = new Image();
 function UrlExists(url)
 {
   var http = new XMLHttpRequest();
@@ -52,3 +55,6 @@ skelly.src = url + "skelly.png";
 crevice.src = url + "crevice.png";
 healingcross.src = url + "healingcross.png";
 goldCoins.src = url + "gold.png";
+spire.src = url + "spire.png";
+blood.src = url + "blood.png";
+trees.src = url + "trees.png";
