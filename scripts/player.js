@@ -67,10 +67,9 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     name = newName;
   };
   var setHp = function(newHp){
-    if (newHp < hp ){ //has taken damage
+    if (newHp < hp){ //has taken damage
       var v = new Blood(x, y-30);
       bloods.push(v);
-      console.log("created a blood");
     }
     hp = newHp;
     if (hp > maxHp){

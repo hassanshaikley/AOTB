@@ -370,7 +370,7 @@ var _anim = 0;
 var cloud_x = 0;
 function drawForeground(){
   for (var _i = 0; _i < bloods.length; _i++){
-    bloods[i].draw();
+    bloods[_i].draw();
   }
 
 }
