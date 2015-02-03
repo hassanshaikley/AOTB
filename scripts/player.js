@@ -153,7 +153,11 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     } else {
       yDelta = 1;
     }
-    
+   
+    if (Math.abs(drawAtX - x  >= 70)) {
+      drawAtX = x;
+    }
+
     //var yDelta = 2.2; //2.2 for descend attack - 1 otherwise
     if (drawAtY - y <= 2){
       drawAtY+=speed*yDelta;

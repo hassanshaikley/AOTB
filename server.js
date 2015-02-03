@@ -37,11 +37,7 @@ function updateGameVariables(){
         if (Math.abs(Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
 //          util.log("M_y " + Spells.spellsarray[i].getY() + "\t P_y:" + players[j].getY());
           var life_status = players[j].setHp(players[j].getHp() - Spells.spellsarray[i].getDamage());
-          //set HP
-          //emit to everyone he dies -- or rather emit to everyone he has moved!?? idk yoloswag
-           
 
-          util.log("new hp " + players[j].getHp());
         }
       }
     }
