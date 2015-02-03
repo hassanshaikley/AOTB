@@ -136,7 +136,7 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
       y = (y+fallspeed);
     };
     //used to calculate direction
-    newerX = x;
+    var newerX = x;
     
     if (getMoveDirection() !== "none"){
       animate++;
