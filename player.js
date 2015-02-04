@@ -10,7 +10,8 @@ var Player = function(startX, startY, startHp, _name) {
       character_type = "Unknown", 
       zone = "The Borough",
       gold = 0,
-      respawnX;
+      respawnX,
+      x;
       //team is determined randomly
   //    team = Math.round(Math.random() * (1)); //team random unless assigned
   var team;
@@ -79,7 +80,7 @@ var Player = function(startX, startY, startHp, _name) {
     //
     if (newHp >= maxHp){
       hp = maxHp;
-    } else if ( newHp <= 0){
+    } else if ( newHp <= 0){ //hp is zero noo
 /**      if (team==0){
        setX(-250); //sets X to zero,  
       } else {
