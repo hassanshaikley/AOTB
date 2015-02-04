@@ -13,7 +13,7 @@ var Player = function(startX, startY, startHp, _name) {
       gold = 0,
       //team is determined randomly
   //    team = Math.round(Math.random() * (1)); //team random unless assigned
-  team = 0;
+  team = 1;
 
   var hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 

@@ -35,6 +35,26 @@ function updateGameVariables(){
   var j;
   for (i = 0; i < players.length; i++) {
     if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
+    util.log("ok\t"+players[i].getTeam()+ "\tx:" + (players[i].getX()+canvas_width/2));
+    util.log("ok\t"+shrine_0.getTeam()+ "\tx:" + (shrine_0.getX()));
+    util.log("--"+ (players[i].getX() +canvas_width/2 -shrine_0.getX()));
+    if  (players[i].getX()+canvas_width/2 - shrine_1.getX() <= 140 && players[i].getX()+canvas_width/2  - shrine_1.getX() >= 40 && players[i].caster_team != 1 && (shrine_0.hitby[i] == undefined || Date.now() -shrine_1.hitby[i] >= 1000)){
+      util.log("Ttt");
+      if (Math.abs(shrine_1.getY() - players[i].getY()) <=150 ){
+        util.log("made y");
+        shrine_1.setHp(shrine_1.getHp() -25 );
+        shrine_1.hitby[i] = Date.now();
+      }
+    }
+    if  (players[i].getX() +canvas_width/2  - shrine_0.getX() <= 140 && players[i].getX()+ canvas_width/2 - shrine_0.getX() >= 40 && players[i].caster_team != 0 &&( shrine_0.hitby[i] == undefined || Date.now() -shrine_0.hitby[i] >= 1000)){
+      //util.log("made x");
+      util.log("Ttt2");
+      if (Math.abs(shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
+        util.log("Swoon");
+        shrine_0.setHp(shrine_0.getHp() -25 );
+        shrine_0.hitby[i] = Date.now();
+      }
+    }
       for (j = 0; j < players.length; j++){
         if (i != j){  //so a player does not attack him/herself
           if (Math.abs(players[i].getX() - players[j].getX()) <= 30 && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
