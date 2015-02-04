@@ -154,7 +154,9 @@ var Events = function(){
     this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id});
 
     // spell is maintained on the server :D
-    Spells.spellsarray.push(new Meteor(data.meteor_x, this.id));
+    v = new Meteor(data.meteor_x, this.id);
+    v.caster_team =playerById(this.id).getTeam();
+    Spells.spellsarray.push(v);
   };
   function onHealingSpikeCast(data){
     //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));

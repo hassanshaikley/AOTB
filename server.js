@@ -51,6 +51,22 @@ function updateGameVariables(){
 
   /* Iterate through every spell, if it hits someone then let them take the hit son : D */
   for (i = 0; i < Spells.spellsarray.length; i++){
+    util.log("ok\t0\t" + (Spells.spellsarray[i].caster));
+    if  (Spells.spellsarray[i].getX() - shrine_1.getX() <= 70 && Spells.spellsarray[i].getX()  - shrine_1.getX() >= -70 && Spells.spellsarray[i].caster_team != 1){
+      util.log("Ttt");
+      if (Math.abs(shrine_1.getY() - Spells.spellsarray[i].getY()) <=150 ){
+        util.log("made y");
+        shrine_1.setHp(shrine_1.getHp() -25 );
+      }
+    }
+    if  (Spells.spellsarray[i].getX()  - shrine_0.getX() <= 70 && Spells.spellsarray[i].getX() - shrine_0.getX() >= -70 && Spells.spellsarray[i].caster_team != 0){
+      //util.log("made x");
+      if (Math.abs(shrine_0.getY() - Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
+        util.log("Swoon");
+        shrine_0.setHp(shrine_0.getHp() -25 );
+      }
+    }
+
     for (j = 0; j < players.length; j++) {
       //indexof garbage so a player can only be hurt once by any given spell
       if (Math.abs(Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 && Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
@@ -61,6 +77,8 @@ function updateGameVariables(){
         }
       }
     }
+
+
     Spells.spellsarray[i].update();
   };
 

@@ -14,6 +14,7 @@ var Spells = {
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
   var caster = mCaster;
+  var caster_team;
   var hit = [];
   var x =meteorX, 
       y = -100,
@@ -44,6 +45,7 @@ var Meteor = function(meteorX, mCaster){
          update : update,
          active : active,
          caster : caster,
+         caster_team : caster_team,
          getDamage: getDamage,
          hit : hit
   }
