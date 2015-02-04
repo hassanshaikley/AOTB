@@ -35,22 +35,18 @@ function updateGameVariables(){
   var j;
   for (i = 0; i < players.length; i++) {
     if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
-    util.log("ok\t"+players[i].getTeam()+ "\tx:" + (players[i].getX()+canvas_width/2));
-    util.log("ok\t"+shrine_0.getTeam()+ "\tx:" + (shrine_0.getX()));
-    util.log("--"+ (players[i].getX() +canvas_width/2 -shrine_0.getX()));
+//    util.log("ok\t"+players[i].getTeam()+ "\tx:" + (players[i].getX()+canvas_width/2));
+ //   util.log("ok\t"+shrine_0.getTeam()+ "\tx:" + (shrine_0.getX()));
+  //  util.log("--"+ (players[i].getX() +canvas_width/2 -shrine_0.getX()));
     if  (players[i].getX()+canvas_width/2 - shrine_1.getX() <= 140 && players[i].getX()+canvas_width/2  - shrine_1.getX() >= 40 && players[i].caster_team != 1 && (shrine_0.hitby[i] == undefined || Date.now() -shrine_1.hitby[i] >= 1000)){
-      util.log("Ttt");
+      //util.log("Ttt");
       if (Math.abs(shrine_1.getY() - players[i].getY()) <=150 ){
-        util.log("made y");
         shrine_1.setHp(shrine_1.getHp() -25 );
         shrine_1.hitby[i] = Date.now();
       }
     }
     if  (players[i].getX() +canvas_width/2  - shrine_0.getX() <= 140 && players[i].getX()+ canvas_width/2 - shrine_0.getX() >= 40 && players[i].caster_team != 0 &&( shrine_0.hitby[i] == undefined || Date.now() -shrine_0.hitby[i] >= 1000)){
-      //util.log("made x");
-      util.log("Ttt2");
       if (Math.abs(shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
-        util.log("Swoon");
         shrine_0.setHp(shrine_0.getHp() -25 );
         shrine_0.hitby[i] = Date.now();
       }
@@ -71,18 +67,14 @@ function updateGameVariables(){
 
   /* Iterate through every spell, if it hits someone then let them take the hit son : D */
   for (i = 0; i < Spells.spellsarray.length; i++){
-    util.log("ok\t0\t" + (Spells.spellsarray[i].caster));
     if  (Spells.spellsarray[i].getX() - shrine_1.getX() <= 70 && Spells.spellsarray[i].getX()  - shrine_1.getX() >= -70 && Spells.spellsarray[i].caster_team != 1){
-      util.log("Ttt");
       if (Math.abs(shrine_1.getY() - Spells.spellsarray[i].getY()) <=150 ){
-        util.log("made y");
         shrine_1.setHp(shrine_1.getHp() -25 );
       }
     }
     if  (Spells.spellsarray[i].getX()  - shrine_0.getX() <= 70 && Spells.spellsarray[i].getX() - shrine_0.getX() >= -70 && Spells.spellsarray[i].caster_team != 0){
       //util.log("made x");
       if (Math.abs(shrine_0.getY() - Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
-        util.log("Swoon");
         shrine_0.setHp(shrine_0.getHp() -25 );
       }
     }

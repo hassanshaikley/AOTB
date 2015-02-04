@@ -59,9 +59,10 @@ function init() {
   // Calculate a random start position for the local player
   // The minus 5 (half a player size) stops the player being
   // placed right on the egde of the screen
-  var startX = 0,
+  var startX =0,
       startY = floorHeight-10,
       startHp = 100;
+
   // Initialise the local player
   if (characterType === "Redhatter"){
     localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
@@ -458,6 +459,7 @@ function playerById(id) {
 };
 function onInitMe(data){
   localPlayer.setTeam(data.team);
+  localPlayer.setX(data.x);
 };
 function hostileById(id) {
   var i;

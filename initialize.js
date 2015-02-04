@@ -47,7 +47,8 @@ module.exports = {
            AI = [];
            shrine_0 =new Shrine(0);
            shrine_1 =new Shrine(1);
-
+          team0=[];
+          team1=[];
            //at the end get this server to listen up friends : D
            server.listen(port, function() {
   				console.log("Listening on " + port);

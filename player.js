@@ -2,21 +2,40 @@
  ** PLAYER CLASS IN SERVER
  **************************************************/
 var Player = function(startX, startY, startHp, _name) {
-  var x = startX,
-      y = startY,
-      id, //id of the socket
+  var  id, //id of the socket
       name = _name,
       hp = startHp,
+      y = startY,
       maxHp = hp,
       character_type = "Unknown", 
       zone = "The Borough",
       gold = 0,
+      respawnX;
       //team is determined randomly
   //    team = Math.round(Math.random() * (1)); //team random unless assigned
-  team = 1;
+  var team;
+  /* */
+  if (team1.length  < team0.length ){ //if team 1 is smaller than team zero
+    util.log ("t1\t" +team1.length + "\tt0\t" +team0.length);
+    team = 1;
+    team1.push(this);
+  } else {
+    util.log ("--x--t1\t" +team1.length + "\tt0\t" +team0.length);
+    team = 0;
+    team0.push(this);
+  }
 
+  if (team==1){
+    respawnX = 3100;
+  } else {
+    respawnX =-250; 
+  }
+  x = respawnX;
   var hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
+  var getRespawnX = function(){
+    return respawnX;
+  };
   var setTeam = function(newTeam){
     team = newTeam;
   };
@@ -61,7 +80,11 @@ var Player = function(startX, startY, startHp, _name) {
     if (newHp >= maxHp){
       hp = maxHp;
     } else if ( newHp <= 0){
-      setX(0); //sets X to zero,  
+/**      if (team==0){
+       setX(-250); //sets X to zero,  
+      } else {
+        setX(3100);
+      }*/
       hp = 0;
       return "dies";
     } else {
@@ -114,6 +137,7 @@ var Player = function(startX, startY, startHp, _name) {
       setGold : setGold,
       setTeam : setTeam,
       getTeam : getTeam,
+      getRespawnX : getRespawnX,
       hitby : hitby,
       id: id
   };

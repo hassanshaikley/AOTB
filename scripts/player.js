@@ -2,7 +2,7 @@
  ** GAME PLAYER CLASS IN CLIENT
  **************************************************/
 var floorHeight = 474;
-var Player = function(startX, startY, startHp, _name, _moveSpeed) {
+var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore startX variable
   var x =               startX,
       y =               startY,
       name =            _name,
@@ -45,7 +45,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) {
     var newX = 0;
     drawAtX = newX;
     drawAtY = newY;
-    x = newX;
     y = newY;
     hp = 100;
 

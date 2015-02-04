@@ -113,7 +113,7 @@ var Events = function(){
   // New player has joined
   function onNewPlayer(data) {
     // Create a new player
-    util.log("A " + (data.characterType || "unknown") + " has joined the game.");
+    util.log("A " + (data.characterType || "unknown") + " has joined the game. at " +data.x);
     if (data.characterType === "Fly"){
       var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
     }
@@ -186,7 +186,7 @@ var Events = function(){
     /* How we handle moving the player after she/he dies */
     if (movePlayer.getHp() <= 0){ // hacky way of handling respawn
       movePlayer.setHp(100);  // palyer is dead
-      this.emit("move player", { x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
+      this.emit("move player", { x: movePlayer.getRespawnX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
     } else { 
       movePlayer.setX(data.x);
       movePlayer.setY(data.y);
@@ -208,7 +208,7 @@ var Events = function(){
   /* sends a message to one player and responds with it's team*/
   var initClient = function(){
       var initPlayer = playerById(this.id);
-      this.emit("init me", { team: initPlayer.getTeam()});
+      this.emit("init me", { team: initPlayer.getTeam(), x: initPlayer.getRespawnX()});
 
     //send team
   };
