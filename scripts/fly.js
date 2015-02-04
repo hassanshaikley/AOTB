@@ -121,9 +121,14 @@ var Fly = function(x, y, hp, name){
     }
     return (prevX != x || prevY != y) ? true : false;
   };
+  var f_cd = 1000;
+  var f_t = Date.now();
   skeleton.rightClick = function(){
-    //rightMouseAction = true;
-    skeleton.setDescendAttack(true, true);
+    //lol terrible design
+    if (Date.now() - f_t > f_cd){
+      skeleton.setDescendAttack(true, true);
+      f_t = Date.now();
+    }
   }
   skeleton.getCharacterType = function(){
     return "Fly";
