@@ -7,13 +7,18 @@ var initialize    = require("./initialize");        initialize.load();
 events          = require("./events").Events;   var event_handler  = new events(); 
 var Spells      = require("./spellsandprojectiles").Spells;
 
+var Skelly        = require("./skelly").Skelly;
+
+
 function init() {
   /* Start the event handling */
   event_handler.setEventHandlers();
+  // add two hostiles lol
+  var sk = new Skelly(0); //Team Zero
+  AI.push(sk);
+  var sk = new Skelly(1); //Team One
+  AI.push(sk);
   /* Add Neutrals to Server */
-  //var sk = new Skelly( 800, 400,100, "Skelly");
-  //NPCs.push(sk);
-
   setInterval(function(){
     updateGameVariables();
   }, 1000 /15);
@@ -21,6 +26,10 @@ function init() {
 
 /* Function for performing computations on the server! ..I think. */
 function updateGameVariables(){
+  /* Every x seconds, spawn AI's*/
+  /* Manage AI behavior */
+  manageAI();
+
   /* Algorithm for determining who's hit by a fly... */
   var i;
   var j;
@@ -32,7 +41,6 @@ function updateGameVariables(){
             if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
             //  var life_status = players[j].setHp(players[j].getHp() - 25);
               setHp(players[j], 25);
-              util.log("new hp " + players[j].getHp());
               players[j].hitby[i] = Date.now();
             }
           }
@@ -56,7 +64,17 @@ function updateGameVariables(){
     Spells.spellsarray[i].update();
   };
 
+  /* Method for telling all the units about the health of the structures and stuff */
+  event_handler.sendUpdatedGame(); 
 };
+
+function manageAI(){
+  var i;
+  for (i = 0 ; i < AI.length; i++){
+    //Now adequately control the AI : D
+    AI[i].update(); 
+  }
+}
 /* LETS TELL IF SOMEBODY is hit on the server */
 
 /*
@@ -64,8 +82,6 @@ function updateGameVariables(){
    util.log("player " + _i+" in Zone " +players[_i].getZone());
    }
  */
-// var hostile = NPCs[0];
-//  io.emit("update hostile", {id: hostile.id, x: hostile.getX(), y: hostile.getY(), name: hostile.getName(), characterType : hostile.getCharacterType(), hp : hostile.getHp()});
 
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
   var alive =  hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage

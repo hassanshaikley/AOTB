@@ -23,6 +23,8 @@ var floorHeight = 474;
 var drawX = 0;//in relation to this variable 
 
 function init() {
+  shrine_0 = new Shrine(0);
+  shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
   canvas = document.getElementById("gameCanvas");
   ctx = canvas.getContext("2d");
@@ -76,13 +78,14 @@ function init() {
   else {
     alert("Something has went wrong");
   };
-  localPlayer.setZone("The Borough");
+  localPlayer.setZone("The Borough"); //ehh
   // Initialise socket connection
   var host = location.origin;
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
   remotePlayers = [];
   hostiles = [];
   setEventHandlers();
+  socket.emit("init me");
 };
 
 
@@ -123,6 +126,13 @@ var setEventHandlers = function() {
   socket.on("port to arena", onPortToArena);
   socket.on("set gold", onSetGold);
   socket.on("set hp", onSetHp);
+  socket.on("shrine hp", onShrineHp);
+  socket.on("init me", onInitMe);
+};
+
+function onShrineHp(data){
+  shrine_0.setHp(data.zero);
+  shrine_1.setHp(data.one);
 };
 function onSetHp(data){
 
@@ -220,6 +230,8 @@ function onNewPlayer(data) {
     var newPlayer = new Crevice(data.x, data.y, data.hp, data.name);
   }
   newPlayer.setZone(data.zone);
+  console.log("setting team to " + data.team);
+  newPlayer.setTeam(data.team);
   newPlayer.id = data.id;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
@@ -330,6 +342,10 @@ function draw() {
     drawBackground();
   }
   drawNPCs();
+  //draw shrine here i think
+  shrine_0.draw();
+  shrine_1.draw();
+
   var i;
   for (i = 0; i < remotePlayers.length; i++) {
     /* Inefficient implementation, lazy yolo*/
@@ -422,8 +438,6 @@ function drawBackground(){
   }
   ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+1100, 293, 200, 200);
   ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1300, 293, 200, 200);
-  ctx.drawImage(spire, displacement-400, 293);
-  ctx.drawImage(trees, 200, 0, 100, 100, displacement+3000, 293, 200, 200);
   _anim++;
 };
 // Browser window resize
@@ -442,7 +456,9 @@ function playerById(id) {
   };
   return false;
 };
-
+function onInitMe(data){
+  localPlayer.setTeam(data.team);
+};
 function hostileById(id) {
   var i;
   for (i = 0; i < hostiles.length; i++) {

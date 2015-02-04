@@ -40,12 +40,13 @@ module.exports = {
            app.use("/styles", express.static(__dirname + '/styles'));
            app.use("/localAssets", express.static(__dirname + '/localAssets'));
            app.use("/scripts", express.static(__dirname + '/scripts'));
-
-
+           var Shrine = require("./shrine.js").Shrine; // Express JS
+          //var shrine 
            //Game Related Stuff
            players = [];  // Array of connected players
-           NPCs = [];
- 
+           AI = [];
+           shrine_0 =new Shrine(0);
+           shrine_1 =new Shrine(1);
 
            //at the end get this server to listen up friends : D
            server.listen(port, function() {

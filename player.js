@@ -6,32 +6,37 @@ var Player = function(startX, startY, startHp, _name) {
       y = startY,
       id, //id of the socket
       name = _name,
-      hp = 100,
+      hp = startHp,
       maxHp = hp,
       character_type = "Unknown", 
-      zone = "The Borough";
+      zone = "The Borough",
       gold = 0,
-    //team is determined randomly
-      team = Math.round(Math.random() * (1));
+      //team is determined randomly
+  //    team = Math.round(Math.random() * (1)); //team random unless assigned
+  team = 0;
+
   var hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
-    var getTeam = function(){
-	     return this.team;
-    };
 
+  var setTeam = function(newTeam){
+    team = newTeam;
+  };
+  var getTeam= function(){
+    return team;
+  };
 
-/* Every character has a type - this is sent from the client */
+  /* Every character has a type - this is sent from the client */
   var setCharacterType = function(newType){
     this.character_type = newType;
   };
-  
+
   var setGold = function(amount){
     gold = amount;
   };
-  
+
   var getGold = function(){
     return gold
   };
-  
+
   var getCharacterType = function(){
     return this.character_type;
   };
@@ -50,9 +55,9 @@ var Player = function(startX, startY, startHp, _name) {
   /* Returns "dies" or "lives"*/
   var setHp = function(newHp){
 
-      //send a message to this player
-      
-      //
+    //send a message to this player
+
+    //
     if (newHp >= maxHp){
       hp = maxHp;
     } else if ( newHp <= 0){
@@ -91,7 +96,7 @@ var Player = function(startX, startY, startHp, _name) {
   };
   // Define which variables and methods can be accessed by the world outside
   return {
-      getX: getX,
+    getX: getX,
       getY: getY,
       getX : getX,
       setX: setX,
@@ -107,6 +112,7 @@ var Player = function(startX, startY, startHp, _name) {
       getZone : getZone,
       getGold : getGold,
       setGold : setGold,
+      setTeam : setTeam,
       getTeam : getTeam,
       hitby : hitby,
       id: id

@@ -22,7 +22,8 @@ var cloud = new Image();
 var skelly = new Image();
 var crevice = new Image();
 var healingcross = new Image();
-var spire = new Image();
+var spire0 = new Image();
+var spire1 = new Image();
 function UrlExists(url)
 {
   var http = new XMLHttpRequest();
@@ -55,6 +56,7 @@ skelly.src = url + "skelly.png";
 crevice.src = url + "crevice.png";
 healingcross.src = url + "healingcross.png";
 goldCoins.src = url + "gold.png";
-spire.src = url + "spire.png";
+spire0.src = url + "spire_0.png";
+spire1.src = url + "spire.png";
 blood.src = url + "blood.png";
 trees.src = url + "trees.png";
