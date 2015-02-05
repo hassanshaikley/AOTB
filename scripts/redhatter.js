@@ -31,6 +31,15 @@ var Redhatter = function(x, y, hp, name){
   skeleton.draw = function(ctx) {
     //var drawAtX = skeleton.getX()-50;
     this.drawText();
+    ctx.save();
+    if (skeleton.getTeam()==0){
+      ctx.shadowBlur=20;
+      ctx.shadowColor="blue";
+    }
+    else {
+      ctx.shadowBlur=20;
+      ctx.shadowColor="green";
+    }
     if (this.getMoveDirection() === "left"){
       facing_left = true;
     } else if (this.getMoveDirection() === "right"){
@@ -57,6 +66,7 @@ var Redhatter = function(x, y, hp, name){
     } else{
       ctx.drawImage(RedhatterSprite,225,spritesheet_offset_y, 75, 100, drawAtX+20,this.getY()-70, 75, 100);
     }
+    ctx.restore();
   };
   
   /* Constantly called for the localPlayer, updates the actual 

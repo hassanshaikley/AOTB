@@ -37,9 +37,18 @@ var Shrine = function(_team) {
   };
 
   var draw= function(){
+    ctx.save();
     //draw HP
     //draw structure, depending on team
     var displacement = -localPlayer.getX();
+    if (team ==0 ){
+      ctx.shadowBlur=20;
+      ctx.shadowColor="blue";
+    }
+    else {
+      ctx.shadowBlur=20;
+      ctx.shadowColor="green";
+    }
     if (_team == 0){
       ctx.drawImage(spire0, displacement+x, 293);
     } else {
@@ -50,6 +59,7 @@ var Shrine = function(_team) {
     ctx.fillStyle="#FF0000";
     ctx.fillRect(x + 60+ displacement,y-50,((hp/50)),6);
     ctx.fillText("SPIRE", x + displacement, y);
+    ctx.restore();
   };
   var getX = function() {
     return x;

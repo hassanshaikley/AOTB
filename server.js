@@ -24,12 +24,35 @@ function init() {
   }, 1000 /15);
 };
 
+var pause;
 /* Function for performing computations on the server! ..I think. */
 function updateGameVariables(){
   /* Every x seconds, spawn AI's*/
   /* Manage AI behavior */
   manageAI();
-
+    /* if there is a winner */
+    if (game1.getWinner() != -1 && pause == undefined ){
+	
+	/* Tell everyone about it and restart the game */
+	//do this once
+	io.sockets.emit('win', {winner : game1.getWinner()});
+	pause = 1;
+	setTimeout(function(){
+	    //a few seconds have elapsed, now reset everyones position
+	    for(var _i = 0; _i < players.length; _i++){
+		players[_i].setHp(0);
+	    	players[_i].setX(players[_i].getRespawnX());
+		util.log("respawning player " +_i +" at " + players[_i].getRespawnX());
+		//emit to that player to go to respawn
+		}
+		game1.setWinner(-1);
+		shrine_0.setHp(3000);
+		shrine_1.setHp(3000);
+	    pause = undefined;
+	}, 5000);
+	/* Now wait like 5 seconds and reset the game*/
+	
+    }
   /* Algorithm for determining who's hit by a fly... */
   var i;
   var j;
@@ -55,7 +78,6 @@ function updateGameVariables(){
       for (j = 0; j < players.length; j++){
         if (i != j){  //so a player does not attack him/herself
           if (Math.abs(players[i].getX() - players[j].getX()) <= 30 && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
-            util.log( players[i].getName() + "\tx:\t"+players[i].getX() +"\t"+ players[j].getName()+"\tx\t:" + players[j].getX());
             if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
             //  var life_status = players[j].setHp(players[j].getHp() - 25);
               setHp(players[j], 25);

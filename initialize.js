@@ -41,12 +41,14 @@ module.exports = {
            app.use("/localAssets", express.static(__dirname + '/localAssets'));
            app.use("/scripts", express.static(__dirname + '/scripts'));
            var Shrine = require("./shrine.js").Shrine; // Express JS
-          //var shrine 
+      var Game = require("./game.js").Game;
+      //var shrine 
            //Game Related Stuff
            players = [];  // Array of connected players
            AI = [];
            shrine_0 =new Shrine(0);
            shrine_1 =new Shrine(1);
+          game1 = new Game(); //terrible design swagger
           team0=[];
           team1=[];
            //at the end get this server to listen up friends : D

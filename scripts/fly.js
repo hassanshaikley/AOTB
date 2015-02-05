@@ -34,8 +34,16 @@ var Fly = function(x, y, hp, name){
       flyAnimate = 0;
     }
     var bugX = canvas.width/2 + this.getDrawAtX() - localX - 50;
+    ctx.save();
 
-
+    if (skeleton.getTeam()==0){
+      ctx.shadowBlur=20;
+      ctx.shadowColor="blue";
+    }
+    else {
+      ctx.shadowBlur=20;
+      ctx.shadowColor="green";
+    }
     if (flyAnimate <= 10){
       ctx.drawImage(flySprite,0,0, 100, 100, bugX,this.getDrawAtY()-50, 100, 100);
     }
@@ -53,7 +61,6 @@ var Fly = function(x, y, hp, name){
       }
       //200 is pretty badass
     } 
-
     if (descendAttack) {
       ctx.save();
       ctx.translate(bugX+60, this.getDrawAtY()-40 + 90);
@@ -63,6 +70,7 @@ var Fly = function(x, y, hp, name){
     } else {
       ctx.drawImage(silverSword, bugX+ 60, this.getDrawAtY()-40);
     }
+    ctx.restore();
     flyAnimate++; 
 
   };

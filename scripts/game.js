@@ -129,6 +129,15 @@ var setEventHandlers = function() {
   socket.on("set hp", onSetHp);
   socket.on("shrine hp", onShrineHp);
   socket.on("init me", onInitMe);
+  socket.on("win", onWin);
+};
+
+function onWin(data){
+  if (data.winner == 0){
+      console.log("team 0 wins");
+ } else {
+      console.log("team 1 wins");
+  }
 };
 
 function onShrineHp(data){

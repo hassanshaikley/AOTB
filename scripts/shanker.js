@@ -25,19 +25,27 @@ var Shanker = function(x, y, hp, name){
   skeleton.draw = function(ctx) {
     //var drawAtX = skeleton.getX()-50;
     this.drawText();
-    if (this.getMoveDirection() === "left"){
-      facing_left = true;
-    } else if (this.getMoveDirection() === "right"){
-      facing_left = false;
-    }
-    if (facing_left){
-      spritesheet_offset_y = 0;
-    }
-    else {
-      spritesheet_offset_y = 100;
-    }
+    ctx.save();
+   if (skeleton.getTeam()==0){
+     ctx.shadowBlur=20;
+     ctx.shadowColor="blue";
+   }
+   else {
+     ctx.shadowBlur=20;
+     ctx.shadowColor="green";
+   }
+   if (this.getMoveDirection() === "left"){
+     facing_left = true;
+   } else if (this.getMoveDirection() === "right"){
+     facing_left = false;
+   }
+   if (facing_left){
+     spritesheet_offset_y = 0;
+   }
+   else {
+     spritesheet_offset_y = 100;
+   }
    var drawAtX = canvas.width/2 + this.getDrawAtX() - localX - 50;
-
    if (meelee_attack >= 50){
      /* Decides what sprite to draw*/
      if (this.getAnimate()%40 <= 10){ 
@@ -52,15 +60,15 @@ var Shanker = function(x, y, hp, name){
        ctx.drawImage(shanker, 200, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-18,100,100);
      }
    } else { //is meelee attacking
-      meelee_attack++;
-      if (meelee_attack < 5){
+     meelee_attack++;
+     if (meelee_attack < 5){
        ctx.drawImage(shanker, 0, 200, 100, 100, drawAtX,this.getY()-18,100,100);
-      } else {
+     } else {
        ctx.drawImage(shanker, 100, 200, 100, 100, drawAtX,this.getY()-18,100,100);
 
-      }
+     }
    }
-
+   ctx.restore();
   };
   var now = Date.now();
   skeleton.leftClick = function(x, y){
