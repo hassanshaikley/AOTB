@@ -186,7 +186,7 @@ var Events = function(){
     /* How we handle moving the player after she/he dies */
     if (movePlayer.getHp() <= 0){ // hacky way of handling respawn
       movePlayer.setHp(100);  // palyer is dead
-      this.emit("move player", { x: movePlayer.getRespawnX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone()});
+      this.emit("move player", { x: movePlayer.getRespawnX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone(), team: movePlayer.getTeam()});
     } else { 
       movePlayer.setX(data.x);
       movePlayer.setY(data.y);
