@@ -269,6 +269,7 @@ function onMovePlayer(data) {
     movePlayer.setHp(data.hp);
 
   }
+  movePlayer.setTeam(data.team);
   // Update player position
 };
 // Remove player

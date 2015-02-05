@@ -192,7 +192,7 @@ var Events = function(){
       movePlayer.setY(data.y);
     }
     // Update player position
-    this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone()});
+    this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone(), team: movePlayer.getTeam()});
     // keeps the playerz zone nad HP handled lol
   };
 
