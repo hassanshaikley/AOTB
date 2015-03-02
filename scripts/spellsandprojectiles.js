@@ -22,12 +22,46 @@ var Spells = {
       localPlayer.healingcross = Date.now();
     }
   },
+    arrow: function(clientX, clientY){
+	//var a = new Arrow(clientX, clientY);
+	console.log("SHOT AN ARROW");
+	socket.emit("arrow created", {x : clientX, y: clientY });
+  },
   yoloswag: function() {
               console.log("Yolo Swag");
   }
 
 };
 
+var BowmanArrow = function(startX, startY, _caster){
+    var x = startX, y = startY;
+    var caster = _caster;
+    var update = function(){
+	x = x + 2;
+    };
+    var draw = function(){
+	console.log("Sa " + x + " hmm " + y);
+	ctx.drawImage(arrow, x, y);
+	};
+    var getX = function(){
+	return x;
+	};
+    var setX = function(newX){
+	var x = newX;
+	};
+    var getY = function(){
+	return 400;
+	};
+    var setY = function(newY){
+
+	};
+    return {
+	update : update,
+	draw:  draw, 
+	getX: getX,
+	setX: setX
+}
+};
 var HealingSpike = function(startX, caster){
   var x  = startX, active = true, y = -100;
   y_t = 1;

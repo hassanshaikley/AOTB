@@ -8,7 +8,8 @@ var  Fly           = require("./fly").Fly,
      Shanker       = require("./shanker").Shanker,
      Crevice       = require("./crevice").Crevice,
      Spells        = require("./spellsandprojectiles.js").Spells,
-     Meteor        = require("./spellsandprojectiles.js").Meteor;
+     Meteor        = require("./spellsandprojectiles.js").Meteor,
+BowmanArrow = require("./spellsandprojectiles.js").BowmanArrow;
 
 canvas_width = 800;
 
@@ -33,6 +34,7 @@ var Events = function(){
     client.on("respawn player", onRespawn);
     client.on("descend attack change", onDescendAttackChange);
     client.on("meelee attack", onMeeleeAttack);
+      client.on("arrow created", onArrowCreated);
     client.on("init me", initClient);
   };
 
@@ -42,6 +44,23 @@ var Events = function(){
     io.set("polling duration", 10);
     io.sockets.on("connection", onSocketConnection);
   };
+function onArrowCreated(data){
+    util.log("arrow created son");
+    //get the arrow and validate that this move was allowed
+    this.emit('arrow fired', {x: data.x, y :data.y, caster: this.id });
+    this.broadcast.emit('arrow fired', {x: data.x, y: data.y, caster: this.id});
+
+    // spell is maintained on the server :D
+    v = new BowmanArrow(data.x, data.y, this.id);
+    v.caster_team =playerById(this.id).getTeam();
+    Spells.spellsarray.push(v);
+    //create it on the sever
+
+    //send information of this arrow to everybody 
+
+    //arrow can appear visually on other peoples machines, but have their machiens render it independently, I think ? IDK. lol swag
+};
+
   function onMeeleeAttack(data){ //when a player left clicks
     var attacker = playerById(this.id);
     var i;

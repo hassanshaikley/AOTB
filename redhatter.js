@@ -6,7 +6,10 @@ Player = require("./player").Player; // so it can inherits :D
 var util = require("util");
 
 var Redhatter = function(x, y, hp, name){
-  var skeleton = Player(x, y, hp, name);
+  var skeleton = new Player(x, y, hp, name);
+
+  /* */
+
 
   skeleton.getCharacterType = function(){
     return "Redhatter";

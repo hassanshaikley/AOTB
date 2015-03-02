@@ -10,6 +10,37 @@ var Spells = {
     /* */
   }
 };
+var BowmanArrow = function(startX, startY, _caster){
+    var hit =[];
+    var caster = _caster;
+    var x= startX, y = startY;
+    var update = function(){
+
+    };
+    
+    var getX = function(){
+
+	};
+    var setX = function(newX){
+
+	};
+    var getY = function(){
+
+	};
+    var setY = function(newY){
+
+	};
+    var getDamage = function(){
+	return 25;
+	};
+    return {
+	update : update,
+	getX: getX,
+	setX: setX,
+	getDamage : getDamage
+}
+};
+
 
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
@@ -19,6 +50,10 @@ var Meteor = function(meteorX, mCaster){
   var x =meteorX, 
       y = -100,
       active = true; //active spells can hurt this specific client 
+    var getDamage = function(){
+	return 25;
+	};
+
   var update = function(){
     y += 50;
     //x += 2;
@@ -52,3 +87,4 @@ var Meteor = function(meteorX, mCaster){
 };
 exports.Meteor = Meteor;
 exports.Spells = Spells;
+exports.BowmanArrow = BowmanArrow;

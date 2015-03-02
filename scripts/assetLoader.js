@@ -4,6 +4,8 @@
  */
 var url;
 var goldCoins = new Image();
+var arrow = new Image();
+var bowman = new Image();
 var blood = new Image();
 var trees = new Image();
 var flySprite = new Image();
@@ -60,3 +62,5 @@ spire0.src = url + "spire_0.png";
 spire1.src = url + "spire.png";
 blood.src = url + "blood.png";
 trees.src = url + "trees.png";
+bowman.src = url + "bowman_2.png";
+arrow.src = url + "arrow.png";

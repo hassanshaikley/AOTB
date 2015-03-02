@@ -119,6 +119,7 @@ var setEventHandlers = function() {
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
   socket.on("meteor cast", onMeteorCast);
+    socket.on("arrow fired", onArrowFired);
   socket.on("healing spike cast", onHealingSpikeCast);
   socket.on("respawn player", onRespawnPlayer);
   socket.on("descend attack changes", onDescendAttackChanges);
@@ -132,6 +133,12 @@ var setEventHandlers = function() {
   socket.on("win", onWin);
 };
 
+/* Takes an arrows x and y position and draws it : D */
+function onArrowFired(data){
+    console.log("MADE AN ARROW");
+  var m = new BowmanArrow(data.x, data.y, data.caster);
+  Spells.spellsarray.push(m);
+};
 function onWin(data){
   if (data.winner == 0){
       console.log("team 0 wins");
