@@ -3,6 +3,23 @@
  **************************************************/
 
 var Keys = function(up, left, right, down) {
+
+    this.keys = {};
+    $(window).keydown(function(e){
+        if ( this.keys[e.keyCode] === undefined ||this.keys[e.keyCode] === false  ){
+            console.log(e.keyCode + " down");
+            this.keys[e.keyCode] = true;
+        }
+
+    });
+    $(window).keyup(function(e){
+        if ( this.keys[e.keyCode] === undefined||this.keys[e.keyCode] === true  ){
+            console.log(e.keyCode + " up");
+        }
+        this.keys[e.keyCode] = false;
+    });
+
+
   //if just switched to this page make them all false
   var up = up || false,
       left = left || false,
