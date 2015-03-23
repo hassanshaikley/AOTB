@@ -115,7 +115,6 @@ var setEventHandlers = function() {
   // New player message received
   socket.on("new player", onNewPlayer);
   // Player move message received
-  socket.on("move player", onMovePlayer);
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
   socket.on("meteor cast", onMeteorCast);
@@ -131,8 +130,20 @@ var setEventHandlers = function() {
   socket.on("shrine hp", onShrineHp);
   socket.on("init me", onInitMe);
   socket.on("win", onWin);
+  socket.on("update player", onUpdatePlayer);
 };
 
+function onUpdatePlayer(data){
+    var player = playerById(data.id);
+    if (player){
+        player.setX(data.x);
+        player.setY(data.y);
+    } else {
+        localPlayer.setX(data.x);
+        localPlayer.setY(data.y);
+
+    }
+}
 /* Takes an arrows x and y position and draws it : D */
 function onArrowFired(data){
     console.log("MADE AN ARROW");
@@ -252,7 +263,6 @@ function onNewPlayer(data) {
   newPlayer.id = data.id;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
-  socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY(), name: localPlayer.getName()});
 
 };
 
@@ -322,11 +332,6 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
-  /* Updates like 20 times a second or something*/
-  if (Date.now() -  oldTime >= updateTime){
-    socket.emit("move player", {x: localPlayer.getX(), y: localPlayer.getY()});
-    oldTime = Date.now();
-  }
   /* Updates the spells locations :D */
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].update();

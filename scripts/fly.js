@@ -110,13 +110,13 @@ var Fly = function(x, y, hp, name){
         this.setY(floorHeight+1);
       };
       // Left key takes priority over right
-      if (keys.left) {
+      /*if (keys.left) {
         this.setX(this.getX() - moveAmount);
         localX -= moveAmount;
       } else if (keys.right) {
         this.setX(this.getX()+ moveAmount);
         localX += moveAmount;
-      };
+      }; */
     }
     else {  //descend attack hits ground
       if ( this.getY() >= floorHeight-1){

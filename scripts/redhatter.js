@@ -74,6 +74,7 @@ var Redhatter = function(x, y, hp, name){
    */
   skeleton.update = function(keys) {
     localX = this.getX();
+    /*
     if (keys.left) {
       this.setX(this.getX()-moveSpeed);
       localX -= moveSpeed;
@@ -81,7 +82,7 @@ var Redhatter = function(x, y, hp, name){
     if (keys.right) {
       this.setX(this.getX()+moveSpeed);
       localX += moveSpeed;
-    }
+    }*/
     if (keys.up) { }
     if (keys.down) { }
   };

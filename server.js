@@ -19,39 +19,54 @@ function init() {
   var sk = new Skelly(1); //Team One
   AI.push(sk);
   /* Add Neutrals to Server */
-  setInterval(function(){
     updateGameVariables();
-  }, 1000 /15);
 };
 
 var pause;
 /* Function for performing computations on the server! ..I think. */
 function updateGameVariables(){
+    util.log("HI");
   /* Every x seconds, spawn AI's*/
   /* Manage AI behavior */
   manageAI();
-    /* if there is a winner */
-    if (game1.getWinner() != -1 && pause == undefined ){
-	
-	/* Tell everyone about it and restart the game */
-	//do this once
-	io.sockets.emit('win', {winner : game1.getWinner()});
-	pause = 1;
-	setTimeout(function(){
-	    //a few seconds have elapsed, now reset everyones position
-	    for(var _i = 0; _i < players.length; _i++){
-		players[_i].setHp(0);
-	    	players[_i].setX(players[_i].getRespawnX());
-		util.log("respawning player " +_i +" at " + players[_i].getRespawnX());
-		//emit to that player to go to respawn
-		}
-		game1.setWinner(-1);
-		shrine_0.setHp(3000);
-		shrine_1.setHp(3000);
-	    pause = undefined;
-	}, 5000);
+  /* if there is a winner */
+  if (game1.getWinner() != -1 && pause == undefined ){
+
+      /* Tell everyone about it and restart the game */
+      //do this once
+      io.sockets.emit('win', {winner : game1.getWinner()});
+      pause = 1;
+      setTimeout(function(){
+          //a few seconds have elapsed, now reset everyones position
+          for(var _i = 0; _i < players.length; _i++){
+              players[_i].setHp(0);
+              players[_i].setX(players[_i].getRespawnX());
+              util.log("respawning player " +_i +" at " + players[_i].getRespawnX());
+              //emit to that player to go to respawn
+          }
+          game1.setWinner(-1);
+          shrine_0.setHp(3000);
+          shrine_1.setHp(3000);
+          pause = undefined;
+      }, 5000);
 	/* Now wait like 5 seconds and reset the game*/
-	
+
+  }
+
+  // update player positions
+    for (var _i = 0; _i < players.length; _i++){
+        if (players[_i].left){
+            players[_i].setX(players[_i].getX()-10);
+        }
+        if (players[_i].right){
+            players[_i].setX(players[_i].getX()+10);
+        }
+        if (players[_i].up){
+            players[_i].setY(players[_i].getY()-10);
+        }
+        if (players[_i].down){
+            players[_i].setY(players[_i].getY()+10);
+        }
     }
   /* Algorithm for determining who's hit by a fly... */
   var i;
@@ -103,7 +118,7 @@ function updateGameVariables(){
       }
     }
 
-    for (j = 0; j < players.length; j++) {
+    for (var j = 0; j < players.length; j++) {
       //indexof garbage so a player can only be hurt once by any given spell
       if ( players[j].getTeam() != Spells.spellsarray[i].caster_team && Math.abs(Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 && Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
         if (Math.abs(Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
@@ -114,12 +129,18 @@ function updateGameVariables(){
       }
     }
 
-
     Spells.spellsarray[i].update();
   };
+    
+  for (var j = 0; j < players.length; j++){
+      io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY() });
+  }
 
   /* Method for telling all the units about the health of the structures and stuff */
   event_handler.sendUpdatedGame(); 
+  setTimeout(function(){
+    updateGameVariables();
+  }, 1000 /15);
 };
 
 function manageAI(){

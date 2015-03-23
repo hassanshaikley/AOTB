@@ -26,8 +26,6 @@ var Events = function(){
     });   
     // Listen for new player message
     client.on("new player", onNewPlayer);
-    // Listen for move player message
-    client.on("move player", onMovePlayer);
     client.on("update health", onUpdateHealth);
     client.on("meteor cast", onMeteorCast);
     client.on("healing spike cast", onHealingSpikeCast);
@@ -36,6 +34,7 @@ var Events = function(){
     client.on("meelee attack", onMeeleeAttack);
       client.on("arrow created", onArrowCreated);
     client.on("init me", initClient);
+    client.on("key press", onKeyPress);
   };
 
   var setEventHandlers = function() {
@@ -44,7 +43,40 @@ var Events = function(){
     io.set("polling duration", 10);
     io.sockets.on("connection", onSocketConnection);
   };
-function onArrowCreated(data){
+  function onKeyPress(data){
+      //util.log(data.key);
+      //util.log(data.down);
+      var player = playerById(this.id);
+      if(data.key === "left"){
+          if (data.down){
+              player.left = true; 
+          }else {
+              player.left = false;    
+          }
+      }
+      if(data.key === "right"){
+          if (data.down){
+              player.right = true; 
+          } else {
+              player.right = false;
+          }
+      }
+      if(data.key === "up"){
+          if (data.down){
+              player.up = true;
+          } else {
+              player.up = false;
+          }
+      }
+      if(data.key === "down"){
+          if (data.down){
+              player.up = true;
+          } else {
+              player.up = false;
+          }
+      }
+  }
+        function onArrowCreated(data){
     util.log("arrow created son");
     //get the arrow and validate that this move was allowed
     this.emit('arrow fired', {x: data.x, y :data.y, caster: this.id });
@@ -194,6 +226,7 @@ function onArrowCreated(data){
 
   };
   // Player has moved - - called a few times every second, sends data to server
+/*
   function onMovePlayer(data) {
     var movePlayer = playerById(this.id);
 
@@ -202,7 +235,6 @@ function onArrowCreated(data){
       return;
     };
  
-    /* How we handle moving the player after she/he dies */
     if (movePlayer.getHp() <= 0){ // hacky way of handling respawn
       movePlayer.setHp(100);  // palyer is dead
       this.emit("move player", { x: movePlayer.getRespawnX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone(), team: movePlayer.getTeam()});
@@ -214,7 +246,7 @@ function onArrowCreated(data){
     this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone(), team: movePlayer.getTeam()});
     // keeps the playerz zone nad HP handled lol
   };
-
+*/
   /* A function for sending data updated on the game server 
    * In a perfect world you would emit everything a specific client needs to know from this function (that is called periodically)
    */
