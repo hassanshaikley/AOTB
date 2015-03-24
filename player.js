@@ -104,7 +104,15 @@ var Player = function(startX, startY, startHp, _name) {
   };
 
   this.setY = function(newY) {
-    y = newY;
+      if (y > -20 && y < 475){
+          y = newY;
+      } else {
+          if ( y<250){
+              y =-19;
+          } else {
+              y =474;
+          }
+      }
   };
   this.setId = function(newId){
     id = newId;
@@ -117,7 +125,7 @@ var Player = function(startX, startY, startHp, _name) {
   };
   this.move = function(speed, direction){
       util.log("MOOH");
-      if (direction === "left"){
+      if (direction === "left" ){
         this.setX(this.getX()-speed);
       } else if (direction === "right"){
         this.setX(this.getX()+speed);
