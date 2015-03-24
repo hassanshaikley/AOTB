@@ -86,16 +86,6 @@ var Shanker = function(x, y, hp, name){
    */
   skeleton.update = function(keys) {
     localX = this.getX();
-    if (keys.left) {
-      this.setX(skeleton.getX()-moveSpeed);
-      localX -= moveSpeed;
-    }
-    if (keys.right) {
-      this.setX(skeleton.getX()+moveSpeed);
-      localX += moveSpeed;
-    }
-    if (keys.up) { }
-    if (keys.down) { }
   };
   return skeleton;
 };

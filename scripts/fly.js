@@ -11,7 +11,6 @@ var Fly = function(x, y, hp, name){
 
   var descendAttack = false,
       moveAmount = 3,
-      wobble = 0 ,
       rightMouseActionHappening = false,
       descendAttack = false,
       descendAttackSpeed = 10;
@@ -84,50 +83,8 @@ var Fly = function(x, y, hp, name){
   // Update player position
   skeleton.update = function(keys) {
      
-    //did_i_get_hit_by_a_fly();
-    wobble--;
     localX = this.getX();
-    // Previous position
-    var prevX = this.getX(),
-        prevY = this.getY();
-
-    if (descendAttack == false){
-      // Up key takes priority over down
-      if (keys.up && this.getY() >-16) {
-        this.setY(this.getY()- moveAmount);
-      } else if (keys.down) {
-        this.setY(this.getY()+ moveAmount);
-      };
-      if(wobble > 0 && this.getY() <= floorHeight){
-        this.setY(this.getY()+1);
-      } else if (this.getY() <= floorHeight) {
-        this.setY(this.getY()-.5);
-      };
-      if (wobble <=-20){
-        wobble = 20;
-      };
-      if (this.getY() >=floorHeight+1){
-        this.setY(floorHeight+1);
-      };
-      // Left key takes priority over right
-      /*if (keys.left) {
-        this.setX(this.getX() - moveAmount);
-        localX -= moveAmount;
-      } else if (keys.right) {
-        this.setX(this.getX()+ moveAmount);
-        localX += moveAmount;
-      }; */
-    }
-    else {  //descend attack hits ground
-      if ( this.getY() >= floorHeight-1){
-        skeleton.setDescendAttack(false, true);
-        this.setY( floorHeight+1);
-        rightMouseActionHappening = false;
-      } else {
-        this.setY(this.getY()+descendAttackSpeed); //descend attack still
-      }
-    }
-    return (prevX != x || prevY != y) ? true : false;
+    return; 
   };
   var f_cd = 1000;
   var f_t = Date.now();

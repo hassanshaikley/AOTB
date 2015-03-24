@@ -11,16 +11,16 @@ var Redhatter = function(x, y, hp, name){
   /* */
 
   skeleton.moveUp = function(){
-    
+   //   skeleton.move(speed, "up");
   };
   skeleton.moveDown = function(){
-
+  //    skeleton.move(speed, "down");
   };
   skeleton.moveLeft = function(){
-    skeleton.setX(skeleton.getX()-speed);
+      skeleton.move(speed, "left");
   };
-  skeleton.moveRight= function(){
-    skeleton.setX(skeleton.getX()+speed);
+  skeleton.moveRight = function(){
+      skeleton.move(speed, "right");
   };
 
   skeleton.getCharacterType = function(){

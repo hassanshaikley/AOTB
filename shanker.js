@@ -12,18 +12,15 @@ var Shanker = function(x, y, hp, name){
   };
   var speed = 10;
   /* */
-
   skeleton.moveUp = function(){
-
   };
   skeleton.moveDown = function(){
-
   };
   skeleton.moveLeft = function(){
-      skeleton.setX(skeleton.getX()-speed);
+      skeleton.move(speed, "left");
   };
   skeleton.moveRight = function(){
-      skeleton.setX(skeleton.getX()+speed);
+      skeleton.move(speed, "right");
   };
   return skeleton;
 };

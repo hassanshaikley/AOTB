@@ -2,7 +2,8 @@
  ** PLAYER CLASS IN SERVER
  **************************************************/
 var Player = function(startX, startY, startHp, _name) {
-  var  id, //id of the socket
+    this.id;
+  var //id of the socket
       name = _name,
       hp = startHp,
       y = startY,
@@ -27,53 +28,53 @@ var Player = function(startX, startY, startHp, _name) {
   }
 
   if (team==1){
-    respawnX = 3100;
+    respawnX = 2900;
   } else {
-    respawnX =-250; 
+    respawnX =100; 
   }
   x = respawnX;
-  var hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
+  this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
-  var getRespawnX = function(){
+  this.getRespawnX = function(){
     return respawnX;
   };
-  var setTeam = function(newTeam){
+  this.setTeam = function(newTeam){
     team = newTeam;
   };
-  var getTeam= function(){
+  this.getTeam= function(){
     return team;
   };
 
   /* Every character has a type - this is sent from the client */
-  var setCharacterType = function(newType){
+  this.setCharacterType = function(newType){
     this.character_type = newType;
   };
 
-  var setGold = function(amount){
+  this.setGold = function(amount){
     gold = amount;
   };
 
-  var getGold = function(){
+  this.getGold = function(){
     return gold
   };
 
-  var getCharacterType = function(){
+  this.getCharacterType = function(){
     return this.character_type;
   };
 
-  var getName = function(){
+  this.getName = function(){
     return name;
   };
-  var setName = function(newName){
+  this.setName = function(newName){
     name = newName;
   };
 
-  var getHp = function(){
+  this.getHp = function(){
     return hp;
   };
 
   /* Returns "dies" or "lives"*/
-  var setHp = function(newHp){
+  this.setHp = function(newHp){
 
     //send a message to this player
 
@@ -94,54 +95,46 @@ var Player = function(startX, startY, startHp, _name) {
     return "lives";
   };
 
-  var getX = function() {
+  this.getX = function() {
     return x;
   };
 
-  var getY = function() {
+  this.getY = function() {
     return y;
   };
 
-  var setX = function(newX) {
+  this.setX = function(newX) {
     x = newX;
   };
 
-  var setY = function(newY) {
+  this.setY = function(newY) {
     y = newY;
   };
-  var setId = function(newId){
+  this.setId = function(newId){
     id = newId;
   };
-  var setZone = function(newZone){
+  this.setZone = function(newZone){
     zone = newZone;
   };
-  var getZone = function(){
+  this.getZone = function(){
     return zone;
   };
-  // Define which variables and methods can be accessed by the world outside
-  return {
-    getX: getX,
-      getY: getY,
-      getX : getX,
-      setX: setX,
-      setY: setY,
-      getHp : getHp,
-      setHp : setHp,
-      setName : setName,
-      getName : getName,
-      getCharacterType : getCharacterType,
-      setCharacterType : setCharacterType,
-      setId : setId,
-      setZone : setZone,
-      getZone : getZone,
-      getGold : getGold,
-      setGold : setGold,
-      setTeam : setTeam,
-      getTeam : getTeam,
-      getRespawnX : getRespawnX,
-      hitby : hitby,
-      id: id
+  this.move = function(speed, direction){
+      util.log("direction " + direction);
+      if (direction == "left"){
+        this.setX(this.getX()-speed);
+      } else if (direction == "right"){
+        this.setX(this.getX()+speed);
+      }
+      if (direction === "up"){
+        this.setY(this.getY()-speed);
+      } else if (direction === "down"){
+        this.setY(this.getY()+speed);
+
+      }
   };
+  // Define which variables and methods can be accessed by the world outside
+  return this;
 };
 
 exports.Player = Player;

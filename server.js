@@ -54,20 +54,21 @@ function updateGameVariables(){
   }
 
   // update player positions
-    for (var _i = 0; _i < players.length; _i++){
-        if (players[_i].left){
-            players[_i].moveLeft();//setX(players[_i].getX()-5);
-        }
-        if (players[_i].right){
-            players[_i].moveRight();//setX(players[_i].getX()+5);
-        }
-        if (players[_i].up){
-            players[_i].moveUp();//setY(players[_i].getY()-5);
-        }
-        if (players[_i].down){
-            players[_i].moveDown();//setY(players[_i].getY()+5);
-        }
-    }
+  for (var _i = 0; _i < players.length; _i++){
+      if (players[_i].left){
+          util.log("LEFTING " +players[_i].getX());
+          players[_i].moveLeft();//setX(players[_i].getX()-5);
+      }
+      if (players[_i].right){
+          players[_i].moveRight();//setX(players[_i].getX()+5);
+      }
+      if (players[_i].up){
+          players[_i].moveUp();//setY(players[_i].getY()-5);
+      }
+      if (players[_i].down){
+          players[_i].moveDown();//setY(players[_i].getY()+5);
+      }
+  }
   /* Algorithm for determining who's hit by a fly... */
   var i;
   var j;
