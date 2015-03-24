@@ -2,7 +2,7 @@
  ** GAME PLAYER CLASS IN CLIENT
  **************************************************/
 var floorHeight = 474;
-var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore startX variable
+var Player = function(startX, startY, startHp, _name) { //ignore startX variable
   var x =               startX,
       y =               startY,
       name =            _name,
@@ -11,12 +11,10 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore sta
       alive =           true,
       drawAtX =         x,
       drawAtY =         y,
-      speed =           _moveSpeed,
       prevX =           x,
       postX =           x,
       moveDifferenceX = 0,
       animate =         0,
-      fallspeed =       1,
       lastsaid = {},
       gold = 0,
       maxHp = hp,
@@ -125,9 +123,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore sta
  
   var yDelta = 1;
   var updateVariables = function(){
-    if ( y > floorHeight ){
-      y = (y+fallspeed);
-    };
     //used to calculate direction
     var newerX = x;
     
@@ -142,32 +137,23 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore sta
      */
     moveDifferenceX =(newerX - postX);
     if (moveDifferenceX){ postX = x; } /* USED TO TELL IF GOING LEFT OR RIGHT */
-
-    if ((drawAtX - x) <= speed){
-      drawAtX+=speed;
-    }
-    if (drawAtX -x >= speed){
-      drawAtX-=speed;
-    }
-    if (drawAtY - y > 50 || drawAtY - y < -50){ //50 && -50 were cool
-      yDelta = 3.05;//was 2.9
-    } else {
-      yDelta = 1;
-    }
   
     /* Basically if super far from your actual location, just teleport there 
      * Especially useful in the case of a respawn 
      */ 
-    if (Math.abs(drawAtX - x)  >= 100) {
-      drawAtX = x;
+    if (drawAtX - x <= 2){
+      drawAtX+=2*yDelta;
+    }
+    if (drawAtX -x >= -2){
+      drawAtX-=2*yDelta;
     }
 
     //var yDelta = 2.2; //2.2 for descend attack - 1 otherwise
     if (drawAtY - y <= 2){
-      drawAtY+=speed*yDelta;
+      drawAtY+=2*yDelta;
     }
     if (drawAtY -y >= -2){
-      drawAtY-=speed*yDelta;
+      drawAtY-=2*yDelta;
     }
   };
 

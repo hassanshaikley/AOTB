@@ -133,7 +133,7 @@ function updateGameVariables(){
   };
     
   for (var j = 0; j < players.length; j++){
-      io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY() });
+      io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp() });
   }
 
   /* Method for telling all the units about the health of the structures and stuff */

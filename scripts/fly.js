@@ -10,7 +10,7 @@ var toggle = 1;
 var Fly = function(x, y, hp, name){
 
   var descendAttack = false,
-      moveAmount = 3,
+      moveAmount = 7,
       rightMouseActionHappening = false,
       descendAttack = false,
       descendAttackSpeed = 10;

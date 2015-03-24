@@ -132,14 +132,18 @@ var setEventHandlers = function() {
   socket.on("update player", onUpdatePlayer);
 };
 
+/* Updates location of all connected players*/
+
 function onUpdatePlayer(data){
     var player = playerById(data.id);
     if (player){
         player.setX(data.x);
         player.setY(data.y);
+        player.setHp(data.hp);
     } else {
         localPlayer.setX(data.x);
         localPlayer.setY(data.y);
+        localPlayer.setHp(data.hp);
 
     }
 }
@@ -264,28 +268,6 @@ function onNewPlayer(data) {
 };
 
 
-/* Server triggers this functio noften */
-function onMovePlayer(data) {
-  var movePlayer = playerById(data.id);
-  // Player not found
-  if (data.me === "true"){ //literally jsut handles respawn
-    movePlayer = localPlayer;
-    movePlayer.setHp(data.hp);
-    movePlayer.setX(data.x);
-    movePlayer.setY(data.y);
-  } else {
-    if (!movePlayer) {
-      return;
-    };
-    movePlayer.setX(data.x);
-    movePlayer.setY(data.y);
-    movePlayer.setHp(data.hp);
-
-  }
-  movePlayer.setTeam(data.team);
-  // Update player position
-};
-// Remove player
 function onRemovePlayer(data) {
   var removePlayer = playerById(data.id);
   // Player not found
