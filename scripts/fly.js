@@ -15,7 +15,7 @@ var Fly = function(x, y, hp, name){
       descendAttack = false,
       descendAttackSpeed = 10;
 
-  var skeleton =  Player(x, y, hp, name, 3);
+  var skeleton =  new Player(x, y, hp, name, 3);
 
 
   skeleton.setDescendAttack = function(boolean_thing, local){

@@ -110,9 +110,9 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 
   /* Mutator for server y variable! */
   var setY = function(newY) {
-    if (newY > floorHeight){
-      newY = floorHeight;
-    }
+  //  if (newY > floorHeight){
+  //    newY = floorHeight;
+  //  }
     y = newY;
   };
 
