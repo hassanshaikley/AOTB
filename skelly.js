@@ -1,5 +1,5 @@
 /**************************************************
- ** REDHATTER CLASS IN SERVER
+ ** Skelly 
  **************************************************/
 Player = require("./player").Player;
 var util = require("util");
@@ -22,7 +22,7 @@ var Skelly = function( _team){
     enemyShrine = shrine_1;
   }
 
-  var skeleton = Player(x, y, hp, name);
+  var skeleton = new Player(x, y, hp, name);
   skeleton.setId(-1);//what. I suppose it has an ID of -1
   skeleton.setTeam(_team);
   var speed = 10; // speed
@@ -36,9 +36,9 @@ var Skelly = function( _team){
     var z;
     var focusEntity = determineFocusEntity(); // used to select the entity this AI is targetting
     if (focusEntity.getX() - skeleton.getX() > 50){
-      skeleton.setX(skeleton.getX() + speed);
+ //     skeleton.setX(skeleton.getX() + speed);
     } else if (focusEntity.getX() - skeleton.getX() < -50){
-      skeleton.setX(skeleton.getX() - speed);
+   //   skeleton.setX(skeleton.getX() - speed);
     } else { //no need to move
 
     }

@@ -82,11 +82,6 @@ var Player = function(startX, startY, startHp, _name) {
     if (newHp >= maxHp){
       hp = maxHp;
     } else if ( newHp <= 0){ //hp is zero noo
-/**      if (team==0){
-       setX(-250); //sets X to zero,  
-      } else {
-        setX(3100);
-      }*/
       hp = 0;
       return "dies";
     } else {
@@ -104,6 +99,7 @@ var Player = function(startX, startY, startHp, _name) {
   };
 
   this.setX = function(newX) {
+      util.log("STX");
     x = newX;
   };
 
@@ -120,10 +116,10 @@ var Player = function(startX, startY, startHp, _name) {
     return zone;
   };
   this.move = function(speed, direction){
-      util.log("direction " + direction);
-      if (direction == "left"){
+      util.log("MOOH");
+      if (direction === "left"){
         this.setX(this.getX()-speed);
-      } else if (direction == "right"){
+      } else if (direction === "right"){
         this.setX(this.getX()+speed);
       }
       if (direction === "up"){

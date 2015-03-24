@@ -25,13 +25,12 @@ function init() {
 var pause;
 /* Function for performing computations on the server! ..I think. */
 function updateGameVariables(){
-    util.log("HI");
   /* Every x seconds, spawn AI's*/
   /* Manage AI behavior */
   manageAI();
   /* if there is a winner */
   if (game1.getWinner() != -1 && pause == undefined ){
-
+    util.log("SOMEONE WINS OMG");
       /* Tell everyone about it and restart the game */
       //do this once
       io.sockets.emit('win', {winner : game1.getWinner()});
@@ -56,14 +55,14 @@ function updateGameVariables(){
   // update player positions
   for (var _i = 0; _i < players.length; _i++){
       if (players[_i].left){
-          util.log("LEFTING " +players[_i].getX());
-          players[_i].moveLeft();//setX(players[_i].getX()-5);
+        util.log("PLAYR X " +players[_i].getX());
+          players[_i].moveLeft();
       }
       if (players[_i].right){
-          players[_i].moveRight();//setX(players[_i].getX()+5);
+          players[_i].moveRight();
       }
       if (players[_i].up){
-          players[_i].moveUp();//setY(players[_i].getY()-5);
+          players[_i].moveUp();
       }
       if (players[_i].down){
           players[_i].moveDown();//setY(players[_i].getY()+5);
