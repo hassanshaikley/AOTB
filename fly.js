@@ -16,7 +16,23 @@ var Fly = function(x, y, hp, name){
   };
 
   skeleton.getCharacterType = function(){
-    return "Fly";
+      return "Fly";
+  };
+
+  var speed = 7;
+  /* */
+
+  skeleton.moveUp = function(){
+      skeleton.setY(skeleton.getY()-speed);
+  };
+  skeleton.moveDown = function(){
+      skeleton.setY(skeleton.getY()+speed);
+  };
+  skeleton.moveLeft = function(){
+      skeleton.setX(skeleton.getX()-speed);
+  };
+  skeleton.moveRight = function(){
+      skeleton.setX(skeleton.getX()+speed);
   };
 
   return skeleton;

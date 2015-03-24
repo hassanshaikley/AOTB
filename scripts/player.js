@@ -19,7 +19,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore sta
       fallspeed =       1,
       lastsaid = {},
       gold = 0,
-      zone = "",
       maxHp = hp,
       team;
   // Getters and setters
@@ -108,11 +107,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore sta
 
   /* Mutator for server x variable! */
   var setX = function(newX) {
-    if (newX <= -1200){
-      return;
-    } else if (newX >=3500  ){
-      return;
-    }
     x = newX;
   };
 
@@ -230,13 +224,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore sta
       _alert = undefined;
     };
   };
-  var getZone = function(){
-  return zone;
-  };
-  var setZone = function(newZone, number){
-    zone = newZone;
-    zone.number = number;
-  };
   // Define which variables and methods can be accessed
   return {
       drawText : drawText,
@@ -255,8 +242,6 @@ var Player = function(startX, startY, startHp, _name, _moveSpeed) { //ignore sta
       getDrawAtX : getDrawAtX,
       getDrawAtY : getDrawAtY,
       getAnimate : getAnimate,
-      setZone: setZone,
-      getZone : getZone,
       speaks : speaks,
       leftClick : leftClick,
       respawn : respawn,

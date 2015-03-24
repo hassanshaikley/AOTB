@@ -70,9 +70,9 @@ var Events = function(){
       }
       if(data.key === "down"){
           if (data.down){
-              player.up = true;
+              player.down = true;
           } else {
-              player.up = false;
+              player.down = false;
           }
       }
   }

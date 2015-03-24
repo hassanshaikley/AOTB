@@ -79,7 +79,6 @@ function init() {
   else {
     alert("Something has went wrong");
   };
-  localPlayer.setZone("The Borough"); //ehh
   // Initialise socket connection
   var host = location.origin;
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
@@ -171,7 +170,6 @@ function onSetGold(data){
 };
 function onPortToArena(data){
   console.log("porting you to arena number " + data.number);
-  localPlayer.setZone("Arena"+data.number);
   /* Remove all players not in the arena from your thing*/
 };
 function onArenaPrompt(data){
@@ -257,7 +255,6 @@ function onNewPlayer(data) {
   } else if (data.characterType === "Crevice") {
     var newPlayer = new Crevice(data.x, data.y, data.hp, data.name);
   }
-  newPlayer.setZone(data.zone);
   console.log("setting team to " + data.team);
   newPlayer.setTeam(data.team);
   newPlayer.id = data.id;
@@ -282,7 +279,6 @@ function onMovePlayer(data) {
     };
     movePlayer.setX(data.x);
     movePlayer.setY(data.y);
-    movePlayer.setZone(data.zone);
     movePlayer.setHp(data.hp);
 
   }
@@ -361,9 +357,7 @@ function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   utility_ctx.clearRect(0, 0, utilityCanvas.width, utilityCanvas.height);
   action_ctx.clearRect(0,0, actionBarCanvas.width, actionBarCanvas.height);
-  if (localPlayer.getZone() === "The Borough"){
     drawBackground();
-  }
   drawNPCs();
   //draw shrine here i think
   shrine_0.draw();
@@ -372,11 +366,9 @@ function draw() {
   var i;
   for (i = 0; i < remotePlayers.length; i++) {
     /* Inefficient implementation, lazy yolo*/
-    if (remotePlayers[i].getZone() === localPlayer.getZone()){
       remotePlayers[i].draw(ctx);
       remotePlayers[i].updateVariables();
-    }
-  };
+  }
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].draw(ctx)
   };
