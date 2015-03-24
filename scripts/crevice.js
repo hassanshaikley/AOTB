@@ -7,7 +7,7 @@ var Animate = 0,
 
 var Crevice = function(x, y, hp, name){
   var moveSpeed = 3.0;
-  var skeleton = Player(x, y, hp, name, moveSpeed),
+  var skeleton = new Player(x, y, hp, name, moveSpeed),
       facing_left;
   var spritesheet_offset_y = 0;
 

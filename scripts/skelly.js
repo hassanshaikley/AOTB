@@ -1,6 +1,6 @@
 var Skelly = function(x, y, id){
   var x, y, moveSpeed = 1, hp= 100;
-  var skeleton =  Player(x, y, hp, "Skelly", moveSpeed);
+  var skeleton =  new Player(x, y, hp, "Skelly", moveSpeed);
   var spritesheet_offset_y = 0, spritesheet_offset_x;
   var facing_left = true;
   var attacking = 0;

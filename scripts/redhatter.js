@@ -7,7 +7,7 @@ var Animate = 0,
 
 var Redhatter = function(x, y, hp, name){
   var moveSpeed = 2.3;
-  var skeleton =  Player(x, y, hp, name, moveSpeed),
+  var skeleton =  new Player(x, y, hp, name, moveSpeed),
       facing_left;
 
   var spritesheet_offset_y = 0;
