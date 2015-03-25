@@ -38,13 +38,8 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
   };
   var respawn = function(){ /* Function that is called for local player*/
     alive = true;
-    var newY = floorHeight-10;
-    var newX = 0;
-    drawAtX = newX;
-    drawAtY = newY;
-    y = newY;
-    hp = 100;
-
+ //   drawAtX = newX;
+ //   drawAtY = newY;
   };
   var getAnimate = function(){
     return animate;
@@ -147,7 +142,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     if (drawAtX -x >= -2){
       drawAtX-=2*yDelta;
     }
-
+    drawAtX = x;
     //var yDelta = 2.2; //2.2 for descend attack - 1 otherwise
     if (drawAtY - y <= 2){
       drawAtY+=2*yDelta;

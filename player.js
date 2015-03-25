@@ -82,12 +82,13 @@ var Player = function(startX, startY, startHp, _name) {
     if (newHp >= maxHp){
       hp = maxHp;
     } else if ( newHp <= 0){ //hp is zero noo
-      hp = 0;
-      return "dies";
+      //hp = 0;
+      //respawn!
+      hp = 100;
+      x = respawnX;
     } else {
       hp = newHp;
     }
-    return "lives";
   };
 
   this.getX = function() {

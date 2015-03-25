@@ -220,7 +220,7 @@ var Events = function(){
   function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
     hitPlayer.setHp(hitPlayer.getHp() -damage);
 //    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-    io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
+//    io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
   }
   function onUpdateHealth(data){
 
