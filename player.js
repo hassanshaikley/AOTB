@@ -100,8 +100,13 @@ var Player = function(startX, startY, startHp, _name) {
   };
 
   this.setX = function(newX) {
-      util.log("STX");
-    x = newX;
+        if (newX < 0){
+        x = 0;
+        }else if (newX > 3000){
+        x = 3000;
+        } else {
+        x = newX;
+        }
   };
 
   this.setY = function(newY) {
@@ -125,7 +130,6 @@ var Player = function(startX, startY, startHp, _name) {
     return zone;
   };
   this.move = function(speed, direction){
-      util.log("MOOH");
       if (direction === "left" ){
         this.setX(this.getX()-speed);
       } else if (direction === "right"){

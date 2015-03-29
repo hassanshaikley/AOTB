@@ -200,12 +200,12 @@ function onUpdateHostile(data){
 
 
 function onDescendAttackChanges(data){
-  var _player = playerById(data.id); 
-  if (_player === undefined){
+    var _player = playerById(data.id); 
+    if (_player === undefined){
 
-  }else {
-    _player.setDescendAttack(data.descendAttack);
-  }
+    }else {
+        _player.setDescendAttack(data.descendAttack);
+    }
 };
 function onMeteorCast(data){
   var m = new Meteor(data.meteor_x, data.caster);
@@ -247,7 +247,7 @@ function onSocketDisconnect() {
 // New player
 function onNewPlayer(data) {
   // Initialise the new player
-
+    console.log("New player connected " + data.characterType);
   if (data.characterType === "Fly"){
     var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
   } else if (data.characterType === "Redhatter") {
@@ -426,7 +426,7 @@ function drawBackground(){
   ctx.drawImage(cloud, displacement+cloud_x+4000, 50);
   ctx.drawImage(cloud, displacement+cloud_x+5000, 20);
   //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
-  ctx.drawImage(CastleOfOne, displacement-100,95, 1000, 398);
+//  ctx.drawImage(CastleOfOne, displacement-100,95, 1000, 398);
   if (_anim %20 == 0){ 
     z+=100;
     if (z >= 400){

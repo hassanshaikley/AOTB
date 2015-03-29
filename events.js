@@ -77,7 +77,7 @@ var Events = function(){
       }
   }
         function onArrowCreated(data){
-    util.log("arrow created son");
+    //util.log("arrow created son");
     //get the arrow and validate that this move was allowed
     this.emit('arrow fired', {x: data.x, y :data.y, caster: this.id });
     this.broadcast.emit('arrow fired', {x: data.x, y: data.y, caster: this.id});
@@ -110,8 +110,8 @@ var Events = function(){
     //now to see if it hit a tower
     var tower;
     //util.log("tower 1\tx:\t" +shrine_1.getX()+"\ty:\t"+shrine_1.getY()+"\t\tx:\t" + attacker.getX() + "\ty:\t"+ attacker.getY());
-    util.log("tower\t"+shrine_1.getTeam() +"\tx:\t" +shrine_1.getX()+"\ty:\t"+shrine_1.getY());
-    util.log("player\t"+attacker.getTeam() + "\tx:\t" + (attacker.getX() +canvas_width/2)+ "\ty:\t"+ attacker.getY());
+    //util.log("tower\t"+shrine_1.getTeam() +"\tx:\t" +shrine_1.getX()+"\ty:\t"+shrine_1.getY());
+    //util.log("player\t"+attacker.getTeam() + "\tx:\t" + (attacker.getX() +canvas_width/2)+ "\ty:\t"+ attacker.getY());
     util.log(" " + (attacker.getX()+ canvas_width/2) - shrine_1.getX() +" " ); //between 60 and 150 is perfect
     if (attacker.getTeam() == 0){ //proper if statemetn
       util.log("ok " + (attacker.getX() + canvas_width/2 - shrine_1.getX()));

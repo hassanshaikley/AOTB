@@ -54,8 +54,19 @@ function updateGameVariables(){
 
   // update player positions
   for (var _i = 0; _i < players.length; _i++){
+      if (players[_i].getCharacterType() === "Fly"){
+        if (players[_i].getDescendAttack()){
+            util.log("DESCEND ATTACKING");
+            players[_i].moveDown();
+            players[_i].moveDown();
+            players[_i].moveDown();
+            players[_i].moveDown();
+            players[_i].moveDown();
+            players[_i].moveDown();
+            break;
+        };
+      };
       if (players[_i].left){
-        util.log("PLAYR X " +players[_i].getX());
           players[_i].moveLeft();
       }
       if (players[_i].right){

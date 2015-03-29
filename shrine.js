@@ -11,9 +11,9 @@ var Shrine = function(_team) {
   var hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
   if (_team == 0){
-    x = -250;
+    x = 150;
   } else {
-    x = 3000;
+    x = 2850;
   }
   var getTeam= function(){
     return team;

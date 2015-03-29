@@ -24,7 +24,6 @@ var Keys = function(up, left, right, down) {
     $(window).keyup(function(e){
         if ( this.keys[e.keyCode] === undefined||this.keys[e.keyCode] === true  ){
             this.keys[e.keyCode] = false;
-            console.log(e.keyCode + " pressed");
             if(e.keyCode === 65){//left
                 socket.emit('key press', { key: "left", down: false}); 
             } else if(e.keyCode === 87){//up
@@ -49,8 +48,12 @@ var Keys = function(up, left, right, down) {
       return;
     }
   };
+  var onKeyUp = function(e){
+  //
+  };
 
   return {
       onKeyDown: onKeyDown,
+          onKeyUp: onKeyUp
   };
 };

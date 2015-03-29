@@ -11,9 +11,9 @@ var Shrine = function(_team) {
   var hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
   if (_team == 0){
-    x = -250;
+    x = 150;
   } else {
-    x = 3000;
+    x = 2850;
   }
   var getTeam= function(){
     return team;
@@ -54,6 +54,7 @@ var Shrine = function(_team) {
     } else {
       ctx.drawImage(spire1, displacement+x, 293); //-10 is a hack to make it sync with life
     }
+
     ctx.fillStyle="#000000";
     ctx.fillRect(x + 60+ displacement,y-50,3000/50,6);
     ctx.fillStyle="#FF0000";

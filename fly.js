@@ -23,10 +23,13 @@ var Fly = function(x, y, hp, name){
   /* */
 
   skeleton.moveUp = function(){
-         skeleton.move(speed, "up");
+      skeleton.move(speed, "up");
   };
       skeleton.moveDown = function(){
-             skeleton.move(speed, "down");
+          skeleton.move(speed, "down");
+          if (descendAttack === true && skeleton.getY() <= 475){
+            descendAttack = false;
+          }
       };
       skeleton.moveLeft = function(){
           skeleton.move(speed, "left");
