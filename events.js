@@ -37,7 +37,7 @@ var Events = function(){
     client.on("key press", onKeyPress);
   };
 
-  var setEventHandlers = function() {
+  var setEventHandlers = function(io) {
     // Socket.IO
     io.set("transports", ["websocket"]);
     io.set("polling duration", 10);
@@ -250,11 +250,7 @@ var Events = function(){
   /* A function for sending data updated on the game server 
    * In a perfect world you would emit everything a specific client needs to know from this function (that is called periodically)
    */
-  var sendUpdatedGame = function(){
-    //emit something to all players 
-    //util.log("SOON YOU WILL ALL DIE");
-    io.sockets.emit('shrine hp', {zero: shrine_0.getHp(), one : shrine_1.getHp()});
-  };
+
 
   /* sends a message to one player and responds with it's team*/
   var initClient = function(){
@@ -277,7 +273,6 @@ var Events = function(){
 
   return {
     setEventHandlers : setEventHandlers,
-    sendUpdatedGame : sendUpdatedGame
   };
 };
 
