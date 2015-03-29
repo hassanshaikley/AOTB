@@ -318,19 +318,7 @@ function update() {
   localPlayer.update(keys);
 };
 
-function drawAlerts(){
-  if(_alert){
-    ctx.save();
-    ctx.fillRect(300,200,200,100);
-    ctx.stroke();
-    ctx.textAlign = 'center';
-    ctx.fillStyle="#FFF"; 
-    if (_alert.type === "arena"){
-      ctx.fillText("CLICK TO JOIN ARENA", 400,250);
-    }
-    ctx.restore();
-  };
-};
+
 /**************************************************
  ** GAME DRAW
  **************************************************/
@@ -356,7 +344,6 @@ function draw() {
   };
   localPlayer.updateVariables();
   localPlayer.draw(ctx);
-  drawAlerts();
   drawRightCanvas();
   drawAction();
   drawForeground();
