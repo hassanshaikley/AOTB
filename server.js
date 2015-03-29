@@ -4,7 +4,7 @@
 
 /* SETTINGS FILE IS FULL OF GLOBAL VARIABLES BEWARE */
 var initialize    = require("./initialize");        
-initialize.load();
+initialize.initialize();
 events          = require("./events").Events;   
 var event_handler  = new events(); 
 var Spells      = require("./spellsandprojectiles").Spells;
