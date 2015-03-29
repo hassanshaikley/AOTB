@@ -3,38 +3,30 @@
  **************************************************/
 
 /* SETTINGS FILE IS FULL OF GLOBAL VARIABLES BEWARE */
-var initialize    = require("./initialize");        initialize.load();
-events          = require("./events").Events;   var event_handler  = new events(); 
+var initialize    = require("./initialize");        
+initialize.load();
+events          = require("./events").Events;   
+var event_handler  = new events(); 
 var Spells      = require("./spellsandprojectiles").Spells;
 
-var Skelly        = require("./skelly").Skelly;
-
-
 function init() {
-  /* Start the event handling */
-  event_handler.setEventHandlers();
-  // add two hostiles lol
-  var sk = new Skelly(0); //Team Zero
-  AI.push(sk);
-  var sk = new Skelly(1); //Team One
-  AI.push(sk);
-  /* Add Neutrals to Server */
+    /* Start the event handling */
+    event_handler.setEventHandlers();
     updateGameVariables();
 };
 
-var pause;
+var game_over;
 /* Function for performing computations on the server! ..I think. */
 function updateGameVariables(){
   /* Every x seconds, spawn AI's*/
   /* Manage AI behavior */
-  manageAI();
   /* if there is a winner */
-  if (game1.getWinner() != -1 && pause == undefined ){
+  if (game1.getWinner() != -1 && game_over == undefined ){
     util.log("SOMEONE WINS OMG");
       /* Tell everyone about it and restart the game */
       //do this once
       io.sockets.emit('win', {winner : game1.getWinner()});
-      pause = 1;
+      game_over = 1;
       setTimeout(function(){
           //a few seconds have elapsed, now reset everyones position
           for(var _i = 0; _i < players.length; _i++){
@@ -46,7 +38,7 @@ function updateGameVariables(){
           game1.setWinner(-1);
           shrine_0.setHp(3000);
           shrine_1.setHp(3000);
-          pause = undefined;
+          game_over = undefined;
       }, 5000);
 	/* Now wait like 5 seconds and reset the game*/
 
@@ -154,20 +146,8 @@ function updateGameVariables(){
   }, 1000 /15);
 };
 
-function manageAI(){
-  var i;
-  for (i = 0 ; i < AI.length; i++){
-    //Now adequately control the AI : D
-    AI[i].update(); 
-  }
-}
 /* LETS TELL IF SOMEBODY is hit on the server */
 
-/*
-   for (var _i = 0; _i <players.length; _i++){
-   util.log("player " + _i+" in Zone " +players[_i].getZone());
-   }
- */
 
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
   var alive =  hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
