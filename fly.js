@@ -3,7 +3,7 @@
  **************************************************/
 Player = require("./player").Player;
 var Fly = function(x, y, hp, name){
-    var skeleton =  Player(x, y, hp, name);
+    var skeleton =  new Player(x, y, hp, name);
     var descendAttack = false;
 
     skeleton.setDescendAttack = function(boolean_thing){

@@ -373,8 +373,6 @@ function drawForeground(){
 
 }
 function drawBackground(){
-
-
   cloud_x+=.01;
   var displacement = drawX-localPlayer.getX() ;
   //drawX is not changing aaah

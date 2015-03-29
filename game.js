@@ -3,29 +3,29 @@ var Game = function(){
 
     var players = []; // the players in a game, currently unused
     var winner = -1;
-    var setWinner = function(w){
+    this.setWinner = function(w){
         winner = w; //0 or 1 depending on the winning team
     }
-    var getWinner = function(){
+    this.getWinner = function(){
         return winner;
     }
-    var setState = function(s){
+    this.setState = function(s){
         if (state == 1 && s == 0){ // game finished
             state = s;
             return "GAME OVER";
         }
         state = s;
     }
-    var getState = function(){
+    this.getState = function(){
         return state;
     }
-    return { 
-        players : players,
-                setState : setState,
-                getState : getState,
-                getWinner : getWinner,
-                setWinner : setWinner
+    this.addPlayer = function(){
+
     };
+    this.removePlayer = function(){
+
+    };
+    return this; 
 }
 
 exports.Game = Game;

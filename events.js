@@ -1,15 +1,15 @@
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/ 
-var  Fly           = require("./fly").Fly,
-     Redhatter     = require("./redhatter").Redhatter,
-     Bowman        = require("./bowman").Bowman,
-     Skelly        = require("./skelly").Skelly,
-     Shanker       = require("./shanker").Shanker,
-     Crevice       = require("./crevice").Crevice,
-     Spells        = require("./spellsandprojectiles.js").Spells,
-     Meteor        = require("./spellsandprojectiles.js").Meteor,
-     BowmanArrow = require("./spellsandprojectiles.js").BowmanArrow;
+var  Fly            = require("./fly").Fly,
+     Redhatter      = require("./redhatter").Redhatter,
+     Bowman         = require("./bowman").Bowman,
+     Skelly         = require("./skelly").Skelly,
+     Shanker        = require("./shanker").Shanker,
+     Crevice        = require("./crevice").Crevice,
+     Spells         = require("./spellsandprojectiles.js").Spells,
+     Meteor         = require("./spellsandprojectiles.js").Meteor,
+     BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow;
 
 canvas_width = 800;
 
