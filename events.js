@@ -9,7 +9,7 @@ var  Fly           = require("./fly").Fly,
      Crevice       = require("./crevice").Crevice,
      Spells        = require("./spellsandprojectiles.js").Spells,
      Meteor        = require("./spellsandprojectiles.js").Meteor,
-BowmanArrow = require("./spellsandprojectiles.js").BowmanArrow;
+    BowmanArrow = require("./spellsandprojectiles.js").BowmanArrow;
 
 canvas_width = 800;
 
@@ -225,32 +225,6 @@ var Events = function(){
   function onUpdateHealth(data){
 
   };
-  // Player has moved - - called a few times every second, sends data to server
-/*
-  function onMovePlayer(data) {
-    var movePlayer = playerById(this.id);
-
-    // Player not found
-    if (!movePlayer) {
-      return;
-    };
- 
-    if (movePlayer.getHp() <= 0){ // hacky way of handling respawn
-      movePlayer.setHp(100);  // palyer is dead
-      this.emit("move player", { x: movePlayer.getRespawnX(), y: movePlayer.getY(), hp: movePlayer.getHp(), me: "true", zone: movePlayer.getZone(), team: movePlayer.getTeam()});
-    } else { 
-      movePlayer.setX(data.x);
-      movePlayer.setY(data.y);
-    }
-    // Update player position
-    this.broadcast.emit("move player", { id: movePlayer.id, x: movePlayer.getX(), y: movePlayer.getY(), hp: movePlayer.getHp(), zone: movePlayer.getZone(), team: movePlayer.getTeam()});
-    // keeps the playerz zone nad HP handled lol
-  };
-*/
-  /* A function for sending data updated on the game server 
-   * In a perfect world you would emit everything a specific client needs to know from this function (that is called periodically)
-   */
-
 
   /* sends a message to one player and responds with it's team*/
   var initClient = function(){
