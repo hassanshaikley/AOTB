@@ -7,7 +7,6 @@ var canvas,     // Canvas DOM element
     localPlayer,  // Local player
     remotePlayers,  // Remote players
     socket,
-    hostiles,
     _alert;     // Socket connection
 
 var utilityCanvas = document.getElementById("utilityCanvas");
@@ -83,7 +82,6 @@ function init() {
   var host = location.origin;
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
   remotePlayers = [];
-  hostiles = [];
   setEventHandlers();
   socket.emit("init me");
 };
@@ -328,7 +326,6 @@ function draw() {
   utility_ctx.clearRect(0, 0, utilityCanvas.width, utilityCanvas.height);
   action_ctx.clearRect(0,0, actionBarCanvas.width, actionBarCanvas.height);
     drawBackground();
-  drawNPCs();
   //draw shrine here i think
   shrine_0.draw();
   shrine_1.draw();
@@ -357,15 +354,7 @@ function drawAction(){
   } else {
   }
 };
-function drawNPCs(){
-  var _i;
-  for (_i = 0 ; _i < hostiles.length; _i++){
-    hostiles[i].updateVariables();
-    if (hostiles[i] != undefined){
-      hostiles[i].draw(ctx);
-    }
-  };
-};
+
 function drawRightCanvas(){
   utility_ctx.save();
   utility_ctx.fillStyle="#CCC";
