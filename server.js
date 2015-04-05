@@ -5,11 +5,11 @@ function Server(){
     this.libs    = require("./initialize.js").loadLibraries();        //initialize.load();
     this.events          = require("./events").Events;   
     this.event_handler  = new this.events(); 
+    this.Spells      = require("./spellsandprojectiles").Spells;
     
     require("./initialize.js").initialize();
 }
 var server = new Server();
-var Spells      = require("./spellsandprojectiles").Spells;
 
 function init() {
     /* Start the event handling */
@@ -110,31 +110,31 @@ function updateGameVariables(){
   }
 
   /* Iterate through every spell, if it hits someone then let them take the hit son : D */
-  for (i = 0; i < Spells.spellsarray.length; i++){
-    if  (Spells.spellsarray[i].getX() - shrine_1.getX() <= 70 && Spells.spellsarray[i].getX()  - shrine_1.getX() >= -70 && Spells.spellsarray[i].caster_team != 1){
-      if (Math.abs(shrine_1.getY() - Spells.spellsarray[i].getY()) <=150 ){
+  for (i = 0; i < server.Spells.spellsarray.length; i++){
+    if  (server.Spells.spellsarray[i].getX() - shrine_1.getX() <= 70 && server.Spells.spellsarray[i].getX()  - shrine_1.getX() >= -70 && server.Spells.spellsarray[i].caster_team != 1){
+      if (Math.abs(shrine_1.getY() - server.Spells.spellsarray[i].getY()) <=150 ){
         shrine_1.setHp(shrine_1.getHp() -25 );
       }
     }
-    if  (Spells.spellsarray[i].getX()  - shrine_0.getX() <= 70 && Spells.spellsarray[i].getX() - shrine_0.getX() >= -70 && Spells.spellsarray[i].caster_team != 0){
+    if  (server.Spells.spellsarray[i].getX()  - shrine_0.getX() <= 70 && server.Spells.spellsarray[i].getX() - shrine_0.getX() >= -70 && server.Spells.spellsarray[i].caster_team != 0){
       //util.log("made x");
-      if (Math.abs(shrine_0.getY() - Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
+      if (Math.abs(shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
         shrine_0.setHp(shrine_0.getHp() -25 );
       }
     }
 
     for (var j = 0; j < players.length; j++) {
       //indexof garbage so a player can only be hurt once by any given spell
-      if ( players[j].getTeam() != Spells.spellsarray[i].caster_team && Math.abs(Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 && Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
-        if (Math.abs(Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
-          Spells.spellsarray[i].hit.push(players[j].id); 
-          //var life_status = players[j].setHp(players[j].getHp() - Spells.spellsarray[i].getDamage());
-          setHp( players[j], Spells.spellsarray[i].getDamage());
+      if ( players[j].getTeam() != server.Spells.spellsarray[i].caster_team && Math.abs(server.Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 && server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
+        if (Math.abs(server.Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
+          server.Spells.spellsarray[i].hit.push(players[j].id); 
+          //var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
+          setHp( players[j], server.Spells.spellsarray[i].getDamage());
         }
       }
     }
 
-    Spells.spellsarray[i].update();
+    server.Spells.spellsarray[i].update();
   };
     
   for (var j = 0; j < players.length; j++){
