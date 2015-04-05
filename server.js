@@ -14,12 +14,12 @@ var server = new Server();
 function init() {
     /* Start the event handling */
     server.event_handler.setEventHandlers(server.libs.io);
-    updateGameVariables();
+    server.updateGameVariables();
 };
 
 var game_over;
 /* Function for performing computations on the server! ..I think. */
-function updateGameVariables(){
+Server.prototype.updateGameVariables = function(){
   /* Every x seconds, spawn AI's*/
   /* Manage AI behavior */
   /* if there is a winner */
@@ -144,7 +144,7 @@ function updateGameVariables(){
   /* Method for telling all the units about the health of the structures and stuff */
   sendUpdatedGame(); 
   setTimeout(function(){
-    updateGameVariables();
+    server.updateGameVariables();
   }, 1000 /15);
 };
 
