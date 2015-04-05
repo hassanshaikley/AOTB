@@ -1,6 +1,5 @@
 var Game = function(){
     var state  = 1; //game state 0 means a game is won
-
     var players = []; // the players in a game, currently unused
     var winner = -1;
     this.setWinner = function(w){

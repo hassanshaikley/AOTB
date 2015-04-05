@@ -11,7 +11,7 @@ function Server(){
 }
 var server = new Server();
 
-function init() {
+Server.prototype.init = function() {
     /* Start the event handling */
     server.event_handler.setEventHandlers(server.libs.io);
     server.updateGameVariables();
@@ -72,6 +72,8 @@ Server.prototype.updateGameVariables = function(){
           players[_i].moveDown();//setY(players[_i].getY()+5);
       }
   }
+
+
   /* Algorithm for determining who's hit by a fly... */
   var i;
   var j;
@@ -141,7 +143,7 @@ Server.prototype.updateGameVariables = function(){
   }
 
   /* Method for telling all the units about the health of the structures and stuff */
-  sendUpdatedGame(); 
+  server.sendUpdatedGame(); 
   setTimeout(function(){
     server.updateGameVariables();
   }, 1000 /15);
@@ -151,19 +153,16 @@ Server.prototype.updateGameVariables = function(){
 
 
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
-  var alive =  hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
+  hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
   //    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-  //emits to only the player that was hit
+  //emits to only the player that was hit -- should probably emit to all players
   server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
 
-  if (alive !== "alive"){ //dudes dead
-  }
-
 }
-  var sendUpdatedGame = function(){
+  Server.prototype.sendUpdatedGame = function(){
     //emit something to all players 
     //util.log("SOON YOU WILL ALL DIE");
     server.libs.io.sockets.emit('shrine hp', {zero: shrine_0.getHp(), one : shrine_1.getHp()});
   };
 
-init();
+server.init();

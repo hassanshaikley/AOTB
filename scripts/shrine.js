@@ -2,46 +2,47 @@
  ** PLAYER CLASS IN SERVER
  **************************************************/
 var Shrine = function(_team) {
-  var maxHp = 3000,
-      hp = maxHp,
-      zone = "The Borough",
-      team = _team; //team random unless assigned
+  this.maxHp = 3000;
+  this.hp = this.maxHp;
+  this.team = _team; //team random unless assigned
 
-  var x, y = 350; //aa
-  var hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
+  this.x;
+  this.y = 350; //aa
+  this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
   if (_team == 0){
-    x = 150;
+    this.x = 150;
   } else {
-    x = 2850;
+    this.x = 2850;
   }
-  var getTeam= function(){
+  this.getTeam= function(){
     return team;
   };
 
-  var getHp = function(){
-    return hp;
+  this.getHp = function(){
+    return this.hp;
   };
 
   /* Returns "dies" or "lives"*/
-  var setHp = function(newHp){
+  this.setHp = function(newHp){
     //
-    if (newHp >= maxHp){
-      hp = maxHp;
+    if (newHp >= this.maxHp){
+      this.hp = this.maxHp;
     } else if ( newHp <= 0){
-      hp = 0;
+      this.hp = 0;
     } else {
-      hp = newHp;
+      this.hp = newHp;
     }
     return "lives";
   };
 
-  var draw= function(){
+  this.draw= function(){
     ctx.save();
     //draw HP
     //draw structure, depending on team
-    var displacement = -localPlayer.getX();
-    if (team ==0 ){
+    this.displacement = -localPlayer.getX();
+    
+    if (this.team ==0 ){
       ctx.shadowBlur=20;
       ctx.shadowColor="blue";
     }
@@ -49,44 +50,28 @@ var Shrine = function(_team) {
       ctx.shadowBlur=20;
       ctx.shadowColor="green";
     }
-    if (_team == 0){
-      ctx.drawImage(spire0, displacement+x, 293);
+    if (this.team === 0){
+      ctx.drawImage(spire0, (this.displacement+this.x), 293);
+      console.log("displacement + x " + (this.displacement +this.x));
     } else {
-      ctx.drawImage(spire1, displacement+x, 293); //-10 is a hack to make it sync with life
+      ctx.drawImage(spire1, (this.displacement+this.x), 293); //-10 is a hack to make it sync with life
     }
 
     ctx.fillStyle="#000000";
-    ctx.fillRect(x + 60+ displacement,y-50,3000/50,6);
+    ctx.fillRect(this.x + 60+ this.displacement,this.y-50,3000/50,6);
     ctx.fillStyle="#FF0000";
-    ctx.fillRect(x + 60+ displacement,y-50,((hp/50)),6);
-    ctx.fillText("SPIRE", x + displacement, y);
+    ctx.fillRect(this.x + 60+ this.displacement,this.y-50,((this.hp/50)),6);
+    ctx.fillText("SPIRE", this.x + this.displacement,this.y);
     ctx.restore();
   };
-  var getX = function() {
-    return x;
+  this.getX = function() {
+    return this.x;
   };
 
-  var getY = function() {
-    return y;
-  };
-
-  var setZone = function(newZone){
-    zone = newZone;
-  };
-  var getZone = function(){
-    return zone;
+  this.getY = function() {
+    return this.y;
   };
   // Define which variables and methods can be accessed by the world outside
-  return {
-    getX: getX,
-      getY: getY,
-      getX : getX,
-      getHp : getHp,
-      setHp : setHp,
-      setZone : setZone,
-      getZone : getZone,
-      getTeam : getTeam,
-      draw : draw,
-  };
+  return this;
 };
 
