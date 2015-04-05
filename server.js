@@ -3,17 +3,17 @@
  **************************************************/
 function Server(){
     this.libs    = require("./initialize.js").loadLibraries();        //initialize.load();
+    this.events          = require("./events").Events;   
+    this.event_handler  = new this.events(); 
     
     require("./initialize.js").initialize();
 }
 var server = new Server();
-var events          = require("./events").Events;   
-var event_handler  = new events(); 
 var Spells      = require("./spellsandprojectiles").Spells;
 
 function init() {
     /* Start the event handling */
-    event_handler.setEventHandlers(server.libs.io);
+    server.event_handler.setEventHandlers(server.libs.io);
     updateGameVariables();
 };
 
