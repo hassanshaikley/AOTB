@@ -17,18 +17,17 @@ function init() {
     server.updateGameVariables();
 };
 
-var game_over;
 /* Function for performing computations on the server! ..I think. */
 Server.prototype.updateGameVariables = function(){
   /* Every x seconds, spawn AI's*/
   /* Manage AI behavior */
   /* if there is a winner */
-  if (game1.getWinner() != -1 && game_over == undefined ){
+  if (game1.getWinner() != -1 && game1.getState() === 1){
     util.log("SOMEONE WINS OMG");
       /* Tell everyone about it and restart the game */
       //do this once
       server.libs.io.sockets.emit('win', {winner : game1.getWinner()});
-      game_over = 1;
+      game1.setState(0);
       setTimeout(function(){
           //a few seconds have elapsed, now reset everyones position
           for(var _i = 0; _i < players.length; _i++){
@@ -40,7 +39,7 @@ Server.prototype.updateGameVariables = function(){
           game1.setWinner(-1);
           shrine_0.setHp(3000);
           shrine_1.setHp(3000);
-          game_over = undefined;
+      game1.setState(1);
       }, 5000);
 	/* Now wait like 5 seconds and reset the game*/
 

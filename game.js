@@ -9,8 +9,8 @@ var Game = function(){
     this.getWinner = function(){
         return winner;
     }
-    this.setState = function(s){
-        if (state == 1 && s == 0){ // game finished
+    this.setState = function(s){ //0 means game is over
+        if (state === 1 && s === 0){ // game finished
             state = s;
             return "GAME OVER";
         }
