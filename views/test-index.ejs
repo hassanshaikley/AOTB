@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AMARA</title>
+    <meta charset="utf-8">
+    <meta name="author" content="hassooni">
+    <meta name="description" content="Amara: 2D sidescroller MMOPVP Game. Created in Node.js and HTML5 Canvas">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script>
+      development = true;
+    </script>
+    <% if ('development' === process.env.NODE_ENV) { %>
+    <script>
+      development = true;
+    </script>
+    <% var url = "//localhost:5000/localAssets/";%>
+    <link rel="stylesheet" href="//localhost:5000/localAssets/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//localhost:5000/localAssets/font-awesome.min.css"> <!-- load fontawesome -->
+    <% } else {%>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <% } %>
+    <script>
+      var debug = <%=process.env.DEBUG_MODE%>;
+    </script>
+    <link rel="stylesheet" href="styles/game.css">
+  </head>
+  <body>
+    <a href="/" class=""><img src="localAssets/logo.png"> </img></a>
+    <script>
+      var localPlayerName = "unknown";
+      var characterType = "Fly";
+    </script>
+    <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
+    <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a> <a href=""> Do not support switching tabs yet. Must refresh after. </a>
+    <div id="gameCanvasMargin">
+      <canvas id="gameCanvas" height=500 width=800></canvas>
+      <div id="c_right">
+      <canvas id="utilityCanvas" width="250px" height="320px"></canvas>
+      <div id="chat_outer">
+        <div id="chat">
+        </div>
+        <input type="text" name="text" id="text">
+        <input type="button" name="send" id="send" value="send">
+      </div>
+    </div>
+    <canvas id="infoBar" height="50px" width="1050px"> </canvas>
+    </div>
+    <script src="scripts/jquery.js"></script>
+    <script src="scripts/assetLoader.js"></script>
+    <script src="scripts/animationframe.js"></script>
+    <script src="scripts/blood.js"></script>
+    <script src="scripts/shrine.js"></script>
+    <script src="scripts/player.js"></script>
+    <script src="scripts/fly.js"></script>
+    <script src="scripts/redhatter.js"></script>
+    <script src="scripts/skelly.js"></script>
+    <script src="scripts/bowman.js"></script>
+    <script src="scripts/shanker.js"></script>
+    <script src="scripts/crevice.js"></script>
+    <script src="scripts/spellsandprojectiles.js"></script>
+    <script src="scripts/game.js"></script>
+    <script src="scripts/keys.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      // Initialise the game
+      PORT = <%=process.env.PORT || 5000%>;
+      init();
+      animate();
+    </script>
+  </body>
+</html>

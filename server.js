@@ -1,17 +1,19 @@
 /**************************************************
  ** SERVER CLASS FOR THE GAME
  **************************************************/
-
-/* SETTINGS FILE IS FULL OF GLOBAL VARIABLES BEWARE */
-var libs    = require("./initialize.js").loadLibraries();        //initialize.load();
-require("./initialize.js").initialize();
-events          = require("./events").Events;   
+function Server(){
+    this.libs    = require("./initialize.js").loadLibraries();        //initialize.load();
+    
+    require("./initialize.js").initialize();
+}
+var server = new Server();
+var events          = require("./events").Events;   
 var event_handler  = new events(); 
 var Spells      = require("./spellsandprojectiles").Spells;
 
 function init() {
     /* Start the event handling */
-    event_handler.setEventHandlers(libs.io);
+    event_handler.setEventHandlers(server.libs.io);
     updateGameVariables();
 };
 
@@ -25,7 +27,7 @@ function updateGameVariables(){
     util.log("SOMEONE WINS OMG");
       /* Tell everyone about it and restart the game */
       //do this once
-      libs.io.sockets.emit('win', {winner : game1.getWinner()});
+      server.libs.io.sockets.emit('win', {winner : game1.getWinner()});
       game_over = 1;
       setTimeout(function(){
           //a few seconds have elapsed, now reset everyones position
@@ -136,7 +138,7 @@ function updateGameVariables(){
   };
     
   for (var j = 0; j < players.length; j++){
-      libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp() });
+      server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp() });
   }
 
   /* Method for telling all the units about the health of the structures and stuff */
@@ -153,7 +155,7 @@ function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
   var alive =  hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
   //    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
   //emits to only the player that was hit
-  libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
+  server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
 
   if (alive !== "alive"){ //dudes dead
   }
@@ -162,7 +164,7 @@ function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
   var sendUpdatedGame = function(){
     //emit something to all players 
     //util.log("SOON YOU WILL ALL DIE");
-    libs.io.sockets.emit('shrine hp', {zero: shrine_0.getHp(), one : shrine_1.getHp()});
+    server.libs.io.sockets.emit('shrine hp', {zero: shrine_0.getHp(), one : shrine_1.getHp()});
   };
 
 init();

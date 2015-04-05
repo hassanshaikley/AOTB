@@ -13,6 +13,7 @@ var utilityCanvas = document.getElementById("utilityCanvas");
 var utility_ctx = utilityCanvas.getContext("2d");
 var actionBarCanvas = document.getElementById("infoBar");
 var action_ctx = actionBarCanvas.getContext("2d");
+
 if (!development){
   $('body').bind('contextmenu', function(){ return false });
 }
