@@ -22,9 +22,7 @@ var Shrine = function(_team) {
         return hp;
     };
 
-    /* Returns "dies" or "lives"*/
     var setHp = function(newHp){
-        //
         if (newHp >= maxHp){
             hp = maxHp;
         } else if ( newHp <= 0){
@@ -32,15 +30,12 @@ var Shrine = function(_team) {
             game1.setState(0);
             if (team == 1){
                 game1.setWinner(0);
-            }else {
+            } else {
                 game1.setWinner(1);
             }
-            return;
-
         } else {
             hp = newHp;
         }
-        return;
     };
 
     var getX = function() {
