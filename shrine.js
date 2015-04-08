@@ -4,7 +4,6 @@
 var Shrine = function(_team) {
     var maxHp = 3000,
         hp = maxHp,
-        zone = "The Borough",
         team = _team; //team random unless assigned
 
     var x, y = 350; //aa
@@ -52,12 +51,6 @@ var Shrine = function(_team) {
         return y;
     };
 
-    var setZone = function(newZone){
-        zone = newZone;
-    };
-    var getZone = function(){
-        return zone;
-    };
     // Define which variables and methods can be accessed by the world outside
     return {
         getX: getX,
@@ -65,8 +58,6 @@ var Shrine = function(_team) {
             getX : getX,
             getHp : getHp,
             setHp : setHp,
-            setZone : setZone,
-            getZone : getZone,
             getTeam : getTeam,
             hitby : hitby,
     };
