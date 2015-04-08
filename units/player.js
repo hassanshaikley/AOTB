@@ -19,8 +19,7 @@ var Player = function(startHp, _name, _team) {
         return respawnX;
     };
     this.setTeam = function(newTeam){
-        util.log(newTeam);
-        if (team==1){
+        if (newTeam==1){
             x = respawnX = 3900;
         } else {
             x = respawnX =1100; 
