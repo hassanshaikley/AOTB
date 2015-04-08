@@ -7,7 +7,7 @@ var Game = function(){
         winner = w; //0 or 1 depending on the winning team
     };
     this.getWinner = function(){
-        if (winner =-1){
+        if (winner === -1){
           return "the fuck, error";
         } else {
          return winner;
@@ -17,7 +17,7 @@ var Game = function(){
         if (state === 1 && s === 0){ // game finished
             state = s;
             return "GAME OVER";
-        }
+        } 
         state = s;
     };
     this.getState = function(){
