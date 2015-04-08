@@ -34,7 +34,6 @@ var Fly = function(x, y, hp, name){
     }
     var bugX = canvas.width/2 + this.getDrawAtX() - localX - 50;
     ctx.save();
-
     if (skeleton.getTeam()==0){
       ctx.shadowBlur=20;
       ctx.shadowColor="blue";

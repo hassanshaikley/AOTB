@@ -374,8 +374,10 @@ function drawForeground(){
 
 }
 function drawBackground(){
+          ctx.shadowBlur=20;
+                ctx.shadowColor="black";
   cloud_x+=.01;
-  var displacement = drawX-localPlayer.getX() ;
+  var displacement = drawX-localPlayer.getX() +700;
   //drawX is not changing aaah
   var count = "Players: " + (remotePlayers.length + 1);
   ctx.fillText(count, 40,10);
@@ -411,6 +413,8 @@ function drawBackground(){
   ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+1100, 293, 200, 200);
   ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+1300, 293, 200, 200);
   _anim++;
+          ctx.shadowBlur=0;
+                ctx.shadowColor="";
 };
 // Browser window resize
 

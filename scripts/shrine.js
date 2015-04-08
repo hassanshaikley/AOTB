@@ -11,9 +11,9 @@ var Shrine = function(_team) {
   this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
   if (_team == 0){
-    this.x = 150;
+    this.x = 1150;
   } else {
-    this.x = 2850;
+    this.x = 3850;
   }
   this.getTeam= function(){
     return team;
@@ -40,8 +40,9 @@ var Shrine = function(_team) {
     ctx.save();
     //draw HP
     //draw structure, depending on team
-    this.displacement = -localPlayer.getX();
-    
+    this.displacement = drawX-localPlayer.getX();
+    this.drawAtX = canvas.width/2 + this.x - localX ;
+    this.drawAtX = this.drawAtX - spire0.width/2;
     if (this.team ==0 ){
       ctx.shadowBlur=20;
       ctx.shadowColor="blue";
@@ -51,17 +52,16 @@ var Shrine = function(_team) {
       ctx.shadowColor="green";
     }
     if (this.team === 0){
-      ctx.drawImage(spire0, (this.displacement+this.x), 293);
-      console.log("displacement + x " + (this.displacement +this.x));
+      ctx.drawImage(spire0, this.drawAtX, 313);
     } else {
-      ctx.drawImage(spire1, (this.displacement+this.x), 293); //-10 is a hack to make it sync with life
+      ctx.drawImage(spire1, this.drawAtX, 313); //-10 is a hack to make it sync with life
     }
 
     ctx.fillStyle="#000000";
-    ctx.fillRect(this.x + 60+ this.displacement,this.y-50,3000/50,6);
+    ctx.fillRect(this.drawAtX + 60,this.y-50,3000/50,6);
     ctx.fillStyle="#FF0000";
-    ctx.fillRect(this.x + 60+ this.displacement,this.y-50,((this.hp/50)),6);
-    ctx.fillText("SPIRE", this.x + this.displacement,this.y);
+    ctx.fillRect(this.drawAtX + 60,this.y-50,((this.hp/50)),6);
+    ctx.fillText("SPIRE", this.drawAtX,this.y);
     ctx.restore();
   };
   this.getX = function() {

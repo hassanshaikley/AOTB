@@ -11,7 +11,7 @@ var Blood = function(startX, startY) {
   var draw = function(){
     animate++;
     //var displacement = drawX-localPlayer.getX() ; 
-    var   drawAtX = canvas.width/2 + x - localX - 50;
+    var   drawAtX = canvas.width/2 + x - localX;
     if (animate  < 10 ){
       ctx.drawImage(blood,0,0, 100, 100,  drawAtX, y, 100, 100);
     } else if (animate < 20){

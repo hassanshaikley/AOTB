@@ -28,9 +28,9 @@ var Player = function(startX, startY, startHp, _name) {
     }
 
     if (team==1){
-        respawnX = 2900;
+        respawnX = 3900;
     } else {
-        respawnX =100; 
+        respawnX =1100; 
     }
     x = respawnX;
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
@@ -100,10 +100,10 @@ var Player = function(startX, startY, startHp, _name) {
     };
 
     this.setX = function(newX) {
-        if (newX < 0){
-            x = 0;
-        }else if (newX > 3000){
-            x = 3000;
+        if (newX < 1000){
+            x = 1000;
+        }else if (newX > 4000){
+            x = 4000;
         } else {
             x = newX;
         }
