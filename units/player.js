@@ -3,41 +3,28 @@
  **************************************************/
 var Player = function(startHp, _name, _team) {
     this.id;
-    var //id of the socket
-        name = _name,
-             hp = 100,
-             y = 400,
-             maxHp = 100, //ehh w.e lol
-             character_type = "Unknown", 
-             gold = 0,
-             respawnX,
-             x;
-    //team is determined randomly
-    //    team = Math.round(Math.random() * (1)); //team random unless assigned
-    var team;
-    /* */
-    if (team1.length  < team0.length ){ //if team 1 is smaller than team zero
-        util.log ("t1\t" +team1.length + "\tt0\t" +team0.length);
-        team = 1;
-        team1.push(this);
-    } else {
-        util.log ("--x--t1\t" +team1.length + "\tt0\t" +team0.length);
-        team = 0;
-        team0.push(this);
-    }
+    var name = _name,
+        hp = 100,
+        y = 400,
+        maxHp = 100, //ehh w.e lol
+        character_type = "Unknown", 
+        gold = 0,
+        respawnX,
+        x = 2000, //whack I know
+        team;
 
-    if (team==1){
-        respawnX = 3900;
-    } else {
-        respawnX =1100; 
-    }
-    x = respawnX;
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
     this.getRespawnX = function(){
         return respawnX;
     };
     this.setTeam = function(newTeam){
+        util.log(newTeam);
+        if (team==1){
+            x = respawnX = 3900;
+        } else {
+            x = respawnX =1100; 
+        }
         team = newTeam;
     };
     this.getTeam= function(){

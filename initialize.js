@@ -59,9 +59,7 @@ module.exports = {
     shrine_0 =new Shrine(0);
            shrine_1 =new Shrine(1);
           game1 = new Game(); //terrible design swagger
-          team0=[];
-          team1=[];
-                     players = [];  // Array of connected players
+          players = [];  // Array of connected players
 
 
   }

@@ -181,7 +181,7 @@ var Events = function(){
         }
         newPlayer.id = this.id;
         util.log("Creating a " + newPlayer.getCharacterType());
-
+        game1.addPlayer(newPlayer);
         // Broadcast new player to connected socket clients
         this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType(), team: newPlayer.getTeam()});
 
