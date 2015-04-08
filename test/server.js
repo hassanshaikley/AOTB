@@ -2,7 +2,7 @@ var assert = require("assert");
 var User = require('../app/models/user');
 var testhelper = require('./testhelper');
 var game = require('../game.js').Game;
-var fly = require('../fly.js').Fly;
+var fly = require('../units/fly.js').Fly;
 //test test lol
 describe("Swag", function() {
   describe(".parse()", function() {

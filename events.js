@@ -1,12 +1,12 @@
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/ 
-var  Fly            = require("./fly").Fly,
-     Redhatter      = require("./redhatter").Redhatter,
-     Bowman         = require("./bowman").Bowman,
-     Skelly         = require("./skelly").Skelly,
-     Shanker        = require("./shanker").Shanker,
-     Crevice        = require("./crevice").Crevice,
+var  Fly            = require("./units/fly").Fly,
+     Redhatter      = require("./units/redhatter").Redhatter,
+     Bowman         = require("./units/bowman").Bowman,
+     Skelly         = require("./units/skelly").Skelly,
+     Shanker        = require("./units/shanker").Shanker,
+     Crevice        = require("./units/crevice").Crevice,
      Spells         = require("./spellsandprojectiles.js").Spells,
      Meteor         = require("./spellsandprojectiles.js").Meteor,
      BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow;
