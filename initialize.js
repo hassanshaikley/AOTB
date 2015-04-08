@@ -1,5 +1,5 @@
 /* Defines a bunch of variables and settings */
-var Shrine = require('./shrine.js').Shrine;
+var Shrine = require('./units/shrine.js').Shrine;
 var Game = require('./game.js').Game;
 module.exports = {
   //loads all the libraries into this object : D 
