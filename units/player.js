@@ -1,15 +1,14 @@
 /**************************************************
  ** PLAYER CLASS IN SERVER
  **************************************************/
-var Player = function(startX, startY, startHp, _name) {
+var Player = function(startHp, _name, _team) {
     this.id;
     var //id of the socket
         name = _name,
-             hp = startHp,
-             y = startY,
+             hp = 100,
+             y = 400,
              maxHp = 100, //ehh w.e lol
              character_type = "Unknown", 
-             zone = "The Borough",
              gold = 0,
              respawnX,
              x;

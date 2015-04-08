@@ -5,7 +5,7 @@ var Animate = 0,
     floorHeight = 474,
     localX = 0;
 
-var Crevice = function(x, y, hp, name){
+var Crevice = function(name, x, y, hp){
   var moveSpeed = 3.0;
   var skeleton = new Player(x, y, hp, name, moveSpeed),
       facing_left;

@@ -7,7 +7,7 @@ var localX;
 var floorHeight = 474;
 var toggle = 1;
 
-var Fly = function(x, y, hp, name){
+var Fly = function(name, x, y, hp){
 
   var descendAttack = false,
       moveAmount = 7,

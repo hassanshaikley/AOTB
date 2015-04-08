@@ -65,16 +65,15 @@ function init() {
 
   // Initialise the local player
   if (characterType === "Redhatter"){
-    localPlayer = new Redhatter(startX, startY, startHp, localPlayerName);
+    localPlayer = new Redhatter(localPlayerName);
   } else if (characterType === "Fly"){
-    localPlayer = new Fly(startX, startY, startHp, localPlayerName);
+    localPlayer = new Fly(localPlayerName);
   } else if (characterType === "Bowman"){
-    localPlayer = new Bowman(startX, startY, startHp, localPlayerName);
+    localPlayer = new Bowman(localPlayerName);
   } else if (characterType === "Shanker"){
-    localPlayer = new Shanker(startX, startY, startHp, localPlayerName);
-
+    localPlayer = new Shanker(localPlayerName);
   } else if (characterType === "Crevice"){
-    localPlayer = new Crevice(startX, startY, startHp, localPlayerName);
+    localPlayer = new Crevice(localPlayerName);
   } 
   else {
     alert("Something has went wrong");
@@ -234,7 +233,7 @@ function onKeyup(e) {
 // Socket connected
 function onSocketConnected() {
   // Send local player data to the game server
-  socket.emit("new player", {x: localPlayer.getX(), y: localPlayer.getY(), hp: localPlayer.getHp(), name: localPlayer.getName(), characterType: localPlayer.getCharacterType()});
+  socket.emit("new player", {name: localPlayer.getName(), characterType: localPlayer.getCharacterType()});
 };
 
 // Socket disconnected
@@ -248,15 +247,15 @@ function onNewPlayer(data) {
   // Initialise the new player
     console.log("New player connected " + data.characterType);
   if (data.characterType === "Fly"){
-    var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
+    var newPlayer = new Fly(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Redhatter") {
-    var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
+    var newPlayer = new Redhatter(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Bowman") {
-    var newPlayer = new Bowman(data.x, data.y, data.hp, data.name);
+    var newPlayer = new Bowman(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Shanker") {
-    var newPlayer = new Shanker(data.x, data.y, data.hp, data.name);
+    var newPlayer = new Shanker(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Crevice") {
-    var newPlayer = new Crevice(data.x, data.y, data.hp, data.name);
+    var newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
   }
   console.log("setting team to " + data.team);
   newPlayer.setTeam(data.team);

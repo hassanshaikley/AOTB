@@ -2,8 +2,8 @@
  ** FLY CLASS IN SERVER
  **************************************************/
 Player = require("./player").Player;
-var Fly = function(x, y, hp, name){
-    var skeleton =  new Player(x, y, hp, name);
+var Fly = function(name, team){
+    var skeleton =  new Player(name, team);
     var descendAttack = false;
 
     skeleton.setDescendAttack = function(boolean_thing){

@@ -5,7 +5,7 @@ var Animate = 0,
     floorHeight = 474,
     localX = 0;
 
-var Bowman = function(x, y, hp, name){
+var Bowman = function(name, x, y, hp){
   var moveSpeed = 3;
   var skeleton =  Player(x, y, hp, name, moveSpeed),
       facing_left;

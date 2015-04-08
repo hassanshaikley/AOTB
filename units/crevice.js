@@ -4,8 +4,8 @@
 Player = require("./player").Player;
 var util = require("util");
 
-var Crevice = function(x, y, hp, name){
-  var skeleton = new Player(x, y, hp, name);
+var Crevice = function(name, team){
+  var skeleton = new Player(100, name, team);
 
   skeleton.getCharacterType = function(){
     return "Crevice";

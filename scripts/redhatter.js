@@ -5,7 +5,7 @@ var Animate = 0,
     floorHeight = 474,
     localX = 0;
 
-var Redhatter = function(x, y, hp, name){
+var Redhatter = function(name, x, y, hp){
   var moveSpeed = 2.3;
   var skeleton =  new Player(x, y, hp, name, moveSpeed),
       facing_left;

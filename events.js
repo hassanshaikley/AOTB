@@ -166,30 +166,30 @@ var Events = function(){
         // Create a new player
         util.log("A " + (data.characterType || "unknown") + " has joined the game. at " +data.x);
         if (data.characterType === "Fly"){
-            var newPlayer = new Fly(data.x, data.y, data.hp, data.name);
+            var newPlayer = new Fly(data.name);
         }
         else if (data.characterType === "Redhatter"){
-            var newPlayer = new Redhatter(data.x, data.y, data.hp, data.name);
+            var newPlayer = new Redhatter(data.name);
         }
         else if (data.characterType === "Bowman"){
-            var newPlayer = new Bowman(data.x, data.y, data.hp, data.name);
+            var newPlayer = new Bowman(data.name);
         } else if (data.characterType === "Shanker"){
-            var newPlayer = new Shanker(data.x, data.y, data.hp, data.name);
+            var newPlayer = new Shanker(data.name);
         }
         else if (data.characterType === "Crevice"){
-            var newPlayer = new Crevice(data.x, data.y, data.hp, data.name);
+            var newPlayer = new Crevice(data.name);
         }
         newPlayer.id = this.id;
         util.log("Creating a " + newPlayer.getCharacterType());
 
         // Broadcast new player to connected socket clients
-        this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType(), zone: newPlayer.getZone(), team: newPlayer.getTeam()});
+        this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType(), team: newPlayer.getTeam()});
 
         // Send existing players to the new player
         var i, existingPlayer;
         for (i = 0; i < players.length; i++) {
             existingPlayer = players[i];
-            this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType(), zone: existingPlayer.getZone(), team: newPlayer.getTeam()});
+            this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType(), team: newPlayer.getTeam()});
         };
         util.log("Total # of players is " + (players.length+1));
 
