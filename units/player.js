@@ -2,7 +2,7 @@
  ** PLAYER CLASS IN SERVER
  **************************************************/
 var Player = function(startHp, _name, _team) {
-    this.id;
+    this.id = 1;
     var name = _name,
         hp = 100,
         y = 400,

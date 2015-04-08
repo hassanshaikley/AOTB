@@ -24,21 +24,30 @@ var Game = function(){
         return state;
     };
     this.addPlayer = function(newPlayer){
-        if (this.team1 > this.team2){
-            this.team2.push(newPlayer);
-            newPlayer.setTeam(team2);
+        if (this.team1 > this.team0){
+            this.team0.push(newPlayer);
+            newPlayer.setTeam(this.team0);
         } else {
             this.team1.push(newPlayer);
-            newPlayer.setTeam(team1);
+            newPlayer.setTeam(this.team1);
         }
         //then choose the team depending on teams
     };
-    this.removePlayer = function(){
-     
+    this.removePlayer = function(thePlayer){
+        for (var _i = 0; _i < this.team1.length; _i++){
+          if (this.team1[_i].id === thePlayer.id){
+           this.team1.splice(_i, 1);
+         }
+        } 
+        for (var _i = 0; _i < this.team2.length; _i++){
+          if (this.team0[_i].id === thePlayer.id){
+           this.team0.splice(_i, 1);
+         }
+        }
     };
     this.getPlayers = function(){
-     return this.team1.concat(this.team2);
-     };
+        return this.team1.concat(this.team2);
+    };
     return this; 
 }
 
