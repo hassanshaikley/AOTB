@@ -382,10 +382,10 @@ function drawBackground(){
   var count = "Players: " + (remotePlayers.length + 1);
   ctx.fillText(count, 40,10);
   for (var _i = 0; _i < 7; _i ++){
-    ctx.drawImage(ground ,0,0, 400, 100, displacement+1600 +400*_i,400, 400, 100);
+    ctx.drawImage(ground ,0,0, 400, 100, displacement+3000 +400*_i,400, 400, 100);
   } 
   for (var _i = 0; _i < 9; _i++){
-    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement-1100 +_i*300, 405, 300, 100); 
+    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement+300 +_i*300, 405, 300, 100); 
   }
   ctx.drawImage(cloud, displacement+cloud_x-800, 80);
   ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
@@ -410,8 +410,8 @@ function drawBackground(){
       z =0;
     }
   }
-  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+1800, 293, 200, 200);
-  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+2000, 293, 200, 200);
+  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+2300, 290, 200, 200);
+  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+2500, 290, 200, 200);
   _anim++;
           ctx.shadowBlur=0;
                 ctx.shadowColor="";
