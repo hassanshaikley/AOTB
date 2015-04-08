@@ -7,7 +7,11 @@ var Game = function(){
         winner = w; //0 or 1 depending on the winning team
     };
     this.getWinner = function(){
-        return winner;
+        if (winner =-1){
+          return "the fuck, error";
+        } else {
+         return winner;
+        }
     };
     this.setState = function(s){ //0 means game is over
         if (state === 1 && s === 0){ // game finished
@@ -32,6 +36,9 @@ var Game = function(){
     this.removePlayer = function(){
      
     };
+    this.getPlayers = function(){
+     return this.team1.concat(this.team2);
+     };
     return this; 
 }
 
