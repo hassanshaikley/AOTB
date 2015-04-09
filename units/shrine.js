@@ -5,10 +5,10 @@ var Shrine = function(_team) {
     var maxHp = 3000,
         hp = maxHp,
         team = _team; //team random unless assigned
-
+    
     var x, y = 350; //aa
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
-
+    this.game;
     if (_team == 0){
         x = 1150;
     } else {
@@ -28,12 +28,6 @@ var Shrine = function(_team) {
             hp = maxHp;
         } else if ( newHp <= 0){
             hp = 0;
-            game1.setState(0);
-            if (team == 1){
-                game1.setWinner(0);
-            } else {
-                game1.setWinner(1);
-            }
         } else {
             hp = newHp;
         }
@@ -46,9 +40,10 @@ var Shrine = function(_team) {
     this.getY = function() {
         return y;
     };
-
+    this.setGame = function(newGame){
+        this.game = newGame;
+    };
     // Define which variables and methods can be accessed by the world outside
-    return this;
 };
 
 exports.Shrine = Shrine;

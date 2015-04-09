@@ -37,8 +37,8 @@ Server.prototype.updateGameVariables = function(){
                 //emit to that player to go to respawn
             }
             game1.setWinner(-1);
-            shrine_0.setHp(3000);
-            shrine_1.setHp(3000);
+            game1.shrine_0.setHp(3000);
+            game1.shrine_1.setHp(3000);
             game1.setState(1);
         }, 5000);
         /* Now wait like 5 seconds and reset the game*/
@@ -82,17 +82,17 @@ Server.prototype.updateGameVariables = function(){
             //    util.log("ok\t"+players[i].getTeam()+ "\tx:" + (players[i].getX()+canvas_width/2));
             //   util.log("ok\t"+shrine_0.getTeam()+ "\tx:" + (shrine_0.getX()));
             //  util.log("--"+ (players[i].getX() +canvas_width/2 -shrine_0.getX()));
-            if  (players[i].getX()+canvas_width/2 - shrine_1.getX() <= 140 && players[i].getX()+canvas_width/2  - shrine_1.getX() >= 40 && players[i].getTeam() != 1 && (shrine_0.hitby[i] == undefined || Date.now() -shrine_1.hitby[i] >= 1000)){
+            if  (players[i].getX()+canvas_width/2 - game1.shrine_1.getX() <= 140 && players[i].getX()+canvas_width/2  - game1.shrine_1.getX() >= 40 && players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined || Date.now() -game1.shrine_1.hitby[i] >= 1000)){
                 //util.log("Ttt");
-                if (Math.abs(shrine_1.getY() - players[i].getY()) <=150 ){
-                    shrine_1.setHp(shrine_1.getHp() -25 );
-                    shrine_1.hitby[i] = Date.now();
+                if (Math.abs(game1.shrine_1.getY() - players[i].getY()) <=150 ){
+                    game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
+                    game1.shrine_1.hitby[i] = Date.now();
                 }
             }
-            if  (players[i].getX() +canvas_width/2  - shrine_0.getX() <= 140 && players[i].getX()+ canvas_width/2 - shrine_0.getX() >= 40 && players[i].getTeam() != 0 &&( shrine_0.hitby[i] == undefined || Date.now() -shrine_0.hitby[i] >= 1000)){
-                if (Math.abs(shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
-                    shrine_0.setHp(shrine_0.getHp() -25 );
-                    shrine_0.hitby[i] = Date.now();
+            if  (players[i].getX() +canvas_width/2  - game1.shrine_0.getX() <= 140 && players[i].getX()+ canvas_width/2 - game1.shrine_0.getX() >= 40 && players[i].getTeam() != 0 &&( game1.shrine_0.hitby[i] == undefined || Date.now() -game1.shrine_0.hitby[i] >= 1000)){
+                if (Math.abs(game1.shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
+                    game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
+                    game1.shrine_0.hitby[i] = Date.now();
                 }
             }
             //now see if hits any players
@@ -112,15 +112,15 @@ Server.prototype.updateGameVariables = function(){
 
     /* Iterate through every spell, if it hits someone then let them take the hit son : D */
     for (i = 0; i < server.Spells.spellsarray.length; i++){
-        if  (server.Spells.spellsarray[i].getX() - shrine_1.getX() <= 70 && server.Spells.spellsarray[i].getX()  - shrine_1.getX() >= -70 && server.Spells.spellsarray[i].caster_team != 1){
-            if (Math.abs(shrine_1.getY() - server.Spells.spellsarray[i].getY()) <=150 ){
-                shrine_1.setHp(shrine_1.getHp() -25 );
+        if  (server.Spells.spellsarray[i].getX() - game1.shrine_1.getX() <= 70 && server.Spells.spellsarray[i].getX()  - game1.shrine_1.getX() >= -70 && server.Spells.spellsarray[i].caster_team != 1){
+            if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <=150 ){
+                game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
             }
         }
-        if  (server.Spells.spellsarray[i].getX()  - shrine_0.getX() <= 70 && server.Spells.spellsarray[i].getX() - shrine_0.getX() >= -70 && server.Spells.spellsarray[i].caster_team != 0){
+        if  (server.Spells.spellsarray[i].getX()  - game1.shrine_0.getX() <= 70 && server.Spells.spellsarray[i].getX() - game1.shrine_0.getX() >= -70 && server.Spells.spellsarray[i].caster_team != 0){
             //util.log("made x");
-            if (Math.abs(shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
-                shrine_0.setHp(shrine_0.getHp() -25 );
+            if (Math.abs(game1.shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
+                game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
             }
         }
 
@@ -162,7 +162,7 @@ function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
 Server.prototype.sendUpdatedGame = function(){
     //emit something to all players 
     //util.log("SOON YOU WILL ALL DIE");
-    server.libs.io.sockets.emit('shrine hp', {zero: shrine_0.getHp(), one : shrine_1.getHp()});
+    server.libs.io.sockets.emit('shrine hp', {zero: game1.shrine_0.getHp(), one : game1.shrine_1.getHp()});
 };
 
 server.init();

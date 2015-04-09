@@ -1,7 +1,26 @@
+var Shrine = require("./units/shrine.js").Shrine;
+
 var Game = function(){
     var state  = 1; //game state 0 means a game is won
+    this.team0 = [];
     this.team1 = [];
-    this.team2 = [];
+
+    this.shrine_0 = new Shrine(0);
+    this.shrine_1 = new Shrine(1);
+
+    this.setShrineHp = function(newHp, team){
+        if ( team === 0){
+            shrine_0.setHp(newHp);
+            if (shrine_0.getHp() === 0){
+               this.setWinner(1);
+            }
+        } else {
+            shrine_1.setHp(newHp);
+            if (shrine_1.getHp() === 0){
+               this.setWinner(0);
+            }
+        }
+    }
     var winner = -1;
     this.setWinner = function(w){
         winner = w; //0 or 1 depending on the winning team
@@ -39,16 +58,15 @@ var Game = function(){
            this.team1.splice(_i, 1);
          }
         } 
-        for (var _i = 0; _i < this.team2.length; _i++){
+        for (var _i = 0; _i < this.team0.length; _i++){
           if (this.team0[_i].id === thePlayer.id){
            this.team0.splice(_i, 1);
          }
         }
     };
     this.getPlayers = function(){
-        return this.team1.concat(this.team2);
+        return this.team1.concat(this.team0);
     };
-    return this; 
 };
 
 exports.Game = Game;

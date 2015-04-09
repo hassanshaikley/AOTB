@@ -6,7 +6,7 @@ var Redhatter = require('../units/redhatter.js').Redhatter;
 var Shanker = require('../units/shanker.js').Shanker;
 
 describe("Test Game", function() {
-        var game;
+    var game;
     beforeEach(function(done){
         game = new Game();
         done();
@@ -26,12 +26,17 @@ describe("Test Game", function() {
         game.removePlayer(fly);
         assert.equal(game.getPlayers().length, 0); 
     });
+
     it ("shouldn't crash", function(){
-     assert.notEqual(game.getWinner(), "please dont crash");
-  });
+        assert.notEqual(game.getWinner(), "please dont crash");
+    });
+
     it ("able to change game state to 0", function(){
-      assert.equal(game.getState(), 1);
-       game.setState(0);
-      assert.equal(game.getState(), 0);
-  });
+        assert.equal(game.getState(), 1);
+        game.setState(0);
+        assert.equal(game.getState(), 0);
+    });
+    it ("able to change shrine HP", function(){
+        game.setShrineHp(0);
+    });
 });

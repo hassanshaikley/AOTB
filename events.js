@@ -112,22 +112,22 @@ var Events = function(){
         //util.log("tower 1\tx:\t" +shrine_1.getX()+"\ty:\t"+shrine_1.getY()+"\t\tx:\t" + attacker.getX() + "\ty:\t"+ attacker.getY());
         //util.log("tower\t"+shrine_1.getTeam() +"\tx:\t" +shrine_1.getX()+"\ty:\t"+shrine_1.getY());
         //util.log("player\t"+attacker.getTeam() + "\tx:\t" + (attacker.getX() +canvas_width/2)+ "\ty:\t"+ attacker.getY());
-        util.log(" " + (attacker.getX()+ canvas_width/2) - shrine_1.getX() +" " ); //between 60 and 150 is perfect
+        util.log(" " + (attacker.getX()+ canvas_width/2) - game1.shrine_1.getX() +" " ); //between 60 and 150 is perfect
         if (attacker.getTeam() == 0){ //proper if statemetn
-            util.log("ok " + (attacker.getX() + canvas_width/2 - shrine_1.getX()));
-            if  (attacker.getX() +canvas_width/2 - shrine_1.getX() <= 150 && attacker.getX() + canvas_width/2 - shrine_1.getX() >= 30){
+            util.log("ok " + (attacker.getX() + canvas_width/2 - game1.shrine_1.getX()));
+            if  (attacker.getX() +canvas_width/2 - game1.shrine_1.getX() <= 150 && attacker.getX() + canvas_width/2 - game1.shrine_1.getX() >= 30){
                 util.log("made x");
-                if (Math.abs(shrine_1.getY() - attacker.getY()) <=150 ){
+                if (Math.abs(game1.shrine_1.getY() - attacker.getY()) <=150 ){
                     util.log("made y");
-                    shrine_1.setHp(shrine_1.getHp() -25 );
+                    game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
                 }
             }
 
         } else { //attacker team is 1
-            if  (attacker.getX() +canvas_width/2 - shrine_0.getX() <= 150 && attacker.getX() + canvas_width/2 - shrine_0.getX() >= 30){
+            if  (attacker.getX() +canvas_width/2 - game1.shrine_0.getX() <= 150 && attacker.getX() + canvas_width/2 - game1.shrine_0.getX() >= 30){
                 //util.log("made x");
-                if (Math.abs(shrine_0.getY() - attacker.getY()) <= 150){ // shanker made contact at 114
-                    shrine_0.setHp(shrine_0.getHp() -25 );
+                if (Math.abs(game1.shrine_0.getY() - attacker.getY()) <= 150){ // shanker made contact at 114
+                    game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
                 }
             }
 
