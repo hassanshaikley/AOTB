@@ -26,7 +26,6 @@ var Events = function(){
         });   
         // Listen for new player message
         client.on("new player", onNewPlayer);
-        client.on("update health", onUpdateHealth);
         client.on("meteor cast", onMeteorCast);
         client.on("healing spike cast", onHealingSpikeCast);
         client.on("respawn player", onRespawn);
@@ -222,9 +221,6 @@ var Events = function(){
         //    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
         //    io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
     }
-    function onUpdateHealth(data){
-
-    };
 
     /* sends a message to one player and responds with it's team*/
     var initClient = function(){

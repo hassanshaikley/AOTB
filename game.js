@@ -40,11 +40,13 @@ var Game = function(){
     };
     this.addPlayer = function(newPlayer){
         if (this.team1 > this.team0){
+        util.log("ADDING PLAYER to team 0");
             this.team0.push(newPlayer);
-            newPlayer.setTeam(this.team0);
+            newPlayer.setTeam(0);
         } else {
+        util.log("ADDING PLAYER to team 1");
             this.team1.push(newPlayer);
-            newPlayer.setTeam(this.team1);
+            newPlayer.setTeam(1);
         }
         //then choose the team depending on teams
     };

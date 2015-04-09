@@ -23,14 +23,14 @@ var x =               startX || 1100,
   // Getters and setters
   var setTeam = function(_team){
       team = _team;
-  }
+  };
   var getTeam = function(){
       return team;
-  }
+  };
 
   var getGold = function(){
     return gold;
-  }
+  };
   var setGold = function(newGold){
     gold = newGold;
   }

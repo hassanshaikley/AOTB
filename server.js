@@ -47,6 +47,7 @@ Server.prototype.updateGameVariables = function(){
 
     // update player positions
     for (var _i = 0; _i < players.length; _i++){
+       // util.log("team: " +players[_i].getTeam());
         if (players[_i].getCharacterType() === "Fly"){
             if (players[_i].getDescendAttack()){
                 util.log("DESCEND ATTACKING");
@@ -166,3 +167,5 @@ Server.prototype.sendUpdatedGame = function(){
 };
 
 server.init();
+
+exports.Server = server;
