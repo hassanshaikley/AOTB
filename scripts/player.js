@@ -172,7 +172,6 @@ var x =               startX || 1100,
   };
   var text_x;
   var drawText = function(){
-      //console.log("SPEAKING")
     ctx.save();
     ctx.textAlign = 'center';
     text_x = canvas.width/2 + drawAtX - localX;
@@ -196,11 +195,9 @@ var x =               startX || 1100,
     ctx.restore();
   };
   var leftClick = function(){
-    console.log("left click");
     if(_alert){
       if (_alert.type == "arena"){
         enterQueue();
-        console.log("Ready for arena");
         socket.emit("ready for arena");
       }
       _alert = undefined;

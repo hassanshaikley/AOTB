@@ -24,11 +24,9 @@ var Spells = {
   },
     arrow: function(clientX, clientY){
 	//var a = new Arrow(clientX, clientY);
-	console.log("SHOT AN ARROW");
 	socket.emit("arrow created", {x : clientX, y: clientY });
   },
   yoloswag: function() {
-              console.log("Yolo Swag");
   }
 
 };
@@ -40,7 +38,6 @@ var BowmanArrow = function(startX, startY, _caster){
 	x = x + 2;
     };
     var draw = function(){
-	console.log("Sa " + x + " hmm " + y);
 	ctx.drawImage(arrow, x, y);
 	};
     var getX = function(){

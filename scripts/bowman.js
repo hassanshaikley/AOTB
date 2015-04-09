@@ -13,14 +13,11 @@ var Bowman = function(name, x, y, hp){
   var spritesheet_offset_y = 0;
 
   skeleton.rightClick = function(clientX, clientY){
-    console.log("bowman clicks");
-      console.log("x " + clientX + "\t y:" +clientY);
       Spells.arrow(clientX, clientY);
   };
 
   /* Maybe make this heal?? */ 
   skeleton.leftClick = function(clientX, clientY){
-      console.log("LEFT CLICK");
   };
 
   /* Lolswagz */

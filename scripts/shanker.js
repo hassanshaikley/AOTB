@@ -12,7 +12,6 @@ var Shanker = function(name, x, y, hp){
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;
   skeleton.rightClick = function(clientX, clientY){
-    console.log("sh clicks");
   };
 
   /* Maybe make this heal?? */ 
@@ -73,7 +72,6 @@ var Shanker = function(name, x, y, hp){
   var now = Date.now();
   skeleton.leftClick = function(x, y){
     if (Date.now()  - now >= 1000 ){
-    console.log("oh noo");
     meelee_attack = 0;
     socket.emit("meelee attack");
     now = Date.now();

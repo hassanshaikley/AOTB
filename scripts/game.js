@@ -17,7 +17,6 @@ var action_ctx = actionBarCanvas.getContext("2d");
 if (!development){
   $('body').bind('contextmenu', function(){ return false });
 }
-console.log(!development);
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
 var drawX = 0;//in relation to this variable 
@@ -147,7 +146,6 @@ function onUpdatePlayer(data){
 }
 /* Takes an arrows x and y position and draws it : D */
 function onArrowFired(data){
-    console.log("MADE AN ARROW");
   var m = new BowmanArrow(data.x, data.y, data.caster);
   Spells.spellsarray.push(m);
 };
@@ -171,7 +169,6 @@ function onSetGold(data){
   localPlayer.setGold(data.gold);
 };
 function onPortToArena(data){
-  console.log("porting you to arena number " + data.number);
   /* Remove all players not in the arena from your thing*/
 };
 function onArenaPrompt(data){
@@ -182,7 +179,6 @@ function onUpdateHostile(data){
   var _h;
   /*
      if (!hostileById(data.id)){ // then create
-     console.log("creating hotile of type: "+ data.characterType);
      if (data.characterType === "Skelly"){
      _h = new Skelly(data.x, data.y, data.id);
      hostiles.push(_h);
@@ -245,7 +241,6 @@ function onSocketDisconnect() {
 // New player
 function onNewPlayer(data) {
   // Initialise the new player
-    console.log("New player connected " + data.characterType);
   if (data.characterType === "Fly"){
     var newPlayer = new Fly(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Redhatter") {
@@ -257,7 +252,6 @@ function onNewPlayer(data) {
   } else if (data.characterType === "Crevice") {
     var newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
   }
-  console.log("setting team to " + data.team);
   newPlayer.setTeam(data.team);
   newPlayer.id = data.id;
   // Add new player to the remote players array
@@ -409,8 +403,8 @@ function drawBackground(){
       z =0;
     }
   }
-  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+2300, 290, 200, 200);
-  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+2500, 290, 200, 200);
+//  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+2300, 290, 200, 200);
+//  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+2500, 290, 200, 200);
   _anim++;
           ctx.shadowBlur=0;
                 ctx.shadowColor="";
