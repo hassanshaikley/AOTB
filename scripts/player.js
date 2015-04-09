@@ -151,6 +151,13 @@ var x =               startX || 1100,
     if (drawAtY -y >= -2){
       drawAtY-=2*yDelta;
     }
+    if (Math.abs(drawAtY - y) >100){
+   drawAtY = y;
+   }
+    if (Math.abs(drawAtX - x) >100){
+   drawAtX = x;
+   }
+
   };
 
   /* The X that we want to draw at to give the illusion of smooth movement
