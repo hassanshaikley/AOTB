@@ -5,17 +5,8 @@ var _users = mongoose.model('User');
 mongoose.connect('mongodb://localhost:27017/amara_test');  
 var testhelper = require('./testhelper');
 
-//test test lol
-describe("JSON", function() {
-  describe(".parse()", function() {
-    it("should detect malformed JSON strings", function(){
-      //Test Goes Here
-    });
-  });
-});
-
 describe("User model", function(){
-  describe(".save()", function(){
+  describe("should be able to save user", function(){
     it("should save new user", function(){
       var newUser = new User();
       newUser.local.email = 'hassan.shaikley@gmail.com';
@@ -35,20 +26,16 @@ describe("Users have characters model", function(){
     done();
   });  
 
-  afterEach(function(){
+  afterEach(function(done){
     _users.remove({}, function() {      
-    });  
+    }); 
+    done(); 
   });
 
 
   describe(".save()", function(){
     it("should save new character", function(){
-      /*_users.findOne({email: 'hassan.shaikley@gmail.com'}, function(e, doc){
-        if(e){
-        fail(e)
-        }
-        });*/
-      assert.notEqual(newUser.email, "j@j.com");
+      assert.equal(newUser.email, "j@j.com");
       newUser.createCharacter("hassan", "fly"); 
       assert.equal(1, newUser.characters.count());
     });
