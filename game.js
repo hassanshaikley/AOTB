@@ -5,32 +5,28 @@ var Game = function(){
     this.team0 = [];
     this.team1 = [];
 
+    var winner = -1;
     this.shrine_0 = new Shrine(0);
     this.shrine_1 = new Shrine(1);
 
     this.setShrineHp = function(newHp, team){
         if ( team === 0){
-            shrine_0.setHp(newHp);
-            if (shrine_0.getHp() === 0){
+            this.shrine_0.setHp(newHp);
+            if (this.shrine_0.getHp() === 0){
                this.setWinner(1);
             }
         } else {
-            shrine_1.setHp(newHp);
-            if (shrine_1.getHp() === 0){
+            this.shrine_1.setHp(newHp);
+            if (this.shrine_1.getHp() === 0){
                this.setWinner(0);
             }
         }
     }
-    var winner = -1;
     this.setWinner = function(w){
         winner = w; //0 or 1 depending on the winning team
     };
     this.getWinner = function(){
-        if (winner === -1){
-          return "the fuck, error";
-        } else {
-         return winner;
-        }
+          return winner;
     };
     this.setState = function(s){ //0 means game is over
         if (state === 1 && s === 0){ // game finished

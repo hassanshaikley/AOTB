@@ -28,7 +28,7 @@ var Shrine = function(_team) {
             hp = maxHp;
         } else if ( newHp <= 0){
             hp = 0;
-        } else {
+         } else {
             hp = newHp;
         }
     };
@@ -43,7 +43,6 @@ var Shrine = function(_team) {
     this.setGame = function(newGame){
         this.game = newGame;
     };
-    // Define which variables and methods can be accessed by the world outside
 };
 
 exports.Shrine = Shrine;

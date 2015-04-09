@@ -31,14 +31,14 @@ Server.prototype.updateGameVariables = function(){
         setTimeout(function(){
             //a few seconds have elapsed, now reset everyones position
             for(var _i = 0; _i < players.length; _i++){
-                players[_i].setHp(0);
+                players[_i].setHp(100);
                 players[_i].setX(players[_i].getRespawnX());
                 util.log("respawning player " +_i +" at " + players[_i].getRespawnX());
                 //emit to that player to go to respawn
             }
             game1.setWinner(-1);
-            game1.shrine_0.setHp(3000);
-            game1.shrine_1.setHp(3000);
+            game1.setShrineHp(3000, 0);
+            game1.setShrineHp(3000, 1);
             game1.setState(1);
         }, 5000);
         /* Now wait like 5 seconds and reset the game*/
