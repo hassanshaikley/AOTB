@@ -22,7 +22,7 @@ Server.prototype.updateGameVariables = function(){
     /* Every x seconds, spawn AI's*/
     /* Manage AI behavior */
     /* if there is a winner */
-    if (game1.getWinner() != -1 && game1.getState() === 1){
+    if (game1.getWinner() !== -1 && game1.getState() === 1){
         util.log("SOMEONE WINS OMG");
         /* Tell everyone about it and restart the game */
         //do this once

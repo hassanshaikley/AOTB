@@ -49,6 +49,6 @@ var Game = function(){
         return this.team1.concat(this.team2);
     };
     return this; 
-}
+};
 
 exports.Game = Game;
