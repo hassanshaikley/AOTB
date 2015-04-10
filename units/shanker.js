@@ -10,7 +10,7 @@ var Shanker = function(name, team){
   skeleton.getCharacterType = function(){
     return "Shanker";
   };
-  var speed = 10;
+  var speed = 50;
   /* */
   skeleton.moveUp = function(){
   };

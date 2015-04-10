@@ -5,7 +5,7 @@ var Shrine = function(_team) {
     var maxHp = 3000,
         hp = maxHp,
         team = _team; //team random unless assigned
-    
+
     var x, y = 350; //aa
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
     this.game;
@@ -14,7 +14,9 @@ var Shrine = function(_team) {
     } else {
         x = 3650;
     }
-
+    this.getWidth = function(){
+        return 128;
+    };
     this.getTeam= function(){
         return team;
     };
@@ -28,7 +30,7 @@ var Shrine = function(_team) {
             hp = maxHp;
         } else if ( newHp <= 0){
             hp = 0;
-         } else {
+        } else {
             hp = newHp;
         }
     };
