@@ -114,12 +114,12 @@ Server.prototype.updateGameVariables = function(){
     /* Iterate through every spell, if it hits someone then let them take the hit son : D */
     for (i = 0; i < server.Spells.spellsarray.length; i++){
         util.log("spell:\t" + server.Spells.spellsarray[i].getX() + "  shrine:\t"+game1.shrine_1.getX());
-        if  (server.Spells.spellsarray[i].getX() - game1.shrine_1.getX() <= 70 && server.Spells.spellsarray[i].getX()  - game1.shrine_1.getX() >= -70 && server.Spells.spellsarray[i].caster_team != 1){
+        if  (Math.abs(server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()+120) <= 70 && server.Spells.spellsarray[i].caster_team != 1){
             if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <=150 ){
                 game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
             }
         }
-        if  (server.Spells.spellsarray[i].getX()  - game1.shrine_0.getX() <= 70 && server.Spells.spellsarray[i].getX() - game1.shrine_0.getX() >= -70 && server.Spells.spellsarray[i].caster_team != 0){
+        if  (Math.abs(server.Spells.spellsarray[i].getX() - game1.shrine_0.getX()+120) <= 70 && server.Spells.spellsarray[i].caster_team != 0){
             //util.log("made x");
             if (Math.abs(game1.shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
                 game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
@@ -128,7 +128,7 @@ Server.prototype.updateGameVariables = function(){
 
         for (var j = 0; j < players.length; j++) {
             //indexof garbage so a player can only be hurt once by any given spell
-            if ( players[j].getTeam() != server.Spells.spellsarray[i].caster_team && Math.abs(server.Spells.spellsarray[i].getX()-300 -players[j].getX() ) <= 35 && server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
+            if ( players[j].getTeam() != server.Spells.spellsarray[i].caster_team && Math.abs(server.Spells.spellsarray[i].getX() -players[j].getX() ) <= 35 && server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
                 if (Math.abs(server.Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
                     server.Spells.spellsarray[i].hit.push(players[j].id); 
                     //var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
