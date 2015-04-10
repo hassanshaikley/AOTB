@@ -137,10 +137,12 @@ function onUpdatePlayer(data){
         player.setX(data.x);
         player.setY(data.y);
         player.setHp(data.hp);
+        player.setTeam(data.team);
     } else {
         localPlayer.setX(data.x);
         localPlayer.setY(data.y);
         localPlayer.setHp(data.hp);
+        localPlayer.setTeam(data.team);
 
     }
 }
@@ -252,7 +254,6 @@ function onNewPlayer(data) {
   } else if (data.characterType === "Crevice") {
     var newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
   }
-  newPlayer.setTeam(data.team);
   newPlayer.id = data.id;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);

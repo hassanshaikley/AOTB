@@ -6,9 +6,9 @@ function Server(){
     this.events          = require("./events").Events;   
     this.event_handler  = new this.events(); 
     this.Spells      = require("./spellsandprojectiles").Spells;
-
     require("./initialize.js").initialize();
 }
+
 var server = new Server();
 
 Server.prototype.init = function() {
@@ -140,7 +140,7 @@ Server.prototype.updateGameVariables = function(){
     };
 
     for (var j = 0; j < players.length; j++){
-        server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp() });
+        server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].getTeam() });
     }
 
     /* Method for telling all the units about the health of the structures and stuff */
@@ -151,7 +151,6 @@ Server.prototype.updateGameVariables = function(){
 };
 
 /* LETS TELL IF SOMEBODY is hit on the server */
-
 
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
     hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
