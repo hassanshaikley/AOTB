@@ -9,7 +9,9 @@ var Spells = {
   meteor: function(clientX, clientY) {
     if (!localPlayer.meteor  || Date.now()-localPlayer.meteor > m_cd){
       var x = clientX;
-      var m = new Meteor(x);
+       var m_x = x -400;
+      var m = new Meteor(m_x);
+     console.log("METOER X "+(m.getX()));
       socket.emit("meteor cast", { meteor_x : m.getX()});
       localPlayer.meteor = Date.now();
     }
@@ -106,6 +108,7 @@ var HealingSpike = function(startX, caster){
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
   var caster = mCaster;
+  console.log("meteor made at " + meteorX);
   var x =meteorX, 
       y = -100,
       active = true; //active spells can hurt this specific client 
@@ -128,7 +131,8 @@ var Meteor = function(meteorX, mCaster){
   var draw = function(ctx){
     /* Check if a spell hits - going to need to be refactored*/
     ctx.save();
-    var fireballX = x  - localPlayer.getX() + 50;
+    var fireballX = x  -localPlayer.getX()+ 50+canvas.width/2;
+    console.log("DRAWING FIREBALL AT " +fireballX);
     ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
     ctx.restore();
   };
