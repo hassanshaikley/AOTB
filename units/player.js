@@ -98,8 +98,7 @@ var Player = function(startHp, _name, _team) {
     };
 
     this.setY = function(newY) {
-				util.log("y is " +y +" newY is " +newY);
-        if (newY > -20 && newY <= 475){
+        if (newY > -20 && newY <= 474){
             y = newY;
         } else {
             if ( y<250){

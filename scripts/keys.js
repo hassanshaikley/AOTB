@@ -5,10 +5,14 @@
 var Keys = function(up, left, right, down) {
 
     this.keys = {};
-
     //65 left, 87 up, 68 right, 83 down
     $(window).keydown(function(e){
-        if ( this.keys[e.keyCode] === undefined || this.keys[e.keyCode] === false  ){
+		
+			/* Prevent Backspace from going to the previous page */
+      if (e.keyCode  ===8 ){
+			e.preventDefault();
+			}
+			if ( this.keys[e.keyCode] === undefined || this.keys[e.keyCode] === false  ){
             this.keys[e.keyCode] = true;
             if(e.keyCode === 65){//left
                 socket.emit('key press', { key: "left", down: true}); 

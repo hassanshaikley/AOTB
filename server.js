@@ -50,14 +50,20 @@ Server.prototype.updateGameVariables = function(){
        // util.log("team: " +players[_i].getTeam());
         if (players[_i].getCharacterType() === "Fly"){
             if (players[_i].getDescendAttack()){
-                util.log("DESCEND ATTACKING");
+							if(players[_i].getY() >= 474){
+								util.log ("CHANGES TO FLASE");
+								players[_i].setDescendAttack(false);
+        				server.libs.io.sockets.emit('descend attack changes', { id: players[_i].id, descendAttack: false });
+							} else {
+			
                 players[_i].moveDown();
                 players[_i].moveDown();
                 players[_i].moveDown();
                 players[_i].moveDown();
                 players[_i].moveDown();
                 players[_i].moveDown();
-                break;
+                continue;
+							}
             };
         };
         if (players[_i].left){

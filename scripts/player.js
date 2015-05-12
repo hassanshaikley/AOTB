@@ -157,7 +157,6 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 		}
 		drawAtX = x;
 		//var yDelta = 2.2; //2.2 for descend attack - 1 otherwise
-		console.log("aah y   " +yDiff);
 		if (drawAtY - y <= 2){
 			drawAtY+=speed;
 		}

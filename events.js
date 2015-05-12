@@ -129,7 +129,8 @@ var Events = function(){
     function onDescendAttackChange(data){
         var dAP = playerById(this.id);
         dAP.setDescendAttack(data.descendAttack);
-        this.emit("descend attack changes", data.descendAttack);
+				util.log("ON DA " + data.descendAttack + " id " + this.id);
+        this.emit("descend attack changes", { id: "self", descendAttack: data.descendAttack });
         this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: data.descendAttack});
     };
     function onRespawn(){
