@@ -14,7 +14,7 @@ var utility_ctx = utilityCanvas.getContext("2d");
 var actionBarCanvas = document.getElementById("infoBar");
 var action_ctx = actionBarCanvas.getContext("2d");
 
-if (!development){
+if (location.origin == "http://localhost:5000"){
   $('body').bind('contextmenu', function(){ return false });
 }
 var floorHeight = 474;

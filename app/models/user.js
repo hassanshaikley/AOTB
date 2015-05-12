@@ -82,7 +82,11 @@ UserSchema.methods.usersCharacters = function(email,cb){
   User.findOne( {'local.email' : email }).exec(function(err, user){
     if (err) console.log("shit");
     var _return = [];
-    
+   
+		if (!user){
+			console.log("MAN USER IS NULL");
+			return
+		} 
     user.characters.forEach(function(err, i){
       Character.findOne({ "_id" :user.characters[i] }).exec(function(err2, dude){
         _return.push(dude);

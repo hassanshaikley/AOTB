@@ -18,7 +18,7 @@ var Fly = function(name, team){
         return "Fly";
     };
 
-    var speed = 7;
+    var speed = 10;
     /* */
 
     skeleton.moveUp = function(){
@@ -26,8 +26,8 @@ var Fly = function(name, team){
     };
     skeleton.moveDown = function(){
         skeleton.move(speed, "down");
-        if (descendAttack === true && skeleton.getY() <= 475){
-            descendAttack = false;
+        if (descendAttack === true && skeleton.getY() >= 475){ 
+            descendAttack = false; //now should notify all players
         }
     };
     skeleton.moveLeft = function(){

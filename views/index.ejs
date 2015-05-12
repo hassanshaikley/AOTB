@@ -8,11 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <script>
-      development = true;
+			"use strict";
     </script>
     <% if ('development' === process.env.NODE_ENV) { %>
     <script>
-      development = true;
+      var development = true;
     </script>
     <% var url = "//localhost:5000/localAssets/";%>
     <link rel="stylesheet" href="//localhost:5000/localAssets/bootstrap.min.css"> <!-- load bootstrap css -->
@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="styles/game.css">
   </head>
   <body>
-    <a href="/" class=""><img src="localAssets/logo.png"> </img></a>
     <%if  (authenticated ) {%>
     <a href="/profile" class="btn btn-default"><span class="fa fa-user"></span> Profile</a>
     <a href="/logout" class="btn btn-default btn-sm">Logout</a>

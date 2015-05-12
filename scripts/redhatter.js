@@ -10,6 +10,7 @@ var Redhatter = function(name, x, y, hp){
   var skeleton =  new Player(x, y, hp, name, moveSpeed),
       facing_left;
 
+	//used for animation
   var spritesheet_offset_y = 0;
 
   /* CASTS A METEOR :D */
@@ -27,7 +28,6 @@ var Redhatter = function(name, x, y, hp){
   };
 
   skeleton.draw = function(ctx) {
-    //var drawAtX = skeleton.getX()-50;
     this.drawText();
     ctx.save();
     if (skeleton.getTeam()==0){
