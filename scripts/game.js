@@ -370,8 +370,8 @@ function drawForeground(){
 
 }
 function drawBackground(){
-          ctx.shadowBlur=20;
-                ctx.shadowColor="black";
+	ctx.shadowBlur=20;
+	ctx.shadowColor="black";
   cloud_x+=.01;
   var displacement = drawX-localPlayer.getX();
   //drawX is not changing aaah
@@ -409,10 +409,10 @@ function drawBackground(){
 //  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+2300, 290, 200, 200);
 //  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+2500, 290, 200, 200);
   _anim++;
-          ctx.shadowBlur=0;
-                ctx.shadowColor="";
- ctx.fillRect(4000-localPlayer.getX() +canvas.width/2,0, 500,500);
- ctx.fillRect(1000-localPlayer.getX() -canvas.width/2-200,0, 1000,500);
+	ctx.shadowBlur=0;
+	ctx.shadowColor="";
+	ctx.fillRect(4000-localPlayer.getX() +canvas.width/2,0, 500,500);
+	ctx.fillRect(1000-localPlayer.getX() -canvas.width/2-200,0, 1000,500);
 };
 // Browser window resize
 

@@ -40,8 +40,6 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 	};
 	var respawn = function(){ /* Function that is called for local player*/
 		alive = true;
-		//   drawAtX = newX;
-		//   drawAtY = newY;
 	};
 	var getAnimate = function(){
 		return animate;
@@ -107,9 +105,6 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 
 	/* Mutator for server y variable! */
 	var setY = function(newY) {
-		//  if (newY > floorHeight){
-		//    newY = floorHeight;
-		//  }
 		y = newY;
 	};
 
@@ -118,7 +113,6 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 	 * of FPS
 	 */
 
-	var yDelta = 1;
 	var updateVariables = function(){
 		//used to calculate direction
 		var newerX = x;
@@ -136,39 +130,41 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 		if (moveDifferenceX){ postX = x; } /* USED TO TELL IF GOING LEFT OR RIGHT */
 
 		//if y is 5 and drawAtY is 10
-		yDelta = Math.abs(drawAtY)
 
 			/* Basically if super far from your actual location, just teleport there 
 			 * Especially useful in the case of a respawn 
 			 */ 
 		var yDiff = Math.abs(drawAtY - y);
 		var xDiff = Math.abs(drawAtX - x);
-		if (yDiff >= 15 || xDiff >= 15){
+	
+		var ySpeed = speed;
+		var xSpeed = speed;
+		if (yDiff >= 400 || xDiff >= 400){
 			drawAtX = x;
 			drawAtY = y;
 		}
+
+		if (yDiff >= speed * 2){
+			ySpeed = speed + yDiff/speed;
+		};
+
+		if (xDiff >= speed * 2){
+			xSpeed = speed + xDiff/speed;
+		};
+
 		if (drawAtX - x <= 2){
-	//		drawAtX+=2*yDelta;
-				drawAtX+= speed;
+				drawAtX+= xSpeed;
 		}
 		if (drawAtX -x >= -2){
-//			drawAtX-=2*yDelta;
-				drawAtX-=speed;
+				drawAtX-=xSpeed;
 		}
 		drawAtX = x;
-		//var yDelta = 2.2; //2.2 for descend attack - 1 otherwise
 		if (drawAtY - y <= 2){
-			drawAtY+=speed;
+			drawAtY+=ySpeed;
 		}
 		if (drawAtY -y >= -2){
-			drawAtY-=speed;
+			drawAtY-=ySpeed;
 		}
-		/*if (Math.abs(drawAtY - y) >100){
-			yDelta 50;;
-			} 
-			if (Math.abs(drawAtX - x) >100){
-			drawAtX = x;
-			}*/
 
 	};
 
