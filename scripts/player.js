@@ -143,7 +143,7 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 			 */ 
 		var yDiff = Math.abs(drawAtY - y);
 		var xDiff = Math.abs(drawAtX - x);
-		if (yDiff >= 50 || xDiff >= 50){
+		if (yDiff >= 15 || xDiff >= 15){
 			drawAtX = x;
 			drawAtY = y;
 		}

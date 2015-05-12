@@ -1,3 +1,4 @@
+
 /**************************************************
  ** PLAYER CLASS IN SERVER
  **************************************************/
@@ -97,7 +98,8 @@ var Player = function(startHp, _name, _team) {
     };
 
     this.setY = function(newY) {
-        if (y > -20 && y < 475){
+				util.log("y is " +y +" newY is " +newY);
+        if (newY > -20 && newY <= 475){
             y = newY;
         } else {
             if ( y<250){
