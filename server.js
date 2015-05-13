@@ -85,12 +85,6 @@ Server.prototype.updateGameVariables = function(){
 	var j;
 	for (i = 0; i < players.length; i++) {
 		if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
-
-			//left is team 0, right is team 1
-			util.log("ok\t"+players[i].getTeam()+ "\tx:" + (players[i].getX()+canvas_width/2));
-			util.log(players[i].getX());
-			util.log("ok\t"+ (players[i].getX()  -game1.shrine_0.getX())+"\tx:" + "hmm");
-			
 			if  (Math.abs(players[i].getX() - game1.shrine_1.getX())<= 100 && 
 					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined || 
 						Date.now() -game1.shrine_1.hitby[i] >= 1000)){
