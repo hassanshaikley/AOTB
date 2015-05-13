@@ -52,9 +52,9 @@ var Shrine = function(_team) {
       ctx.shadowColor="green";
     }
     if (this.team === 0){
-      ctx.drawImage(spire0, this.drawAtX, 313);
+      ctx.drawImage(spire0, this.drawAtX, 290);
     } else {
-      ctx.drawImage(spire1, this.drawAtX, 313); //-10 is a hack to make it sync with life
+      ctx.drawImage(spire1, this.drawAtX, 290); 
     }
 
     ctx.fillStyle="#000000";
