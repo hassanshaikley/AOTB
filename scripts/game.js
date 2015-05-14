@@ -129,7 +129,12 @@ var setEventHandlers = function() {
   socket.on("init me", onInitMe);
   socket.on("win", onWin);
   socket.on("update player", onUpdatePlayer);
+  socket.on("tort stun", onTortStun);
 };
+function onTortStun(data){
+	var m = new TortStun(data.x, data.y, data.caster);
+	Spells.spellsarray.push(m);
+}
 
 /* Updates location of all connected players*/
 

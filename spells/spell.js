@@ -1,8 +1,25 @@
 /* Parent class for spells in server */
-var Spell = function(startX, startY, _team) {
+var Spell = function(startX, startY, _team, _damage) {
 	var x = startX,
 			y = startY,
-			team = _team; //team that spawned this
+			team = _team,
+			damage = _damage || 25; // damage is default 25
+	
+	this.hit = [];
+
+	this.update = function(){
+		util.log("Yo every spell needs this THIS SHOULDNT BE CALLED MAN");
+		y += 50;
+		//x += 2;
+		var index = Spells.spellsarray.indexOf(this);
+		if (y >= 500){
+			Spells.spellsarray.splice(index, 1);
+		};
+	};
+
+	this.getDamage = function(){
+		return damage;
+	};
 
 	this.getTeam= function(){
 		return team;
@@ -20,7 +37,7 @@ var Spell = function(startX, startY, _team) {
 	this.setX = function(newX) {
 		if (newX < 1000){
 			x = 1000;
-		}else if (newX > 4000){
+		} else if (newX > 4000){
 			x = 4000;
 		} else {
 			x = newX;
@@ -37,7 +54,7 @@ var Spell = function(startX, startY, _team) {
 			} else {
 				y =474;
 			}
-		}
+		};
 	};
 	return this;
 };

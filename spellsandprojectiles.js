@@ -85,6 +85,7 @@ var Meteor = function(meteorX, mCaster){
          hit : hit
   }
 };
+
 exports.Meteor = Meteor;
 exports.Spells = Spells;
 exports.BowmanArrow = BowmanArrow;

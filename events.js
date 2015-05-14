@@ -10,6 +10,7 @@ var  Fly            = require("./units/fly").Fly,
      Crevice        = require("./units/crevice").Crevice,
      Spells         = require("./spellsandprojectiles.js").Spells,
      Meteor         = require("./spellsandprojectiles.js").Meteor,
+     TortStun         = require("./spells/tortstun.js").TortStun,
      BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow;
 
 canvas_width = 800;
@@ -48,6 +49,7 @@ var Events = function(){
         //util.log(data.key);
         //util.log(data.down);
         var player = playerById(this.id);
+
         if(data.key === "left"){
             if (data.down){
                 player.left = true; 
@@ -100,9 +102,7 @@ var Events = function(){
         for (i = 0; i< players.length; i++){
             if ( players[i].id != this.id){
                 if  (Math.abs(players[i].getX()- attacker.getX()) <= 50 ){
-                    //util.log("made x");
                     if (Math.abs(players[i].getY() - attacker.getY()) <= 100){
-                        //util.log("made y");
                         setHp(players[i],25);
                     }
                 }
@@ -198,8 +198,12 @@ var Events = function(){
 
     };
 		function onTortStun(data){
-			//crete new stun obj	
-
+			//crete new stun obj
+				var team = playerById(this.id).getTeam();
+				var v = new TortStun(data.x, data.y, team);	
+        Spells.spellsarray.push(v);
+        this.emit('tort stun', {x: data.x });
+        this.broadcast.emit('tort stun', {x: data.x});
 		};
 
     /* Sends message to all players except one that casted */
@@ -209,7 +213,7 @@ var Events = function(){
         this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id});
 
         // spell is maintained on the server :D
-        v = new Meteor(data.meteor_x, this.id);
+        var v = new Meteor(data.meteor_x, this.id);
         v.caster_team =playerById(this.id).getTeam();
         Spells.spellsarray.push(v);
     };

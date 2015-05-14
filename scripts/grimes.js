@@ -13,7 +13,7 @@ var Grimes = function(name, x, y, hp){
   var spritesheet_offset_y = 0;
   skeleton.rightClick = function(clientX, clientY){
 			var t_x = clientX - 400;
-			socket.emit("tort stun" { x: t_x });
+			socket.emit("tort stun", { x: t_x });
   };
 
   /* Maybe make this heal?? */ 

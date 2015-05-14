@@ -21,10 +21,8 @@ var Player = function(startHp, _name, _team) {
     };
     this.setTeam = function(newTeam){
         if (newTeam===1){
-            util.log("team 1 so 3900");
             x = respawnX = 3900;
         } else {
-            util.log("team 0 so 1100");
             x = respawnX =1100; 
         }
         team = newTeam;
@@ -130,6 +128,19 @@ var Player = function(startHp, _name, _team) {
 
         }
     };
+		this.stuncounter = {};	
+		this.stun = function(duration){
+			this.stuncounter.duration = duration;
+			this.stuncounter.when = Date.now();
+		}
+		this.isStunned = function(){
+			return (this.stuncounter.duration == null);
+		}
+		this.checkIfStillStunned = function(){
+			if (Date.now() >= this.stuncounter.when + this.stuncounter.duration){ //if stun is over
+				this.stuncounter.duration = null;
+			} //else do nothing
+		}
     // Define which variables and methods can be accessed by the world outside
     return this;
 };
