@@ -3,6 +3,7 @@
  **************************************************/ 
 var  Fly            = require("./units/fly").Fly,
      Redhatter      = require("./units/redhatter").Redhatter,
+     Grimes      = require("./units/grimes").Grimes,
      Bowman         = require("./units/bowman").Bowman,
      Skelly         = require("./units/skelly").Skelly,
      Shanker        = require("./units/shanker").Shanker,
@@ -27,6 +28,7 @@ var Events = function(){
         // Listen for new player message
         client.on("new player", onNewPlayer);
         client.on("meteor cast", onMeteorCast);
+				client.on("tort stun", onTortStun);
         client.on("healing spike cast", onHealingSpikeCast);
         client.on("respawn player", onRespawn);
         client.on("descend attack change", onDescendAttackChange);
@@ -164,6 +166,9 @@ var Events = function(){
         }
         else if (data.characterType === "Redhatter"){
             var newPlayer = new Redhatter(data.name);
+				}
+        else if (data.characterType === "Grimes"){
+            var newPlayer = new Grimes(data.name);
         }
         else if (data.characterType === "Bowman"){
             var newPlayer = new Bowman(data.name);
@@ -192,6 +197,10 @@ var Events = function(){
         players.push(newPlayer);
 
     };
+		function onTortStun(data){
+			//crete new stun obj	
+
+		};
 
     /* Sends message to all players except one that casted */
     function onMeteorCast(data){

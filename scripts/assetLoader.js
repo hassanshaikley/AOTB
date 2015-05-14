@@ -12,6 +12,7 @@ var silverSword = new Image();
 var ground = new Image();
 var cobbleStone = new Image();
 var CastleOfOne = new Image();
+var tortStun = new Image();
 var RedhatterSprite = new Image();
 var fireballSprite = new Image();
 var burningBuildingSide = new Image();
@@ -23,6 +24,7 @@ var crevice = new Image();
 var healingcross = new Image();
 var spire0 = new Image();
 var spire1 = new Image();
+var grimesSprite = new Image();
 function UrlExists(url)
 {
   var http = new XMLHttpRequest();
@@ -58,3 +60,5 @@ spire0.src = url + "spire_0.png";
 spire1.src = url + "spire.png";
 blood.src = url + "blood.png";
 trees.src = url + "trees.png";
+grimesSprite.src = url +"grimes.png";
+tortStun.src = url + "tort_stun.png";
