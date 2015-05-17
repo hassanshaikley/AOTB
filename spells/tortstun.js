@@ -5,11 +5,11 @@ var TortStun = function(_x, _y, _team) {
 	var spell = new Spell(_x, _y, _team, 10);
 	var speed = 10;
 	var width = 50;
-	util.log(" -->"+_y);
+	util.log(" -->"+_x);
 	var age = 0; //timer for damage
 
-	spell.hitbox = function(){
-		return {left: spell.getX()-50, right: spell.getX()+50, top: 400, bot:500 };	
+	spell.getHalfWidth = function(){
+		return 50;
 	};
 
 	spell.update = function(){

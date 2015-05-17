@@ -1,6 +1,4 @@
-/**************************************************
-   ** REDHATTER CLASS IN CLIENT
-    **************************************************/
+
 var Animate = 0,
     floorHeight = 474,
     localX = 0;
@@ -12,7 +10,7 @@ var Grimes = function(name, x, y, hp){
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;
   skeleton.rightClick = function(clientX, clientY){
-		var t_x = clientX - 400;
+		var t_x = clientX ;
 		console.log("-->"+t_x);
 		socket.emit("tort stun", { x: t_x });
   };

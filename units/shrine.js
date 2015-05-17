@@ -14,8 +14,8 @@ var Shrine = function(_team) {
     } else {
         x = 3650;
     }
-    this.getWidth = function(){
-        return 128;
+    this.getHalfWidth = function(){ 
+        return 100;
     };
     this.getTeam= function(){
         return team;

@@ -135,14 +135,23 @@ Server.prototype.updateGameVariables = function(){
 		}
 
 		for (var j = 0; j < players.length; j++) {
-			//indexof garbage so a player can only be hurt once by any given spell
-			if ( players[j].getTeam() != server.Spells.spellsarray[i].caster_team && Math.abs(server.Spells.spellsarray[i].getX() -players[j].getX() ) <= 35 && server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
-				if (Math.abs(server.Spells.spellsarray[i].getY() - players[j].getY()) <= 150 ){
+			util.log( " dist:\t" +(Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX())) +" halfs: "+(players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()));
+			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <  
+				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
+				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
+
+				if (players[j].getTeam() != server.Spells.spellsarray[i].caster_team){
+					util.log("HIT SOTHER TEAM " +players[j].getTeam() + " cast team " + server.Spells.spellsarray[i].caster_team );
+				} else {
+					util.log ("HIITS SAME TEAm");
+
+				}
 					server.Spells.spellsarray[i].hit.push(players[j].id); 
 					//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
 					setHp( players[j], server.Spells.spellsarray[i].getDamage());
-				}
+
 			}
+			//indexof garbage so a player can only be hurt once by any given spell
 		}
 
 		server.Spells.spellsarray[i].update();

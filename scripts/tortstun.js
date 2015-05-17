@@ -25,9 +25,7 @@ var TortStun = function(_x,_y, _team ){
   this.draw = function(ctx){
     /* Check if a spell hits - going to need to be refactored*/
     ctx.save();
-		console.log (x);
     var newX = x  -localPlayer.getX()- 50+canvas.width/2;
-		console.log("DRAWGIN at " + newX);
     ctx.drawImage(tortStun,0,0, 100, 100, newX, y, 100, 100);
     ctx.restore();
   };

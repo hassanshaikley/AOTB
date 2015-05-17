@@ -123,14 +123,15 @@ var Meteor = function(meteorX, mCaster){
   var getY = function(){
     return y;
   };
+
   var draw = function(ctx){
     /* Check if a spell hits - going to need to be refactored*/
     ctx.save();
-    console.log(" x is " + x);
     var fireballX = x  -localPlayer.getX()+canvas.width/2-50;
     ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
     ctx.restore();
   };
+
   var getDamage = function(){
     return 25;
   };

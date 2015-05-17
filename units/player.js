@@ -19,6 +19,9 @@ var Player = function(startHp, _name, _team) {
     this.getRespawnX = function(){
         return respawnX;
     };
+    this.getHalfWidth = function(){
+        return 30;
+    }
     this.setTeam = function(newTeam){
         if (newTeam===1){
             x = respawnX = 3900;

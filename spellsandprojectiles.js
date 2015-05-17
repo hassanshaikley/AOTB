@@ -17,7 +17,10 @@ var BowmanArrow = function(startX, startY, _caster){
     var update = function(){
 
     };
-    
+
+      var getHalfWidth = function(){
+    return 50;
+  };
     var getX = function(){
 
 	};
@@ -37,7 +40,8 @@ var BowmanArrow = function(startX, startY, _caster){
 	update : update,
 	getX: getX,
 	setX: setX,
-	getDamage : getDamage
+	getDamage : getDamage,
+  getHalfWidth : getHalfWidth
 }
 };
 
@@ -48,17 +52,21 @@ var Meteor = function(meteorX, mCaster){
   var caster_team;
   var hit = [];
 
+  this.getHalfWidth = function(){
+    return 50;
+  };
+
   var x =meteorX, 
       y = -100,
       active = true; //active spells can hurt this specific client  - this makes absolutely no sense. lol
 
     util.log("meteor x is " + x);
 
-    var getDamage = function(){
+    this.getDamage = function(){
 	     return 25;
 	};
 
-  var update = function(){
+  this.update = function(){
     y += 50;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
@@ -67,27 +75,17 @@ var Meteor = function(meteorX, mCaster){
     };
   };
 
-  var getX = function(){
+  this.getX = function(){
     return x;
   };
 
-  var getY = function(){
+  this.getY = function(){
     return y;
   };
-  var getDamage = function(){
+  this.getDamage = function(){
     return 25;
   };
-  return {
-
-         getX : getX,
-         getY : getY,
-         update : update,
-         active : active,
-         caster : caster,
-         caster_team : caster_team,
-         getDamage: getDamage,
-         hit : hit
-  }
+  return this;
 };
 
 exports.Meteor = Meteor;
