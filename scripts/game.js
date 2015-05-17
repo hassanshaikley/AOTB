@@ -19,7 +19,6 @@ if (location.origin == "http://localhost:5000"){
 }
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
-var drawX = 0;//in relation to this variable 
 
 function init() {
   shrine_0 = new Shrine(0);
@@ -35,7 +34,7 @@ function init() {
     switch (e.which) {
       case 1: 
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = drawX + localPlayer.getX() -canvas.width/2; 
+        adjustedX = localPlayer.getX() -canvas.width/2; 
 
         adjustedX += (e.clientX - clientRect.left); 
 
@@ -47,7 +46,7 @@ function init() {
         break;
       case 3: 
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = drawX + localPlayer.getX() -canvas.width/2; 
+        adjustedX = localPlayer.getX() -canvas.width/2; 
         adjustedX += (e.clientX - clientRect.left); //should work without the 100...but 100 makes it work :l
 
         adjustedY += e.clientY - clientRect.topy;
@@ -384,8 +383,8 @@ function drawBackground(){
           ctx.shadowBlur=20;
                 ctx.shadowColor="black";
   cloud_x+=.01;
-  var displacement = drawX-localPlayer.getX();
-  //drawX is not changing aaah
+  var displacement = -localPlayer.getX();
+
   var count = "Players: " + (remotePlayers.length + 1);
   ctx.fillText(count, 40,10);
   for (var _i = 0; _i < 7; _i ++){

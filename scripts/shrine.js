@@ -40,7 +40,7 @@ var Shrine = function(_team) {
     ctx.save();
     //draw HP
     //draw structure, depending on team
-    this.displacement = drawX-localPlayer.getX();
+    this.displacement = -localPlayer.getX();
     this.drawAtX = canvas.width/2 + this.x - localX ;
     this.drawAtX = this.drawAtX - spire0.width/2;
     if (this.team ==0 ){
