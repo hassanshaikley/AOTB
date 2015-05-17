@@ -47,7 +47,9 @@ Server.prototype.updateGameVariables = function(){
 
 	// update player positions
 	for (var _i = 0; _i < players.length; _i++){
-		players[_i].checkIfStillStunned();
+		if (players[_i].isStunned()){
+			continue;
+		}
 		
 		// util.log("team: " +players[_i].getTeam());
 		if (players[_i].getCharacterType() === "Fly"){
@@ -135,7 +137,6 @@ Server.prototype.updateGameVariables = function(){
 		}
 
 		for (var j = 0; j < players.length; j++) {
-			util.log( " dist:\t" +(Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX())) +" halfs: "+(players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()));
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <  
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
@@ -146,9 +147,10 @@ Server.prototype.updateGameVariables = function(){
 					util.log ("HIITS SAME TEAm");
 
 				}
-					server.Spells.spellsarray[i].hit.push(players[j].id); 
-					//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
-					setHp( players[j], server.Spells.spellsarray[i].getDamage());
+				server.Spells.spellsarray[i].hit.push(players[j].id); 
+				//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
+				setHp( players[j], server.Spells.spellsarray[i].getDamage());
+				players[j].stun(1000);
 
 			}
 			//indexof garbage so a player can only be hurt once by any given spell

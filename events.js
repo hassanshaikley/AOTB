@@ -29,7 +29,7 @@ var Events = function(){
         // Listen for new player message
         client.on("new player", onNewPlayer);
         client.on("meteor cast", onMeteorCast);
-				client.on("tort stun", onTortStun);
+		client.on("tort stun", onTortStun);
         client.on("healing spike cast", onHealingSpikeCast);
         client.on("respawn player", onRespawn);
         client.on("descend attack change", onDescendAttackChange);
@@ -112,14 +112,14 @@ var Events = function(){
         util.log("Meelee Attack: at " + attacker.getX() + " tower at " + game1.shrine_1.getX() + " and " +game1.shrine_0.getX()  ); //between 60 and 150 is perfect
         if (attacker.getTeam() == 0){ //proper if statemetn
             util.log("ok " + (attacker.getX() - game1.shrine_1.getX()));
-            if  (Math.abs(attacker.getX() - game1.shrine_1.getX() -game1.shrine_1.getWidth()/2) <= game1.shrine_1.getWidth() ){
+            if  (Math.abs(attacker.getX() - game1.shrine_1.getX() -game1.shrine_1.getHalfWidth()) <= game1.shrine_1.getHalfWidth()*2 ){
                 if (Math.abs(game1.shrine_1.getY() - attacker.getY()) <=150 ){
                     game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
                 }
             }
 
         } else { //attacker team is 1
-            if  (Math.abs(attacker.getX() - game1.shrine_0.getX() -game1.shrine_0.getWidth()/2) <= game1.shrine_0.getWidth() ){
+            if  (Math.abs(attacker.getX() - game1.shrine_0.getX() -game1.shrine_0.getHalfWidth()*2) <= game1.shrine_0.getHalfWidth()*2 ){
                 //util.log("made x");
                 if (Math.abs(game1.shrine_0.getY() - attacker.getY()) <= 150){ // shanker made contact at 114
                     game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );

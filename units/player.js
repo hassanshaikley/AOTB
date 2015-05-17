@@ -132,13 +132,20 @@ var Player = function(startHp, _name, _team) {
         }
     };
 		this.stuncounter = {};	
-		this.stun = function(duration){
-			this.stuncounter.duration = duration;
-			this.stuncounter.when = Date.now();
-		}
+        
+        this.stun = function(duration){
+            this.stuncounter.duration = duration;
+            this.stuncounter.when = Date.now();
+        }
+
 		this.isStunned = function(){
-			return (this.stuncounter.duration == null);
-		}
+            if (Date.now() < this.stuncounter.when + this.stuncounter.duration){ //if stun is over
+                util.log("yep is stunned");
+                return true;
+            } else {
+                return false;
+            }
+        }
 		this.checkIfStillStunned = function(){
 			if (Date.now() >= this.stuncounter.when + this.stuncounter.duration){ //if stun is over
 				this.stuncounter.duration = null;
