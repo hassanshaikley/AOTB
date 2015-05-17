@@ -86,8 +86,8 @@ var Events = function(){
         this.broadcast.emit('arrow fired', {x: data.x, y: data.y, caster: this.id});
 
         // spell is maintained on the server :D
-        v = new BowmanArrow(data.x, data.y, this.id);
-        v.caster_team =playerById(this.id).getTeam();
+        var team =playerById(this.id).getTeam();
+        v = new BowmanArrow(data.x, data.y, this.id,team );
         Spells.spellsarray.push(v);
         //create it on the sever
 
@@ -200,6 +200,7 @@ var Events = function(){
 		function onTortStun(data){
 			//crete new stun obj
 				var team = playerById(this.id).getTeam();
+                util.log("DE TEAM IS " + team);
 				var v = new TortStun(data.x, data.y, team);	
         Spells.spellsarray.push(v);
         this.emit('tort stun', {x: data.x });
@@ -213,8 +214,8 @@ var Events = function(){
         this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id});
 
         // spell is maintained on the server :D
-        var v = new Meteor(data.meteor_x, this.id);
-        v.caster_team =playerById(this.id).getTeam();
+        var team =playerById(this.id).getTeam();
+        var v = new Meteor(data.meteor_x, this.id, team);
         Spells.spellsarray.push(v);
     };
     function onHealingSpikeCast(data){

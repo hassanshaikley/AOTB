@@ -124,12 +124,12 @@ Server.prototype.updateGameVariables = function(){
 	/* Iterate through every spell, if it hits someone then let them take the hit son : D */
 	for (i = 0; i < server.Spells.spellsarray.length; i++){
 		//util.log("spell:\t" + server.Spells.spellsarray[i].getX() + "  shrine:\t"+game1.shrine_1.getX() + " hitbox " + server.Spells.spellsarray[i].hitbox().left + " - " + server.Spells.spellsarray[i].hitbox().right);
-		if  (Math.abs(server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()+120) <= 70 && server.Spells.spellsarray[i].caster_team != 1){
+		if  (Math.abs(server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()+120) <= 70 && server.Spells.spellsarray[i].getTeam() != 1){
 			if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <=150 ){
 				game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
 			}
 		}
-		if  (Math.abs(server.Spells.spellsarray[i].getX() - game1.shrine_0.getX()+120) <= 70 && server.Spells.spellsarray[i].caster_team != 0){
+		if  (Math.abs(server.Spells.spellsarray[i].getX() - game1.shrine_0.getX()+120) <= 70 && server.Spells.spellsarray[i].getTeam() != 0){
 			//util.log("made x");
 			if (Math.abs(game1.shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
 				game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
@@ -140,9 +140,9 @@ Server.prototype.updateGameVariables = function(){
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <  
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
+					util.log("HIT TEAM " +players[j].getTeam() + " cast team " + server.Spells.spellsarray[i].getTeam() );
 
-				if (players[j].getTeam() != server.Spells.spellsarray[i].caster_team){
-					util.log("HIT SOTHER TEAM " +players[j].getTeam() + " cast team " + server.Spells.spellsarray[i].caster_team );
+				if (players[j].getTeam() != server.Spells.spellsarray[i].getTeam()){
 				} else {
 					util.log ("HIITS SAME TEAm");
 

@@ -11,7 +11,7 @@ var Spells = {
   }
 };
 var BowmanArrow = function(startX, startY, _caster){
-    var hit =[];
+    this.hit =[];
     var caster = _caster;
     var x= startX, y = startY;
     var update = function(){
@@ -47,14 +47,19 @@ var BowmanArrow = function(startX, startY, _caster){
 
 
 /* startY isn't necessary, but neither is swag */
-var Meteor = function(meteorX, mCaster){
+var Meteor = function(meteorX, mCaster, _team){
   var caster = mCaster;
   var caster_team;
-  var hit = [];
+  this.hit = [];
+  var team = _team;
 
   this.getHalfWidth = function(){
     return 50;
   };
+
+  this.getTeam = function(){
+    return team;
+  }
 
   var x =meteorX, 
       y = -100,

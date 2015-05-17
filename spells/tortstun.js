@@ -7,7 +7,7 @@ var TortStun = function(_x, _y, _team) {
 	var width = 50;
 	util.log(" -->"+_x);
 	var age = 0; //timer for damage
-
+	spell.hit = []
 	spell.getHalfWidth = function(){
 		return 50;
 	};
