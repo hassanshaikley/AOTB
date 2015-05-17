@@ -8,17 +8,14 @@ var Spells = {
 
   meteor: function(clientX, clientY) {
     if (!localPlayer.meteor  || Date.now()-localPlayer.meteor > m_cd){
-      var x = clientX;
-       var m_x = x -400;
-      var m = new Meteor(m_x);
-      socket.emit("meteor cast", { meteor_x : m.getX()});
-      localPlayer.meteor = Date.now();
+			var m = new Meteor(clientX);
+			socket.emit("meteor cast", { meteor_x : m.getX()});
+			localPlayer.meteor = Date.now();
     }
   },
   healingSpike: function(clientX, clientY) {
     if (!localPlayer.healingcross || Date.now()-localPlayer.healingcross > h_cd){
-      var x = clientX;
-      var m = new HealingSpike(x);
+      var m = new HealingSpike(clientX);
       socket.emit("healing spike cast", { _x : m.getX()});
       localPlayer.healingcross = Date.now();
     }
@@ -48,8 +45,8 @@ var BowmanArrow = function(startX, startY, _caster){
 	var x = newX;
 	};
     var getY = function(){
-	return 400;
-	};
+	   return 400;
+	 };
     var setY = function(newY){
 
 	};
@@ -129,7 +126,8 @@ var Meteor = function(meteorX, mCaster){
   var draw = function(ctx){
     /* Check if a spell hits - going to need to be refactored*/
     ctx.save();
-    var fireballX = x  -localPlayer.getX()+ 50+canvas.width/2;
+    console.log(" x is " + x);
+    var fireballX = x  -localPlayer.getX()+canvas.width/2-50;
     ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
     ctx.restore();
   };

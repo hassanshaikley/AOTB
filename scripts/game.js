@@ -35,16 +35,20 @@ function init() {
     switch (e.which) {
       case 1: 
         clientRect = ctx.canvas.getBoundingClientRect();
-        localPlayer.leftClick();  
-        var y = e.clientY - clientRect.top;
+        adjustedX = drawX + localPlayer.getX() -canvas.width/2; 
+
+        adjustedX += (e.clientX - clientRect.left); 
+
+        adjustedY += e.clientY - clientRect.topy;
+        localPlayer.leftClick(adjustedX, adjustedY);  
         break;
       case 2: 
         console.log('middle click'); 
         break;
       case 3: 
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = drawX + localPlayer.getX(); 
-        adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
+        adjustedX = drawX + localPlayer.getX() -canvas.width/2; 
+        adjustedX += (e.clientX - clientRect.left); //should work without the 100...but 100 makes it work :l
 
         adjustedY += e.clientY - clientRect.topy;
         localPlayer.rightClick(adjustedX, adjustedY); 

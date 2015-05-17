@@ -121,7 +121,7 @@ Server.prototype.updateGameVariables = function(){
 
 	/* Iterate through every spell, if it hits someone then let them take the hit son : D */
 	for (i = 0; i < server.Spells.spellsarray.length; i++){
-		util.log("spell:\t" + server.Spells.spellsarray[i].getX() + "  shrine:\t"+game1.shrine_1.getX());
+		//util.log("spell:\t" + server.Spells.spellsarray[i].getX() + "  shrine:\t"+game1.shrine_1.getX() + " hitbox " + server.Spells.spellsarray[i].hitbox().left + " - " + server.Spells.spellsarray[i].hitbox().right);
 		if  (Math.abs(server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()+120) <= 70 && server.Spells.spellsarray[i].caster_team != 1){
 			if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <=150 ){
 				game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );

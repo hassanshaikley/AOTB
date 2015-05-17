@@ -47,11 +47,15 @@ var Meteor = function(meteorX, mCaster){
   var caster = mCaster;
   var caster_team;
   var hit = [];
+
   var x =meteorX, 
       y = -100,
-      active = true; //active spells can hurt this specific client 
+      active = true; //active spells can hurt this specific client  - this makes absolutely no sense. lol
+
+    util.log("meteor x is " + x);
+
     var getDamage = function(){
-	return 25;
+	     return 25;
 	};
 
   var update = function(){

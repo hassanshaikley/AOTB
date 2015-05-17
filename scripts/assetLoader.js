@@ -25,6 +25,7 @@ var healingcross = new Image();
 var spire0 = new Image();
 var spire1 = new Image();
 var grimesSprite = new Image();
+
 function UrlExists(url)
 {
   var http = new XMLHttpRequest();

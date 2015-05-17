@@ -12,8 +12,9 @@ var Grimes = function(name, x, y, hp){
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;
   skeleton.rightClick = function(clientX, clientY){
-			var t_x = clientX - 400;
-			socket.emit("tort stun", { x: t_x });
+		var t_x = clientX - 400;
+		console.log("-->"+t_x);
+		socket.emit("tort stun", { x: t_x });
   };
 
   /* Maybe make this heal?? */ 
@@ -53,7 +54,7 @@ var Grimes = function(name, x, y, hp){
   var now = Date.now();
   skeleton.leftClick = function(x, y){
     if (Date.now()  - now >= 1000 ){
-			console.log("GRIMES CLICK");
+			console.log("GRIMES CLICK at "+ x);
 			meelee_attack = 0;
 			socket.emit("meelee attack");
 			now = Date.now();

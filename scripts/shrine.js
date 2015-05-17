@@ -7,7 +7,7 @@ var Shrine = function(_team) {
   this.team = _team; //team random unless assigned
 
   this.x;
-  this.y = 350; //aa
+  this.y = 340; //aa
   this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
   if (_team == 0){
@@ -52,9 +52,9 @@ var Shrine = function(_team) {
       ctx.shadowColor="green";
     }
     if (this.team === 0){
-      ctx.drawImage(spire0, this.drawAtX, 290);
+      ctx.drawImage(spire0, this.drawAtX, 288);
     } else {
-      ctx.drawImage(spire1, this.drawAtX, 290); 
+      ctx.drawImage(spire1, this.drawAtX, 288); 
     }
 
     ctx.fillStyle="#000000";
