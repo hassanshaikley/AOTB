@@ -4,7 +4,7 @@ var Spell = function(startX, startY, _team, _damage) {
 			y = startY,
 			team = _team,
 			damage = _damage || 25; // damage is default 25
-	
+
 	this.hit = [];
 
 	this.update = function(){

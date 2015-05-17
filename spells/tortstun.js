@@ -8,9 +8,9 @@ var TortStun = function(_x, _y, _team) {
 	util.log(" -->"+_x);
 	var age = 0; //timer for damage
 	spell.hit = []
-	spell.getHalfWidth = function(){
-		return 50;
-	};
+		spell.getHalfWidth = function(){
+			return 50;
+		};
 
 	spell.update = function(){
 		age++;
