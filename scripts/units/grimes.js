@@ -1,8 +1,3 @@
-
-var Animate = 0,
-    floorHeight = 474,
-    localX = 0;
-
 var Grimes = function(name, x, y, hp){
   var skeleton = new Player(x, (y-20), hp, name),
       facing_left;
