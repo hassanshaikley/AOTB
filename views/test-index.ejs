@@ -6,7 +6,6 @@
   <script>
       var debug = <%=process.env.DEBUG_MODE%>;
       var development = true;
-    </script>
       var localPlayerName = "unknown";
       var characterType = "Fly";
     </script>
@@ -25,27 +24,11 @@
     </div>
     </div>
 
-    <script src="scripts/jquery.js"></script>
-    <script src="scripts/assetLoader.js"></script>
-    <script src="scripts/animationframe.js"></script>
-    <script src="scripts/blood.js"></script>
-    <script src="scripts/shrine.js"></script>
-    <script src="scripts/player.js"></script>
-    <script src="scripts/fly.js"></script>
-    <script src="scripts/grimes.js"></script>
-    <script src="scripts/redhatter.js"></script>
-    <script src="scripts/skelly.js"></script>
-    <script src="scripts/bowman.js"></script>
-    <script src="scripts/shanker.js"></script>
-    <script src="scripts/crevice.js"></script>
-    <script src="scripts/spellsandprojectiles.js"></script>
-    <script src="scripts/tortstun.js"></script>
-    <script src="scripts/game.js"></script>
-    <script src="scripts/keys.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+  <%- include scripts.ejs %>
+
+
     <script src="scripts/chai.js" type="text/javascript"></script>
     <script src="scripts/mocha.js"></script>
-
     <script>mocha.setup('bdd')</script>
     <script src="scripts/test.js"></script>
 
