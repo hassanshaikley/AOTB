@@ -19,9 +19,13 @@
 <script src="scripts/chat.js"></script>
 <script src="scripts/connecttoarena.js"></script>
 <script>
-	var localPlayerName = "<%= user && character.name || "unknown" %>";
-	var characterType = "<%= user && characterRace || "Fly" %>";
+	<% if (user != "") { %>
+		var localPlayerName = "<%= user && character.name %>";
+		var characterType = "<%= user && character.race %>";
+	<% } else {%>
+		var localPlayerName = "unknown";
+		var characterType = "Fly";
+ 	<% } %>
 	PORT = <%=process.env.PORT || 5000 %>;
 	init();
-    animate();
 </script>

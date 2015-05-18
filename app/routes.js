@@ -4,7 +4,8 @@ module.exports = function(app, passport) {
    if (req.isAuthenticated()){ 
       res.redirect('/profile');
    } else {
-    res.render('index.ejs', { authenticated: req.isAuthenticated(),
+      res.render('index.ejs', { authenticated: req.isAuthenticated(),
+          user : "",
     }); 
 
    }

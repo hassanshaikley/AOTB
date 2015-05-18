@@ -87,6 +87,8 @@ function init() {
   remotePlayers = [];
   setEventHandlers();
   socket.emit("init me");
+  animate();
+  loadChat();
 }
 
 

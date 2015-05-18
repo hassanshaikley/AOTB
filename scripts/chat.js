@@ -1,3 +1,4 @@
+var loadChat = function(){
 $(document).keypress(function(e) {
   if(e.which == 13) {
     if ($("#text").is(":focus")){
@@ -20,6 +21,7 @@ $(document).keypress(function(e) {
 
   }
 });
+
 if (localPlayerName === "unknown"){
   $('#chat').append("<strong>ADMIN:</strong> hi <br />");
   $('#chat').append("<strong>ADMIN:</strong> Move with WASD <br />");
@@ -59,3 +61,4 @@ $('#chat_outer').mousedown(function(e){
   e.preventDefault();
 });
  $('#chat_outer').bind('contextmenu', function(){ return false });
+}
