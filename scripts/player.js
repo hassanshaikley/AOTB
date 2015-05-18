@@ -34,7 +34,7 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 	};
 	var setGold = function(newGold){
 		gold = newGold;
-	}
+	};
 	var getHp = function(){
 		return hp;
 	};
@@ -137,34 +137,22 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 		var yDiff = Math.abs(drawAtY - y);
 		var xDiff = Math.abs(drawAtX - x);
 	
-		var ySpeed = speed;
-		var xSpeed = speed;
+
 		console.log("Sped is " + speed);
-		if (yDiff >= 400 || xDiff >= 400){
+		if (yDiff >= 400 || xDiff >= 400){ // teleports bc distance is too far man
 			drawAtX = x;
 			drawAtY = y;
+
 		}
 
-		if (yDiff >= speed * 2){
-			ySpeed = speed + yDiff/speed;
-		};
+		if (x - drawAtX > 4){
+			console.log("1");
+			drawAtX+= 2;
+		} else if ( x-drawAtX < -4 ) {
+			drawAtX-= 2;
 
-		if (xDiff >= speed * 2){
-			xSpeed = speed + xDiff/speed;
-		};
-
-		if (drawAtX - x <= 2){
-				drawAtX+= xSpeed;
-		}
-		if (drawAtX -x >= -2){
-				drawAtX-=xSpeed;
-		}
-		drawAtX = x;
-		if (drawAtY - y <= 2){
-			drawAtY+=ySpeed;
-		}
-		if (drawAtY -y >= -2){
-			drawAtY-=ySpeed;
+		} else {
+			drawAtX = x;
 		}
 
 	};
@@ -198,7 +186,7 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 			ctx.fillRect(text_x-20,drawAtY-50,((hp/2.2)),6);
 		} else {
 			ctx.fillText("| | | | | |", text_x-20, drawAtY-40);
-		};
+		}
 		ctx.fillStyle = "black";
 		ctx.font = "bold 13px sans-serif";
 		ctx.fillText(name, text_x, drawAtY-60);
@@ -217,7 +205,7 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 				socket.emit("ready for arena");
 			}
 			_alert = undefined;
-		};
+		}
 	};
 	// Define which variables and methods can be accessed
 	return {

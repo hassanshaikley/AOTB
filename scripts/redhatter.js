@@ -30,7 +30,7 @@ var Redhatter = function(name, x, y, hp){
   skeleton.draw = function(ctx) {
     this.drawText();
     ctx.save();
-    if (skeleton.getTeam()==0){
+    if (skeleton.getTeam()===0){
       ctx.shadowBlur=20;
       ctx.shadowColor="blue";
     }

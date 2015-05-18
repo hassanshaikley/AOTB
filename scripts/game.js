@@ -15,7 +15,7 @@ var actionBarCanvas = document.getElementById("infoBar");
 var action_ctx = actionBarCanvas.getContext("2d");
 
 if (location.origin == "http://localhost:5000"){
-  $('body').bind('contextmenu', function(){ return false });
+  $('body').bind('contextmenu', function(){ return false; });
 }
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
@@ -27,14 +27,14 @@ function init() {
   canvas = document.getElementById("gameCanvas");
   ctx = canvas.getContext("2d");
   //disable right click default behavior
-  canvas.oncontextmenu = function(e){return false;}
+  canvas.oncontextmenu = function(e){ return false; };
   var clientRect;
   var adjustedX, adjustedY;
   canvas.onmousedown = function(e){
     switch (e.which) {
       case 1: 
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = localPlayer.getX() -canvas.width/2; 
+        adjustedX = localPlayer.getDrawAtX() -canvas.width/2; 
 
         adjustedX += (e.clientX - clientRect.left); 
 
@@ -46,14 +46,14 @@ function init() {
         break;
       case 3: 
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = localPlayer.getX() -canvas.width/2; 
+        adjustedX = localPlayer.getDrawAtX() -canvas.width/2; 
         adjustedX += (e.clientX - clientRect.left); //should work without the 100...but 100 makes it work :l
 
         adjustedY += e.clientY - clientRect.topy;
         localPlayer.rightClick(adjustedX, adjustedY); 
         break; 
     }
-  }
+  };
 
   // Initialise keyboard controls
   keys = new Keys();
@@ -81,14 +81,14 @@ function init() {
   } 
   else {
     alert("Something has went wrong");
-  };
+  }
   // Initialise socket connection
   var host = location.origin;
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
   remotePlayers = [];
   setEventHandlers();
   socket.emit("init me");
-};
+}
 
 
 /**************************************************
@@ -161,8 +161,9 @@ function onArrowFired(data){
   var m = new BowmanArrow(data.x, data.y, data.caster);
   Spells.spellsarray.push(m);
 };
+
 function onWin(data){
-  if (data.winner == 0){
+  if (data.winner === 0){
       console.log("team 0 wins");
  } else {
       console.log("team 1 wins");
@@ -255,16 +256,17 @@ function onSocketDisconnect() {
 // New player
 function onNewPlayer(data) {
   // Initialise the new player
+  var newPlayer;
   if (data.characterType === "Fly"){
-    var newPlayer = new Fly(data.name, data.x, data.y, data.hp);
+    newPlayer = new Fly(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Redhatter") {
-    var newPlayer = new Redhatter(data.name, data.x, data.y, data.hp);
+    newPlayer = new Redhatter(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Bowman") {
-    var newPlayer = new Bowman(data.name, data.x, data.y, data.hp);
+    newPlayer = new Bowman(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Shanker") {
-    var newPlayer = new Shanker(data.name, data.x, data.y, data.hp);
+    newPlayer = new Shanker(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Crevice") {
-    var newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
+    newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
   }
   newPlayer.id = data.id;
   // Add new player to the remote players array
@@ -287,7 +289,7 @@ function onRemovePlayer(data) {
 /* Should only be able to do this on yourself */
 function onRespawnPlayer(data) {
   var respawnPlayer = playerById(data.id);
-  if (respawnPlayer == false) {
+  if (respawnPlayer === false) {
     respawnPlayer = localPlayer;
   } else { 
 
@@ -342,7 +344,7 @@ function draw() {
     /* Inefficient implementation, lazy yolo*/
       remotePlayers[i].draw(ctx);
       remotePlayers[i].updateVariables();
-  }
+  };
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].draw(ctx)
   };
@@ -380,17 +382,18 @@ function drawForeground(){
 
 }
 function drawBackground(){
-          ctx.shadowBlur=20;
-                ctx.shadowColor="black";
-  cloud_x+=.01;
-  var displacement = -localPlayer.getX();
+  ctx.shadowBlur=20;
+  ctx.shadowColor="black";
+  cloud_x+= 0.01;
+  var displacement = -localPlayer.getDrawAtX();
 
   var count = "Players: " + (remotePlayers.length + 1);
   ctx.fillText(count, 40,10);
-  for (var _i = 0; _i < 7; _i ++){
+  var _i;
+  for (_i = 0; _i < 7; _i ++){
     ctx.drawImage(ground ,0,0, 400, 100, displacement+3000 +400*_i,400, 400, 100);
   } 
-  for (var _i = 0; _i < 9; _i++){
+  for (_i = 0; _i < 9; _i++){
     ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement+300 +_i*300, 405, 300, 100); 
   }
   ctx.drawImage(cloud, displacement+cloud_x-800, 80);
@@ -410,7 +413,7 @@ function drawBackground(){
   ctx.drawImage(cloud, displacement+cloud_x+5000, 20);
   //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
 //  ctx.drawImage(CastleOfOne, displacement-100,95, 1000, 398);
-  if (_anim %20 == 0){ 
+  if (_anim %20 === 0){ 
     z+=100;
     if (z >= 400){
       z =0;
@@ -421,8 +424,8 @@ function drawBackground(){
   _anim++;
           ctx.shadowBlur=0;
                 ctx.shadowColor="";
- ctx.fillRect(4000-localPlayer.getX() +canvas.width/2,0, 500,500);
- ctx.fillRect(1000-localPlayer.getX() -canvas.width/2-200,0, 1000,500);
+ ctx.fillRect(4000-localPlayer.getDrawAtX() +canvas.width/2,0, 500,500);
+ ctx.fillRect(1000-localPlayer.getDrawAtX() -canvas.width/2-200,0, 1000,500);
 };
 // Browser window resize
 

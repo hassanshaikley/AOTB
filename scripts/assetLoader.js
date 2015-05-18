@@ -34,8 +34,8 @@ function UrlExists(url)
   return http.status!=404;
 }
 console.log(location.origin);
-if (location.origin === "http://localhost:5000" 
-    && UrlExists("/localAssets/flysheet2.png")){
+if (location.origin === "http://localhost:5000" && 
+	UrlExists("/localAssets/flysheet2.png")){
   url ="localAssets/";
 } else {
   url = "https://s3-us-west-2.amazonaws.com/amara-assets/";
