@@ -1,5 +1,7 @@
 var expect = chai.expect;
 
+
+
 describe("Shrine", function() {
     describe("constructor", function() {
         it("should have a default name", function() {
@@ -12,11 +14,10 @@ describe("Shrine", function() {
 describe("Player (superclass)", function() {
     describe("constructor", function() {
         it("should work", function() {
-            var player = new Player("hassan", 0, 0, 100);
+            var player = new Player(0, 0, 100, "hassan");
             expect(player.getName()).to.equal("hassan");
             expect(player.getY()).to.equal(0);
-            expect(player.getX()).to.equal(0);
-            expect(player.getHp()).to.equal(100);
+
 
         });
     });
@@ -36,3 +37,13 @@ describe("Redhatter", function() {
     });
 });
 
+
+describe("Socket", function() {
+    describe("eh", function() {
+        it("should init", function() {
+            var player = new Redhatter("hassan", 0, 0, 100);
+
+
+        });
+    });
+});

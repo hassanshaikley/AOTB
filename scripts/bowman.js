@@ -6,7 +6,7 @@ var Animate = 0,
     localX = 0;
 
 var Bowman = function(name, x, y, hp){
-  var skeleton =  Player(x, y, hp, name,),
+  var skeleton =  Player(x, y, hp, name),
       facing_left;
 
   var spritesheet_offset_y = 0;

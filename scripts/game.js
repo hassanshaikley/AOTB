@@ -9,10 +9,6 @@ var canvas,     // Canvas DOM element
     socket,
     _alert;     // Socket connection
 
-var utilityCanvas = document.getElementById("utilityCanvas");
-var utility_ctx = utilityCanvas.getContext("2d");
-var actionBarCanvas = document.getElementById("infoBar");
-var action_ctx = actionBarCanvas.getContext("2d");
 
 if (location.origin === "http://localhost:5000"){
   $('body').bind('contextmenu', function(){ return false; });
@@ -25,7 +21,9 @@ function init() {
   shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
   canvas = document.getElementById("gameCanvas");
+  
   ctx = canvas.getContext("2d");
+
   //disable right click default behavior
   canvas.oncontextmenu = function(e){ return false; };
   var clientRect;
@@ -105,7 +103,6 @@ var setEventHandlers = function() {
   window.addEventListener('focus', function() {
     focus_tab = true;
     Spells.spellsarray = []; //remove all rockets, or else its cray cray
-
     keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
   },false);
   // Window resize
@@ -119,7 +116,7 @@ var setEventHandlers = function() {
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
   socket.on("meteor cast", onMeteorCast);
-    socket.on("arrow fired", onArrowFired);
+  socket.on("arrow fired", onArrowFired);
   socket.on("healing spike cast", onHealingSpikeCast);
   socket.on("respawn player", onRespawnPlayer);
   socket.on("descend attack changes", onDescendAttackChanges);
@@ -184,10 +181,12 @@ function onSetGold(data){
 function onPortToArena(data){
   /* Remove all players not in the arena from your thing*/
 };
+
 function onArenaPrompt(data){
   //make button appear for confirmation to join arena
   _alert = { time: Date.now(), type:  "arena"}; 
 };
+
 function onUpdateHostile(data){
   var _h;
   /*
@@ -311,7 +310,6 @@ function animate() {
 /**************************************************
  ** GAME UPDATE
  **************************************************/
-
 var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
@@ -319,6 +317,10 @@ function update() {
   /* Updates the spells locations :D */
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].update();
+  };
+  for (i = 0; i < remotePlayers.length; i++) {
+    /* Inefficient implementation, lazy yolo*/
+    remotePlayers[i].updateVariables();
   };
 
   localPlayer.update(keys);
@@ -331,46 +333,26 @@ function update() {
 function draw() {
   // Wipe the canvas clean
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  utility_ctx.clearRect(0, 0, utilityCanvas.width, utilityCanvas.height);
-  action_ctx.clearRect(0,0, actionBarCanvas.width, actionBarCanvas.height);
     drawBackground();
   //draw shrine here i think
   shrine_0.draw();
   shrine_1.draw();
 
   var i;
-  for (i = 0; i < remotePlayers.length; i++) {
-    /* Inefficient implementation, lazy yolo*/
-      remotePlayers[i].draw(ctx);
-      remotePlayers[i].updateVariables();
-  };
+
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].draw(ctx)
   };
+      for (i = 0; i < remotePlayers.length; i++) {
+    /* Inefficient implementation, lazy yolo*/
+      remotePlayers[i].draw(ctx);
+  };
   localPlayer.updateVariables();
   localPlayer.draw(ctx);
-  drawRightCanvas();
-  drawAction();
   drawForeground();
 };
-function drawAction(){
-  action_ctx.fillStyle="red";
-  action_ctx.font="20px sans-serif";
-  if (Date.now() - localPlayer.meteor < m_cd ){
-    var maths = Math.round(((Date.now() - localPlayer.meteor )*actionBarCanvas.height)/ m_cd);
-    action_ctx.fillRect(0, maths, 10, actionBarCanvas.height);
-  } else {
-  }
-};
 
-function drawRightCanvas(){
-  utility_ctx.save();
-  utility_ctx.fillStyle="#CCC";
-  utility_ctx.font="bold 13px sans-serif";
-  utility_ctx.drawImage(goldCoins, 200, 280);
-  utility_ctx.fillText(localPlayer.getGold(), 180, 300);
-  utility_ctx.restore();
-};
+
 var z = 0;
 var _anim = 0;
 var cloud_x = 0;
@@ -421,8 +403,8 @@ function drawBackground(){
 //  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+2300, 290, 200, 200);
 //  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+2500, 290, 200, 200);
   _anim++;
-          ctx.shadowBlur=0;
-                ctx.shadowColor="";
+  ctx.shadowBlur=0;
+  ctx.shadowColor="";
  ctx.fillRect(4000-localPlayer.getDrawAtX() +canvas.width/2,0, 500,500);
  ctx.fillRect(1000-localPlayer.getDrawAtX() -canvas.width/2-200,0, 1000,500);
 };

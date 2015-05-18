@@ -4,6 +4,8 @@ var Skelly = function(x, y, id){
   var spritesheet_offset_y = 0, spritesheet_offset_x;
   var facing_left = true;
   var attacking = 0;
+
+  
   var draw = function(ctx){
     skeleton.drawText();
     if (skeleton.getMoveDirection() === "left"){

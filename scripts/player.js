@@ -4,8 +4,9 @@
 var floorHeight = 474;
 var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 
-	var x =               startX || 1100,
-			y =               startY || -20,
+	console.log("START Y " + startY);
+	var x =               startX,
+			y =               startY,
 			name =            _name,
 			hp =              100, 
 			id,

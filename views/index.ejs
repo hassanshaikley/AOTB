@@ -1,32 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>AMARA</title>
-    <meta charset="utf-8">
-    <meta name="author" content="hassooni">
-    <meta name="description" content="Amara: 2D sidescroller MMOPVP Game. Created in Node.js and HTML5 Canvas">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <script type="text/javascript">
-    	"use strict";
-    </script>
-    <% if ('development' === process.env.NODE_ENV) { %>
-    <script>
-      var development = true;
-    </script>
-    <% var url = "//localhost:5000/localAssets/";%>
-    <link rel="stylesheet" href="//localhost:5000/localAssets/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//localhost:5000/localAssets/font-awesome.min.css"> <!-- load fontawesome -->
-    <% } else {%>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    <% } %>
-    <script>
-      var debug = <%=process.env.DEBUG_MODE%>;
-    </script>
+  <%- include head.ejs %>
+    
+
+
     <link rel="stylesheet" href="styles/game.css">
   </head>
+
   <body>
+      <script>
+            var development = true;
+
+      var debug = <%=process.env.DEBUG_MODE%>;
+    </script>
     <%if  (authenticated ) {%>
     <a href="/profile" class="btn btn-default"><span class="fa fa-user"></span> Profile</a>
     <a href="/logout" class="btn btn-default">Logout</a>
@@ -62,7 +48,6 @@
     <div id="gameCanvasMargin">
       <canvas id="gameCanvas" height=500 width=800></canvas>
       <div id="c_right">
-      <canvas id="utilityCanvas" width="250px" height="320px"></canvas>
       <div id="chat_outer">
         <div id="chat">
         </div>
@@ -70,7 +55,6 @@
         <input type="button" name="send" id="send" value="send">
       </div>
     </div>
-    <canvas id="infoBar" height="50px" width="1050px"> </canvas>
     </div>
     <script src="scripts/jquery.js"></script>
     <script src="scripts/assetLoader.js"></script>
@@ -92,12 +76,9 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       // Initialise the game
-      PORT = <%=process.env.PORT || 5000%>;
+      PORT = <%=process.env.PORT || 5000 %>;
       init();
       animate();
-    <% if (typeof characterGold !== 'undefined'){%>   
-      localPlayer.setGold(<%= characterGold %>);
-      <%} %>
     </script>
     <script src="scripts/chat.js"></script>
     <script src="scripts/connecttoarena.js"></script>
