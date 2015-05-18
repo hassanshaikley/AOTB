@@ -8,13 +8,12 @@ var floorHeight = 474;
 var toggle = 1;
 
 var Fly = function(name, x, y, hp){
-	var moveSpeed = 3;
   var descendAttack = false,
       rightMouseActionHappening = false,
       descendAttack = false,
       descendAttackSpeed = 10;
 
-  var skeleton =  new Player(x, y, hp, name, moveSpeed);
+  var skeleton =  new Player(x, y, hp, name);
 
 
   skeleton.setDescendAttack = function(boolean_thing, local){

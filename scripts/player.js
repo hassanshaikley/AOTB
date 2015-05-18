@@ -153,6 +153,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 		} else {
 			drawAtX = x;
 		}
+		drawAtY = y;
 
 	};
 
