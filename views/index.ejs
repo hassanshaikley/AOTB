@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include head.ejs %>
-    
-
-
-    <link rel="stylesheet" href="styles/game.css">
-  </head>
-
   <body>
       <script>
             var development = true;
@@ -16,16 +10,11 @@
     <%if  (authenticated ) {%>
     <a href="/profile" class="btn btn-default"><span class="fa fa-user"></span> Profile</a>
     <a href="/logout" class="btn btn-default">Logout</a>
-   	&nbsp; 
-   	&nbsp; 
-   	&nbsp; 
-   	&nbsp; 
-   	&nbsp; 
-   	&nbsp; 
-   	&nbsp; 
-   	&nbsp; 
-		Code: <a href="https://twitter.com/millenialpride"><span class="fa fa-twitter"></span>Hassan Shaikley</a>
+
+
+    Code: <a href="https://twitter.com/millenialpride"><span class="fa fa-twitter"></span>Hassan Shaikley</a>
     Art: <a><span class=""></span>Jason Davies</a>
+
     <% if (typeof character === 'undefined'){%>
       <script> 
       window.location.assign('/profile');
@@ -45,17 +34,9 @@
     <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
     <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a> <a href=""> Do not support switching tabs yet. Must refresh after. </a>
     <% } %>
-    <div id="gameCanvasMargin">
-      <canvas id="gameCanvas" height=500 width=800></canvas>
-      <div id="c_right">
-      <div id="chat_outer">
-        <div id="chat">
-        </div>
-        <input type="text" name="text" id="text">
-        <input type="button" name="send" id="send" value="send">
-      </div>
-    </div>
-    </div>
+
+  <%- include canvas.ejs %>
+
   
   <%- include scripts.ejs %>
 
