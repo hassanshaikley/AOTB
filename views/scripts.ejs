@@ -16,3 +16,12 @@
 <script src="scripts/game.js"></script>
 <script src="scripts/keys.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+<script src="scripts/chat.js"></script>
+<script src="scripts/connecttoarena.js"></script>
+<script>
+	var localPlayerName = "<%= user && character.name || "unknown" %>";
+	var characterType = "<%= user && characterRace || "Fly" %>";
+	PORT = <%=process.env.PORT || 5000 %>;
+	init();
+    animate();
+</script>

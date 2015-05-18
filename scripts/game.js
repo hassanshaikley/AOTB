@@ -78,7 +78,8 @@ function init() {
     localPlayer = new Grimes(localPlayerName);
   } 
   else {
-    alert("Something has went wrong");
+    window.location.assign('/profile');
+    //something has went wrong
   }
   // Initialise socket connection
   var host = location.origin;

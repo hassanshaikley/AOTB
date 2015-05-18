@@ -1,41 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include head.ejs %>
- 
   <body>
-  <script>
-      var debug = <%=process.env.DEBUG_MODE%>;
-      var development = true;
-      var localPlayerName = "unknown";
-      var characterType = "Fly";
-    </script>
-  
-  <div id="mocha"><p><a href=".">Index</a></p></div>
-  
-    <div id="gameCanvasMargin">
-      <canvas id="gameCanvas" height=500 width=800></canvas>
-      <div id="c_right">
-      <div id="chat_outer">
-        <div id="chat">
-        </div>
-        <input type="text" name="text" id="text">
-        <input type="button" name="send" id="send" value="send">
-      </div>
-    </div>
-    </div>
-  <%- include canvas.ejs %>
-  <%- include scripts.ejs %>
-
+    <div id="mocha"><p><a href=".">Index</a></p></div>
+    <%- include canvas.ejs %>
+    <%- include scripts.ejs %>
     <script src="scripts/chai.js" type="text/javascript"></script>
     <script src="scripts/mocha.js"></script>
     <script>mocha.setup('bdd')</script>
     <script src="scripts/test.js"></script>
-
     <script>
-      // Initialise the game
-      PORT = <%=process.env.PORT || 5000 %>;
-      init();
-      animate();
       mocha.run();
     </script>
   </body>

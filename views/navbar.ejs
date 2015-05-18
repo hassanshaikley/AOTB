@@ -1,0 +1,29 @@
+<%if  (authenticated ) {%>
+      <a href="/profile" class="btn btn-default"><span class="fa fa-user"></span> Profile</a>
+      <a href="/logout" class="btn btn-default">Logout</a>
+
+
+      Code: <a href="https://twitter.com/millenialpride"><span class="fa fa-twitter"></span>Hassan Shaikley</a>
+      Art: <a><span class=""></span>Jason Davies</a>
+
+      <% if (typeof character === 'undefined'){%>
+        <script> 
+
+        </script>
+        <%} else { %>
+        <br><% characterRace = character.race %>
+      
+         <br><% characterGold = character.gold %>
+    <script>
+      var localPlayerName = "<%= user && character.name || "unknown" %>";
+      var characterType = "<%= user && characterRace || "Fly" %>";
+    </script>
+    <% }} else{ %>
+    <script>
+      var localPlayerName = "unknown";
+      var characterType = "Fly";
+    </script>
+    <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Login</a>
+    <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Signup</a> <a href=""> Do not support switching tabs yet. Must refresh after. </a>
+    <% } %>
+
