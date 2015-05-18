@@ -1,5 +1,5 @@
 var floorHeight = 474;
-var Player = function(startX, startY, startHp, _name) { //ignore startX variable
+var Player = function Player(startX, startY, startHp, _name) { //ignore startX variable
 
 	console.log("START Y " + startY);
 	var x =               startX,
@@ -18,42 +18,42 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 			maxHp = hp,
 			team;
 	// Getters and setters
-	var setTeam = function(_team){
+	this.setTeam = function(_team){
 		team = _team;
 	};
-	var getTeam = function(){
+	this.getTeam = function(){
 		return team;
 	};
 
-	var getGold = function(){
+	this.getGold = function(){
 		return gold;
 	};
-	var setGold = function(newGold){
+	this.setGold = function(newGold){
 		gold = newGold;
 	};
-	var getHp = function(){
+	this.getHp = function(){
 		return hp;
 	};
-	var respawn = function(){ /* Function that is called for local player*/
+	this.respawn = function(){ /* Function that is called for local player*/
 		alive = true;
 	};
-	var getAnimate = function(){
+	this.getAnimate = function(){
 		return animate;
 	};
 
 	/* Returns the inverse of a fly times black hole divided by zero */
-	var getAlive= function() {
+	this.getAlive= function() {
 		return alive;
 	};
 
 	/* Changes object state to dead! */
-	var getName = function(){
+	this.getName = function(){
 		return name;
 	};
-	var setName = function(newName){
+	this.setName = function(newName){
 		name = newName;
 	};
-	var setHp = function(newHp){
+	this.setHp = function(newHp){
 		if (newHp < hp){ //has taken damage
 			var v = new Blood(x, y-30);
 			bloods.push(v);
@@ -69,7 +69,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 	};
 
 	/* Used to determine the direction that a character is facing */
-	var getMoveDirection = function(){
+	this.getMoveDirection = function(){
 
 		if (moveDifferenceX < 0){
 			return "left";
@@ -83,24 +83,24 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 	/* Gets the X specified by server - as opposed to X to be drawed at, since this X
 	 * jumps around a lot! (server refreshes few times a second) 
 	 */
-	var getY = function() {
+	this.getY = function() {
 		return y;
 	};
 
 	/* Gets the Y specified by server - as opposed to X to be drawed at, since this X
 	 * jumps around a lot! (server refreshes few times a second) 
 	 */
-	var getX = function() {
+	this.getX = function() {
 		return x;
 	};
 
 	/* Mutator for server x variable! */
-	var setX = function(newX) {
+	this.setX = function(newX) {
 		x = newX;
 	};
 
 	/* Mutator for server y variable! */
-	var setY = function(newY) {
+	this.setY = function(newY) {
 		y = newY;
 	};
 
@@ -109,11 +109,11 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 	 * of FPS
 	 */
 
-	var updateVariables = function(){
+	this.updateVariables = function(){
 		//used to calculate direction
 		var newerX = x;
 
-		if (getMoveDirection() !== "none"){
+		if (this.getMoveDirection() !== "none"){
 			animate++;
 			if (animate >= 60){
 				animate = 0;
@@ -156,25 +156,25 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 	/* The X that we want to draw at to give the illusion of smooth movement
 	 * (if only the server X was used then it would skip to locations)
 	 */
-	var getDrawAtX = function(){
+	this.getDrawAtX = function(){
 		return drawAtX;
 	};
 	/* The Y that we want to draw at to give the illusion of smooth movement
 	 * (if only the server Y was used then it would skip to locations)
 	 */
-	var getDrawAtY = function(){
+	this.getDrawAtY = function(){
 		return drawAtY;
 	};
 
-	var speaks = function(words){
+	this.speaks = function(words){
 		lastsaid.time = Date.now();
 		lastsaid.text = words;
 	};
 	var text_x;
-	var drawText = function(){
+	this.drawText = function(){
 		ctx.save();
 		ctx.textAlign = 'center';
-		text_x = canvas.width/2 + drawAtX - localX;
+		text_x = canvas.width/2 + drawAtX - this.localX();
 		if (alive){
 			ctx.fillStyle="#000000";
 			ctx.fillRect(text_x-20,drawAtY-50,100/2.2,6);
@@ -194,7 +194,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 		}
 		ctx.restore();
 	};
-	var leftClick = function(){
+	this.leftClick = function(){
 		if(_alert){
 			if (_alert.type == "arena"){
 				enterQueue();
@@ -204,34 +204,8 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 		}
 	};
 
-	var localX = function(){
+	this.localX = function(){
 		return localPlayer.getDrawAtX();
 	}
 	// Define which variables and methods can be accessed
-	return {
-				 drawText : drawText,
-				 localX : localX,
-				 getX: getX,
-				 getY: getY,
-				 setX: setX,
-				 setY: setY,
-				 getAlive : getAlive,
-				 update: update,
-				 getHp : getHp,
-				 setHp : setHp,
-				 getMoveDirection : getMoveDirection,
-				 setName : setName,
-				 getName : getName,
-				 updateVariables : updateVariables,
-				 getDrawAtX : getDrawAtX,
-				 getDrawAtY : getDrawAtY,
-				 getAnimate : getAnimate,
-				 speaks : speaks,
-				 leftClick : leftClick,
-				 respawn : respawn,
-				 setGold : setGold,
-				 getTeam : getTeam,
-				 setTeam : setTeam,
-				 getGold : getGold 
-	};
 };

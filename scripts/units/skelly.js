@@ -1,12 +1,13 @@
 var Skelly = function(x, y, id){
-  var x, y, hp= 100;
-  var skeleton =  new Player(x, y, hp, "Skelly");
+  
+  Player.call(this, x, y, 100, "Skelly");
+
   var spritesheet_offset_y = 0, spritesheet_offset_x;
   var facing_left = true;
   var attacking = 0;
 
   
-  var draw = function(ctx){
+  this.draw = function(ctx){
     skeleton.drawText();
     if (skeleton.getMoveDirection() === "left"){
       facing_left = true;
@@ -36,15 +37,5 @@ var Skelly = function(x, y, id){
       ctx.drawImage(skelly, 0,spritesheet_offset_y, 100, 100, drawAtX, skeleton.getDrawAtY(), 100, 100);
     }
   };
-  return {
-    getX : skeleton.getX,
-         getY : skeleton.getY,
-         setX : skeleton.setX,
-         setY : skeleton.setY,
-         getHp : skeleton.getHp,
-         setHp : skeleton.setHp,
-         getAlive : skeleton.getAlive,
-         updateVariables : skeleton.updateVariables,
-         draw : draw,
-  }
+  
 }
