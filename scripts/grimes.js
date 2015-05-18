@@ -4,8 +4,7 @@ var Animate = 0,
     localX = 0;
 
 var Grimes = function(name, x, y, hp){
-  var moveSpeed = 4;
-  var skeleton = new Player(x, (y-20), hp, name, moveSpeed),
+  var skeleton = new Player(x, (y-20), hp, name),
       facing_left;
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;

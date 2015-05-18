@@ -6,8 +6,7 @@ var Animate = 0,
     localX = 0;
 
 var Shanker = function(name, x, y, hp){
-  var moveSpeed = 0;
-  var skeleton = new Player(x, y, hp, name, moveSpeed),
+  var skeleton = new Player(x, y, hp, name),
       facing_left;
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;

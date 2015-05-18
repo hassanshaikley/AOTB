@@ -14,7 +14,7 @@ var utility_ctx = utilityCanvas.getContext("2d");
 var actionBarCanvas = document.getElementById("infoBar");
 var action_ctx = actionBarCanvas.getContext("2d");
 
-if (location.origin == "http://localhost:5000"){
+if (location.origin === "http://localhost:5000"){
   $('body').bind('contextmenu', function(){ return false; });
 }
 var floorHeight = 474;
@@ -211,8 +211,7 @@ function onDescendAttackChanges(data){
 		console.log("d a changes" + data.id + "for player " +_player + " DA " + data.descendAttack); 
     if (_player === false){
         localPlayer.setDescendAttack(data.descendAttack);
-
-    }else {
+    } else {
         _player.setDescendAttack(data.descendAttack);
     }
 };

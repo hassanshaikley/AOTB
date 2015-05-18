@@ -6,8 +6,7 @@ var Animate = 0,
     localX = 0;
 
 var Redhatter = function(name, x, y, hp){
-  var moveSpeed = 2.3;
-  var skeleton =  new Player(x, y, hp, name, moveSpeed),
+  var skeleton =  new Player(x, y, hp, name),
       facing_left;
 
 	//used for animation

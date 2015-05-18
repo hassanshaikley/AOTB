@@ -2,7 +2,7 @@
  ** GAME PLAYER CLASS IN CLIENT
  **************************************************/
 var floorHeight = 474;
-var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX variable
+var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 
 	var x =               startX || 1100,
 			y =               startY || -20,
@@ -15,7 +15,6 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 			prevX =           x,
 			postX =           x,
 			moveDifferenceX = 0,
-			speed = _speed,
 			animate =         0,
 			lastsaid = {},
 			gold = 0,
@@ -138,7 +137,6 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 		var xDiff = Math.abs(drawAtX - x);
 	
 
-		console.log("Sped is " + speed);
 		if (yDiff >= 400 || xDiff >= 400){ // teleports bc distance is too far man
 			drawAtX = x;
 			drawAtY = y;
