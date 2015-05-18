@@ -88,6 +88,7 @@ Server.prototype.updateGameVariables = function(){
 	var i;
 	var j;
 	for (i = 0; i < players.length; i++) {
+
 		if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
 			if  (Math.abs(players[i].getX() - game1.shrine_1.getX())<= 100 && 
 					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined || 
@@ -125,8 +126,8 @@ Server.prototype.updateGameVariables = function(){
 	for (i = 0; i < server.Spells.spellsarray.length; i++){
 		//util.log("spell:\t" + server.Spells.spellsarray[i].getX() + "  shrine:\t"+game1.shrine_1.getX() + " hitbox " + server.Spells.spellsarray[i].hitbox().left + " - " + server.Spells.spellsarray[i].hitbox().right);
 		if  (server.Spells.spellsarray[i].getTeam() != 1
-		 	&& Math.abs( players[j].getX() - game1.shrine_1.getX()) <  
-			players[j].getHalfWidth() + game1.shrine_1.getHalfWidth() ) {
+		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()) <  
+			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) {
 			if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <=150 ){
 				game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
 			}
@@ -154,7 +155,7 @@ Server.prototype.updateGameVariables = function(){
 				server.Spells.spellsarray[i].hit.push(players[j].id); 
 				//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
 				setHp( players[j], server.Spells.spellsarray[i].getDamage());
-				players[j].stun(1000);
+				server.Spells.spellsarray[i].doEffect( players[j]); //stuns / freezes / etc
 
 			}
 			//indexof garbage so a player can only be hurt once by any given spell

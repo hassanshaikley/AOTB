@@ -34,12 +34,16 @@ var BowmanArrow = function(startX, startY, _caster){
 	var getDamage = function(){
 		return 25;
 	};
+	var doEffect = function(player){
+		//heh
+	}
 	return {
        update : update,
 			 getX: getX,
 			 setX: setX,
 			 getDamage : getDamage,
-			 getHalfWidth : getHalfWidth
+			 getHalfWidth : getHalfWidth,
+			 doEffect : doEffect
 	}
 };
 
@@ -74,6 +78,9 @@ var Meteor = function(meteorX, mCaster, _team){
 		};
 	};
 
+	this.doEffect = function(player){
+		//do nothing
+	}
 	this.getX = function(){
 		return x;
 	};

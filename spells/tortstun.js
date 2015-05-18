@@ -11,6 +11,9 @@ var TortStun = function(_x, _y, _team) {
 		spell.getHalfWidth = function(){
 			return 50;
 		};
+	spell.doEffect = function(player){
+		players.stun(1000);
+	};
 
 	spell.update = function(){
 		age++;

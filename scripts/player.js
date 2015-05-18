@@ -139,6 +139,7 @@ var Player = function(startX, startY, startHp, _name, _speed) { //ignore startX 
 	
 		var ySpeed = speed;
 		var xSpeed = speed;
+		console.log("Sped is " + speed);
 		if (yDiff >= 400 || xDiff >= 400){
 			drawAtX = x;
 			drawAtY = y;

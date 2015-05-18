@@ -16,7 +16,9 @@ var Spell = function(startX, startY, _team, _damage) {
 			Spells.spellsarray.splice(index, 1);
 		};
 	};
-
+	this.doEffect = function(player){
+		//nothing
+	};
 	this.getDamage = function(){
 		return damage;
 	};
