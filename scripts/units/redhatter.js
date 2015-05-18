@@ -41,7 +41,7 @@ var Redhatter = function(name, x, y, hp){
     else {
       spritesheet_offset_y = 0;
     }
-   var   drawAtX = canvas.width/2 + this.getDrawAtX()  - 50;
+   var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
     
 
     /* Decides what sprite to draw*/

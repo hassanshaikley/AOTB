@@ -18,7 +18,7 @@ var Fly = function(name, x, y, hp){
   };
   skeleton.draw = function(ctx) {
     this.drawText();
-    var bugX = canvas.width/2 + this.getDrawAtX() - localX - 50;
+   var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
     ctx.save();
     if (skeleton.getTeam()==0){
       ctx.shadowBlur=20;
@@ -29,15 +29,15 @@ var Fly = function(name, x, y, hp){
       ctx.shadowColor="green";
     }
     if (this.getAnimate()%30 <= 10){
-      ctx.drawImage(flySprite,0,0, 100, 100, bugX,this.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,0,0, 100, 100, drawAtX,this.getDrawAtY()-50, 100, 100);
     }
     else if (this.getAnimate()%30  <= 20){
-      ctx.drawImage(flySprite,100,0, 100, 100, bugX,this.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,100,0, 100, 100, drawAtX,this.getDrawAtY()-50, 100, 100);
     }
     else if (this.getAnimate()%30  <= 30){
-      ctx.drawImage(flySprite,200,0, 100, 100, bugX, this.getDrawAtY()-50, 100, 100);
+      ctx.drawImage(flySprite,200,0, 100, 100, drawAtX, this.getDrawAtY()-50, 100, 100);
     }
-    ctx.drawImage(silverShield, bugX+ 20, this.getDrawAtY()-3);
+    ctx.drawImage(silverShield, drawAtX+ 20, this.getDrawAtY()-3);
 
     if (descendAttack || rightMouseActionHappening){
       if (!rightMouseActionHappening){

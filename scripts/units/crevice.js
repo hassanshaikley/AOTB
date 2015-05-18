@@ -25,7 +25,6 @@ var Crevice = function(name, x, y, hp){
   skeleton.getCharacterType = function(){
     return "Crevice";
   };
-  skeleton.animate = 0;
   skeleton.draw = function(ctx) {
     //var drawAtX = skeleton.getX()-50;
     this.drawText();
@@ -34,16 +33,15 @@ var Crevice = function(name, x, y, hp){
     } else if (this.getMoveDirection() === "right"){
       facing_left = false;
     }
-    skeleton.animate = skeleton.animate+1;
-   var drawAtX = canvas.width/2 + this.getDrawAtX() - localX - 50;
+   var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
     /* Decides what sprite to draw*/
-    if (skeleton.animate%40 <= 10){ 
+    if (skeleton.getAnimate() %40 <= 10){ 
     ctx.drawImage(crevice, 0, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
     }
-    else if (skeleton.animate%40 <= 20){
+    else if (skeleton.getAnimate() <= 20){
     ctx.drawImage(crevice, 100, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
     }
-    else if (skeleton.animate%40 <= 30){
+    else if (skeleton.getAnimate()%40 <= 30){
     ctx.drawImage(crevice, 0, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
     } else{
     ctx.drawImage(crevice, 200, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
@@ -53,17 +51,7 @@ var Crevice = function(name, x, y, hp){
    * Position held by the server
    */
   skeleton.update = function(keys) {
-    localX = this.getX();
-    if (keys.left) {
-      this.setX(skeleton.getX()-moveSpeed);
-      localX -= moveSpeed;
-    }
-    if (keys.right) {
-      this.setX(skeleton.getX()+moveSpeed);
-      localX += moveSpeed;
-    }
-    if (keys.up) { }
-    if (keys.down) { }
+    
   };
   return skeleton;
 };
