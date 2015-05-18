@@ -206,9 +206,14 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 			_alert = undefined;
 		}
 	};
+
+	var localX = function(){
+		return localPlayer.getDrawAtX();
+	}
 	// Define which variables and methods can be accessed
 	return {
 				 drawText : drawText,
+				 localX : localX,
 				 getX: getX,
 				 getY: getY,
 				 setX: setX,

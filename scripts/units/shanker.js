@@ -36,8 +36,9 @@ var Shanker = function(name, x, y, hp){
      spritesheet_offset_y = 100;
    }
    
-   var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() -50;
-   console.log("DRAW AT X " + skeleton.getDrawAtX() + " offset " +spritesheet_offset_y  + " sh " + shanker + " y " + skeleton.getY());
+   var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+
+//   console.log("DRAW AT X " + skeleton.getDrawAtX() + " offset " +spritesheet_offset_y  + " sh " + shanker + " y " + skeleton.getY());
    if (meelee_attack >= 50){
      /* Decides what sprite to draw*/
      if (skeleton.getAnimate()%40 <= 10){ 
