@@ -124,7 +124,7 @@ Server.prototype.updateGameVariables = function(){
 
 	/* Iterate through every spell, if it hits someone then let them take the hit son : D */
 	for (i = 0; i < server.Spells.spellsarray.length; i++){
-		//util.log("spell:\t" + server.Spells.spellsarray[i].getX() + "  shrine:\t"+game1.shrine_1.getX() + " hitbox " + server.Spells.spellsarray[i].hitbox().left + " - " + server.Spells.spellsarray[i].hitbox().right);
+
 		if  (server.Spells.spellsarray[i].getTeam() != 1
 		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()) <  
 			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) {
@@ -133,8 +133,8 @@ Server.prototype.updateGameVariables = function(){
 			}
 		}
 		if  (server.Spells.spellsarray[i].getTeam() != 1
-		 	&& Math.abs( players[j].getX() - game1.shrine_0.getX()) <  
-			players[j].getHalfWidth() + game1.shrine_0.getHalfWidth() ) {
+		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_0.getX()) <  
+			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_0.getHalfWidth() ) {
 
 			if (Math.abs(game1.shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
 				game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
