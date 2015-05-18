@@ -19,7 +19,7 @@ If you need to, refer to MongoDB's docs for that one.
 Then simply clone and run.
 
     git clone https://hassanshaikley@bitbucket.org/hassanshaikley/amara-game.git && cd amara-game
-		npm install #requires npm
+    npm install #requires npm
     node web.js #nodemon if you are cool tho
 
 Now head over to to localhost:5000 and enjoy!

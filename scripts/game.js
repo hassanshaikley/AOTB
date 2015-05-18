@@ -9,10 +9,6 @@ var canvas,     // Canvas DOM element
     socket,
     _alert;     // Socket connection
 
-
-if (location.origin === "http://localhost:5000"){
-  $('body').bind('contextmenu', function(){ return false; });
-}
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
 

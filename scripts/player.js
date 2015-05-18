@@ -13,7 +13,6 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 			alive =           true,
 			drawAtX =         x,
 			drawAtY =         y,
-			prevX =           x,
 			postX =           x,
 			moveDifferenceX = 0,
 			animate =         0,

@@ -43,6 +43,7 @@ describe("Socket", function() {
         it("should init", function() {
             var player = new Redhatter("hassan", 0, 0, 100);
 
+          //  socket.emit("i");
 
         });
     });

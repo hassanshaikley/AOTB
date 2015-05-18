@@ -1,12 +1,3 @@
-/**************************************************
-   ** FLY CLASS IN CLIENT
-    **************************************************/
-
-var flyAnimate = 0;
-var localX;
-var floorHeight = 474;
-var toggle = 1;
-
 var Fly = function(name, x, y, hp){
   var descendAttack = false,
       rightMouseActionHappening = false,
@@ -27,9 +18,6 @@ var Fly = function(name, x, y, hp){
   };
   skeleton.draw = function(ctx) {
     this.drawText();
-    if (flyAnimate >= 30){
-      flyAnimate = 0;
-    }
     var bugX = canvas.width/2 + this.getDrawAtX() - localX - 50;
     ctx.save();
     if (skeleton.getTeam()==0){
@@ -40,13 +28,13 @@ var Fly = function(name, x, y, hp){
       ctx.shadowBlur=20;
       ctx.shadowColor="green";
     }
-    if (flyAnimate <= 10){
+    if (this.getAnimate()%30 <= 10){
       ctx.drawImage(flySprite,0,0, 100, 100, bugX,this.getDrawAtY()-50, 100, 100);
     }
-    else if (flyAnimate <= 20){
+    else if (this.getAnimate()%30  <= 20){
       ctx.drawImage(flySprite,100,0, 100, 100, bugX,this.getDrawAtY()-50, 100, 100);
     }
-    else if (flyAnimate <= 30){
+    else if (this.getAnimate()%30  <= 30){
       ctx.drawImage(flySprite,200,0, 100, 100, bugX, this.getDrawAtY()-50, 100, 100);
     }
     ctx.drawImage(silverShield, bugX+ 20, this.getDrawAtY()-3);
@@ -67,7 +55,6 @@ var Fly = function(name, x, y, hp){
       ctx.drawImage(silverSword, bugX+ 60, this.getDrawAtY()-40);
     }
     ctx.restore();
-    flyAnimate++; 
 
   };
 

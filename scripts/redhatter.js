@@ -1,10 +1,3 @@
-/**************************************************
-   ** REDHATTER CLASS IN CLIENT
-    **************************************************/
-var Animate = 0,
-    floorHeight = 474,
-    localX = 0;
-
 var Redhatter = function(name, x, y, hp){
   var skeleton =  new Player(x, y, hp, name),
       facing_left;

@@ -1,19 +1,19 @@
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
- //   res.render('index.ejs', { authenticated: req.isAuthenticated(),
-   if (req.isAuthenticated()){ 
-      res.redirect('/profile');
-   } else {
-      res.render('index.ejs', { authenticated: req.isAuthenticated(),
-          user : "",
+  if (req.isAuthenticated()){ 
+    res.redirect('/profile');
+  } else {
+    res.render('index.ejs', { 
+      authenticated: req.isAuthenticated(),
+      user : "",
     }); 
-
    }
   });
   app.get('/test', function(req, res) {
-    res.render('test-index.ejs', { authenticated: false,
-          user : "", 
-        });
+    res.render('test-index.ejs', { 
+      authenticated: false,
+      user : "", 
+    });
   });
   app.post('/', function(req, res) {
     var mongoose = require('mongoose');
@@ -23,7 +23,7 @@ module.exports = function(app, passport) {
       res.render('index.ejs', {
         authenticated: req.isAuthenticated(),
         user : req.user, // get the user out of session and pass to template
-        character : _character
+        character : _character,
       });
     });
   });
@@ -41,10 +41,9 @@ module.exports = function(app, passport) {
       if (err) return handleError(err); 
       //saved
       res.redirect('/profile');
-    });
-    //req.user._id 
-    //   res.render('sup'); 
+    }); 
   });
+
   app.get('/login', isNotLoggedIn, function(req, res) {
     res.render('login.ejs', { message: req.flash('loginMessage') }); 
   });
@@ -61,7 +60,6 @@ module.exports = function(app, passport) {
   app.get('/profile', isLoggedIn, function(req, res) {
     var mongoose = require('mongoose');
     var Character = mongoose.model('Character');
-    //console.log(req.user._id);
     Character.find({ "_user" : req.user._id }, function(err, _characters){
       if (err) console.log("Shit");
       res.render('profile.ejs', {
@@ -71,9 +69,6 @@ module.exports = function(app, passport) {
     });
   });
 
-  // =====================================
-  // LOGOUT ==============================
-  // =====================================
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
