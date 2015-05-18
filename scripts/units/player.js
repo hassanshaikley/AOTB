@@ -1,6 +1,3 @@
-/**************************************************
- ** GAME PLAYER CLASS IN CLIENT
- **************************************************/
 var floorHeight = 474;
 var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 

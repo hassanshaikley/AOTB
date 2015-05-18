@@ -32,9 +32,9 @@ var Bowman = function(name, x, y, hp){
     else {
       spritesheet_offset_y = 0;
     }
-   var drawAtX = canvas.width/2 + this.getDrawAtX()-localX - 50;
+    var drawAtX = canvas.width/2 + this.getDrawAtX()-localX - 50;
  
-      var spritesheet_offset_x = Math.floor(this.getAnimate() /15) * 100;
+    var spritesheet_offset_x = Math.floor(this.getAnimate() /15) * 100;
     /* Decides what sprite to draw*/
     if (this.getAnimate() <= 15){ 
      ctx.drawImage(bowman, spritesheet_offset_x, spritesheet_offset_y, 100,100, drawAtX, this.getDrawAtY()-70,100,100); 

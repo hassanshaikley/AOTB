@@ -7,7 +7,6 @@ var Shanker = function(name, x, y, hp){
   skeleton.rightClick = function(clientX, clientY){
   };
 
-  /* Lolswagz */
   skeleton.getCharacterType = function(){
     return "Shanker";
   };
