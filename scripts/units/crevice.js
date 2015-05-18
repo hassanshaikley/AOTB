@@ -1,14 +1,7 @@
-/**************************************************
-   ** CREVICE CLASS IN CLIENT
-    **************************************************/
-var Animate = 0,
-    floorHeight = 474,
-    localX = 0;
-
 var Crevice = function(name, x, y, hp){
   var moveSpeed = 3.0;
-  var skeleton = new Player(x, y, hp, name, moveSpeed),
-      facing_left;
+  var skeleton = new Player(x, y, hp, name, moveSpeed);
+  var facing_left;
   var spritesheet_offset_y = 0;
 
   /* Maybe make this heal?? */ 
@@ -47,9 +40,7 @@ var Crevice = function(name, x, y, hp){
     ctx.drawImage(crevice, 200, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
     }
   };
-  /* Constantly called for the localPlayer, updates the actual 
-   * Position held by the server
-   */
+
   skeleton.update = function(keys) {
     
   };

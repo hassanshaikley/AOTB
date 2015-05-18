@@ -1,6 +1,6 @@
 var Redhatter = function(name, x, y, hp){
-  var skeleton =  new Player(x, y, hp, name),
-      facing_left;
+  var skeleton =  new Player(x, y, hp, name);
+  var facing_left;
 
 	//used for animation
   var spritesheet_offset_y = 0;

@@ -41,7 +41,7 @@ var Shrine = function(_team) {
     //draw HP
     //draw structure, depending on team
     this.displacement = -localPlayer.getX();
-    this.drawAtX = canvas.width/2 + this.x - localX ;
+    this.drawAtX = canvas.width/2 + this.x - localPlayer.getDrawAtX() ;
     this.drawAtX = this.drawAtX - spire0.width/2;
     if (this.team ==0 ){
       ctx.shadowBlur=20;
