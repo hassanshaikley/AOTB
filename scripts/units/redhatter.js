@@ -41,7 +41,7 @@ var Redhatter = function(name, x, y, hp){
     else {
       spritesheet_offset_y = 0;
     }
-   var   drawAtX = canvas.width/2 + this.getDrawAtX() - localX - 50;
+   var   drawAtX = canvas.width/2 + this.getDrawAtX()  - 50;
     
 
     /* Decides what sprite to draw*/
@@ -63,7 +63,7 @@ var Redhatter = function(name, x, y, hp){
    * Position held by the server
    */
   skeleton.update = function(keys) {
-    localX = this.getX();
+
   };
   return skeleton;
 };

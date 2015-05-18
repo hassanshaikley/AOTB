@@ -1,6 +1,3 @@
-/**************************************************
- ** GAME JS -CLIENT SIDE
- **************************************************/
 var canvas,     // Canvas DOM element
     ctx,      // Canvas rendering context
     keys,     // Keyboard input
@@ -52,9 +49,6 @@ function init() {
   // Initialise keyboard controls
   keys = new Keys();
 
-  // Calculate a random start position for the local player
-  // The minus 5 (half a player size) stops the player being
-  // placed right on the egde of the screen
   var startX =0,
       startY = floorHeight-10,
       startHp = 100;
@@ -72,10 +66,9 @@ function init() {
     localPlayer = new Crevice(localPlayerName);
   } else if (characterType === "Grimes"){
     localPlayer = new Grimes(localPlayerName);
-  } 
-  else {
-    window.location.assign('/profile');
+  } else {
     //something has went wrong
+    window.location.assign('/profile');
   }
   // Initialise socket connection
   var host = location.origin;

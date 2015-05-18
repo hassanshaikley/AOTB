@@ -39,7 +39,7 @@ var Grimes = function(name, x, y, hp){
 		else {
 			spritesheet_offset_y = 100;
 		}
-		var drawAtX = canvas.width/2 + this.getDrawAtX() - localX - 50;
+		var drawAtX = canvas.width/2 + this.getDrawAtX()  - 50;
 		ctx.drawImage(grimesSprite, 0, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-45,100,100);
 		ctx.restore();
   };
@@ -58,7 +58,7 @@ var Grimes = function(name, x, y, hp){
    * Position held by the server
    */
   skeleton.update = function(keys) {
-    localX = this.getX();
+
   };
   return skeleton;
 };
