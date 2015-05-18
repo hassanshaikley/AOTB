@@ -11,8 +11,9 @@ module.exports = function(app, passport) {
    }
   });
   app.get('/test', function(req, res) {
-    res.render('test-index.ejs');
-
+    res.render('test-index.ejs', { authenticated: false,
+          user : "", 
+        });
   });
   app.post('/', function(req, res) {
     var mongoose = require('mongoose');
