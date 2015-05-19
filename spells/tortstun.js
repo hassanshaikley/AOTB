@@ -8,11 +8,11 @@ var TortStun = function(_x, _y, _team) {
 	util.log(" -->"+_x);
 	var age = 0; //timer for damage
 	spell.hit = []
-		spell.getHalfWidth = function(){
+	spell.getHalfWidth = function(){
 			return 50;
-		};
+	};
 	spell.doEffect = function(player){
-		players.stun(1000);
+		player.stun(1000);
 	};
 
 	spell.update = function(){

@@ -1,5 +1,7 @@
 var floorHeight = 474;
 var Player = function Player(startX, startY, startHp, _name) { //ignore startX variable
+	if (startX == undefined) startX = -100;
+	if (startY == undefined) startY = -100;
 
 	console.log("START Y " + startY);
 	var x =               startX,
@@ -17,6 +19,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 			gold = 0,
 			maxHp = hp,
 			team;
+			console.log("POST X" + postX);
 	// Getters and setters
 	this.setTeam = function(_team){
 		team = _team;
@@ -108,7 +111,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	/* UpdateVariables function is only called when the window is focused - at rate 
 	 * of FPS
 	 */
-
+	var xSpeed;
 	this.updateVariables = function(){
 		//used to calculate direction
 		var newerX = x;
@@ -123,7 +126,11 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		 * Checks the difference between 
 		 */
 		moveDifferenceX =(newerX - postX);
-		if (moveDifferenceX){ postX = x; } /* USED TO TELL IF GOING LEFT OR RIGHT */
+		//console.log(moveDifferenceX + " <--")
+		//console.log(newerX + " -- " +postX);
+		if (moveDifferenceX){ /* USED TO TELL IF GOING LEFT OR RIGHT */
+			postX = x; 
+		} 
 
 		//if y is 5 and drawAtY is 10
 
@@ -139,12 +146,14 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 			drawAtY = y;
 
 		}
+		xSpeed = (xDiff/10) ; 
+		xSpeed = Math.floor(xSpeed);
 
 		if (x - drawAtX > 4){
 			console.log("1");
-			drawAtX+= 2;
+			drawAtX+= xSpeed;
 		} else if ( x-drawAtX < -4 ) {
-			drawAtX-= 2;
+			drawAtX-= xSpeed;
 
 		} else {
 			drawAtX = x;

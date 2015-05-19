@@ -1,5 +1,7 @@
 var Redhatter = function(name, x, y, hp){
-  var skeleton =  new Player(x, y, hp, name);
+
+
+  var skeleton =  new Player(-100, -100, hp, name);
   var facing_left;
 
 	//used for animation
