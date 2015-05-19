@@ -2,6 +2,7 @@ Spell = require("./spell").Spell; // so it can inherits :D
 Spells = require("../spellsandprojectiles").Spells;
 
 var TortStun = function(_x, _y, _team) {
+	_y = 510;
 	var spell = new Spell(_x, _y, _team, 10);
 	var speed = 10;
 	var width = 50;

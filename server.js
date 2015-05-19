@@ -145,6 +145,7 @@ Server.prototype.updateGameVariables = function(){
 		}
 
 		for (var j = 0; j < players.length; j++) {
+			util.log("Y " + players[j].getY());
 			util.log( Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() )+ " < 50");
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <  
