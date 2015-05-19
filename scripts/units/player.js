@@ -112,6 +112,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	 * of FPS
 	 */
 	var xSpeed;
+	var ySpeed;
 	this.updateVariables = function(){
 		//used to calculate direction
 		var newerX = x;
@@ -141,7 +142,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		var xDiff = Math.abs(drawAtX - x);
 	
 
-		if (yDiff >= 400 || xDiff >= 400){ // teleports bc distance is too far man
+		if (yDiff >= 1000 || xDiff >= 1000){ // teleports bc distance is too far man
 			drawAtX = x;
 			drawAtY = y;
 
@@ -149,16 +150,28 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		xSpeed = (xDiff/10) ; 
 		xSpeed = Math.floor(xSpeed);
 
-		if (x - drawAtX > 4){
-			console.log("1");
+
+		if (x - drawAtX > xSpeed*2){
 			drawAtX+= xSpeed;
-		} else if ( x-drawAtX < -4 ) {
+		} else if ( x-drawAtX < - (xSpeed*2) ) {
 			drawAtX-= xSpeed;
 
 		} else {
 			drawAtX = x;
 		}
-		drawAtY = y;
+
+		ySpeed = (yDiff/10) ; 
+		ySpeed = Math.floor(ySpeed);
+
+
+		if (y - drawAtY > (ySpeed *2)){
+			drawAtY+= ySpeed;
+		} else if ( y-drawAtY < (-ySpeed*2)) {
+			drawAtY-= ySpeed;
+		} else {
+			drawAtY = y;
+		}
+
 
 	};
 

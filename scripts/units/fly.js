@@ -16,6 +16,7 @@ var Fly = function(name, x, y, hp){
   skeleton.getDescendAttack = function(){
     return descendAttack;
   };
+  var flyAnimate= 0;
   skeleton.draw = function(ctx) {
     this.drawText();
    var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
@@ -28,15 +29,17 @@ var Fly = function(name, x, y, hp){
       ctx.shadowBlur=20;
       ctx.shadowColor="green";
     }
-    if (this.getAnimate()%30 <= 10){
+    flyAnimate++;
+    if (flyAnimate % 15 <= 5){
       ctx.drawImage(flySprite,0,0, 100, 100, drawAtX,this.getDrawAtY()-50, 100, 100);
     }
-    else if (this.getAnimate()%30  <= 20){
+    else if (flyAnimate % 15 <= 10){
       ctx.drawImage(flySprite,100,0, 100, 100, drawAtX,this.getDrawAtY()-50, 100, 100);
     }
-    else if (this.getAnimate()%30  <= 30){
+    else if (flyAnimate % 15 <= 15){
       ctx.drawImage(flySprite,200,0, 100, 100, drawAtX, this.getDrawAtY()-50, 100, 100);
     }
+
     ctx.drawImage(silverShield, drawAtX+ 20, this.getDrawAtY()-3);
 
     if (descendAttack || rightMouseActionHappening){
@@ -47,12 +50,12 @@ var Fly = function(name, x, y, hp){
     } 
     if (descendAttack) {
       ctx.save();
-      ctx.translate(bugX+60, this.getDrawAtY()-40 + 90);
+      ctx.translate(drawAtX+60, this.getDrawAtY()-40 + 90);
       ctx.rotate(Math.PI);
       ctx.drawImage(silverSword, 0, -10);
       ctx.restore();
     } else {
-      ctx.drawImage(silverSword, bugX+ 60, this.getDrawAtY()-40);
+      ctx.drawImage(silverSword, drawAtX+ 60, this.getDrawAtY()-40);
     }
     ctx.restore();
 
