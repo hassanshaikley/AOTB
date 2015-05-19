@@ -9,7 +9,7 @@ var TortStun = function(_x, _y, _team) {
 	var age = 0; //timer for damage
 	spell.hit = []
 	spell.getHalfWidth = function(){
-			return 50;
+			return 40;
 	};
 	spell.getHalfHeight = function(){
 			return 50;

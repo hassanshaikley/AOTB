@@ -57,7 +57,7 @@ var Meteor = function(meteorX, mCaster, _team){
 	var team = _team;
 
 	this.getHalfWidth = function(){
-		return 15;
+		return 10;
 	};
 	this.getHalfHeight = function(){
 		return 50;

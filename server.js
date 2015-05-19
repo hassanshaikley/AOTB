@@ -145,12 +145,16 @@ Server.prototype.updateGameVariables = function(){
 		}
 
 		for (var j = 0; j < players.length; j++) {
+			util.log( Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() )+ " < 50");
+
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <  
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
-				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1){
-					util.log("HIT TEAM " +players[j].getTeam() + " cast team " + server.Spells.spellsarray[i].getTeam() );
+				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 && 
+				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY()) <  70 ) {
+		
 
 				if (players[j].getTeam() != server.Spells.spellsarray[i].getTeam()){
+
 				} else {
 					util.log ("HIITS SAME TEAm");
 
@@ -160,12 +164,8 @@ Server.prototype.updateGameVariables = function(){
 				setHp( players[j], server.Spells.spellsarray[i].getDamage());
 				server.Spells.spellsarray[i].doEffect( players[j]); //stuns / freezes / etc
 				server.libs.io.sockets.emit('bleed', { id: players[j].id });
-
-
 			}
-			//indexof garbage so a player can only be hurt once by any given spell
 		}
-
 		server.Spells.spellsarray[i].update();
 	};
 
@@ -181,7 +181,6 @@ Server.prototype.updateGameVariables = function(){
 };
 
 /* LETS TELL IF SOMEBODY is hit on the server */
-
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
 	hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
 	//    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
@@ -189,9 +188,8 @@ function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
 	server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
 
 }
+
 Server.prototype.sendUpdatedGame = function(){
-	//emit something to all players 
-	//util.log("SOON YOU WILL ALL DIE");
 	server.libs.io.sockets.emit('shrine hp', {zero: game1.shrine_0.getHp(), one : game1.shrine_1.getHp()});
 };
 
