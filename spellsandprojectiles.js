@@ -3,10 +3,9 @@ m_cd = 1000; //cooldowns : D
 h_cd = 1000;
 var Spells = {
 spellsarray: [],
+	 afunction: function() {
 
-						 afunction: function() {
-
-						 }
+	}
 };
 var BowmanArrow = function(startX, startY, _caster){
 	this.hit =[];
@@ -17,6 +16,9 @@ var BowmanArrow = function(startX, startY, _caster){
 	};
 
 	var getHalfWidth = function(){
+		return 50;
+	};
+	var getHalfHeight = function(){
 		return 50;
 	};
 	var getX = function(){
@@ -43,7 +45,8 @@ var BowmanArrow = function(startX, startY, _caster){
 			 setX: setX,
 			 getDamage : getDamage,
 			 getHalfWidth : getHalfWidth,
-			 doEffect : doEffect
+			 doEffect : doEffect,
+			 getHalfHeight : getHalfHeight
 	}
 };
 
@@ -55,6 +58,9 @@ var Meteor = function(meteorX, mCaster, _team){
 
 	this.getHalfWidth = function(){
 		return 15;
+	};
+	this.getHalfHeight = function(){
+		return 50;
 	};
 
 	this.getTeam = function(){

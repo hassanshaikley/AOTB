@@ -19,6 +19,15 @@ var Spell = function(startX, startY, _team, _damage) {
 	this.doEffect = function(player){
 		//nothing
 	};
+
+	this.getHalfWidth = function(){
+		return 50;
+	};
+
+	this.getHalfHeight = function(){
+		return 50;
+	};
+
 	this.getDamage = function(){
 		return damage;
 	};
@@ -34,6 +43,7 @@ var Spell = function(startX, startY, _team, _damage) {
 	this.getY = function() {
 		return y;
 	};
+	
 
 	//also old and buggy
 	this.setX = function(newX) {

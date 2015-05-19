@@ -11,6 +11,10 @@ var TortStun = function(_x, _y, _team) {
 	spell.getHalfWidth = function(){
 			return 50;
 	};
+	spell.getHalfHeight = function(){
+			return 50;
+	};
+
 	spell.doEffect = function(player){
 		player.stun(1000);
 	};

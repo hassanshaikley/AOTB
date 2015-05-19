@@ -249,6 +249,7 @@ function onSocketDisconnect() {
 function onNewPlayer(data) {
   // Initialise the new player
   var newPlayer;
+  console.log(data.characterType);
   if (data.characterType === "Fly"){
     newPlayer = new Fly(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Redhatter") {
@@ -259,7 +260,10 @@ function onNewPlayer(data) {
     newPlayer = new Shanker(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Crevice") {
     newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
+  }else if (data.characterType === "Grimes") {
+    newPlayer = new Grimes(data.name, data.x, data.y, data.hp);
   }
+  console.log("ID "+data.id);
   newPlayer.id = data.id;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);

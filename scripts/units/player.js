@@ -20,6 +20,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 			maxHp = hp,
 			team;
 			console.log("POST X" + postX);
+
+	this.id;
 	// Getters and setters
 	this.setTeam = function(_team){
 		team = _team;
@@ -113,6 +115,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	 */
 	var xSpeed;
 	var ySpeed;
+	var yDiff
+	var xDiff;
 	this.updateVariables = function(){
 		//used to calculate direction
 		var newerX = x;
@@ -138,8 +142,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 			/* Basically if super far from your actual location, just teleport there 
 			 * Especially useful in the case of a respawn 
 			 */ 
-		var yDiff = Math.abs(drawAtY - y);
-		var xDiff = Math.abs(drawAtX - x);
+		yDiff = Math.abs(drawAtY - y);
+		xDiff = Math.abs(drawAtX - x);
 	
 
 		if (yDiff >= 1000 || xDiff >= 1000){ // teleports bc distance is too far man
@@ -147,6 +151,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 			drawAtY = y;
 
 		}
+		
 		xSpeed = (xDiff/10) ; 
 		xSpeed = Math.floor(xSpeed);
 

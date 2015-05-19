@@ -160,7 +160,9 @@ var Events = function(){
     // New player has joined
     function onNewPlayer(data) {
         // Create a new player
-        util.log("A " + (data.characterType || "unknown") + " has joined the game. at " +data.x);
+        util.log("A " + (data.characterType || "unknown") + " has joined the game.");
+        util.log("ID " + this.id);
+
         if (data.characterType === "Fly"){
             var newPlayer = new Fly(data.name);
         }
@@ -181,6 +183,8 @@ var Events = function(){
         newPlayer.id = this.id;
         util.log("Creating a " + newPlayer.getCharacterType());
         util.log("new player team: " +newPlayer.getTeam());
+        util.log("id " +newPlayer.id);
+
         game1.addPlayer(newPlayer);
         // Broadcast new player to connected socket clients
         this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType() });
