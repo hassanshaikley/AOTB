@@ -58,11 +58,12 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	this.setName = function(newName){
 		name = newName;
 	};
+	this.bleed = function(){
+		var v = new Blood(x-38, y-30);
+		bloods.push(v);
+	}
+
 	this.setHp = function(newHp){
-		if (newHp < hp){ //has taken damage
-			var v = new Blood(x, y-30);
-			bloods.push(v);
-		}
 		hp = newHp;
 		if (hp > maxHp){
 			hp = maxHp;

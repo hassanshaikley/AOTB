@@ -97,6 +97,7 @@ Server.prototype.updateGameVariables = function(){
 				if (Math.abs(game1.shrine_1.getY() - players[i].getY()) <=150 ){
 					game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
 					game1.shrine_1.hitby[i] = Date.now();
+
 				}
 			}
 			if  (Math.abs(players[i].getX() - game1.shrine_0.getX()) <= 100 && 
@@ -115,6 +116,8 @@ Server.prototype.updateGameVariables = function(){
 							//  var life_status = players[j].setHp(players[j].getHp() - 25);
 							setHp(players[j], 25);
 							players[j].hitby[i] = Date.now();
+							server.libs.io.sockets.emit('bleed', { id: players[j].id });
+
 						}
 					}
 				}
@@ -156,6 +159,8 @@ Server.prototype.updateGameVariables = function(){
 				//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
 				setHp( players[j], server.Spells.spellsarray[i].getDamage());
 				server.Spells.spellsarray[i].doEffect( players[j]); //stuns / freezes / etc
+				server.libs.io.sockets.emit('bleed', { id: players[j].id });
+
 
 			}
 			//indexof garbage so a player can only be hurt once by any given spell

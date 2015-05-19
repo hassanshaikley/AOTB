@@ -109,6 +109,7 @@ var setEventHandlers = function() {
   // Player move message received
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
+  socket.on("bleed", onBleed);
   socket.on("meteor cast", onMeteorCast);
   socket.on("arrow fired", onArrowFired);
   socket.on("healing spike cast", onHealingSpikeCast);
@@ -146,6 +147,15 @@ function onUpdatePlayer(data){
         localPlayer.setTeam(data.team);
 
     }
+}
+function onBleed(data){
+    var _player = playerById(data.id);
+    if (_player === false){
+        localPlayer.bleed();
+    } else {
+        _player.bleed();
+    }
+  
 }
 /* Takes an arrows x and y position and draws it : D */
 function onArrowFired(data){

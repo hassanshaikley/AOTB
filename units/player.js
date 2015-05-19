@@ -71,12 +71,13 @@ var Player = function(startHp, _name, _team) {
         if (newHp >= maxHp){
             hp = maxHp;
         } else if ( newHp <= 0){ //hp is zero noo
-            //hp = 0;
-            //respawn!
             hp = 100;
             x = respawnX;
+            return "bleed";
         } else {
+
             hp = newHp;
+            return "bleed";
         }
     };
 
