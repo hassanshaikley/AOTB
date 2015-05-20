@@ -84,6 +84,8 @@ function init() {
   loadChat();
 
   console.log("MAIN MADe");
+  background = new Background();
+  MAIN.stage.addChild(background)
 }
 
 

@@ -10,12 +10,11 @@ var Grimes = function(name, x, y, hp){
   };
   var animation;
 
-  console.log(ANIMATIONS);
 
-  console.log(ANIMATIONS.grimes_r);
-   MAIN.stage.addChild(ANIMATIONS.grimes_r);
+  var grimes_l =new PIXI.MovieClip([ PIXI.Texture.fromFrame("grimes_l.png") ]);
+  var grimes_r =new PIXI.Texture.fromFrame("grimes_r.png");
+  MAIN.stage.addChild(grimes_l);
 
-  /* Lolswagz */
   skeleton.getCharacterType = function(){
     return "Grimes";
   };
