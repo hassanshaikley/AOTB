@@ -18,7 +18,7 @@ var BowmanArrow = function(startX, startY, _caster){
 	var getHalfWidth = function(){
 		return 50;
 	};
-	var getHalfHeight = function(){
+	var getHeight = function(){
 		return 50;
 	};
 	var getX = function(){
@@ -74,6 +74,10 @@ var Meteor = function(meteorX, mCaster, _team){
 	this.getDamage = function(){
 		return 25;
 	};
+
+	this.getHeight = function(){
+		return 30;
+	}
 
 	this.update = function(){
 		y += 50;

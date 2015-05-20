@@ -9,13 +9,17 @@ var Shrine = function(_team) {
     var x, y = 350; //aa
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
     this.game;
+    util.log("TEAM IS " + _team);
     if (_team == 0){
         x = 1350;
     } else {
         x = 3650;
     }
     this.getHalfWidth = function(){ 
-        return 100;
+        return 45;
+    };
+    this.getHeight = function(){ 
+        return 200;
     };
     this.getTeam= function(){
         return team;

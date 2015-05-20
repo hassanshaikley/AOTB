@@ -93,7 +93,7 @@ Server.prototype.updateGameVariables = function(){
 			if  (Math.abs(players[i].getX() - game1.shrine_1.getX())<= 100 && 
 					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined || 
 						Date.now() -game1.shrine_1.hitby[i] >= 1000)){
-				util.log("Ttt");
+
 				if (Math.abs(game1.shrine_1.getY() - players[i].getY()) <=150 ){
 					game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
 					game1.shrine_1.hitby[i] = Date.now();
@@ -128,43 +128,48 @@ Server.prototype.updateGameVariables = function(){
 	/* Iterate through every spell, if it hits someone then let them take the hit son : D */
 	for (i = 0; i < server.Spells.spellsarray.length; i++){
 
-		if  (server.Spells.spellsarray[i].getTeam() != 1
+
+		//see if it hits a shrine
+		//util.log( Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX())+ " < " +(server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) )
+
+
+		if  (server.Spells.spellsarray[i].getTeam() == 0
 		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()) <  
 			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) {
-			if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <=150 ){
+			if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <= (game1.shrine_1.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
 				game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
 			}
 		}
-		if  (server.Spells.spellsarray[i].getTeam() != 1
+		if  (server.Spells.spellsarray[i].getTeam() == 1
 		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_0.getX()) <  
 			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_0.getHalfWidth() ) {
 
-			if (Math.abs(game1.shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= 150){ // shanker made contact at 114
+			if (Math.abs(game1.shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= (game1.shrine_0.getHeight() + server.Spells.spellsarray[i].getHeight())) { // shanker made contact at 114
 				game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
 			}
 		}
 
 		for (var j = 0; j < players.length; j++) {
-			util.log("Y " + players[j].getY());
-			util.log( Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() )+ " < 50");
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <  
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 && 
-				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY()) <  70 ) {
+				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY()) <  (players[j].getHeight() + server.Spells.spellsarray[i].getHeight() )) {
 		
-
-				if (players[j].getTeam() != server.Spells.spellsarray[i].getTeam()){
-
+			//	util.log (" TEAM "+ players[j].getTeam()  + " SPELL TEAM " + server.Spells.spellsarray[i].getTeam());
+				if (players[j].getTeam() !== server.Spells.spellsarray[i].getTeam()){
+					util.log("Hits other team. Do damage.");
+					server.Spells.spellsarray[i].hit.push(players[j].id); 
+					//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
+					setHp( players[j], server.Spells.spellsarray[i].getDamage());
+					util.log("STUNNING");
+					server.Spells.spellsarray[i].doEffect( players[j]); //stuns / freezes / etc
+					server.libs.io.sockets.emit('bleed', { id: players[j].id });
 				} else {
-					util.log ("HIITS SAME TEAm");
+					//util.log ("Hits same team. No damage. ");
 
 				}
-				server.Spells.spellsarray[i].hit.push(players[j].id); 
-				//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
-				setHp( players[j], server.Spells.spellsarray[i].getDamage());
-				server.Spells.spellsarray[i].doEffect( players[j]); //stuns / freezes / etc
-				server.libs.io.sockets.emit('bleed', { id: players[j].id });
+
 			}
 		}
 		server.Spells.spellsarray[i].update();

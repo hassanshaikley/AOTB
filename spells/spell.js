@@ -24,7 +24,7 @@ var Spell = function(startX, startY, _team, _damage) {
 		return 50;
 	};
 
-	this.getHalfHeight = function(){
+	this.getHeight = function(){
 		return 50;
 	};
 

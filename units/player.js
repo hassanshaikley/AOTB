@@ -22,6 +22,9 @@ var Player = function(startHp, _name, _team) {
     this.getHalfWidth = function(){
         return 30;
     }
+    this.getHeight = function(){
+        return 60;
+    }
     this.setTeam = function(newTeam){
         if (newTeam===1){
             x = respawnX = 3900;
@@ -135,13 +138,13 @@ var Player = function(startHp, _name, _team) {
 		this.stuncounter = {};	
         
         this.stun = function(duration){
+            util.log("Got Stunned");
             this.stuncounter.duration = duration;
             this.stuncounter.when = Date.now();
         }
 
 		this.isStunned = function(){
             if (Date.now() < this.stuncounter.when + this.stuncounter.duration){ //if stun is over
-                util.log("yep is stunned");
                 return true;
             } else {
                 return false;

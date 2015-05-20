@@ -103,18 +103,21 @@ var Events = function(){
             if ( players[i].id != this.id){
                 if  (Math.abs(players[i].getX()- attacker.getX()) <= 50 ){
                     if (Math.abs(players[i].getY() - attacker.getY()) <= 100){
-                        setHp(players[i],25);
+                        if ( players[i].getTeam() != attacker.getTeam() ){
+                            setHp(players[i],25);
+                        }
                     }
                 }
-            }
-        }
+           }
+       }
+        
         
         util.log("Meelee Attack: at " + attacker.getX() + " tower at " + game1.shrine_1.getX() + " and " +game1.shrine_0.getX()  ); //between 60 and 150 is perfect
         if (attacker.getTeam() == 0){ //proper if statemetn
             util.log("ok " + (attacker.getX() - game1.shrine_1.getX()));
             if  (Math.abs(attacker.getX() - game1.shrine_1.getX() -game1.shrine_1.getHalfWidth()) <= game1.shrine_1.getHalfWidth()*2 ){
                 if (Math.abs(game1.shrine_1.getY() - attacker.getY()) <=150 ){
-                    game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
+                        game1.shrine_1.setHp(game1.shrine_1.getHp() -100 );
                 }
             }
 
@@ -122,16 +125,18 @@ var Events = function(){
             if  (Math.abs(attacker.getX() - game1.shrine_0.getX() -game1.shrine_0.getHalfWidth()*2) <= game1.shrine_0.getHalfWidth()*2 ){
                 //util.log("made x");
                 if (Math.abs(game1.shrine_0.getY() - attacker.getY()) <= 150){ // shanker made contact at 114
-                    game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
-                }
+                        game1.shrine_0.setHp(game1.shrine_0.getHp() -100 );
+                    }
+                
             }
 
         }
     }
+    
+
     function onDescendAttackChange(data){
         var dAP = playerById(this.id);
         dAP.setDescendAttack(data.descendAttack);
-				util.log("ON DA " + data.descendAttack + " id " + this.id);
         this.emit("descend attack changes", { id: "self", descendAttack: data.descendAttack });
         this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: data.descendAttack});
     };
@@ -161,7 +166,6 @@ var Events = function(){
     function onNewPlayer(data) {
         // Create a new player
         util.log("A " + (data.characterType || "unknown") + " has joined the game.");
-        util.log("ID " + this.id);
 
         if (data.characterType === "Fly"){
             var newPlayer = new Fly(data.name);
@@ -177,7 +181,7 @@ var Events = function(){
         } else if (data.characterType === "Shanker"){
             var newPlayer = new Shanker(data.name);
         }
-        else if (data.characterType === "Crevice"){
+        else { // (data.characterType === "Crevice"){
             var newPlayer = new Crevice(data.name);
         }
         newPlayer.id = this.id;
@@ -203,9 +207,8 @@ var Events = function(){
     };
 		function onTortStun(data){
 			//crete new stun obj
-				var team = playerById(this.id).getTeam();
-                util.log("DE TEAM IS " + team);
-				var v = new TortStun(data.x, data.y, team);	
+		var team = playerById(this.id).getTeam();
+		var v = new TortStun(data.x, data.y, team);	
         Spells.spellsarray.push(v);
         this.emit('tort stun', {x: data.x });
         this.broadcast.emit('tort stun', {x: data.x});
