@@ -8,8 +8,12 @@ var Grimes = function(name, x, y, hp){
 		console.log("-->"+t_x);
 		socket.emit("tort stun", { x: t_x });
   };
+  var animation;
 
-  /* Maybe make this heal?? */ 
+  console.log(ANIMATIONS);
+
+  console.log(ANIMATIONS.grimes_r);
+   MAIN.stage.addChild(ANIMATIONS.grimes_r);
 
   /* Lolswagz */
   skeleton.getCharacterType = function(){

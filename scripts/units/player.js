@@ -3,6 +3,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	if (startX == undefined) startX = -100;
 	if (startY == undefined) startY = -100;
 
+
 	console.log("START Y " + startY);
 	var x =               startX,
 			y =               startY,
@@ -18,10 +19,11 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 			lastsaid = {},
 			gold = 0,
 			maxHp = hp,
-			team;
-			console.log("POST X" + postX);
+			team,
+			frames; //list of every image used in this guys animation
 
 	this.id;
+
 	// Getters and setters
 	this.setTeam = function(_team){
 		team = _team;

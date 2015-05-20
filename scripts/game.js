@@ -12,6 +12,8 @@ var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
 
 function init() {
+
+
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
@@ -81,7 +83,7 @@ function init() {
   animate();
   loadChat();
 
-  MAIN = new Main();
+  console.log("MAIN MADe");
 }
 
 
