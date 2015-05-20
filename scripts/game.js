@@ -80,22 +80,21 @@ function init() {
   socket.emit("init me");
   animate();
   loadChat();
+
+  MAIN = new Main();
 }
 
 
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/
-var focus_tab = true;
 var setEventHandlers = function() {
   window.addEventListener("keydown", onKeydown, false);
   window.addEventListener("keyup", onKeyup, false);
   window.addEventListener('blur', function() {
-    focus_tab = false;
     //socket.disconnect();
   },false);
   window.addEventListener('focus', function() {
-    focus_tab = true;
     Spells.spellsarray = []; //remove all rockets, or else its cray cray
     keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
   },false);
