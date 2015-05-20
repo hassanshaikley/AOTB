@@ -13,6 +13,11 @@ var floorHeight = 474;
 
 function init() {
 
+  console.log("MAIN MADe");
+  background = new Background();
+  console.log("Madea background");
+  MAIN.stage.addChild(background)
+  
 
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
@@ -83,9 +88,6 @@ function init() {
   animate();
   loadChat();
 
-  console.log("MAIN MADe");
-  background = new Background();
-  MAIN.stage.addChild(background)
 }
 
 
@@ -315,6 +317,9 @@ function animate() {
   window.requestAnimFrame(animate); //palce this before render to ensure as close to wanted fps
   update();
   draw();
+
+  console.log(" -->>" +background);
+  background.setViewportX(localPlayer.getDrawAtX());
 };
 
 

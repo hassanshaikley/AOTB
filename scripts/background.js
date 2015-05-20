@@ -15,7 +15,7 @@ Background.constructor = Background;
 Background.prototype = Object.create(PIXI.TilingSprite.prototype);
 
 Background.prototype.setViewportX = function(newViewportX) {
-//  var distanceTravelled = newViewportX - this.viewportX;
-//  this.viewportX = newViewportX;
-  this.tilePosition.x -= 1;
+  var distanceTravelled = newViewportX - this.viewportX;
+  this.viewportX = newViewportX;
+  this.tilePosition.x -= distanceTravelled;
 };
