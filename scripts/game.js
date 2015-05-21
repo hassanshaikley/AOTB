@@ -9,7 +9,6 @@ var canvas,     // Canvas DOM element
 bloods = [];
 
 function Game(){};
-Game.toDelete = [];//array of all pixi objects to delete
 
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
@@ -269,8 +268,8 @@ function onSocketDisconnect() {
 // New player
 function onNewPlayer(data) {
   // Initialise the new player
+  console.log("SHEEEEEEEE");
   var newPlayer;
-  console.log(data.characterType);
   if (data.characterType === "Fly"){
     newPlayer = new Fly(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Redhatter") {
@@ -335,11 +334,7 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
-  for (var i = 0; i < Game.toDelete.length ; i++){
-    MAIN.stage.removeChild(Game.toDelete[i]);
-    Game.toDelete.remove
-  }
-  Game.toDelete = []; //remove all elements from toDelete
+
 
 
     background.updateX(localPlayer.getDrawAtX() );

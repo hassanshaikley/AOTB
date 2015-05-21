@@ -1,7 +1,7 @@
 var floorHeight = 474;
 var Player = function Player(startX, startY, startHp, _name) { //ignore startX variable
-	if (startX == undefined) startX = -100;
-	if (startY == undefined) startY = -100;
+	if (startX == undefined) startX = -1000;
+	if (startY == undefined) startY = -1000;
 
 
 	console.log("START X " + startX);
@@ -150,12 +150,12 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		xDiff = Math.abs(drawAtX - x);
 	
 
-		if (yDiff >= 1000 || xDiff >= 1000){ // teleports bc distance is too far man
+		if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
+			console.log("OKEE");
 			drawAtX = x;
 			drawAtY = y;
-
 		}
-		
+
 		xSpeed = (xDiff/10) ; 
 		xSpeed = Math.floor(xSpeed);
 
@@ -172,6 +172,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		ySpeed = (yDiff/10) ; 
 		ySpeed = Math.floor(ySpeed);
 
+		if (ySpeed==0){ //fixes stupd bug where health is a little higher
+			drawAtY = y;
+		}
+//		console.log("DRAW AT Y " + drawAtY);
 
 		if (y - drawAtY > (ySpeed *2)){
 			drawAtY+= ySpeed;
@@ -204,25 +208,29 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	
 	var health_shadow = new PIXI.Graphics();
 	health_shadow.beginFill(0x000000);
-	health_shadow.drawRect(0, drawAtY-50, 100/2.2, 6);
-	health_shadow.endFill()	//console.log("MAN STAGE "+MAIN.stage);
+	health_shadow.drawRect(0, 0, 100/2.2, 6);
+	health_shadow.endFill();	//console.log("MAN STAGE "+MAIN.stage);
+	
 	MAIN.stage.addChild(health_shadow);
 
 	var health = new PIXI.Graphics();
 	
 	health.beginFill(0x00FF00);
-	health.drawRect(0, drawAtY-50, 100/2.2, 6);
-	health.endFill()	//console.log("MAN STAGE "+MAIN.stage);
+	health.drawRect(0, 0, 100/2.2, 6);
+	health.endFill();	//console.log("MAN STAGE "+MAIN.stage);
+	
 	MAIN.stage.addChild(health);
 
 
 	var text_x;
 	this.drawText = function(){
 		text_x = Math.abs(768/2) - localPlayer.localX() + drawAtX;
-		this.text_x = text_x;
-
+	//	console.log(" x - . "+text_x);
+	//	console.log("Draw at y " + drawAtY);
 		health_shadow.position.x = text_x-25;
 		health_shadow.position.y = drawAtY-100;
+
+		this.health = health;
 
 		health.position.x = text_x-25;
 		health.position.y = drawAtY-100;

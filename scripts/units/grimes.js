@@ -40,13 +40,17 @@ MAIN.stage.addChild(grimes_l);
   	grimes_r.position.x = drawAtX;
 
   	if (this.getMoveDirection() === "left"){
-       Game.toDelete.push(grimes_r);
+//       Game.toDelete.push(grimes_r);
+      MAIN.stage.removeChild(grimes_l);
+      MAIN.stage.removeChild(grimes_r);
 
   		MAIN.stage.addChild(grimes_l);
   		console.log("le");
   	} else if (this.getMoveDirection() === "right" ){
-  		 MAIN.stage.removeChild(grimes_l);
-  		 MAIN.stage.addChild(grimes_r);
+      MAIN.stage.removeChild(grimes_l);
+      MAIN.stage.removeChild(grimes_r);
+      MAIN.stage.addChild(grimes_r);
+
   	}
 
   //old
