@@ -1,28 +1,47 @@
 function Main() {
-  this.stage = new PIXI.Stage(0xAC58FA);
+  this.stage = new PIXI.Container();
   this.renderer = new PIXI.autoDetectRenderer(
     768,
-    520
+    520,
+    {antialiasing: false, transparent: false, resolution: 1}
   );
-   document.body.appendChild(this.renderer.view);
 
-   this.interactive = true;
+var bgcolor = new PIXI.Graphics();
+bgcolor.beginFill(0x394e7f);
+bgcolor.drawRect(0, 0, 768, 520);
+bgcolor.endFill();
+this.stage.addChild(bgcolor);
 
-  /*var filter = new PIXI.filters.BloomFilter();
+  
+  document.body.appendChild(this.renderer.view);
+
+  this.stage.interactive = true;
+/*
+  var filter = new PIXI.filters.BlurFilter();
   filter.blur = 32;
   filter.passes = 11;
-  this.stage.filter( filter);
-**/
+
+
+ this.stage.filters = [filter];
+ */
+
   this.loadSpriteSheet();
   return this;
 
 };
 
 Main.prototype.loadSpriteSheet = function() {
-  var assetsToLoad = ["localAssets/spritesheet.json", "localAssets/spritesheet.png"];
-  loader = new PIXI.AssetLoader(assetsToLoad);
-  loader.onComplete = this.spriteSheetLoaded.bind(this);
-  loader.load();
+
+  var loader = new PIXI.loaders.Loader(); 
+
+    loader.add("localAssets/spritesheet.json", "localAssets/spritesheet.json");
+    loader.add("localAssets/spritesheet.png", "localAssets/spritesheet.png");
+
+  loader.once('complete',this.spriteSheetLoaded.bind(this));
+
+loader.load();
+
+
 };
 
 var _q= 0;

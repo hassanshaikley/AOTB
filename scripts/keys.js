@@ -1,8 +1,21 @@
 /**************************************************
  ** GAME KEYBOARD CLASS
  **************************************************/
+mouseData = 5;
 
 var Keys = function(up, left, right, down) {
+
+
+  MAIN.stage.click = function(mousedata){
+    mouseData = mousedata.data.getLocalPosition(MAIN.stage);
+    x = mouseData.x + localPlayer.getDrawAtX() - Math.abs(768/2);
+    
+  }
+
+
+  //old
+
+
 
     this.keys = {};
     //65 left, 87 up, 68 right, 83 down
