@@ -23,19 +23,20 @@ function init() {
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
-  canvas = document.getElementById("gameCanvas");
+  canvas = document.getElementsByTagName("canvas")[0];
   
   ctx = canvas.getContext("2d");
+  canvas1 = document.getElementsByTagName("canvas")[1];
 
   //disable right click default behavior
-  canvas.oncontextmenu = function(e){ return false; };
+  canvas1.oncontextmenu = function(e){ return false; };
   var clientRect;
   var adjustedX, adjustedY;
-  canvas.onmousedown = function(e){
+  canvas1.onmousedown = function(e){
     switch (e.which) {
       case 1: 
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -canvas.width/2; 
+        adjustedX = localPlayer.getDrawAtX() -canvas1.width/2; 
 
         adjustedX += (e.clientX - clientRect.left); 
 
@@ -47,7 +48,7 @@ function init() {
         break;
       case 3: 
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -canvas.width/2; 
+        adjustedX = localPlayer.getDrawAtX() -canvas1.width/2; 
         adjustedX += (e.clientX - clientRect.left); //should work without the 100...but 100 makes it work :l
 
         adjustedY += e.clientY - clientRect.topy;
