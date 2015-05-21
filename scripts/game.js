@@ -17,7 +17,7 @@ function init() {
   background = new Background();
   console.log("Madea background");
   MAIN.stage.addChild(background)
-  
+
 
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
@@ -318,8 +318,8 @@ function animate() {
   update();
   draw();
 
-  console.log(" -->>" +background);
-  background.setViewportX(localPlayer.getDrawAtX());
+ // console.log(" -->>" +background);
+  background.setX(localPlayer.getDrawAtX() );
 };
 
 
