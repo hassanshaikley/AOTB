@@ -296,7 +296,7 @@ function onRemovePlayer(data) {
   var removePlayer = playerById(data.id);
   // Player not found
   console.log(removePlayer.image);
-    MAIN.stage.removeChild(removePlayer.image);
+    MAIN.stage.removeChild(removePlayer.imageContainer);
 
   if (!removePlayer) {
     return;
