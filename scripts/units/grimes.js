@@ -23,14 +23,15 @@ var Grimes = function(name, x, y, hp){
  // grimes_l.position.x = Math.abs(768/2) -50;
  // grimes_r.position.x = Math.abs(768/2) -50;
 
+  skeleton.imageContainer.addChild(grimes_l);
 
-MAIN.stage.addChild(grimes_l);
 
   skeleton.getCharacterType = function(){
     return "Grimes";
   };
 
   skeleton.draw = function(ctx) {
+
   	  var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
 
   	grimes_r.position.y = 380;
@@ -41,15 +42,17 @@ MAIN.stage.addChild(grimes_l);
 
   	if (this.getMoveDirection() === "left"){
 //       Game.toDelete.push(grimes_r);
-      MAIN.stage.removeChild(grimes_l);
-      MAIN.stage.removeChild(grimes_r);
+    skeleton.imageContainer.removeChild(grimes_r);
+    skeleton.imageContainer.removeChild(grimes_l);
+      console.log("ADDING l");
 
-  		MAIN.stage.addChild(grimes_l);
-  		console.log("le");
-  	} else if (this.getMoveDirection() === "right" ){
-      MAIN.stage.removeChild(grimes_l);
-      MAIN.stage.removeChild(grimes_r);
-      MAIN.stage.addChild(grimes_r);
+    skeleton.imageContainer.addChild(grimes_l);
+  	
+    } else if (this.getMoveDirection() === "right" ){
+  skeleton.imageContainer.removeChild(grimes_r);
+  skeleton.imageContainer.removeChild(grimes_l);
+  console.log("ADDING r");
+  skeleton.imageContainer.addChild(grimes_r);
 
   	}
 

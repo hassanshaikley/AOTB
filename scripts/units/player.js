@@ -121,6 +121,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	var ySpeed;
 	var yDiff
 	var xDiff;
+
+
 	this.updateVariables = function(){
 		//used to calculate direction
 		var newerX = x;
@@ -211,7 +213,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	health_shadow.drawRect(0, 0, 100/2.2, 6);
 	health_shadow.endFill();	//console.log("MAN STAGE "+MAIN.stage);
 	
-	MAIN.stage.addChild(health_shadow);
 
 	var health = new PIXI.Graphics();
 	
@@ -219,8 +220,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	health.drawRect(0, 0, 100/2.2, 6);
 	health.endFill();	//console.log("MAN STAGE "+MAIN.stage);
 	
-	MAIN.stage.addChild(health);
+	this.imageContainer = new PIXI.Container();
+	console.log(this.imageContainer);
+	
+	this.imageContainer.addChild(health_shadow);
+	this.imageContainer.addChild(health);
 
+	MAIN.stage.addChild(this.imageContainer);
 
 	var text_x;
 	this.drawText = function(){

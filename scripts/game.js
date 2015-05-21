@@ -18,6 +18,8 @@ function init() {
   console.log("MAIN MADe");
   background = new Background();
   console.log("Madea background");
+  
+
   MAIN.stage.addChild(background)
 
 
@@ -103,11 +105,10 @@ var setEventHandlers = function() {
   window.addEventListener("keydown", onKeydown, false);
   window.addEventListener("keyup", onKeyup, false);
   window.addEventListener('blur', function() {
-    //socket.disconnect();
   },false);
   window.addEventListener('focus', function() {
     Spells.spellsarray = []; //remove all rockets, or else its cray cray
-    keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
+//    keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
   },false);
   // Window resize
   //  window.addEventListener("resize", onResize, false);
@@ -262,7 +263,7 @@ function onSocketConnected() {
 // Socket disconnected
 function onSocketDisconnect() {
   //Player disconnected from socket server
-  remotePlayers = [];
+  console.log("EEP");
 };
 
 // New player
@@ -294,11 +295,16 @@ function onNewPlayer(data) {
 function onRemovePlayer(data) {
   var removePlayer = playerById(data.id);
   // Player not found
+  console.log(removePlayer.image);
+    MAIN.stage.removeChild(removePlayer.image);
+
   if (!removePlayer) {
     return;
   };
   // Remove player from array
   remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
+
+
 };
 
 
