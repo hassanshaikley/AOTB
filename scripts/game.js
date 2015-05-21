@@ -19,6 +19,7 @@ function init() {
   MAIN.stage.addChild(background)
 
 
+
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
@@ -87,6 +88,8 @@ function init() {
   socket.emit("init me");
   animate();
   loadChat();
+
+  
 
 }
 

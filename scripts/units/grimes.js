@@ -39,12 +39,12 @@ MAIN.stage.addChild(grimes_l);
 
   	if (this.getMoveDirection() === "left"){
   		MAIN.stage.removeChild(grimes_r);
+  		 MAIN.stage.removeChild(grimes_l);
   		MAIN.stage.addChild(grimes_l);
   		console.log("le");
   	} else if (this.getMoveDirection() === "right" ){
-  		  		console.log("re");
-
-  		MAIN.stage.removeChild(grimes_l);
+  		MAIN.stage.removeChild(grimes_r);
+  		 MAIN.stage.removeChild(grimes_l);
   		 MAIN.stage.addChild(grimes_r);
   	}
 

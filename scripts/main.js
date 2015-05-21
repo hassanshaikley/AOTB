@@ -5,8 +5,17 @@ function Main() {
     480
   );
    document.body.appendChild(this.renderer.view);
+
+   this.interactive = true;
+
+  /*var filter = new PIXI.filters.BloomFilter();
+  filter.blur = 32;
+  filter.passes = 11;
+  this.stage.filter( filter);
+**/
   this.loadSpriteSheet();
   return this;
+
 };
 
 Main.prototype.loadSpriteSheet = function() {
