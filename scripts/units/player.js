@@ -4,7 +4,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	if (startY == undefined) startY = -100;
 
 
-	console.log("START Y " + startY);
+	console.log("START X " + startX);
 	var x =               startX,
 			y =               startY,
 			name =            _name,

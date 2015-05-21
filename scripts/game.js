@@ -319,7 +319,6 @@ function animate() {
   draw();
 
  // console.log(" -->>" +background);
-  background.setX(localPlayer.getDrawAtX() );
 };
 
 
@@ -330,6 +329,7 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
+    background.updateX(localPlayer.getDrawAtX() );
   /* Updates the spells locations :D */
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].update();

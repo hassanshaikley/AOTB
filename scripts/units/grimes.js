@@ -1,6 +1,7 @@
 var Grimes = function(name, x, y, hp){
   var skeleton = new Player(x, (y-20), hp, name),
       facing_left;
+
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;
   skeleton.rightClick = function(clientX, clientY){
@@ -11,15 +12,44 @@ var Grimes = function(name, x, y, hp){
   var animation;
 
 
-  var grimes_l =new PIXI.MovieClip([ PIXI.Texture.fromFrame("grimes_l.png") ]);
-  var grimes_r =new PIXI.Texture.fromFrame("grimes_r.png");
-  MAIN.stage.addChild(grimes_l);
+  var grimes_l =new PIXI.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);
+  var grimes_r =new PIXI.MovieClip([PIXI.Texture.fromFrame("grimes_r.png")]);
+
+  grimes_r.position.y = 400;
+  grimes_l.position.y = 400;
+
+  grimes_l.position.x = Math.abs(768/2) -50;
+  grimes_r.position.x = Math.abs(768/2) -50;
+
+
+MAIN.stage.addChild(grimes_l);
 
   skeleton.getCharacterType = function(){
     return "Grimes";
   };
 
   skeleton.draw = function(ctx) {
+  	  var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+
+  	grimes_r.position.y = 400;
+  	grimes_l.position.y = 400;
+
+  	grimes_l.position.x = drawAtX;
+  	grimes_r.position.x = drawAtX;
+
+  	if (this.getMoveDirection() === "left"){
+  		MAIN.stage.removeChild(grimes_r);
+  		MAIN.stage.addChild(grimes_l);
+  		console.log("le");
+  	} else if (this.getMoveDirection() === "right" ){
+  		  		console.log("re");
+
+  		MAIN.stage.removeChild(grimes_l);
+  		 MAIN.stage.addChild(grimes_r);
+  	}
+
+  //old
+
 		//var drawAtX = skeleton.getX()-50;
 		this.drawText();
 		ctx.save();
@@ -42,7 +72,6 @@ var Grimes = function(name, x, y, hp){
 		else {
 			spritesheet_offset_y = 100;
 		}
-   var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
 		ctx.drawImage(grimesSprite, 0, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-45,100,100);
 		ctx.restore();
   };

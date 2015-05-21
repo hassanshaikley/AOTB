@@ -11,11 +11,11 @@ function Background() {
   this.tilePosition.y = 0 ;
  
 
-  structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
+  var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
   structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2);
   structure.y = -100;
 
-  structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("spire_0.png"));
+  var structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("spire_0.png"));
   structure2.x = 3650 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2);
    structure2.y = -100;
 
@@ -29,21 +29,10 @@ Background.constructor = Background;
 
 Background.prototype = Object.create(PIXI.TilingSprite.prototype);
 
-Background.prototype.setX = function(newX) {
+Background.prototype.updateX = function() {
 //  var distanceTravelled = newViewportX - this.viewportX;
   //  var displacement = -localPlayer.getDrawAtX() + Math.abs(768/2);
-    var displacement = canvas.width/2- localPlayer.getDrawAtX();
+  var displacement = canvas.width/2- localPlayer.getDrawAtX();
 
   this.position.x = displacement;
-
-
-  //  console.log("Dispalcement : " +displacement);
-  var _i;
-
-
-  for (var i = 0; i < this.children.length; i++){
- // 	this.children[i].viewportX = newViewportX;
-  //	this.tilePosition.x -= distanceTravelled;
-  //	console.log(this.children[i].x);
-  }
 };
