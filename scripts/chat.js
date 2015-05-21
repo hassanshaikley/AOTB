@@ -1,3 +1,5 @@
+var toggle = 0;
+
 var loadChat = function(){
 $(document).keypress(function(e) {
   if(e.which == 13) {

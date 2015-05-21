@@ -15,11 +15,13 @@ var Grimes = function(name, x, y, hp){
   var grimes_l =new PIXI.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);
   var grimes_r =new PIXI.MovieClip([PIXI.Texture.fromFrame("grimes_r.png")]);
 
-  grimes_r.position.y = 400;
-  grimes_l.position.y = 400;
+ // grimes_l.scale.x = grimes_r.scale.x = grimes_l.scale.y = grimes_r.scale.y= 1.3;
 
-  grimes_l.position.x = Math.abs(768/2) -50;
-  grimes_r.position.x = Math.abs(768/2) -50;
+  //grimes_r.position.y = 380;
+  //grimes_l.position.y = 380;
+
+ // grimes_l.position.x = Math.abs(768/2) -50;
+ // grimes_r.position.x = Math.abs(768/2) -50;
 
 
 MAIN.stage.addChild(grimes_l);
@@ -31,8 +33,8 @@ MAIN.stage.addChild(grimes_l);
   skeleton.draw = function(ctx) {
   	  var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
 
-  	grimes_r.position.y = 400;
-  	grimes_l.position.y = 400;
+  	grimes_r.position.y = 380;
+  	grimes_l.position.y = 380;
 
   	grimes_l.position.x = drawAtX;
   	grimes_r.position.x = drawAtX;

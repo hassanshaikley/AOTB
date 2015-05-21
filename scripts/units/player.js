@@ -200,11 +200,28 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		lastsaid.time = Date.now();
 		lastsaid.text = words;
 	};
+	
+	var rectangle = new PIXI.Graphics();
+	rectangle.beginFill(0x000000);
+	rectangle.drawRect(0, drawAtY-50, 100/2.2, 6);
+	rectangle.endFill()	//console.log("MAN STAGE "+MAIN.stage);
+	
+	MAIN.stage.addChild(rectangle);
+
 	var text_x;
 	this.drawText = function(){
+	text_x = Math.abs(768/2) + drawAtX - drawAtX;
+
+	rectangle.position.x = text_x-25;
+	rectangle.position.y = drawAtY-100;
+
+	console.log(" - " + rectangle.position.x + " - " + rectangle.position.y);
+//	console.log(" - " + rectangle.position.x + " " + rectangle.position.y);
+
+
+		//old
 		ctx.save();
 		ctx.textAlign = 'center';
-		text_x = canvas.width/2 + drawAtX - this.localX();
 		if (alive){
 			ctx.fillStyle="#000000";
 			ctx.fillRect(text_x-20,drawAtY-50,100/2.2,6);
