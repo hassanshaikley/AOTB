@@ -28,6 +28,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	this.setTeam = function(_team){
 		team = _team;
 	};
+
 	this.getTeam = function(){
 		return team;
 	};
@@ -214,17 +215,19 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	health.endFill()	//console.log("MAN STAGE "+MAIN.stage);
 	MAIN.stage.addChild(health);
 
+
 	var text_x;
 	this.drawText = function(){
-	text_x = Math.abs(768/2) + drawAtX - drawAtX;
+		text_x = Math.abs(768/2) - localPlayer.localX() + drawAtX;
+		this.text_x = text_x;
 
-	health_shadow.position.x = text_x-25;
-	health_shadow.position.y = drawAtY-100;
+		health_shadow.position.x = text_x-25;
+		health_shadow.position.y = drawAtY-100;
 
-	health.position.x = text_x-25;
-	health.position.y = drawAtY-100;
+		health.position.x = text_x-25;
+		health.position.y = drawAtY-100;
 
-	health.scale.x = Math.abs(hp/100);
+		health.scale.x = Math.abs(hp/100);
 
 		//old
 		ctx.save();
