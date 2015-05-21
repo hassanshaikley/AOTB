@@ -12,8 +12,8 @@ var Grimes = function(name, x, y, hp){
   var animation;
 
 
-  var grimes_l =new PIXI.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);
-  var grimes_r =new PIXI.MovieClip([PIXI.Texture.fromFrame("grimes_r.png")]);
+  var grimes_l =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);
+  var grimes_r =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_r.png")]);
 
  // grimes_l.scale.x = grimes_r.scale.x = grimes_l.scale.y = grimes_r.scale.y= 1.3;
 
@@ -40,12 +40,11 @@ MAIN.stage.addChild(grimes_l);
   	grimes_r.position.x = drawAtX;
 
   	if (this.getMoveDirection() === "left"){
-  		MAIN.stage.removeChild(grimes_r);
-  		 MAIN.stage.removeChild(grimes_l);
+       Game.toDelete.push(grimes_r);
+
   		MAIN.stage.addChild(grimes_l);
   		console.log("le");
   	} else if (this.getMoveDirection() === "right" ){
-  		MAIN.stage.removeChild(grimes_r);
   		 MAIN.stage.removeChild(grimes_l);
   		 MAIN.stage.addChild(grimes_r);
   	}

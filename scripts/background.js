@@ -4,7 +4,7 @@ function Background() {
   	// length
   	//right bound = 4000 + 768/2
 
-  PIXI.TilingSprite.call(this, texture, 4000 + Math.abs(768/2), 100); //repeats for 400 x
+  PIXI.extras.TilingSprite.call(this, texture, 4000 + Math.abs(768/2), 100); //repeats for 400 x
   this.position.x = 1000-Math.abs(768/2); 
   this.position.y = 370;
   this.tilePosition.x = 50;
@@ -29,7 +29,7 @@ function Background() {
 
 Background.constructor = Background;
 
-Background.prototype = Object.create(PIXI.TilingSprite.prototype);
+Background.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 
 Background.prototype.updateX = function() {
 //  var distanceTravelled = newViewportX - this.viewportX;

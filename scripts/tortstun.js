@@ -23,7 +23,7 @@ var TortStun = function(_x,_y, _team ){
     return y;
   };
 
-  var tortStunClip =new PIXI.MovieClip([PIXI.Texture.fromFrame("tort_stun.png")]);
+  var tortStunClip =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("tort_stun.png")]);
   MAIN.stage.addChild(tortStunClip);
 
   this.draw = function(ctx){
