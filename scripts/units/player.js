@@ -201,21 +201,32 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		lastsaid.text = words;
 	};
 	
-	var rectangle = new PIXI.Graphics();
-	rectangle.beginFill(0x000000);
-	rectangle.drawRect(0, drawAtY-50, 100/2.2, 6);
-	rectangle.endFill()	//console.log("MAN STAGE "+MAIN.stage);
+	var health_shadow = new PIXI.Graphics();
+	health_shadow.beginFill(0x000000);
+	health_shadow.drawRect(0, drawAtY-50, 100/2.2, 6);
+	health_shadow.endFill()	//console.log("MAN STAGE "+MAIN.stage);
+	MAIN.stage.addChild(health_shadow);
+
+	var health = new PIXI.Graphics();
 	
-	MAIN.stage.addChild(rectangle);
+	health.beginFill(0x00FF00);
+	health.drawRect(0, drawAtY-50, 100/2.2, 6);
+	health.endFill()	//console.log("MAN STAGE "+MAIN.stage);
+	MAIN.stage.addChild(health);
 
 	var text_x;
 	this.drawText = function(){
 	text_x = Math.abs(768/2) + drawAtX - drawAtX;
 
-	rectangle.position.x = text_x-25;
-	rectangle.position.y = drawAtY-100;
+	health_shadow.position.x = text_x-25;
+	health_shadow.position.y = drawAtY-100;
 
-	console.log(" - " + rectangle.position.x + " - " + rectangle.position.y);
+	health.position.x = text_x-25;
+	health.position.y = drawAtY-100;
+
+	health.scale.x = Math.abs(hp/100);
+
+	console.log(" - " + health.position.x + " - " + health.position.y);
 //	console.log(" - " + rectangle.position.x + " " + rectangle.position.y);
 
 
