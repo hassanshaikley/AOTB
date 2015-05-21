@@ -2,7 +2,7 @@ function Main() {
   this.stage = new PIXI.Stage(0xAC58FA);
   this.renderer = new PIXI.autoDetectRenderer(
     768,
-    480
+    520
   );
    document.body.appendChild(this.renderer.view);
 

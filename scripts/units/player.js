@@ -226,10 +226,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 	health.scale.x = Math.abs(hp/100);
 
-	console.log(" - " + health.position.x + " - " + health.position.y);
-//	console.log(" - " + rectangle.position.x + " " + rectangle.position.y);
-
-
 		//old
 		ctx.save();
 		ctx.textAlign = 'center';

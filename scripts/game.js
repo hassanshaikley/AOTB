@@ -89,7 +89,6 @@ function init() {
   animate();
   loadChat();
 
-  
 
 }
 
