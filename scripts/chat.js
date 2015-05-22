@@ -10,7 +10,7 @@ var loadChat = function(){
   Chat.displayObject = new PIXI.Container(); //add static member variable to chat. 
   MAIN.stage.addChild(Chat.displayObject);
 
-$(document).keypress(function(e) {
+  $(document).keypress(function(e) {
   if(e.which == 13) {
     if ($("#text").is(":focus")){
       //send message
@@ -49,18 +49,19 @@ chat_scroll.scrollTop = chat_scroll.scrollHeight;
 socket.on('message', function (data) {
   var speaker = playerById(data.id);
   console.log(speaker);
-  /* appends it above the player
+
   if (speaker == false){
   
-  $('#chat').append("<strong>" + localPlayer.getName() +":</strong> " + data.text + '<br />');
+    $('#chat').append("<strong>" + localPlayer.getName() +":</strong> " + data.text + '<br />');
     localPlayer.speaks(data.text);
   } else {
-  $('#chat').append("<strong>" + speaker.getName() +"</strong> " + data.text + '<br />');
+    $('#chat').append("<strong>" + speaker.getName() +"</strong> " + data.text + '<br />');
     speaker.speaks(data.text);
-  }*/
+  }
   var name;
   chat_scroll.scrollTop = chat_scroll.scrollHeight;
-  if (speaker ){
+ 
+ /* if (speaker ){
     name = speaker.getName();
     speaker.speaks();
   } else {
@@ -71,9 +72,9 @@ socket.on('message', function (data) {
   message = new PIXI.Text(
    (name + " : "+data.text),
   {font: "10", fill: "white"}
+  */
 
 
-);
 
 message.x = 768-150;
 message.y =  300;
