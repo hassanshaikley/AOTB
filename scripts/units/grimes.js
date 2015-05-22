@@ -9,6 +9,16 @@ var Grimes = function(name, x, y, hp){
 		console.log("-->"+t_x);
 		socket.emit("spell one", { x: t_x });
   };
+
+
+  function setUpActionbar(){
+      var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("tortstunthumb.png"));
+      MAIN.BOTACTIONBAR.addChild(tort_stun);
+
+  }
+  setUpActionbar();
+
+
   var animation;
 
 

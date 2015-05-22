@@ -138,6 +138,7 @@ var setEventHandlers = function() {
   socket.on("spell one", onSpellOne);
 };
 function onSpellOne(data){
+  console.log("SPELL ONE THO OK");
   if (data.spell = "tort_stun"){ //should be a variable shared between server and client
 	 var m = new TortStun(data.x, data.y, data.caster);
 	 Spells.spellsarray.push(m);

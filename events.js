@@ -217,7 +217,7 @@ var Events = function(){
 		    var v = new TortStun(data.x, data.y, team);	
             Spells.spellsarray.push(v);
             this.emit('spell one', {x: data.x, spell: "tort stun" });
-            this.broadcast.emit('tort stun', {x: data.x});
+            this.broadcast.emit('spell one', {x: data.x, spell: "tort stun" });
         }
 		};
 

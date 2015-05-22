@@ -20,9 +20,10 @@ function Background() {
    structure2.y = -175;
 
    structure2.scale.x = structure.scale.x = structure2.scale.y = structure.scale.y = 1.3;
+ 
+    this.addChild(structure);
+    this.addChild(structure2);
 
-  this.addChild(structure);
-  this.addChild(structure2);
 
 };
 
