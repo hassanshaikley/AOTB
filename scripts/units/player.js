@@ -236,8 +236,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		health_shadow.position.x = text_x-25;
 		health_shadow.position.y = drawAtY-100;
 
-		this.health = health;
-
 		health.position.x = text_x-25;
 		health.position.y = drawAtY-100;
 
