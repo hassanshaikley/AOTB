@@ -8,14 +8,17 @@ var TortStun = function(_x,_y, _team ){
  	var timer = 0; 
 	this.update = function(){
 		timer = timer+1;
+    console.log("UPDATING OK");
     if (y >= 360){
 			y = y-2;
     } else if (timer >= 200 ){
+      MAIN.stage.removeChild(tortStunClip)
 			var index = Spells.spellsarray.indexOf(this);
 			Spells.spellsarray.splice(index, 1);
+      
       console.log("SGWEEE " + ints);
+
       ints = ints + 1;
-      MAIN.stage.removeChild(tortStunClip)
 		}
   };
 

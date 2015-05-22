@@ -22,27 +22,25 @@ Server.prototype.updateGameVariables = function(){
 	/* Every x seconds, spawn AI's*/
 	/* Manage AI behavior */
 	/* if there is a winner */
-	util.log(game1.getWinner() + " - " + game1.getState());
 	if (game1.getWinner() !== -1 && game1.getState() === 1){
-		util.log("SOMEONE WINS OMG");
 		/* Tell everyone about it and restart the game */
 		//do this once
+		
 		server.libs.io.sockets.emit('win', {winner : game1.getWinner()});
+
 		game1.setState(0);
 		setTimeout(function(){
 				//a few seconds have elapsed, now reset everyones position
-				for(var _i = 0; _i < players.length; _i++){
+			for(var _i = 0; _i < players.length; _i++){
 				players[_i].setHp(100);
 				players[_i].setX(players[_i].getRespawnX());
-				util.log("respawning player " +_i +" at " + players[_i].getRespawnX());
 				//emit to that player to go to respawn
-				}
+			}
 				game1.setWinner(-1);
 				game1.setShrineHp(3000, 0);
 				game1.setShrineHp(3000, 1);
 				game1.setState(1);
-				}, 5000);
-		/* Now wait like 5 seconds and reset the game*/
+		}, 5000); /* Now wait like 5 seconds and reset the game*/
 
 	}
 
@@ -52,11 +50,9 @@ Server.prototype.updateGameVariables = function(){
 			continue;
 		}
 		
-		// util.log("team: " +players[_i].getTeam());
 		if (players[_i].getCharacterType() === "Fly"){
 			if (players[_i].getDescendAttack()){
 				if(players[_i].getY() >= 474){
-					util.log ("CHANGES TO FLASE");
 					players[_i].setDescendAttack(false);
 					server.libs.io.sockets.emit('descend attack changes', { id: players[_i].id, descendAttack: false });
 				} else {
@@ -81,7 +77,7 @@ Server.prototype.updateGameVariables = function(){
 			players[_i].moveUp();
 		}
 		if (players[_i].down){
-			players[_i].moveDown();//setY(players[_i].getY()+5);
+			players[_i].moveDown();
 		}
 	}
 

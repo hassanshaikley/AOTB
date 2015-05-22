@@ -107,7 +107,6 @@ var setEventHandlers = function() {
   window.addEventListener('blur', function() {
   },false);
   window.addEventListener('focus', function() {
-    Spells.spellsarray = []; //remove all rockets, or else its cray cray
 //    keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
   },false);
   // Window resize

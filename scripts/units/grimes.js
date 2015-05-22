@@ -54,14 +54,12 @@ var Grimes = function(name, x, y, hp){
 //       Game.toDelete.push(grimes_r);
     skeleton.imageContainer.removeChild(grimes_r);
     skeleton.imageContainer.removeChild(grimes_l);
-      console.log("ADDING l");
 
     skeleton.imageContainer.addChild(grimes_l);
   	
     } else if (this.getMoveDirection() === "right" ){
   skeleton.imageContainer.removeChild(grimes_r);
   skeleton.imageContainer.removeChild(grimes_l);
-  console.log("ADDING r");
   skeleton.imageContainer.addChild(grimes_r);
 
   	}
