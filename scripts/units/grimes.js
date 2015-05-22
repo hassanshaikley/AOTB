@@ -7,7 +7,7 @@ var Grimes = function(name, x, y, hp){
   skeleton.rightClick = function(clientX, clientY){
 		var t_x = clientX ;
 		console.log("-->"+t_x);
-		socket.emit("tort stun", { x: t_x });
+		socket.emit("spell one", { x: t_x });
   };
   var animation;
 

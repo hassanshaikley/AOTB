@@ -19,6 +19,8 @@ var TortStun = function(_x,_y, _team ){
 		}
   };
 
+
+
   this.getX = function(){
     return x;
   };

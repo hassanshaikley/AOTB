@@ -19,6 +19,11 @@ var TortStun = function(_x, _y, _team) {
 		player.stun(1000);
 	};
 
+	  /* Returns the cooldown for this spell*/
+  	spell.getCooldown = function(){
+   	 	return 1000;
+  	};
+
 	spell.update = function(){
 		age++;
 		var index = Spells.spellsarray.indexOf(this);

@@ -135,11 +135,13 @@ var setEventHandlers = function() {
   socket.on("init me", onInitMe);
   socket.on("win", onWin);
   socket.on("update player", onUpdatePlayer);
-  socket.on("tort stun", onTortStun);
+  socket.on("spell one", onSpellOne);
 };
-function onTortStun(data){
-	var m = new TortStun(data.x, data.y, data.caster);
-	Spells.spellsarray.push(m);
+function onSpellOne(data){
+  if (data.spell = "tort_stun"){ //should be a variable shared between server and client
+	 var m = new TortStun(data.x, data.y, data.caster);
+	 Spells.spellsarray.push(m);
+  }
 }
 
 /* Updates location of all connected players*/

@@ -29,7 +29,7 @@ var Events = function(){
         // Listen for new player message
         client.on("new player", onNewPlayer);
         client.on("meteor cast", onMeteorCast);
-		client.on("tort stun", onTortStun);
+		client.on("spell one", onSpellOne);
         client.on("healing spike cast", onHealingSpikeCast);
         client.on("respawn player", onRespawn);
         client.on("descend attack change", onDescendAttackChange);
@@ -205,13 +205,16 @@ var Events = function(){
         players.push(newPlayer);
 
     };
-		function onTortStun(data){
+	function onSpellOne(data){
 			//crete new stun obj
-		var team = playerById(this.id).getTeam();
-		var v = new TortStun(data.x, data.y, team);	
-        Spells.spellsarray.push(v);
-        this.emit('tort stun', {x: data.x });
-        this.broadcast.emit('tort stun', {x: data.x});
+		var player = playerById(this.id);
+        var team = player.getTeam();
+        if (player.getCharacterType() === "Grimes") {
+		      var v = new TortStun(data.x, data.y, team);	
+            Spells.spellsarray.push(v);
+            this.emit('spell one', {x: data.x, spell: "tort stun" });
+            this.broadcast.emit('tort stun', {x: data.x});
+        }
 		};
 
     /* Sends message to all players except one that casted */
