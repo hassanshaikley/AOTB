@@ -8,7 +8,6 @@ var TortStun = function(_x,_y, _team ){
  	var timer = 0; 
 	this.update = function(){
 		timer = timer+1;
-    console.log("UPDATING OK");
     if (y >= 360){
 			y = y-2;
     } else if (timer >= 200 ){

@@ -21,7 +21,51 @@ var Redhatter = function(name, x, y, hp){
     return "Redhatter";
   };
 
+
+    var redhatter_l =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("l_redhatter1.png"),PIXI.Texture.fromFrame("l_redhatter2.png"),PIXI.Texture.fromFrame("l_redhatter3.png"),PIXI.Texture.fromFrame("l_redhatter4.png")]);
+    var redhatter_r =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("r_redhatter1.png"),PIXI.Texture.fromFrame("r_redhatter2.png"),PIXI.Texture.fromFrame("r_redhatter3.png"),PIXI.Texture.fromFrame("r_redhatter4.png")]);
+
+
+    redhatter_l.gotoAndPlay(0);
+    redhatter_r.gotoAndPlay(0);
+    redhatter_l.animationSpeed = .15;
+    redhatter_r.animationSpeed = .15;
+    skeleton.redhatter_l = redhatter_l;
+
+  skeleton.imageContainer.addChild(redhatter_l);
+
   skeleton.draw = function(ctx) {
+
+    var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+
+    redhatter_l.position.y = 380;
+    redhatter_r.position.y = 380;
+
+    redhatter_l.position.x = drawAtX;
+    redhatter_r.position.x = drawAtX;
+
+
+    if (this.getMoveDirection() === "left"){
+
+      skeleton.imageContainer.removeChild(redhatter_r);
+      skeleton.imageContainer.removeChild(redhatter_l);
+    redhatter_l.animationSpeed = .2;
+    redhatter_r.animationSpeed = .2;
+      skeleton.imageContainer.addChild(redhatter_l);
+    
+    } else if (this.getMoveDirection() === "right" ){
+      skeleton.imageContainer.removeChild(redhatter_r);
+      skeleton.imageContainer.removeChild(redhatter_l);
+    redhatter_l.animationSpeed = .2;
+    redhatter_r.animationSpeed = .2;
+      skeleton.imageContainer.addChild(redhatter_r);
+
+    } else {
+        redhatter_l.animationSpeed = .0;
+        redhatter_r.animationSpeed = .0;
+    }
+
+    //old
     this.drawText();
     ctx.save();
     if (skeleton.getTeam()===0){

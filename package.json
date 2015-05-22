@@ -1,6 +1,6 @@
 {
   "name": "_dubs",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "description": "GAME",
   "main": "views/index.ejs",
   "scripts": {
@@ -15,7 +15,8 @@
   "keywords": [
     "GAME",
     "AMARA",
-    "AMARANTHIST"
+    "AMARANTHIST",
+    "BROWSER GAME"
   ],
   "author": "Hassan Shaikley",
   "license": "ISC",
