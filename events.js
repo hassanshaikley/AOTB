@@ -209,8 +209,12 @@ var Events = function(){
 			//crete new stun obj
 		var player = playerById(this.id);
         var team = player.getTeam();
-        if (player.getCharacterType() === "Grimes") {
-		      var v = new TortStun(data.x, data.y, team);	
+
+        console.log((  player.spellOneCastTime +" "+ TortStun.getCooldown() ));
+        if (player.getCharacterType() === "Grimes" && player.spellOneCastTime + TortStun.getCooldown()  <=  Date.now() ) {
+            player.spellOneCastTime = Date.now();
+
+		    var v = new TortStun(data.x, data.y, team);	
             Spells.spellsarray.push(v);
             this.emit('spell one', {x: data.x, spell: "tort stun" });
             this.broadcast.emit('tort stun', {x: data.x});

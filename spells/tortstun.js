@@ -16,13 +16,10 @@ var TortStun = function(_x, _y, _team) {
 	};
 
 	spell.doEffect = function(player){
-		player.stun(1000);
+		player.stun(500);
 	};
 
 	  /* Returns the cooldown for this spell*/
-  	spell.getCooldown = function(){
-   	 	return 1000;
-  	};
 
 	spell.update = function(){
 		age++;
@@ -34,5 +31,9 @@ var TortStun = function(_x, _y, _team) {
 	};
 	return spell; 
 };
+TortStun.getCooldown = function(){
+   	 	return 1000;
+  	};
+
 
 exports.TortStun = TortStun;

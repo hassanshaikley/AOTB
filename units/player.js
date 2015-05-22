@@ -13,6 +13,7 @@ var Player = function(startHp, _name, _team) {
         respawnX,
         x = 2000, //whack I know
         team;
+    this.spellOneCastTime = 0;
 
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
