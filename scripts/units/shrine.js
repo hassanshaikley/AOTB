@@ -60,8 +60,6 @@ var Shrine = function(_team) {
 
   this.draw= function(){
 
-
-
     health.scale.x = Math.abs(this.hp/3000);
 
     this.drawAtX = canvas.width/2 + this.x - localPlayer.getDrawAtX();
