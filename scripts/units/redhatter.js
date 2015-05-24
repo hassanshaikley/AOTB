@@ -25,8 +25,8 @@ var Redhatter = function(name, x, y, hp){
   };
 
 
-    var redhatter_l =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("l_redhatter1.png"),PIXI.Texture.fromFrame("l_redhatter2.png"),PIXI.Texture.fromFrame("l_redhatter3.png"),PIXI.Texture.fromFrame("l_redhatter4.png")]);
-    var redhatter_r =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("r_redhatter1.png"),PIXI.Texture.fromFrame("r_redhatter2.png"),PIXI.Texture.fromFrame("r_redhatter3.png"),PIXI.Texture.fromFrame("r_redhatter4.png")]);
+    var redhatter_l =new PIXI.extras.MovieClip([PIXI.Texture.fromImage("l_redhatter1.png"),PIXI.Texture.fromImage("l_redhatter2.png"),PIXI.Texture.fromImage("l_redhatter3.png"),PIXI.Texture.fromImage("l_redhatter4.png")]);
+    var redhatter_r =new PIXI.extras.MovieClip([PIXI.Texture.fromImage("r_redhatter1.png"),PIXI.Texture.fromImage("r_redhatter2.png"),PIXI.Texture.fromImage("r_redhatter3.png"),PIXI.Texture.fromImage("r_redhatter4.png")]);
 
 
     redhatter_l.gotoAndPlay(0);
@@ -69,6 +69,7 @@ var Redhatter = function(name, x, y, hp){
         redhatter_r.animationSpeed = .0;
     }
 
+/*
     //old
     ctx.save();
     if (skeleton.getTeam()===0){
@@ -92,8 +93,6 @@ var Redhatter = function(name, x, y, hp){
     }
    var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
     
-
-    /* Decides what sprite to draw*/
     if (this.getAnimate() <= 15){ 
       ctx.drawImage(RedhatterSprite,0,spritesheet_offset_y, 75, 100, drawAtX+20,this.getY()-70, 75, 100);
     }
@@ -106,6 +105,7 @@ var Redhatter = function(name, x, y, hp){
       ctx.drawImage(RedhatterSprite,225,spritesheet_offset_y, 75, 100, drawAtX+20,this.getY()-70, 75, 100);
     }
     ctx.restore();
+    */
   };
   
   /* Constantly called for the localPlayer, updates the actual 
