@@ -8,6 +8,9 @@ var canvas,     // Canvas DOM element
 
 bloods = [];
 
+
+
+
 function Game(){};
 
 var floorHeight = 474;
@@ -15,26 +18,19 @@ var floorHeight = 474;
 
 function init() {
 
-  console.log("MAIN MADe");
   background = new Background();
-  console.log("Madea background");
   
 
   MAIN.stage.addChild(background)
 
-
+  canvas1 = document.getElementsByTagName("canvas")[0];
+  ctx =  canvas1.getContext("2d");
+  console.log("CTX OK" + ctx + " - " +canvas1);
 
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
-  //canvas = document.getElementsByTagName("canvas")[0];
-  
-  //ctx = canvas.getContext("2d");
 
-
-  canvas1 = document.getElementsByTagName("canvas")[0];
-
-  ctx =  canvas1.getContext("2d");
   //disable right click default behavior
   canvas1.oncontextmenu = function(e){ return false; };
   var clientRect;
@@ -42,11 +38,10 @@ function init() {
   canvas1.onmousedown = function(e){
     switch (e.which) {
       case 1: 
+        ctx =  canvas1.getContext("2d");
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -canvas1.width/2; 
-
+        adjustedX = localPlayer.getDrawAtX() -CONFIG.CANVAS_WIDTH/2; 
         adjustedX += (e.clientX - clientRect.left); 
-
         adjustedY += e.clientY - clientRect.topy;
         localPlayer.leftClick(adjustedX, adjustedY);  
         break;
@@ -54,10 +49,11 @@ function init() {
         console.log('middle click'); 
         break;
       case 3: 
+        ctx =  canvas1.getContext("2d");
+        console.log("CTX IS " + ctx);
         clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -canvas1.width/2; 
-        adjustedX += (e.clientX - clientRect.left); //should work without the 100...but 100 makes it work :l
-
+        adjustedX = localPlayer.getDrawAtX() -CONFIG.CANVAS_WIDTH/2; 
+        adjustedX += (e.clientX - clientRect.left);
         adjustedY += e.clientY - clientRect.topy;
         localPlayer.rightClick(adjustedX, adjustedY); 
         break; 
@@ -365,7 +361,7 @@ function draw() {
   var i;
 
   for (i = 0; i < Spells.spellsarray.length; i++){
-    Spells.spellsarray[i].draw(ctx)
+    Spells.spellsarray[i].draw();
   };
   for (i = 0; i < remotePlayers.length; i++) {
     remotePlayers[i].draw();
