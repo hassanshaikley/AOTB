@@ -37,9 +37,10 @@ var Redhatter = function(name, x, y, hp){
 
   skeleton.imageContainer.addChild(redhatter_l);
 
-  skeleton.draw = function(ctx) {
+  skeleton.draw = function() {
+    this.drawText();
 
-    var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+    var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
 
     redhatter_l.position.y = 380;
     redhatter_r.position.y = 380;
@@ -69,7 +70,6 @@ var Redhatter = function(name, x, y, hp){
     }
 
     //old
-    this.drawText();
     ctx.save();
     if (skeleton.getTeam()===0){
       ctx.shadowBlur=20;

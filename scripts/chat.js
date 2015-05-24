@@ -26,7 +26,7 @@ var loadChat = function(){
       $("#text").focus();
       toggle = 0;
     } else {
-      $("gameCanvas").focus();
+      $("canvas")[0].focus();
       toggle = 1;
     }        
 

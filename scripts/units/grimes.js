@@ -25,13 +25,6 @@ var Grimes = function(name, x, y, hp){
   var grimes_l =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);
   var grimes_r =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_r.png")]);
 
- // grimes_l.scale.x = grimes_r.scale.x = grimes_l.scale.y = grimes_r.scale.y= 1.3;
-
-  //grimes_r.position.y = 380;
-  //grimes_l.position.y = 380;
-
- // grimes_l.position.x = Math.abs(768/2) -50;
- // grimes_r.position.x = Math.abs(768/2) -50;
 
   skeleton.imageContainer.addChild(grimes_l);
 
@@ -42,7 +35,7 @@ var Grimes = function(name, x, y, hp){
 
   skeleton.draw = function(ctx) {
 
-  	  var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+  	  var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
 
   	grimes_r.position.y = 380;
   	grimes_l.position.y = 380;
@@ -64,32 +57,6 @@ var Grimes = function(name, x, y, hp){
 
   	}
 
-  //old
-
-		//var drawAtX = skeleton.getX()-50;
-		this.drawText();
-		ctx.save();
-		if (skeleton.getTeam()===0){
-			ctx.shadowBlur=20;
-			ctx.shadowColor="blue";
-		}
-		else {
-			ctx.shadowBlur=20;
-			ctx.shadowColor="green";
-		}
-		if (this.getMoveDirection() === "left"){
-			facing_left = true;
-		} else if (this.getMoveDirection() === "right"){
-			facing_left = false;
-		}
-		if (facing_left){
-			spritesheet_offset_y = 0;
-		}
-		else {
-			spritesheet_offset_y = 100;
-		}
-		ctx.drawImage(grimesSprite, 0, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-45,100,100);
-		ctx.restore();
   };
   var now = Date.now();
   skeleton.leftClick = function(x, y){

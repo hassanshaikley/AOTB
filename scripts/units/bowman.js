@@ -5,7 +5,7 @@ var Bowman = function(name, x, y, hp){
   var spritesheet_offset_y = 0;
 
   skeleton.rightClick = function(clientX, clientY){
-      Spells.arrow(clientX, clientY);
+    //Spells.arrow(clientX, clientY);
   };
 
   /* Maybe make this heal?? */ 
@@ -17,8 +17,11 @@ var Bowman = function(name, x, y, hp){
     return "Bowman";
   };
 
-  skeleton.draw = function(ctx) {
+  skeleton.draw = function() {
+        this.drawText();
+
     //var drawAtX = skeleton.getX()-50;
+    /*
     this.drawText();
       var canvas_offset_y = 0;
     if (this.getMoveDirection() === "left"){
@@ -35,7 +38,6 @@ var Bowman = function(name, x, y, hp){
     var drawAtX = canvas.width/2 + this.getDrawAtX()-localX - 50;
  
     var spritesheet_offset_x = Math.floor(this.getAnimate() /15) * 100;
-    /* Decides what sprite to draw*/
     if (this.getAnimate() <= 15){ 
      ctx.drawImage(bowman, spritesheet_offset_x, spritesheet_offset_y, 100,100, drawAtX, this.getDrawAtY()-70,100,100); 
    }
@@ -47,6 +49,8 @@ var Bowman = function(name, x, y, hp){
     } else{
      ctx.drawImage(bowman, spritesheet_offset_x, spritesheet_offset_y, 100,100, drawAtX, this.getDrawAtY()-70,100,100);
     }
+    */
+
   };
   
   /* Constantly called for the localPlayer, updates the actual 
@@ -54,7 +58,7 @@ var Bowman = function(name, x, y, hp){
    */
   skeleton.update = function(keys) {
     localX = this.getX();
-    if (keys.left) {
+   /* if (keys.left) {
       this.setX(this.getX()-moveSpeed);
       localX -= moveSpeed;
     }
@@ -63,7 +67,7 @@ var Bowman = function(name, x, y, hp){
       localX += moveSpeed;
     }
     if (keys.up) { }
-    if (keys.down) { }
+    if (keys.down) { }*/
   };
   return skeleton;
 };

@@ -11,17 +11,13 @@ var Shanker = function(name, x, y, hp){
     return "Shanker";
   };
 
-  skeleton.draw = function(ctx) {
+  skeleton.draw = function() {
     //var drawAtX = skeleton.getX()-50;
     skeleton.drawText();
-    ctx.save();
-    if (skeleton.getTeam()==0){
-     ctx.shadowBlur=20;
-     ctx.shadowColor="blue";
-    } else {
-     ctx.shadowBlur=20;
-     ctx.shadowColor="green";
-    }
+
+
+
+/*
    if (skeleton.getMoveDirection() === "left"){
      facing_left = true;
    } else {
@@ -56,6 +52,7 @@ var Shanker = function(name, x, y, hp){
      }
    }
    ctx.restore();
+   */
   };
   var now = Date.now();
  

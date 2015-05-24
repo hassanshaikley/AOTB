@@ -130,7 +130,7 @@ var Meteor = function(meteorX, mCaster){
 
 
   var draw = function(ctx){
-    var fireballX = x  -localPlayer.getX()+canvas.width/2-50;
+    var fireballX = x  -localPlayer.getX()+CONFIG.SCREEN_WIDTH/2-50;
     /* Check if a spell hits - going to need to be refactored*/
 
     meteorClip.x = fireballX;

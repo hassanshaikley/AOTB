@@ -10,7 +10,7 @@ var Blood = function(startX, startY) {
  
   var draw = function(){
     animate++;
-    var   drawAtX = canvas.width/2 + x - localPlayer.getDrawAtX() ;
+    var   drawAtX = CONFIG.SCREEN_WIDTH/2 + x - localPlayer.getDrawAtX() ;
     console.log("DRAWLE BLOOD -- " +drawAtX) ;
     if (animate  < 10 ){
       ctx.drawImage(blood,0,0, 100, 100,  drawAtX, y, 100, 100);

@@ -26,8 +26,8 @@ var TortStun = function(_x,_y, _team ){
   var tortStunClip =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("tort_stun.png")]);
   MAIN.stage.addChild(tortStunClip);
 
-  this.draw = function(ctx){
-    var newX = x  -localPlayer.getDrawAtX()- 50+canvas.width/2;
+  this.draw = function(){
+    var newX = x  -localPlayer.getDrawAtX()- 50+CONFIG.SCREEN_WIDTH/2;
     tortStunClip.position.x = newX;
     tortStunClip.position.y = y;
 

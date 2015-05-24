@@ -13,13 +13,28 @@ var Fly = function(name, x, y, hp){
       socket.emit("descend attack change", { descendAttack: boolean_thing });
     }
   };
+  
+
   skeleton.getDescendAttack = function(){
     return descendAttack;
   };
+    var flySprite =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("flysheet1.png"),PIXI.Texture.fromFrame("flysheet2.png"),PIXI.Texture.fromFrame("flysheet3.png")]);
+
+  skeleton.imageContainer.addChild(flySprite);
+    flySprite.gotoAndPlay(0);
+    flySprite.animationSpeed = .15;
+
   var flyAnimate= 0;
-  skeleton.draw = function(ctx) {
+  skeleton.draw = function() {
+        this.drawText();
+
+   var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+   flySprite.x = drawAtX;
+   flySprite.y = this.getDrawAtY()-75; // hacky I know wtf I know wtff
+
+
+/*
     this.drawText();
-   var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
     ctx.save();
     if (skeleton.getTeam()==0){
       ctx.shadowBlur=20;
@@ -29,16 +44,7 @@ var Fly = function(name, x, y, hp){
       ctx.shadowBlur=20;
       ctx.shadowColor="green";
     }
-    flyAnimate++;
-    if (flyAnimate % 15 <= 5){
-      ctx.drawImage(flySprite,0,0, 100, 100, drawAtX,this.getDrawAtY()-50, 100, 100);
-    }
-    else if (flyAnimate % 15 <= 10){
-      ctx.drawImage(flySprite,100,0, 100, 100, drawAtX,this.getDrawAtY()-50, 100, 100);
-    }
-    else if (flyAnimate % 15 <= 15){
-      ctx.drawImage(flySprite,200,0, 100, 100, drawAtX, this.getDrawAtY()-50, 100, 100);
-    }
+
 
     ctx.drawImage(silverShield, drawAtX+ 20, this.getDrawAtY()-3);
 
@@ -57,7 +63,7 @@ var Fly = function(name, x, y, hp){
     } else {
       ctx.drawImage(silverSword, drawAtX+ 60, this.getDrawAtY()-40);
     }
-    ctx.restore();
+    ctx.restore(); */
 
   };
 

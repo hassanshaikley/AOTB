@@ -4,7 +4,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	if (startY == undefined) startY = -1000;
 
 
-	console.log("START X " + startX);
 	var x =               startX,
 			y =               startY,
 			name =            _name,
@@ -153,7 +152,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	
 
 		if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
-			console.log("OKEE");
 			drawAtX = x;
 			drawAtY = y;
 		}
@@ -177,11 +175,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		if (ySpeed==0){ //fixes stupd bug where health is a little higher
 			drawAtY = y;
 		}
-//		console.log("DRAW AT Y " + drawAtY);
 
 		if (y - drawAtY > (ySpeed *2)){
 			drawAtY+= ySpeed;
-		} else if ( y-drawAtY < (-ySpeed*2)) {
+		} else if ( y-drawAtY < - (ySpeed*2)) {
 			drawAtY-= ySpeed;
 		} else {
 			drawAtY = y;
@@ -230,8 +227,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 	var text_x;
 	this.drawText = function(){
+
 		text_x = Math.abs(768/2) - localPlayer.localX() + drawAtX;
-	//	console.log(" x - . "+text_x);
+	//	\le.log(" x - . "+text_x);
 	//	console.log("Draw at y " + drawAtY);
 		health_shadow.position.x = text_x-25;
 		health_shadow.position.y = drawAtY-100;
@@ -241,7 +239,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 		health.scale.x = Math.abs(hp/100);
 
-		//old
+		//ol
+		/*
 		ctx.save();
 		ctx.textAlign = 'center';
 		if (alive){
@@ -262,6 +261,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 			ctx.fillText(lastsaid.text, text_x, drawAtY-80); 
 		}
 		ctx.restore();
+	*/
 	};
 	this.leftClick = function(){
 		if(_alert){

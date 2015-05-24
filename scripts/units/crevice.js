@@ -10,15 +10,20 @@ var Crevice = function(name, x, y, hp){
   /* CASTS A sPIKE :D */
   skeleton.rightClick = function(clientX, clientY){
     // console.log("meteor right click - x is " + clientX + " y is "+ clientY);
-
-    Spells.healingSpike(clientX, clientY);
+    // Spells.healingSpike(clientX, clientY);
   };
 
   /* Lolswagz */
   skeleton.getCharacterType = function(){
     return "Crevice";
   };
-  skeleton.draw = function(ctx) {
+  skeleton.draw = function() {
+    this.drawText();
+
+       var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+
+    /* Decides what sprite to draw
+
     //var drawAtX = skeleton.getX()-50;
     this.drawText();
     if (this.getMoveDirection() === "left"){
@@ -26,8 +31,6 @@ var Crevice = function(name, x, y, hp){
     } else if (this.getMoveDirection() === "right"){
       facing_left = false;
     }
-   var drawAtX  = canvas.width/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
-    /* Decides what sprite to draw*/
     if (skeleton.getAnimate() %40 <= 10){ 
     ctx.drawImage(crevice, 0, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
     }
@@ -38,7 +41,7 @@ var Crevice = function(name, x, y, hp){
     ctx.drawImage(crevice, 0, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
     } else{
     ctx.drawImage(crevice, 200, spritesheet_offset_y, 100, 100, drawAtX,this.getY()-70,100,100);
-    }
+    }*/
   };
 
   skeleton.update = function(keys) {

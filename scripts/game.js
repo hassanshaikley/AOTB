@@ -27,11 +27,14 @@ function init() {
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
-  canvas = document.getElementsByTagName("canvas")[0];
+  //canvas = document.getElementsByTagName("canvas")[0];
   
-  ctx = canvas.getContext("2d");
-  canvas1 = document.getElementsByTagName("canvas")[1];
+  //ctx = canvas.getContext("2d");
 
+
+  canvas1 = document.getElementsByTagName("canvas")[0];
+
+  ctx =  canvas1.getContext("2d");
   //disable right click default behavior
   canvas1.oncontextmenu = function(e){ return false; };
   var clientRect;
@@ -97,7 +100,6 @@ function init() {
 
 }
 
-
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/
@@ -107,20 +109,13 @@ var setEventHandlers = function() {
   window.addEventListener('blur', function() {
   },false);
   window.addEventListener('focus', function() {
-//    keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
+    //usually when they tab in -- I think
   },false);
-  // Window resize
-  //  window.addEventListener("resize", onResize, false);
   socket.on("connect", onSocketConnected);
-  // Socket disconnection
   socket.on("disconnect", onSocketDisconnect);
-  // New player message received
   socket.on("new player", onNewPlayer);
-  // Player move message received
-  // Player removed message received
   socket.on("remove player", onRemovePlayer);
   socket.on("bleed", onBleed);
-  //socket.on("meteor cast", onMeteorCast);
   socket.on("arrow fired", onArrowFired);
   socket.on("healing spike cast", onHealingSpikeCast);
   socket.on("respawn player", onRespawnPlayer);
@@ -136,22 +131,18 @@ var setEventHandlers = function() {
   socket.on("update player", onUpdatePlayer);
   socket.on("spell one", onSpellOne);
 };
-function onSpellOne(data){
-  
-  console.log("SPELL ONE THO OK");
 
+function onSpellOne(data){
   if (data.spell === "tort stun"){ //should be a variable shared between server and client
-	 var m = new TortStun(data.x, data.y, data.caster);
-	 Spells.spellsarray.push(m);
+	  var m = new TortStun(data.x, data.y, data.caster);
+	  Spells.spellsarray.push(m);
   } else if (data.spell === "meteor"){
-      var m = new Meteor(data.x, data.caster);
-      console.log("NEW METEOR");
-      Spells.spellsarray.push(m);
+    var m = new Meteor(data.x, data.caster);
+    Spells.spellsarray.push(m);
   }
 }
 
 /* Updates location of all connected players*/
-
 function onUpdatePlayer(data){
     var player = playerById(data.id);
     if (player){
@@ -237,16 +228,12 @@ function onDescendAttackChanges(data){
         _player.setDescendAttack(data.descendAttack);
     }
 };
-function onMeteorCast(data){
 
 
-};
 function onHealingSpikeCast(data){
   var m = new HealingSpike(data._x, data.caster);
   Spells.spellsarray.push(m);
 };
-
-
 
 // Keyboard key down
 function onKeydown(e) {
@@ -370,8 +357,7 @@ function update() {
  **************************************************/
 function draw() {
   // Wipe the canvas clean
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBackground();
+   // drawBackground();
   //draw shrine here i think
   shrine_0.draw();
   shrine_1.draw();
@@ -381,12 +367,11 @@ function draw() {
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].draw(ctx)
   };
-      for (i = 0; i < remotePlayers.length; i++) {
-    /* Inefficient implementation, lazy yolo*/
-      remotePlayers[i].draw(ctx);
+  for (i = 0; i < remotePlayers.length; i++) {
+    remotePlayers[i].draw();
   };
   localPlayer.updateVariables();
-  localPlayer.draw(ctx);
+  localPlayer.draw();
   drawForeground();
 };
 
@@ -400,58 +385,13 @@ function drawForeground(){
   }
 
 }
-function drawBackground(){
-  ctx.shadowBlur=20;
-  ctx.shadowColor="black";
-  cloud_x+= 0.01;
-  var displacement = -localPlayer.getDrawAtX();
 
-  var count = "Players: " + (remotePlayers.length + 1);
-  ctx.fillText(count, 40,10);
-  var _i;
-  for (_i = 0; _i < 7; _i ++){
-    ctx.drawImage(ground ,0,0, 400, 100, displacement+3000 +400*_i,400, 400, 100);
-  } 
-  for (_i = 0; _i < 9; _i++){
-    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement+300 +_i*300, 405, 300, 100); 
-  }
-  ctx.drawImage(cloud, displacement+cloud_x-800, 80);
-  ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
-  ctx.drawImage(cloud, displacement+cloud_x-400, 150);
-  ctx.drawImage(cloud, displacement+cloud_x, 50);
-  ctx.drawImage(cloud, displacement+cloud_x+300, 20);
-  ctx.drawImage(cloud, displacement+cloud_x+1300, 120);
-  ctx.drawImage(cloud, displacement+cloud_x+900, 50);
-  ctx.drawImage(cloud, displacement+cloud_x+1600, 90);
-  ctx.drawImage(cloud, displacement+cloud_x+1900, 20);
-  ctx.drawImage(cloud, displacement+cloud_x+2000, 150);
-  ctx.drawImage(cloud, displacement+cloud_x+2500, 80);
-  ctx.drawImage(cloud, displacement+cloud_x+3000, 200);
-  ctx.drawImage(cloud, displacement+cloud_x+3500, 150);
-  ctx.drawImage(cloud, displacement+cloud_x+4000, 50);
-  ctx.drawImage(cloud, displacement+cloud_x+5000, 20);
-  //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
-//  ctx.drawImage(CastleOfOne, displacement-100,95, 1000, 398);
-  if (_anim %20 === 0){ 
-    z+=100;
-    if (z >= 400){
-      z =0;
-    }
-  }
-//  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+2300, 290, 200, 200);
-//  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+2500, 290, 200, 200);
-  _anim++;
-  ctx.shadowBlur=0;
-  ctx.shadowColor="";
- ctx.fillRect(4000-localPlayer.getDrawAtX() +canvas.width/2,0, 500,500);
- ctx.fillRect(1000-localPlayer.getDrawAtX() -canvas.width/2-200,0, 1000,500);
-};
 // Browser window resize
 
 function onResize(e) {
   // Maximise the canvas
-  canvas.width = 800;
-  canvas.height = 500;
+  //canvas.width = 800;
+  //canvas.height = 500;
 };
 // Find player by ID
 function playerById(id) {

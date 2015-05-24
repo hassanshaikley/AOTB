@@ -37,7 +37,7 @@ Background.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
 Background.prototype.updateX = function() {
 //  var distanceTravelled = newViewportX - this.viewportX;
   //  var displacement = -localPlayer.getDrawAtX() + Math.abs(768/2);
-  var displacement = canvas.width/2- localPlayer.getDrawAtX();
+  var displacement =  768/2- localPlayer.getDrawAtX();
 
   this.position.x = displacement;
 };

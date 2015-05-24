@@ -62,14 +62,14 @@ var Shrine = function(_team) {
 
     health.scale.x = Math.abs(this.hp/3000);
 
-    this.drawAtX = canvas.width/2 + this.x - localPlayer.getDrawAtX();
+    this.drawAtX = CONFIG.SCREEN_WIDTH/2 + this.x - localPlayer.getDrawAtX();
     health.x = this.drawAtX-50;
     health_shadow.x = this.drawAtX-50;
 
 
 
     //old
-    ctx.save();
+   /* ctx.save();
     //draw HP
     //draw structure, depending on team
     this.displacement = -localPlayer.getX();
@@ -94,7 +94,7 @@ var Shrine = function(_team) {
     ctx.fillStyle="#FF0000";
     ctx.fillRect(this.drawAtX + 60,this.y-50,((this.hp/50)),6);
     ctx.fillText("SPIRE", this.drawAtX,this.y);
-    ctx.restore();
+    ctx.restore();*/
   };
   this.getX = function() {
     return this.x;

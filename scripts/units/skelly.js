@@ -20,7 +20,7 @@ var Skelly = function(x, y, id){
     else {
       spritesheet_offset_y = 102;
     }
-    var   drawAtX = canvas.width/2 + skeleton.getDrawAtX() - localX - 50;
+    var   drawAtX = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - localX - 50;
     if (attacking){
       if (attacking %30 < 10){
       ctx.drawImage(skelly, 300,spritesheet_offset_y, 100, 100, drawAtX, skeleton.getDrawAtY(), 100, 100);
