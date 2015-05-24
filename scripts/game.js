@@ -39,7 +39,7 @@ function init() {
     switch (e.which) {
       case 1: 
         ctx =  canvas1.getContext("2d");
-        clientRect = ctx.canvas.getBoundingClientRect();
+        clientRect = canvas1.getBoundingClientRect();
         adjustedX = localPlayer.getDrawAtX() -CONFIG.CANVAS_WIDTH/2; 
         adjustedX += (e.clientX - clientRect.left); 
         adjustedY += e.clientY - clientRect.topy;
@@ -51,7 +51,7 @@ function init() {
       case 3: 
         ctx =  canvas1.getContext("2d");
         console.log("CTX IS " + ctx);
-        clientRect = ctx.canvas.getBoundingClientRect();
+        clientRect = canvas1.getBoundingClientRect();
         adjustedX = localPlayer.getDrawAtX() -CONFIG.CANVAS_WIDTH/2; 
         adjustedX += (e.clientX - clientRect.left);
         adjustedY += e.clientY - clientRect.topy;

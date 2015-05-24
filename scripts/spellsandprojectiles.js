@@ -136,10 +136,6 @@ var Meteor = function(meteorX, mCaster){
     meteorClip.x = fireballX;
     meteorClip.y = y;
 
-//old
-        ctx.save();
-    ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
-    ctx.restore();
   };
 
   var getDamage = function(){
