@@ -120,7 +120,7 @@ var setEventHandlers = function() {
   // Player removed message received
   socket.on("remove player", onRemovePlayer);
   socket.on("bleed", onBleed);
-  socket.on("meteor cast", onMeteorCast);
+  //socket.on("meteor cast", onMeteorCast);
   socket.on("arrow fired", onArrowFired);
   socket.on("healing spike cast", onHealingSpikeCast);
   socket.on("respawn player", onRespawnPlayer);
@@ -137,10 +137,16 @@ var setEventHandlers = function() {
   socket.on("spell one", onSpellOne);
 };
 function onSpellOne(data){
+  
   console.log("SPELL ONE THO OK");
-  if (data.spell = "tort_stun"){ //should be a variable shared between server and client
+
+  if (data.spell === "tort stun"){ //should be a variable shared between server and client
 	 var m = new TortStun(data.x, data.y, data.caster);
 	 Spells.spellsarray.push(m);
+  } else if (data.spell === "meteor"){
+      var m = new Meteor(data.x, data.caster);
+      console.log("NEW METEOR");
+      Spells.spellsarray.push(m);
   }
 }
 
@@ -232,8 +238,8 @@ function onDescendAttackChanges(data){
     }
 };
 function onMeteorCast(data){
-  var m = new Meteor(data.meteor_x, data.caster);
-  Spells.spellsarray.push(m);
+
+
 };
 function onHealingSpikeCast(data){
   var m = new HealingSpike(data._x, data.caster);

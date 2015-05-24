@@ -28,7 +28,6 @@ var Events = function(){
         });   
         // Listen for new player message
         client.on("new player", onNewPlayer);
-        client.on("meteor cast", onMeteorCast);
 		client.on("spell one", onSpellOne);
         client.on("healing spike cast", onHealingSpikeCast);
         client.on("respawn player", onRespawn);
@@ -211,27 +210,24 @@ var Events = function(){
         var team = player.getTeam();
 
         console.log((  player.spellOneCastTime +" "+ TortStun.getCooldown() ));
+
         if (player.getCharacterType() === "Grimes" && player.spellOneCastTime + TortStun.getCooldown()  <=  Date.now() ) {
             player.spellOneCastTime = Date.now();
-
 		    var v = new TortStun(data.x, data.y, team);	
             Spells.spellsarray.push(v);
             this.emit('spell one', {x: data.x, spell: "tort stun" });
             this.broadcast.emit('spell one', {x: data.x, spell: "tort stun" });
         }
+        if (player.getCharacterType() === "Redhatter"&& player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
+            player.spellOneCastTime = Date.now();
+                //var v = new TortStun(data.x, data.y, team); 
+                var v = new Meteor(data.x, data.y, team);
+                Spells.spellsarray.push(v);
+                this.emit('spell one', {x: data.x, spell: "meteor" });
+                this.broadcast.emit('spell one', {x: data.x, spell: "meteor" });
+        }
 		};
 
-    /* Sends message to all players except one that casted */
-    function onMeteorCast(data){
-        //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
-        this.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id });
-        this.broadcast.emit('meteor cast', {meteor_x: data.meteor_x, caster: this.id});
-
-        // spell is maintained on the server :D
-        var team =playerById(this.id).getTeam();
-        var v = new Meteor(data.meteor_x, this.id, team);
-        Spells.spellsarray.push(v);
-    };
     function onHealingSpikeCast(data){
         //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
         this.emit('healing spike cast', {_x: data._x, caster: this.id });

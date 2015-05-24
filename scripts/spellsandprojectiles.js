@@ -7,11 +7,11 @@ var Spells = {
   spellsarray: [],
 
   meteor: function(clientX, clientY) {
-    if (!localPlayer.meteor  || Date.now()-localPlayer.meteor > m_cd){
+    /*if (!localPlayer.meteor  || Date.now()-localPlayer.meteor > m_cd){
 			var m = new Meteor(clientX);
 			socket.emit("meteor cast", { meteor_x : m.getX()});
 			localPlayer.meteor = Date.now();
-    }
+    } */
   },
   healingSpike: function(clientX, clientY) {
     if (!localPlayer.healingcross || Date.now()-localPlayer.healingcross > h_cd){
@@ -113,6 +113,7 @@ var Meteor = function(meteorX, mCaster){
     var index = Spells.spellsarray.indexOf(this);
     if (y >= 500){
       Spells.spellsarray.splice(index, 1);
+      MAIN.stage.removeChild(meteorClip);
     };
   };
 
@@ -124,10 +125,19 @@ var Meteor = function(meteorX, mCaster){
     return y;
   };
 
+  var meteorClip =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("fireball.png")]);
+  MAIN.stage.addChild(meteorClip);
+
+
   var draw = function(ctx){
-    /* Check if a spell hits - going to need to be refactored*/
-    ctx.save();
     var fireballX = x  -localPlayer.getX()+canvas.width/2-50;
+    /* Check if a spell hits - going to need to be refactored*/
+
+    meteorClip.x = fireballX;
+    meteorClip.y = y;
+
+//old
+        ctx.save();
     ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
     ctx.restore();
   };

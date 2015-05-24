@@ -1,8 +1,5 @@
 function Background() {
   var texture = PIXI.Texture.fromImage("cobblestone_ground.png");
-  	//left bound = 1000 - 768 /2
-  	// length
-  	//right bound = 4000 + 768/2
 
   PIXI.extras.TilingSprite.call(this, texture, 4000 + Math.abs(768/2), 100); //repeats for 400 x
   this.position.x = 1000-Math.abs(768/2); 
@@ -23,6 +20,11 @@ function Background() {
  
     this.addChild(structure);
     this.addChild(structure2);
+
+  /* var castle = new PIXI.Sprite(PIXI.Texture.fromImage("castleofone2.png"));
+  castle.x = 0;
+  castle.y= 0;
+    this.addChild(castle);*/
 
 
 };

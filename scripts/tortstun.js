@@ -1,5 +1,3 @@
-  ints = 0;
-
 var TortStun = function(_x,_y, _team ){
   this.team = _team;
 	var cooldown = 1000;
@@ -14,14 +12,8 @@ var TortStun = function(_x,_y, _team ){
       MAIN.stage.removeChild(tortStunClip)
 			var index = Spells.spellsarray.indexOf(this);
 			Spells.spellsarray.splice(index, 1);
-      
-      console.log("SGWEEE " + ints);
-
-      ints = ints + 1;
 		}
   };
-
-
 
   this.getX = function(){
     return x;

@@ -8,8 +8,11 @@ var Redhatter = function(name, x, y, hp){
   var spritesheet_offset_y = 0;
 
   /* CASTS A METEOR :D */
+
   skeleton.rightClick = function(clientX, clientY){
-    Spells.meteor(clientX, clientY);
+    var t_x = clientX ;
+    console.log("-->"+t_x);
+    socket.emit("spell one", { x: t_x });
   };
 
   /* Maybe make this heal?? */ 
