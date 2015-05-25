@@ -42,11 +42,6 @@ function init() {
         clientRect = canvas1.getBoundingClientRect();
         adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2; 
         adjustedX += (e.clientX - clientRect.left); 
-        console.log(" 1 -- > " + e.clientX);
-        console.log(" 2 -- > " + clientRect.left);
-        console.log(" 3-- > " + localPlayer.getDrawAtX());
-        console.log(" 4-- > " + CONFIG.SCREEN_WIDTH/2);
-
         adjustedY += e.clientY - clientRect.topy;
         localPlayer.leftClick(adjustedX, adjustedY);  
         break;

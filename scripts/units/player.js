@@ -263,14 +263,15 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		ctx.restore();
 	*/
 	};
+	  var now = Date.now();
+
 	this.leftClick = function(){
-		if(_alert){
-			if (_alert.type == "arena"){
-				enterQueue();
-				socket.emit("ready for arena");
-			}
-			_alert = undefined;
-		}
+ 
+    	if (Date.now()  - now >= 1000 ){
+    		meelee_attack = 0;
+    		socket.emit("meelee attack");
+    		now = Date.now();
+    	}
 	};
 
 	this.localX = function(){

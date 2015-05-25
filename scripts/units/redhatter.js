@@ -15,9 +15,9 @@ var Redhatter = function(name, x, y, hp){
     socket.emit("spell one", { x: t_x });
   };
 
-  /* Maybe make this heal?? */ 
+  /* Maybe make this heal?? 
   skeleton.leftClick = function(){
-  };
+  };*/ 
 
   /* Lolswagz */
   skeleton.getCharacterType = function(){
