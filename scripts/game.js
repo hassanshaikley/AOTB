@@ -24,7 +24,7 @@ function init() {
   MAIN.stage.addChild(background)
 
   canvas1 = document.getElementsByTagName("canvas")[0];
-  ctx =  canvas1.getContext("2d");
+  ctx =  canvas1.getContext("webgl");
   console.log("CTX OK" + ctx + " - " +canvas1);
 
   shrine_0 = new Shrine(0);
@@ -38,10 +38,15 @@ function init() {
   canvas1.onmousedown = function(e){
     switch (e.which) {
       case 1: 
-        ctx =  canvas1.getContext("2d");
+        console.log(localPlayer)
         clientRect = canvas1.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -CONFIG.CANVAS_WIDTH/2; 
+        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2; 
         adjustedX += (e.clientX - clientRect.left); 
+        console.log(" 1 -- > " + e.clientX);
+        console.log(" 2 -- > " + clientRect.left);
+        console.log(" 3-- > " + localPlayer.getDrawAtX());
+        console.log(" 4-- > " + CONFIG.SCREEN_WIDTH/2);
+
         adjustedY += e.clientY - clientRect.topy;
         localPlayer.leftClick(adjustedX, adjustedY);  
         break;
@@ -49,10 +54,9 @@ function init() {
         console.log('middle click'); 
         break;
       case 3: 
-        ctx =  canvas1.getContext("2d");
         console.log("CTX IS " + ctx);
         clientRect = canvas1.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -CONFIG.CANVAS_WIDTH/2; 
+        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2; 
         adjustedX += (e.clientX - clientRect.left);
         adjustedY += e.clientY - clientRect.topy;
         localPlayer.rightClick(adjustedX, adjustedY); 
