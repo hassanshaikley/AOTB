@@ -18,7 +18,8 @@ var Fly = function(name, x, y, hp){
   skeleton.getDescendAttack = function(){
     return descendAttack;
   };
-    var flySprite =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("flysheet1.png"),PIXI.Texture.fromFrame("flysheet2.png"),PIXI.Texture.fromFrame("flysheet3.png")]);
+  
+  var flySprite =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("flysheet1.png"),PIXI.Texture.fromFrame("flysheet2.png"),PIXI.Texture.fromFrame("flysheet3.png")]);
 
   skeleton.imageContainer.addChild(flySprite);
     flySprite.gotoAndPlay(0);

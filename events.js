@@ -98,6 +98,12 @@ var Events = function(){
     function onMeeleeAttack(data){ //when a player left clicks
         var attacker = playerById(this.id);
         var i;
+        if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
+            attacker.meeleeAttackTime = Date.now();
+        } else {    //meelee attack is on CD
+            return;
+        }
+        
         for (i = 0; i< players.length; i++){
             if ( players[i].id != this.id){
                 if  (Math.abs(players[i].getX()- attacker.getX()) <= 50 ){

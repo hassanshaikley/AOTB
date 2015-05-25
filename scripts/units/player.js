@@ -149,6 +149,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 			 */ 
 		yDiff = Math.abs(drawAtY - y);
 		xDiff = Math.abs(drawAtX - x);
+
 	
 
 		if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
@@ -172,9 +173,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		ySpeed = (yDiff/10) ; 
 		ySpeed = Math.floor(ySpeed);
 
-		if (ySpeed==0){ //fixes stupd bug where health is a little higher
+/*		if (ySpeed==0){ //fixes stupd bug where health is a little higher
 			drawAtY = y;
-		}
+		}*/
 
 		if (y - drawAtY > (ySpeed *2)){
 			drawAtY+= ySpeed;
