@@ -11,6 +11,7 @@ var Player = function(startHp, _name, _team) {
         character_type = "Unknown", 
         gold = 0,
         respawnX,
+        respawnY = 465,
         x = 2000, //whack I know
         team;
     this.spellOneCastTime = 0;
@@ -77,6 +78,7 @@ var Player = function(startHp, _name, _team) {
         } else if ( newHp <= 0){ //hp is zero noo
             hp = 100;
             x = respawnX;
+            y = respawnY;
             return "bleed";
         } else {
 
