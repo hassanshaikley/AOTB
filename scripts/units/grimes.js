@@ -58,6 +58,7 @@ var Grimes = function(name, x, y, hp){
   	}
 
   };
+  /*
   var now = Date.now();
   skeleton.leftClick = function(x, y){
     if (Date.now()  - now >= 1000 ){
@@ -67,7 +68,7 @@ var Grimes = function(name, x, y, hp){
 			now = Date.now();
     }
     //tell the server I am meelee attacking 
-  };  
+  };  */
 
   /* Constantly called for the localPlayer, updates the actual 
    * Position held by the server

@@ -31,10 +31,10 @@ var TortStun = function(_x,_y, _team ){
     tortStunClip.position.x = newX;
     tortStunClip.position.y = y;
 
-    /* Check if a spell hits - going to need to be refactored*/
+    /* Check if a spell hits - going to need to be refactored
     ctx.save();
     ctx.drawImage(tortStun,0,0, 100, 100, newX, y, 100, 100);
-    ctx.restore();
+    ctx.restore();*/
   };
   return this;
 };

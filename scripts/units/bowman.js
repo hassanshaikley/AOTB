@@ -8,9 +8,9 @@ var Bowman = function(name, x, y, hp){
     //Spells.arrow(clientX, clientY);
   };
 
-  /* Maybe make this heal?? */ 
+  /* 
   skeleton.leftClick = function(clientX, clientY){
-  };
+  };*/
 
   /* Lolswagz */
   skeleton.getCharacterType = function(){

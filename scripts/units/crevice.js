@@ -4,9 +4,9 @@ var Crevice = function(name, x, y, hp){
   var facing_left;
   var spritesheet_offset_y = 0;
 
-  /* Maybe make this heal?? */ 
+  /* Maybe make this heal?? 
   skeleton.leftClick = function(){
-  };
+  };*/ 
   /* CASTS A sPIKE :D */
   skeleton.rightClick = function(clientX, clientY){
     // console.log("meteor right click - x is " + clientX + " y is "+ clientY);
