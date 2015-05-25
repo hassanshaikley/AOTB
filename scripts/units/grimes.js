@@ -34,6 +34,7 @@ var Grimes = function(name, x, y, hp){
   };
 
   skeleton.draw = function(ctx) {
+    skeleton.drawText();
 
   	  var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
 
@@ -58,6 +59,7 @@ var Grimes = function(name, x, y, hp){
   	}
 
   };
+  
   /*
   var now = Date.now();
   skeleton.leftClick = function(x, y){
