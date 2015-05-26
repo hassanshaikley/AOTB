@@ -346,9 +346,12 @@ var FPS = 60;
  ** GAME ANIMATION LOOP
  **************************************************/
 function animate() { 
-  window.requestAnimFrame(animate); //palce this before render to ensure as close to wanted fps
+      console.log("Shwa");
+
+  requestAnimationFrame(animate);//this.update.bind(this));
   update();
   draw();
+
 };
 
 function handleCooldownVisuals(){
@@ -378,6 +381,7 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
+  console.log("Shwa");
 
   handleCooldownVisuals();
 

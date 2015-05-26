@@ -68,18 +68,10 @@ var _q= 0;
 
 Main.prototype.update = function() {
   this.renderer.render(this.stage);
-  requestAnimFrame(this.update.bind(this));
+  requestAnimationFrame(this.update.bind(this));
 };
 
-ANIMATIONS = {};
-
 Main.prototype.spriteSheetLoaded = function() {
- // this.scroller = new Scroller(this.stage);
-
-
-  console.log(ANIMATIONS);
-
   init();
-  requestAnimFrame(this.update.bind(this));
-
+  requestAnimationFrame(this.update.bind(this));
 };
