@@ -33,68 +33,35 @@ var Shrine = function(_team) {
     return "lives";
   };
 
-    var health_shadow = new PIXI.Graphics();
+  var health_shadow = new PIXI.Graphics();
   health_shadow.beginFill(0x000000);
   health_shadow.drawRect(0, 0, 300/2.2, 6);
   health_shadow.endFill();  //console.log("MAN STAGE "+MAIN.stage);
-  
+
 
   var health = new PIXI.Graphics();
-  
+
   health.beginFill(0x00FF00);
   health.drawRect(0, 0, 300/2.2, 6);
   health.endFill(); //console.log("MAN STAGE "+MAIN.stage);
 
-  health.x =this.x;
-  health_shadow.x = this.x;
+  //health.x =this.x -25;
+  //health_shadow.x = this.x-25;
   this.health = health;
-  
-  health_shadow.y = this.y -150;
-  health.y = this.y -150;
+
+  health_shadow.y = this.y -80;
+  health.y = this.y -80;
 
   MAIN.stage.addChild(health_shadow);
   MAIN.stage.addChild(health);
 
 
-
-
   this.draw= function(){
-
-    health.scale.x = Math.abs(this.hp/3000);
-
+    health.scale.x = Math.abs(this.hp/this.maxHp);
     this.drawAtX = CONFIG.SCREEN_WIDTH/2 + this.x - localPlayer.getDrawAtX();
-    health.x = this.drawAtX-50;
-    health_shadow.x = this.drawAtX-50;
+    health.x = this.drawAtX-50 -30;
+    health_shadow.x = this.drawAtX-50 -30;
 
-
-
-    //old
-   /* ctx.save();
-    //draw HP
-    //draw structure, depending on team
-    this.displacement = -localPlayer.getX();
-
-    this.drawAtX = this.drawAtX - spire0.width/2;
-    if (this.team ==0 ){
-      ctx.shadowBlur=20;
-      ctx.shadowColor="blue";
-    }
-    else {
-      ctx.shadowBlur=20;
-      ctx.shadowColor="green";
-    }
-    if (this.team === 0){
-      ctx.drawImage(spire0, this.drawAtX, 288);
-    } else {
-      ctx.drawImage(spire1, this.drawAtX, 288); 
-    }
-
-    ctx.fillStyle="#000000";
-    ctx.fillRect(this.drawAtX + 60,this.y-50,3000/50,6);
-    ctx.fillStyle="#FF0000";
-    ctx.fillRect(this.drawAtX + 60,this.y-50,((this.hp/50)),6);
-    ctx.fillText("SPIRE", this.drawAtX,this.y);
-    ctx.restore();*/
   };
   this.getX = function() {
     return this.x;

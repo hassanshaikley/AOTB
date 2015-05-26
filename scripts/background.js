@@ -10,13 +10,13 @@ function Background() {
 
   var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
   structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2);
-  structure.y = -175;
+  structure.y = -116;
 
   var structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("spire_0.png"));
   structure2.x = 3650 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2);
-   structure2.y = -175;
+   structure2.y = -116;
 
-   structure2.scale.x = structure.scale.x = structure2.scale.y = structure.scale.y = 1.3;
+ //  structure2.scale.x = structure.scale.x = structure2.scale.y = structure.scale.y = 1.3;
  
     this.addChild(structure);
     this.addChild(structure2);

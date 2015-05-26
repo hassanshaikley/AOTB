@@ -14,6 +14,7 @@ var Skelly = function(x, y, id){
     } else if (skeleton.getMoveDirection() === "right"){
       facing_left = false;
     }
+    /*
     if (facing_left){
       spritesheet_offset_y = 0;
     }
@@ -31,11 +32,12 @@ var Skelly = function(x, y, id){
       } else {
       attacking = 0;
       }
-
     }
     else {
       ctx.drawImage(skelly, 0,spritesheet_offset_y, 100, 100, drawAtX, skeleton.getDrawAtY(), 100, 100);
     }
+    */
+
   };
   
 }
