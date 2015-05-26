@@ -25,7 +25,6 @@ function init() {
 
   canvas1 = document.getElementsByTagName("canvas")[0];
   ctx =  canvas1.getContext("webgl");
-  console.log("CTX OK" + ctx + " - " +canvas1);
 
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
@@ -38,7 +37,6 @@ function init() {
   canvas1.onmousedown = function(e){
     switch (e.which) {
       case 1: 
-        console.log(localPlayer)
         clientRect = canvas1.getBoundingClientRect();
         adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2; 
         adjustedX += (e.clientX - clientRect.left); 
@@ -49,7 +47,6 @@ function init() {
         console.log('middle click'); 
         break;
       case 3: 
-        console.log("CTX IS " + ctx);
         clientRect = canvas1.getBoundingClientRect();
         adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2; 
         adjustedX += (e.clientX - clientRect.left);
@@ -247,7 +244,6 @@ function onUpdateHostile(data){
 
 function onDescendAttackChanges(data){
     var _player = playerById(data.id);
-		console.log("d a changes" + data.id + "for player " +_player + " DA " + data.descendAttack); 
     if (_player === false){
         localPlayer.setDescendAttack(data.descendAttack);
     } else {
@@ -284,13 +280,12 @@ function onSocketConnected() {
 // Socket disconnected
 function onSocketDisconnect() {
   //Player disconnected from socket server
-  console.log("EEP");
+  console.log("Player Disconnected");
 };
 
 // New player
 function onNewPlayer(data) {
   // Initialise the new player
-  console.log("SHEEEEEEEE");
   var newPlayer;
   if (data.characterType === "Fly"){
     newPlayer = new Fly(data.name, data.x, data.y, data.hp);
@@ -316,7 +311,6 @@ function onNewPlayer(data) {
 function onRemovePlayer(data) {
   var removePlayer = playerById(data.id);
   // Player not found
-  console.log(removePlayer.image);
     MAIN.stage.removeChild(removePlayer.imageContainer);
 
   if (!removePlayer) {
@@ -346,8 +340,6 @@ var FPS = 60;
  ** GAME ANIMATION LOOP
  **************************************************/
 function animate() { 
-      console.log("Shwa");
-
   requestAnimationFrame(animate);//this.update.bind(this));
   update();
   draw();
@@ -381,13 +373,8 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
-  console.log("Shwa");
 
   handleCooldownVisuals();
-
-
-
-
     background.updateX(localPlayer.getDrawAtX() );
   /* Updates the spells locations :D */
   for (i = 0; i < Spells.spellsarray.length; i++){

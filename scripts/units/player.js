@@ -139,8 +139,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		 * Checks the difference between 
 		 */
 		moveDifferenceX =(newerX - postX);
-		//console.log(moveDifferenceX + " <--")
-		//console.log(newerX + " -- " +postX);
 		if (moveDifferenceX){ /* USED TO TELL IF GOING LEFT OR RIGHT */
 			postX = x; 
 		} 
@@ -212,17 +210,16 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	var health_shadow = new PIXI.Graphics();
 	health_shadow.beginFill(0x000000);
 	health_shadow.drawRect(0, 0, 100/2.2, 6);
-	health_shadow.endFill();	//console.log("MAN STAGE "+MAIN.stage);
+	health_shadow.endFill();	
 	
 
 	var health = new PIXI.Graphics();
 	
 	health.beginFill(0x00FF00);
 	health.drawRect(0, 0, 100/2.2, 6);
-	health.endFill();	//console.log("MAN STAGE "+MAIN.stage);
+	health.endFill();	
 	
 	this.imageContainer = new PIXI.Container();
-	console.log(this.imageContainer);
 	
 	this.imageContainer.addChild(health_shadow);
 	this.imageContainer.addChild(health);
@@ -234,7 +231,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 		text_x = Math.abs(768/2) - localPlayer.localX() + drawAtX;
 	//	\le.log(" x - . "+text_x);
-	//	console.log("Draw at y " + drawAtY);
 		health_shadow.position.x = text_x-25;
 		health_shadow.position.y = drawAtY-100;
 

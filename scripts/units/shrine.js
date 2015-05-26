@@ -36,14 +36,14 @@ var Shrine = function(_team) {
   var health_shadow = new PIXI.Graphics();
   health_shadow.beginFill(0x000000);
   health_shadow.drawRect(0, 0, 300/2.2, 6);
-  health_shadow.endFill();  //console.log("MAN STAGE "+MAIN.stage);
+  health_shadow.endFill();  
 
 
   var health = new PIXI.Graphics();
 
   health.beginFill(0x00FF00);
   health.drawRect(0, 0, 300/2.2, 6);
-  health.endFill(); //console.log("MAN STAGE "+MAIN.stage);
+  health.endFill(); 
 
   //health.x =this.x -25;
   //health_shadow.x = this.x-25;
