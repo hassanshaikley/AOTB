@@ -57,6 +57,7 @@ function init() {
         localPlayer.rightClick(adjustedX, adjustedY); 
         break; 
     }
+
   };
 
   // Initialise keyboard controls
@@ -91,7 +92,7 @@ function init() {
   socket.emit("init me");
   animate();
   loadChat();
-
+  localPlayer.setUpActionbar();
 
 }
 

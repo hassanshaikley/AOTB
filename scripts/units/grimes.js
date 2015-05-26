@@ -10,7 +10,7 @@ var Grimes = function(name, x, y, hp){
 		socket.emit("spell one", { x: t_x });
   };
 
-  function setUpActionbar(){
+  skeleton.setUpActionbar = function(){
 
       var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));
       MAIN.BOTACTIONBAR.addChild(sword_thumb);
@@ -31,7 +31,6 @@ var Grimes = function(name, x, y, hp){
       }*/
       tort_stun.x = 50;
   }
-  setUpActionbar();
 
   var grimes_l =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);
   var grimes_r =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_r.png")]);

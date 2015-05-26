@@ -23,6 +23,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 	this.id;
 
+	this.setUpActionbar = function(){
+		console.log("IMPLEMENT THIS");
+	}
 	// Getters and setters
 	this.setTeam = function(_team){
 		team = _team;
