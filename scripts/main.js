@@ -38,6 +38,13 @@ this.stage.addChild(bgcolor);
 
  */
 
+
+/*
+  filter = new PIXI.filters.DotScreenFilter();
+
+
+ this.stage.filters = [filter];*/
+
   this.loadSpriteSheet();
   return this;
 

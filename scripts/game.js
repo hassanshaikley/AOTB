@@ -94,6 +94,8 @@ function init() {
   loadChat();
   localPlayer.setUpActionbar();
 
+
+
 }
 
 /**************************************************
@@ -174,11 +176,11 @@ function onArrowFired(data){
   Spells.spellsarray.push(m);
 };
 
+
 function onWin(data){
   console.log("winner: " +data.winner);
   console.log("local player team " +localPlayer.getTeam());
-  var filter = new PIXI.filters.GrayFilter();
-
+  var filter = new PIXI.filters.DotScreenFilter();
 
  MAIN.stage.filters = [filter];
 
@@ -202,7 +204,7 @@ function onWin(data){
   setTimeout(function(){ 
     MAIN.stage.removeChild(message); 
     MAIN.stage.filters = undefined;
-  }, 4500);
+  }, 5000);
 };
 
 function onShrineHp(data){
