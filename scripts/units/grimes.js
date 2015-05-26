@@ -4,6 +4,7 @@ var Grimes = function(name, x, y, hp){
 
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;
+  
   skeleton.rightClick = function(clientX, clientY){
 		var t_x = clientX ;
 		console.log("-->"+t_x);
@@ -11,10 +12,19 @@ var Grimes = function(name, x, y, hp){
   };
 
 
+
+
   function setUpActionbar(){
       var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("tortstunthumb.png"));
       MAIN.BOTACTIONBAR.addChild(tort_stun);
+      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));
+      MAIN.BOTACTIONBAR.addChild(sword_thumb);
+      sword_thumb.interactive = true;
 
+      sword_thumb.mouseover = function(mouseData){
+        console.log("MOUSE OVER!");
+      }
+      tort_stun.x = 50;
   }
   setUpActionbar();
 
