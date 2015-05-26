@@ -278,5 +278,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	this.localX = function(){
 		return localPlayer.getDrawAtX();
 	}
+
+	this.displayCooldown = function(spellNumber){
+            var casted_spell = MAIN.BOTACTIONBAR.getChildAt(spellNumber);
+            filter = new PIXI.filters.PixelateFilter();
+            casted_spell.filters = [filter];
+            CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell });
+        }
+
 	// Define which variables and methods can be accessed
 };

@@ -158,6 +158,8 @@ var Player = function(startHp, _name, _team) {
 				this.stuncounter.duration = null;
 			} //else do nothing
 		}
+
+
     // Define which variables and methods can be accessed by the world outside
     return this;
 };

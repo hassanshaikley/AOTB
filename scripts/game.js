@@ -135,6 +135,11 @@ function onSpellOne(data){
     var m = new Meteor(data.x, data.caster);
     Spells.spellsarray.push(m);
   }
+
+  //if cast by this player then show the cooldown
+  if (data.casted_by_me){
+    localPlayer.displayCooldown(CONFIG.FIRST_SPELL);
+  }
 }
 
 /* Updates location of all connected players*/
@@ -318,10 +323,27 @@ function animate() {
   window.requestAnimFrame(animate); //palce this before render to ensure as close to wanted fps
   update();
   draw();
-
- // console.log(" -->>" +background);
 };
 
+function handleCooldownVisuals(){
+  var i;
+  for ( i = 0; i < CONFIG.COOLDOWNS.length; i++ ){
+    if (CONFIG.COOLDOWNS[i].filter.size.x > .25){
+      CONFIG.COOLDOWNS[i].filter.size.y = CONFIG.COOLDOWNS[i].filter.size.y - .18;
+      CONFIG.COOLDOWNS[i].filter.size.x = CONFIG.COOLDOWNS[i].filter.size.x -.18;
+    } else {
+      CONFIG.COOLDOWNS[i].filter.mark_for_deletion = true;
+    }
+  }
+
+  for ( i = 0; i < CONFIG.COOLDOWNS.length; i++ ){
+    if (CONFIG.COOLDOWNS[i].filter.mark_for_deletion){
+      CONFIG.COOLDOWNS[i].parent.filters = undefined;
+      CONFIG.COOLDOWNS.splice(i, 1);
+      i-=1;
+    } 
+  }
+}
 
 /**************************************************
  ** GAME UPDATE
@@ -330,6 +352,9 @@ var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
+
+  handleCooldownVisuals();
+
 
 
 
