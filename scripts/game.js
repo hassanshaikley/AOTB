@@ -174,11 +174,26 @@ function onArrowFired(data){
 };
 
 function onWin(data){
-  if (data.winner === 0){
-      console.log("team 0 wins");
+  console.log("winner: " +data.winner);
+  console.log("local player team " +localPlayer.getTeam());
+  if (data.winner === localPlayer.getTeam()){
+      console.log("YOU WIN");
+      var message = new PIXI.Text(
+      "YOU WIN!",
+      {font: "32px sans-serif", fill: "white", align: "center"}
+    );
  } else {
-      console.log("team 1 wins");
+      console.log("YOU LOSE");
+      var message = new PIXI.Text(
+      "YOU LOSE!",
+      {font: "32px sans-serif", fill: "white", align: "center"}
+    );
+
   }
+
+  message.position.set(CONFIG.SCREEN_WIDTH/2, 200);
+  MAIN.stage.addChild(message);
+  setTimeout(function(){ MAIN.stage.removeChild(message); }, 3000);
 };
 
 function onShrineHp(data){
