@@ -6,13 +6,6 @@ h_cd = 1000;
 var Spells = {
   spellsarray: [],
 
-  meteor: function(clientX, clientY) {
-    /*if (!localPlayer.meteor  || Date.now()-localPlayer.meteor > m_cd){
-			var m = new Meteor(clientX);
-			socket.emit("meteor cast", { meteor_x : m.getX()});
-			localPlayer.meteor = Date.now();
-    } */
-  },
   healingSpike: function(clientX, clientY) {
     if (!localPlayer.healingcross || Date.now()-localPlayer.healingcross > h_cd){
       var m = new HealingSpike(clientX);
@@ -131,7 +124,6 @@ var Meteor = function(meteorX, mCaster){
 
   var draw = function(ctx){
     var fireballX = x  -localPlayer.getX()+CONFIG.SCREEN_WIDTH/2-50;
-    /* Check if a spell hits - going to need to be refactored*/
 
     meteorClip.x = fireballX;
     meteorClip.y = y;

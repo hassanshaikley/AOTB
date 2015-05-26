@@ -66,6 +66,6 @@ var Keys = function(up, left, right, down) {
 
   return {
       onKeyDown: onKeyDown,
-          onKeyUp: onKeyUp
+      onKeyUp: onKeyUp
   };
 };

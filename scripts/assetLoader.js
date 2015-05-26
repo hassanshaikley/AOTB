@@ -2,6 +2,7 @@
  * Loads assets, looks for resources locally. If it cannot find them 
  * then uses AWS for the files!
  */
+ 
 var url;
 function UrlExists(url)
 {
