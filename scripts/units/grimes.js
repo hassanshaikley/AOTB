@@ -4,11 +4,6 @@ var Grimes = function(name, x, y, hp){
 
   var spells_thumb_array = [];
 
-  skeleton.rightClick = function(clientX, clientY){
-		var t_x = clientX ;
-		socket.emit("spell one", { x: t_x });
-  };
-
   skeleton.setUpActionbar = function(){
 
       var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));

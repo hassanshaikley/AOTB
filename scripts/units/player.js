@@ -265,6 +265,11 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	};
 	  var now = Date.now();
 
+  this.rightClick = function(clientX, clientY){
+		var t_x = clientX ;
+		socket.emit("spell one", { x: t_x });
+  };
+
 	this.leftClick = function(){
  
     	if (Date.now()  - now >= 1000 ){
