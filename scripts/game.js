@@ -177,6 +177,11 @@ function onArrowFired(data){
 function onWin(data){
   console.log("winner: " +data.winner);
   console.log("local player team " +localPlayer.getTeam());
+  var filter = new PIXI.filters.GrayFilter();
+
+
+ MAIN.stage.filters = [filter];
+
   if (data.winner === localPlayer.getTeam()){
       console.log("YOU WIN");
       var message = new PIXI.Text(
@@ -194,7 +199,10 @@ function onWin(data){
 
   message.position.set(CONFIG.SCREEN_WIDTH/2, 200);
   MAIN.stage.addChild(message);
-  setTimeout(function(){ MAIN.stage.removeChild(message); }, 3000);
+  setTimeout(function(){ 
+    MAIN.stage.removeChild(message); 
+    MAIN.stage.filters = undefined;
+  }, 4500);
 };
 
 function onShrineHp(data){

@@ -35,12 +35,7 @@ this.stage.addChild(bgcolor);
 
   this.stage.interactive = true;
 /*
-  var filter = new PIXI.filters.BlurFilter();
-  filter.blur = 32;
-  filter.passes = 11;
 
-
- this.stage.filters = [filter];
  */
 
   this.loadSpriteSheet();
