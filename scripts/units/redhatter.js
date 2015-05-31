@@ -43,6 +43,10 @@ var Redhatter = function(name, x, y, hp){
 
   redhatter_l.gotoAndPlay(0);
   redhatter_r.gotoAndPlay(0);
+
+redhatter_r_attack.gotoAndPlay(0);
+redhatter_r_attack.animationSpeed = .15;
+
   redhatter_l.animationSpeed = .15;
   redhatter_r.animationSpeed = .15;
   skeleton.redhatter_l = redhatter_l;
@@ -59,9 +63,11 @@ var Redhatter = function(name, x, y, hp){
 
     redhatter_l.position.y = 380;
     redhatter_r.position.y = 380;
+    redhatter_r_attack.position.y = 380;
 
     redhatter_l.position.x = drawAtX;
     redhatter_r.position.x = drawAtX;
+    redhatter_r_attack.position.x = drawAtX;
     skeleton.imageContainer.removeChild(redhatter_l);
     skeleton.imageContainer.removeChild(redhatter_r);
     //  skeleton.imageContainer.removeChild(redhatter_l_attack);
