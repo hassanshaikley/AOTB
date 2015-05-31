@@ -67,27 +67,25 @@ var Redhatter = function(name, x, y, hp){
     //  skeleton.imageContainer.removeChild(redhatter_l_attack);
     skeleton.imageContainer.removeChild(redhatter_r_attack);
 
-    console.log("cur action" + this.getCurrentAction());
+  //  console.log("cur action: " + this.getCurrentAction());
+    console.log("mov action: " + this.getMoveDirection());
 
     if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT){
       console.log("ATTACKING RIGHT AA")
-
-
       skeleton.imageContainer.addChild(redhatter_r_attack);
     } else if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_LEFT){
         console.log("ATTACKING LEFT AA")
-
         skeleton.imageContainer.addChild(redhatter_r_attack);
     } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_RIGHT){
       skeleton.imageContainer.addChild(redhatter_r);
-
     } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_LEFT){
-      console.log("MOVING LET");
       skeleton.imageContainer.addChild(redhatter_l);
-
     }  else { //is idling
-      skeleton.imageContainer.addChild(redhatter_r);
-
+      if (this.getMoveDirection() === "left"){
+        skeleton.imageContainer.addChild(redhatter_l);
+      } else {
+        skeleton.imageContainer.addChild(redhatter_r);
+      }
     }
 
   /*  if (this.getMeeleeAttack()){
@@ -127,7 +125,7 @@ var Redhatter = function(name, x, y, hp){
         redhatter_l.animationSpeed = .0;
         redhatter_r.animationSpeed = .0;
       }
-    
+
   };
   
   /* Constantly called for the localPlayer

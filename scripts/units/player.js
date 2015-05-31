@@ -111,17 +111,28 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   this.getCurrentAction = function (){
   	return current_action;
   }
-  var last_move_direction = "right";
+  var last_move_direction;
   this.getMoveDirection = function(){
+  	if (this.getMeeleeAttack()){
+  		if (last_move_direction === "left"){
+  			current_action = CONFIG.ACTION.ATTACK_LEFT;
+  			return "left";
+  		} else {
+  			current_action = CONFIG.ACTION.ATTACK_RIGHT;
+  			return "right";
+  		}
+  	}
     if (moveDifferenceX < 0){
+      last_move_direction = "left";
       current_action = CONFIG.ACTION.MOVING_LEFT; 
       return "left";
     } else if (moveDifferenceX > 0){
+   	  last_move_direction = "right";
       current_action = CONFIG.ACTION.MOVING_RIGHT; 
       return "right";
     } else {
-      	current_action = CONFIG.ACTION.IDLE; 
-      return "none";
+      current_action = CONFIG.ACTION.IDLE; 
+      return last_move_direction;
     }
   };
 
@@ -172,10 +183,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     /* this.id == undefined means if this is referring to the current player 
      * Checks the difference between 
      */
-    moveDifferenceX = -(drawAtX - postX);
+    moveDifferenceX = (drawAtX - postX);
     
     if (moveDifferenceX){ /* USED TO TELL IF GOING LEFT OR RIGHT */
-      postX = x; 
+      postX = drawAtX; 
     } 
 
     //if y is 5 and drawAtY is 10
@@ -302,6 +313,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   //useful for animating
   this.setMeeleeAttack = function(_atk){
+  	current_action = CONFIG.ACTION.MEELEE_ATTACK;
     meelee_attack = _atk;
   }
 
