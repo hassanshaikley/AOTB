@@ -17,8 +17,6 @@ describe("Player (superclass)", function() {
             var player = new Player(0, 0, 100, "hassan");
             expect(player.getName()).to.equal("hassan");
             expect(player.getY()).to.equal(0);
-
-
         });
     });
 });

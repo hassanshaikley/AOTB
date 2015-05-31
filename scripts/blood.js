@@ -1,7 +1,6 @@
 /**************************************************
  ** GAME PLAYER CLASS IN CLIENT
  **************************************************/
-var floorHeight = 474;
 var Blood = function(startX, startY) {
   var x =               startX,
       y =               startY,

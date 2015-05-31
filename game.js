@@ -46,7 +46,6 @@ var Game = function(){
             this.team1.push(newPlayer);
             newPlayer.setTeam(1);
         }
-        //then choose the team depending on teams
     };
     this.removePlayer = function(thePlayer){
         for (var _i = 0; _i < this.team1.length; _i++){

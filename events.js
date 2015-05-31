@@ -136,6 +136,11 @@ var Events = function(){
             }
 
         }
+
+        //Now get the characters to animate the meelee attack
+
+        this.emit('meelee attack', {attacker: "you" });
+        this.broadcast.emit('meelee attack', {attacker: this.id});
     }
     
 

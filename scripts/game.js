@@ -125,7 +125,23 @@ var setEventHandlers = function() {
   socket.on("win", onWin);
   socket.on("update player", onUpdatePlayer);
   socket.on("spell one", onSpellOne);
+
+  socket.on("meelee attack", onMeeleeAttack);
 };
+
+/* Useful for animation, that's it*/
+function onMeeleeAttack(data){
+  
+  var player;
+  if (data.attacker === "you"){
+    player = localPlayer;
+  } else{
+    player = playerById(data.id);
+  }
+
+  player.setMeeleeAttack(true);
+
+}
 
 function onSpellOne(data){
   if (data.spell === "tort stun"){ //should be a variable shared between server and client
@@ -169,6 +185,7 @@ function onBleed(data){
 }
 /* Takes an arrows x and y position and draws it : D */
 function onArrowFired(data){
+  console.log("ARROW EVENT FIRED OK");
   var m = new BowmanArrow(data.x, data.y, data.caster);
   Spells.spellsarray.push(m);
 };

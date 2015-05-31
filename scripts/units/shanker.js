@@ -3,9 +3,6 @@ var Shanker = function(name, x, y, hp){
       facing_left;
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;
-  
-  skeleton.rightClick = function(clientX, clientY){
-  };
 
   skeleton.getCharacterType = function(){
     return "Shanker";
