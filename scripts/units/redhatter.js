@@ -77,9 +77,6 @@ var Redhatter = function(name, x, y, hp){
     skeleton.imageContainer.removeChild(redhatter_l_attack);
     skeleton.imageContainer.removeChild(redhatter_r_attack);
 
-    console.log("cur action: " + this.getCurrentAction());
-    //console.log("mov action: " + this.getMoveDirection());
-
     if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT){
       if (first === false){
         redhatter_r_attack.gotoAndPlay(0);
@@ -153,13 +150,13 @@ var Redhatter = function(name, x, y, hp){
   	} 
 */
   
-    if (this.getMoveDirection() === "left" || this.getMoveDirection() ==="right"){
+  //  if (this.getMoveDirection() === "left" || this.getMoveDirection() ==="right"){
       redhatter_l.animationSpeed = .2;
       redhatter_r.animationSpeed = .2;
-    } else {
+  /*  } else {
         redhatter_l.animationSpeed = .0;
         redhatter_r.animationSpeed = .0;
-      }
+      }*/
 
   };
   
