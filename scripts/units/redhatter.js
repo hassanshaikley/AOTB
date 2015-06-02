@@ -30,7 +30,12 @@ var Redhatter = function(name, x, y, hp){
   for (var _i = 1; _i <= 8; _i ++){
     clipnames.push(PIXI.Texture.fromImage("hatter_attack_v2_state"+_i+".png"));
   }
-  redhatter_r_attack = new PIXI.extras.MovieClip(clipnames);
+  var redhatter_r_attack = new PIXI.extras.MovieClip(clipnames);
+  clipnames =[];
+  for (var _i = 1; _i <= 8; _i ++){
+    clipnames.push(PIXI.Texture.fromImage("l_hatter_attack_v2_state"+_i+".png"));
+  }
+  var redhatter_l_attack = new PIXI.extras.MovieClip(clipnames);
 
 
   redhatter_l.gotoAndPlay(0);
@@ -38,9 +43,11 @@ var Redhatter = function(name, x, y, hp){
 
   
   redhatter_r_attack.animationSpeed = .15;
+  redhatter_l_attack.animationSpeed = .15;
 
   redhatter_l.animationSpeed = .15;
   redhatter_r.animationSpeed = .15;
+
   skeleton.redhatter_l = redhatter_l;
 
   skeleton.imageContainer.addChild(redhatter_l);
@@ -57,13 +64,17 @@ var Redhatter = function(name, x, y, hp){
     redhatter_l.position.y = 380;
     redhatter_r.position.y = 380;
     redhatter_r_attack.position.y = 380+10;
+    redhatter_l_attack.position.y = 380+10;
 
     redhatter_l.position.x = drawAtX;
     redhatter_r.position.x = drawAtX;
     redhatter_r_attack.position.x = drawAtX;
+    redhatter_l_attack.position.x = drawAtX-50;
+
+
     skeleton.imageContainer.removeChild(redhatter_l);
     skeleton.imageContainer.removeChild(redhatter_r);
-    //  skeleton.imageContainer.removeChild(redhatter_l_attack);
+    skeleton.imageContainer.removeChild(redhatter_l_attack);
     skeleton.imageContainer.removeChild(redhatter_r_attack);
 
     console.log("cur action: " + this.getCurrentAction());
@@ -86,14 +97,14 @@ var Redhatter = function(name, x, y, hp){
       }
     } else if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_LEFT){
       if (first === false){
-        redhatter_r_attack.gotoAndPlay(0);
+        redhatter_l_attack.gotoAndPlay(0);
         first = true; //at the very end set first to true
       }
-      skeleton.imageContainer.addChild(redhatter_r_attack);
-      if (redhatter_r_attack.currentFrame === 1){
+      skeleton.imageContainer.addChild(redhatter_l_attack);
+      if (redhatter_l_attack.currentFrame === 1){
         loop = true;
       }
-      if (redhatter_r_attack.currentFrame === 0 && loop){
+      if (redhatter_l_attack.currentFrame === 0 && loop){
         first = false;
         //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
         this.setMeeleeAttack(false);
