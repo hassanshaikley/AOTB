@@ -111,6 +111,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   this.getCurrentAction = function (){
   	return current_action;
   }
+  this.setCurrentAction = function(action){
+  	current_action = action;
+  }
   var last_move_direction;
   this.getMoveDirection = function(){
   	if (this.getMeeleeAttack()){
@@ -313,7 +316,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   //useful for animating
   this.setMeeleeAttack = function(_atk){
+  	if(_atk){
   	current_action = CONFIG.ACTION.MEELEE_ATTACK;
+    }
     meelee_attack = _atk;
   }
 

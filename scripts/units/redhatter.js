@@ -26,33 +26,26 @@ var Redhatter = function(name, x, y, hp){
 
 
   var clipnames = [];
+
   for (var _i = 1; _i <= 8; _i ++){
     clipnames.push(PIXI.Texture.fromImage("hatter_attack_v2_state"+_i+".png"));
   }
-  var redhatter_r_attack = new PIXI.extras.MovieClip(clipnames);
-
-  var animations = {
-    move_left : redhatter_l,
-    move_right : redhatter_r,
-    meelee_attack_left : redhatter_r_attack,
-    meelee_attack_right : redhatter_r_attack
-
-  };
-
+  redhatter_r_attack = new PIXI.extras.MovieClip(clipnames);
 
 
   redhatter_l.gotoAndPlay(0);
   redhatter_r.gotoAndPlay(0);
 
-redhatter_r_attack.gotoAndPlay(0);
-redhatter_r_attack.animationSpeed = .15;
+  
+  redhatter_r_attack.animationSpeed = .15;
 
   redhatter_l.animationSpeed = .15;
   redhatter_r.animationSpeed = .15;
   skeleton.redhatter_l = redhatter_l;
 
   skeleton.imageContainer.addChild(redhatter_l);
-
+  var first = false,
+      loop = false;
   skeleton.draw = function() {
     this.drawText();
    // this.update_player();
@@ -63,7 +56,7 @@ redhatter_r_attack.animationSpeed = .15;
 
     redhatter_l.position.y = 380;
     redhatter_r.position.y = 380;
-    redhatter_r_attack.position.y = 380;
+    redhatter_r_attack.position.y = 380+10;
 
     redhatter_l.position.x = drawAtX;
     redhatter_r.position.x = drawAtX;
@@ -73,15 +66,40 @@ redhatter_r_attack.animationSpeed = .15;
     //  skeleton.imageContainer.removeChild(redhatter_l_attack);
     skeleton.imageContainer.removeChild(redhatter_r_attack);
 
-  //  console.log("cur action: " + this.getCurrentAction());
-    console.log("mov action: " + this.getMoveDirection());
+    console.log("cur action: " + this.getCurrentAction());
+    //console.log("mov action: " + this.getMoveDirection());
 
     if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT){
-      console.log("ATTACKING RIGHT AA")
+      if (first === false){
+        redhatter_r_attack.gotoAndPlay(0);
+        first = true; //at the very end set first to true
+      }
       skeleton.imageContainer.addChild(redhatter_r_attack);
+      if (redhatter_r_attack.currentFrame === 1){
+        loop = true;
+      }
+      if (redhatter_r_attack.currentFrame === 0 && loop){
+        first = false;
+        //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
+        this.setMeeleeAttack(false);
+        loop = false;
+      }
     } else if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_LEFT){
-        console.log("ATTACKING LEFT AA")
-        skeleton.imageContainer.addChild(redhatter_r_attack);
+      if (first === false){
+        redhatter_r_attack.gotoAndPlay(0);
+        first = true; //at the very end set first to true
+      }
+      skeleton.imageContainer.addChild(redhatter_r_attack);
+      if (redhatter_r_attack.currentFrame === 1){
+        loop = true;
+      }
+      if (redhatter_r_attack.currentFrame === 0 && loop){
+        first = false;
+        //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
+        this.setMeeleeAttack(false);
+        loop = false;
+      }
+
     } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_RIGHT){
       skeleton.imageContainer.addChild(redhatter_r);
     } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_LEFT){
