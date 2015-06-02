@@ -16,11 +16,11 @@ var Shanker = function(name, x, y, hp){
   }
   var shanker_r = new PIXI.extras.MovieClip(clipnames);
   clipnames =[];
-  /*
+  
   for (var _i = 1; _i <= 8; _i ++){
     clipnames.push(PIXI.Texture.fromImage("l_shanker_walk_v3_state"+_i+".png"));
   }
-*/
+
   var shanker_l = new PIXI.extras.MovieClip(clipnames);
 
   shanker_l.gotoAndPlay(0);
