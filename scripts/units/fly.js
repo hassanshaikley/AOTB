@@ -69,20 +69,20 @@ var Fly = function(name, x, y, hp){
   var flyAnimate= 0;
   var first = false,
       loop = false;
-  
+
   skeleton.draw = function() {
         this.drawText();
 
   var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
  fly_l.position.y = skeleton.getDrawAtY();
     fly_r.position.y = skeleton.getDrawAtY();
-    fly_r_attack.position.y = skeleton.getDrawAtY();
-    fly_l_attack.position.y = skeleton.getDrawAtY();
+    fly_r_attack.position.y = skeleton.getDrawAtY()-25;
+    fly_l_attack.position.y = skeleton.getDrawAtY()-25;
 
     fly_l.position.x = drawAtX;
     fly_r.position.x = drawAtX;
-    fly_r_attack.position.x = drawAtX;
-    fly_l_attack.position.x = drawAtX;
+    fly_r_attack.position.x = drawAtX-14;
+    fly_l_attack.position.x = drawAtX-33;
 
     skeleton.imageContainer.removeChild(fly_r);
     skeleton.imageContainer.removeChild(fly_l);
@@ -92,12 +92,16 @@ var Fly = function(name, x, y, hp){
 
 
 
-
     if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT){
+      console.log("GONE");
       if (first === false){
         fly_r_attack.gotoAndPlay(0);
         first = true; //at the very end set first to true
+        fly_r_attack.animationSpeed = .2;
+
       }
+        console.log("GONE2");
+
       skeleton.imageContainer.addChild(fly_r_attack);
       if (fly_r_attack.currentFrame === 1){
         loop = true;
@@ -107,11 +111,14 @@ var Fly = function(name, x, y, hp){
         //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
         this.setMeeleeAttack(false);
         loop = false;
+        fly_r_attack.animationSpeed = 0;
       }
     } else if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_LEFT){
       if (first === false){
         fly_l_attack.gotoAndPlay(0);
         first = true; //at the very end set first to true
+        fly_l_attack.animationSpeed = .2;
+
       }
       skeleton.imageContainer.addChild(fly_l_attack);
       if (fly_l_attack.currentFrame === 1){
@@ -122,6 +129,8 @@ var Fly = function(name, x, y, hp){
         //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
         this.setMeeleeAttack(false);
         loop = false;
+        fly_l_attack.animationSpeed = 0;
+
       }
 
     } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_RIGHT){
