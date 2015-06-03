@@ -93,15 +93,12 @@ var Fly = function(name, x, y, hp){
 
 
     if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT){
-      console.log("GONE");
       if (first === false){
         fly_r_attack.gotoAndPlay(0);
         first = true; //at the very end set first to true
         fly_r_attack.animationSpeed = .2;
 
       }
-        console.log("GONE2");
-
       if (fly_r_attack.currentFrame === 1){
         loop = true;
       }

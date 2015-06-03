@@ -131,7 +131,7 @@ var setEventHandlers = function() {
 
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data){
-  
+  console.log("EMEE ATTACK DATA");
   var player;
   if (data.attacker === "you"){
     player = localPlayer;

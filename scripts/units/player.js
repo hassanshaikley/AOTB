@@ -312,7 +312,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
        ctx.restore();
      */
   };
-  var now = Date.now();
+  var now = Date.now()- 1000;
 
   //useful for animating
   this.setMeeleeAttack = function(_atk){
