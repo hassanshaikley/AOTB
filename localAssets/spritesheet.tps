@@ -265,6 +265,29 @@
             <filename>r_shanker_attack_v2_state6.png</filename>
             <filename>r_shanker_attack_v2_state7.png</filename>
             <filename>r_shanker_attack_v2_state8.png</filename>
+            <filename>l_flysheet_walk_v2_state1.png</filename>
+            <filename>l_flysheet_walk_v2_state2.png</filename>
+            <filename>l_flysheet_walk_v2_state3.png</filename>
+            <filename>l_flysheet_walk_v2_state4.png</filename>
+            <filename>l_flysheet_walk_v2_state5.png</filename>
+            <filename>l_flysheet_walk_v2_state6.png</filename>
+            <filename>l_flysheet_walk_v2_state7.png</filename>
+            <filename>l_flysheet_walk_v2_state8.png</filename>
+            <filename>l_flysheet_walk_v2_state9.png</filename>
+            <filename>l_flysheet_walk_v2_state10.png</filename>
+            <filename>l_flysheet_walk_v2_state11.png</filename>
+            <filename>l_flysheet_walk_v2_state12.png</filename>
+            <filename>r_flysheet_walk_v2_state2.png</filename>
+            <filename>r_flysheet_walk_v2_state3.png</filename>
+            <filename>r_flysheet_walk_v2_state4.png</filename>
+            <filename>r_flysheet_walk_v2_state5.png</filename>
+            <filename>r_flysheet_walk_v2_state6.png</filename>
+            <filename>r_flysheet_walk_v2_state7.png</filename>
+            <filename>r_flysheet_walk_v2_state8.png</filename>
+            <filename>r_flysheet_walk_v2_state9.png</filename>
+            <filename>r_flysheet_walk_v2_state10.png</filename>
+            <filename>r_flysheet_walk_v2_state11.png</filename>
+            <filename>r_flysheet_walk_v2_state12.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
