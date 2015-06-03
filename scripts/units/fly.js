@@ -74,15 +74,15 @@ var Fly = function(name, x, y, hp){
         this.drawText();
 
   var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
- fly_l.position.y = skeleton.getDrawAtY();
-    fly_r.position.y = skeleton.getDrawAtY();
-    fly_r_attack.position.y = skeleton.getDrawAtY()-25;
-    fly_l_attack.position.y = skeleton.getDrawAtY()-25;
+ fly_l.position.y = skeleton.getDrawAtY()-80;
+    fly_r.position.y = skeleton.getDrawAtY()-80;
+    fly_r_attack.position.y = skeleton.getDrawAtY()-27-80;
+    fly_l_attack.position.y = skeleton.getDrawAtY()-27-80;
 
     fly_l.position.x = drawAtX;
     fly_r.position.x = drawAtX;
     fly_r_attack.position.x = drawAtX-14;
-    fly_l_attack.position.x = drawAtX-33;
+    fly_l_attack.position.x = drawAtX-37;
 
     skeleton.imageContainer.removeChild(fly_r);
     skeleton.imageContainer.removeChild(fly_l);
@@ -102,7 +102,6 @@ var Fly = function(name, x, y, hp){
       }
         console.log("GONE2");
 
-      skeleton.imageContainer.addChild(fly_r_attack);
       if (fly_r_attack.currentFrame === 1){
         loop = true;
       }
@@ -112,7 +111,10 @@ var Fly = function(name, x, y, hp){
         this.setMeeleeAttack(false);
         loop = false;
         fly_r_attack.animationSpeed = 0;
-      }
+      }else {
+        skeleton.imageContainer.addChild(fly_r_attack);
+      } 
+
     } else if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_LEFT){
       if (first === false){
         fly_l_attack.gotoAndPlay(0);
@@ -131,6 +133,8 @@ var Fly = function(name, x, y, hp){
         loop = false;
         fly_l_attack.animationSpeed = 0;
 
+      } else {
+              skeleton.imageContainer.addChild(fly_l_attack);
       }
 
     } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_RIGHT){
