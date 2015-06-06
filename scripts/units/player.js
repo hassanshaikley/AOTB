@@ -324,7 +324,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   this.rightClick = function(clientX, clientY){
     var t_x = clientX ;
-    socket.emit("spell one", { x: t_x });
+    socket.emit("spell one", { x: t_x , y: clientY});
   };
 
   this.leftClick = function(){

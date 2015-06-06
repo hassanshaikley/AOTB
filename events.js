@@ -3,22 +3,23 @@
  **************************************************/ 
 var  Fly            = require("./units/fly").Fly,
      Redhatter      = require("./units/redhatter").Redhatter,
-     Grimes      = require("./units/grimes").Grimes,
+     Grimes         = require("./units/grimes").Grimes,
      Bowman         = require("./units/bowman").Bowman,
      Skelly         = require("./units/skelly").Skelly,
      Shanker        = require("./units/shanker").Shanker,
      Crevice        = require("./units/crevice").Crevice,
      Spells         = require("./spellsandprojectiles.js").Spells,
      Meteor         = require("./spellsandprojectiles.js").Meteor,
-     TortStun         = require("./spells/tortstun.js").TortStun,
+     Stealth        = require("./spells/stealth.js").Stealth,
+     TortStun       = require("./spells/tortstun.js").TortStun,
      BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow;
 
-canvas_width = 800;
+     var CONFIG = require("./config");
+
+    canvas_width = 800;
 
 var Events = function(){
-
     function onSocketConnection(client) {
-        //player connected
         // Listen for client disconnected
         client.on("disconnect", onClientDisconnect);
         client.on('sendMessage', function (data) {
@@ -29,11 +30,9 @@ var Events = function(){
         // Listen for new player message
         client.on("new player", onNewPlayer);
 		client.on("spell one", onSpellOne);
-        client.on("healing spike cast", onHealingSpikeCast);
         client.on("respawn player", onRespawn);
         client.on("descend attack change", onDescendAttackChange);
         client.on("meelee attack", onMeeleeAttack);
-        client.on("arrow created", onArrowCreated);
         client.on("init me", initClient);
         client.on("key press", onKeyPress);
     };
@@ -44,11 +43,9 @@ var Events = function(){
         io.set("polling duration", 10);
         io.sockets.on("connection", onSocketConnection);
     };
-    function onKeyPress(data){
-        //util.log(data.key);
-        //util.log(data.down);
-        var player = playerById(this.id);
 
+    function onKeyPress(data){
+        var player = playerById(this.id);
         if(data.key === "left"){
             if (data.down){
                 player.left = true; 
@@ -78,6 +75,8 @@ var Events = function(){
             }
         }
     }
+
+    /*
     function onArrowCreated(data){
         //util.log("arrow created son");
         //get the arrow and validate that this move was allowed
@@ -89,20 +88,23 @@ var Events = function(){
         v = new BowmanArrow(data.x, data.y, this.id,team );
         Spells.spellsarray.push(v);
         //create it on the sever
-
         //send information of this arrow to everybody 
-
         //arrow can appear visually on other peoples machines, but have their machiens render it independently, I think ? IDK. lol swag
-    };
+    };*/
 
     function onMeeleeAttack(data){ //when a player left clicks
         var attacker = playerById(this.id);
         var i;
+        /* Make sure Meelee Attack isn't on CoolDown */
         if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
             attacker.meeleeAttackTime = Date.now();
         } else {    //meelee attack is on CD
             return;
         }
+
+        //hitbox should depend on direction, so should create a hitbox then tell if the two hitboxes overlap!
+        //a helped function would ideally take two rectangles and tell you if overlaps
+
         
         for (i = 0; i< players.length; i++){
             if ( players[i].id != this.id){
@@ -130,15 +132,12 @@ var Events = function(){
             if  (Math.abs(attacker.getX() - game1.shrine_0.getX() -game1.shrine_0.getHalfWidth()*2) <= game1.shrine_0.getHalfWidth()*2 ){
                 //util.log("made x");
                 if (Math.abs(game1.shrine_0.getY() - attacker.getY()) <= 150){ // shanker made contact at 114
-                        game1.shrine_0.setHp(game1.shrine_0.getHp() -100 );
-                    }
-                
+                    game1.shrine_0.setHp(game1.shrine_0.getHp() -100 );
+                }   
             }
-
         }
 
-        //Now get the characters to animate the meelee attack
-
+        //Now get all the characters to animate the meelee attack = )
         this.emit('meelee attack', {attacker: "you" });
         this.broadcast.emit('meelee attack', {attacker: this.id});
     }
@@ -176,33 +175,28 @@ var Events = function(){
     function onNewPlayer(data) {
         // Create a new player
         util.log("A " + (data.characterType || "unknown") + " has joined the game.");
-
-        if (data.characterType === "Fly"){
+        util.log(CONFIG.SHANKER);
+        if (data.characterType === CONFIG.Fly){
             var newPlayer = new Fly(data.name);
         }
-        else if (data.characterType === "Redhatter"){
+        else if (data.characterType === CONFIG.Redhatter){
             var newPlayer = new Redhatter(data.name);
 				}
-        else if (data.characterType === "Grimes"){
+        else if (data.characterType === CONFIG.Grimes){
             var newPlayer = new Grimes(data.name);
         }
-        else if (data.characterType === "Bowman"){
+        else if (data.characterType === CONFIG.Bowman){
             var newPlayer = new Bowman(data.name);
-        } else if (data.characterType === "Shanker"){
+        } else if (data.characterType === CONFIG.Shanker){
+            console.log("MADE HSANKAAR");
             var newPlayer = new Shanker(data.name);
         }
         else { // (data.characterType === "Crevice"){
             var newPlayer = new Crevice(data.name);
         }
         newPlayer.id = this.id;
-        util.log("Creating a " + newPlayer.getCharacterType());
-        util.log("new player team: " +newPlayer.getTeam());
-        util.log("id " +newPlayer.id);
-
         game1.addPlayer(newPlayer);
-        // Broadcast new player to connected socket clients
         this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType() });
-
         // Send existing players to the new player
         var i, existingPlayer;
         for (i = 0; i < players.length; i++) {
@@ -210,18 +204,14 @@ var Events = function(){
             this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType(), team: newPlayer.getTeam()});
         };
         util.log("Total # of players is " + (players.length+1));
-
         // Add new player to the players array
         players.push(newPlayer);
 
     };
+
 	function onSpellOne(data){
-			//crete new stun obj
 		var player = playerById(this.id);
         var team = player.getTeam();
-
-        console.log((  player.spellOneCastTime +" "+ TortStun.getCooldown() ));
-
         if (player.getCharacterType() === "Grimes" && player.spellOneCastTime + TortStun.getCooldown()  <=  Date.now() ) {
             player.spellOneCastTime = Date.now();
 		    var v = new TortStun(data.x, data.y, team);	
@@ -229,7 +219,7 @@ var Events = function(){
             this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true});
             this.broadcast.emit('spell one', {x: data.x, spell: "tort stun" });
         }
-        if (player.getCharacterType() === "Redhatter"&& player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
+        if (player.getCharacterType() === "Redhatter" && player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
             player.spellOneCastTime = Date.now();
                 //var v = new TortStun(data.x, data.y, team); 
                 var v = new Meteor(data.x, data.y, team);
@@ -237,13 +227,11 @@ var Events = function(){
                 this.emit('spell one', {x: data.x, spell: "meteor" });
                 this.broadcast.emit('spell one', {x: data.x, spell: "meteor" });
         }
-		};
+        if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){
 
-    function onHealingSpikeCast(data){
-        //util.log("A Meteor has been cast " + JSON.stringify(data.meteor_x));
-        this.emit('healing spike cast', {_x: data._x, caster: this.id });
-        this.broadcast.emit('healing spike cast', {_x: data._x, caster: this.id});
-    };
+        }
+
+	};
 
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
     //hitBy.setGold(hitBy.getGold()+1);
@@ -257,8 +245,6 @@ var Events = function(){
     var initClient = function(){
         var initPlayer = playerById(this.id);
         this.emit("init me", { team: initPlayer.getTeam(), x: initPlayer.getRespawnX()});
-
-        //send team
     };
     /**************************************************
      ** GAME HELPER FUNCTIONS

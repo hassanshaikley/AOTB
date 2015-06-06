@@ -120,43 +120,10 @@ var Redhatter = function(name, x, y, hp){
       }
     }
 
-  /*  if (this.getMeeleeAttack()){
-        console.log("TRUE");
-        skeleton.imageContainer.removeChild(redhatter_r);
-        skeleton.imageContainer.removeChild(redhatter_l);
-	  if (this.getMoveDirection() === "left"){
-        skeleton.imageContainer.addChild(redhatter_r_attack);
 
-    } else if (this.getMoveDirection() === "right" ){
-    	  skeleton.imageContainer.addChild(redhatter_r_attack);
-    } */
-
-
-	//} else {
-
-/*
-  	if (this.getMoveDirection() === "left"){
-
-  	  skeleton.imageContainer.removeChild(redhatter_r);
-  	  skeleton.imageContainer.removeChild(redhatter_l);
-
-  	  skeleton.imageContainer.addChild(redhatter_l);
-  	
-  	} else if (this.getMoveDirection() === "right" ){
-  	  skeleton.imageContainer.removeChild(redhatter_r);
-  	  skeleton.imageContainer.removeChild(redhatter_l);
-  	  skeleton.imageContainer.addChild(redhatter_r);
-
-  	} 
-*/
-  
-  //  if (this.getMoveDirection() === "left" || this.getMoveDirection() ==="right"){
-      redhatter_l.animationSpeed = .2;
+        redhatter_l.animationSpeed = .2;
       redhatter_r.animationSpeed = .2;
-  /*  } else {
-        redhatter_l.animationSpeed = .0;
-        redhatter_r.animationSpeed = .0;
-      }*/
+
 
   };
   

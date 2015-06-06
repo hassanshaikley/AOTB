@@ -135,14 +135,6 @@ var Shanker = function(name, x, y, hp){
   };
   var now = Date.now();
  
- /*
-  skeleton.leftClick = function(x, y){
-    if (Date.now()  - now >= 1000 ){
-    meelee_attack = 0;
-    socket.emit("meelee attack");
-    now = Date.now();
-    }
-  };  */
 
   skeleton.update = function(keys) {
   };

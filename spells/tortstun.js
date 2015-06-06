@@ -1,5 +1,5 @@
-Spell = require("./spell").Spell; // so it can inherits :D 
-Spells = require("../spellsandprojectiles").Spells;
+var Spell = require("./spell").Spell; // so it can inherits :D 
+var Spells = require("../spellsandprojectiles").Spells;
 
 var TortStun = function(_x, _y, _team) {
 	_y = 510;

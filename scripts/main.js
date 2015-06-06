@@ -45,8 +45,16 @@ function Main() {
 
 Main.prototype.loadSpriteSheet = function() {
   var loader = new PIXI.loaders.Loader(); 
-  loader.add("localAssets/spritesheet.json", "localAssets/spritesheet.json");
-  loader.add("localAssets/spritesheet.png", "localAssets/spritesheet.png");
+var url;
+  if (location.origin === "http://localhost:5000" && 
+    UrlExists("/localAssets/spritesheet.png")){
+    url ="localAssets/";
+} else {
+    url = "https://s3-us-west-2.amazonaws.com/amara-assets/";
+}
+
+  loader.add(url + "spritesheet.json", "localAssets/spritesheet.json");
+  loader.add(url + "spritesheet.png", "localAssets/spritesheet.png");
   loader.once('complete',this.spriteSheetLoaded.bind(this));
   loader.load();
 };
