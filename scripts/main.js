@@ -46,12 +46,12 @@ function Main() {
 Main.prototype.loadSpriteSheet = function() {
   var loader = new PIXI.loaders.Loader(); 
 var url;
-  if (location.origin === "http://localhost:5000" && 
-    UrlExists("/localAssets/spritesheet.png")){
+ // if (location.origin === "http://localhost:5000" && 
+    //UrlExists("/localAssets/spritesheet.png")){
     url ="localAssets/";
-} else {
+/*} else {
     url = "https://s3-us-west-2.amazonaws.com/amara-assets/";
-}
+}*/
 
   loader.add(url + "spritesheet.json", "localAssets/spritesheet.json");
   loader.add(url + "spritesheet.png", "localAssets/spritesheet.png");
