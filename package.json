@@ -1,6 +1,6 @@
 {
-  "name": "_dubs",
-  "version": "0.5.0",
+  "name": "Arena Of The Bits",
+  "version": "0.6.0",
   "description": "GAME",
   "main": "views/index.ejs",
   "scripts": {
