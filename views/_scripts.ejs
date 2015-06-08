@@ -39,7 +39,7 @@
 	if (location.origin != "http://localhost:5000"){
   		$('body').bind('contextmenu', function(){ return false; });
 	}
-	PORT = <%=process.env.PORT || 5000 %>;
+	PORT = 5000;
 
 
 	MAIN = new Main();

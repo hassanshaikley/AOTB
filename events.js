@@ -175,7 +175,6 @@ var Events = function(){
     function onNewPlayer(data) {
         // Create a new player
         util.log("A " + (data.characterType || "unknown") + " has joined the game.");
-        util.log(CONFIG.SHANKER);
         if (data.characterType === CONFIG.Fly){
             var newPlayer = new Fly(data.name);
         }
