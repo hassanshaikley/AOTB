@@ -58,13 +58,13 @@ var Shanker = function(name, x, y, hp){
    // this.update_player();
 
     var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+    var drawAtY = skeleton.getDrawAtY() -50;
 
 
-
-    shanker_l.position.y = 400;
-    shanker_r.position.y = 400;
-    shanker_r_attack.position.y = 400;
-    shanker_l_attack.position.y = 400;
+    shanker_l.position.y = drawAtY;
+    shanker_r.position.y = drawAtY;
+    shanker_r_attack.position.y = drawAtY;
+    shanker_l_attack.position.y = drawAtY;
 
     shanker_l.position.x = drawAtX;
     shanker_r.position.x = drawAtX;

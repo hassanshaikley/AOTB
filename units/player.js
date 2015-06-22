@@ -6,7 +6,7 @@ var Player = function(startHp, _name, _team) {
     this.id = 1;
     var name = _name,
         hp = 100,
-        y = 465,
+        y = 400,
         maxHp = 100, //ehh w.e lol
         character_type = "Unknown", 
         gold = 0,
@@ -25,7 +25,7 @@ var Player = function(startHp, _name, _team) {
         return 30;
     }
     this.getHeight = function(){
-        return 60;
+        return 100;
     }
     this.setTeam = function(newTeam){
         if (newTeam===1){

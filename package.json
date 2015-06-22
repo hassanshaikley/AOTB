@@ -1,5 +1,5 @@
 {
-  "name": "Arena Of The Bits",
+  "name": "aotb",
   "version": "0.6.0",
   "description": "GAME",
   "main": "views/index.ejs",

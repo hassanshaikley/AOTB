@@ -10,6 +10,6 @@ var CONFIG = {};
 	CONFIG.Shrine = "Shrine";
 	CONFIG.Team_L = 0;
 	CONFIG.Team_R = 1;
-
+        CONFIG.FLOOR_HEIGHT =474;
 
 module.exports = CONFIG;
