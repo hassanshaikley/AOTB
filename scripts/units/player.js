@@ -2,7 +2,7 @@ var floorHeight = 474;
 var Player = function Player(startX, startY, startHp, _name) { //ignore startX variable
   if (startX == undefined) startX = -1000;
   if (startY == undefined) startY = -1000;
-
+    console.log("y i s " + startY);
 
   var 	x =               startX,
 	y =               startY,
@@ -13,7 +13,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	drawAtX =         x,
 	drawAtY =         y,
 	postX =           x,
+	postY = 	  y,
 	moveDifferenceX = 0,
+	moveDifferenceY = 0,	
 	animate =         0,
 	lastsaid = {},
 	gold = 0,
@@ -187,10 +189,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
      * Checks the difference between 
      */
     moveDifferenceX = (drawAtX - postX);
-    
+    moveDifferenceY = (drawAtY - postY); 
     if (moveDifferenceX){ /* USED TO TELL IF GOING LEFT OR RIGHT */
       postX = drawAtX; 
     } 
+    if (moveDifferenceY){
+	postY = drawAtY;
+    }
 
     //if y is 5 and drawAtY is 10
 
@@ -205,7 +210,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
       drawAtX = x;
       drawAtY = y;
-    }
+    } else if (yDiff <= 10 && moveDifferenceY == 0){
+	drawAtY = y;
+     }
 
     xSpeed = (xDiff/10) ; 
     xSpeed = Math.floor(xSpeed);

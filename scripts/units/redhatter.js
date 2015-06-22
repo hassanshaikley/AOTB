@@ -1,11 +1,6 @@
 var Redhatter = function(name, x, y, hp){
-
-
-  var skeleton =  new Player(-100, -100, hp, name);
+  var skeleton =  new Player(x, y, hp, name);
   var facing_left;
-
-	//used for animation
-  var spritesheet_offset_y = 0;
 
   /* CASTS A METEOR :D */
 
@@ -20,8 +15,8 @@ var Redhatter = function(name, x, y, hp){
   };
 
 
-  var redhatter_l =new PIXI.extras.MovieClip([PIXI.Texture.fromImage("l_redhatter1.png"),PIXI.Texture.fromImage("l_redhatter2.png"),PIXI.Texture.fromImage("l_redhatter3.png"),PIXI.Texture.fromImage("l_redhatter4.png")]);
-  var redhatter_r =new PIXI.extras.MovieClip([PIXI.Texture.fromImage("r_redhatter1.png"),PIXI.Texture.fromImage("r_redhatter2.png"),PIXI.Texture.fromImage("r_redhatter3.png"),PIXI.Texture.fromImage("r_redhatter4.png")]);
+  var redhatter_l = new PIXI.extras.MovieClip([PIXI.Texture.fromImage("l_redhatter1.png"),PIXI.Texture.fromImage("l_redhatter2.png"),PIXI.Texture.fromImage("l_redhatter3.png"),PIXI.Texture.fromImage("l_redhatter4.png")]);
+  var redhatter_r = new PIXI.extras.MovieClip([PIXI.Texture.fromImage("r_redhatter1.png"),PIXI.Texture.fromImage("r_redhatter2.png"),PIXI.Texture.fromImage("r_redhatter3.png"),PIXI.Texture.fromImage("r_redhatter4.png")]);
 
 
 
@@ -56,15 +51,15 @@ var Redhatter = function(name, x, y, hp){
   skeleton.draw = function() {
     this.drawText();
    // this.update_player();
-
+      var drawAtY = skeleton.getDrawAtY() -50;
     var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
 
 
 
-    redhatter_l.position.y = 380;
-    redhatter_r.position.y = 380;
-    redhatter_r_attack.position.y = 380+10;
-    redhatter_l_attack.position.y = 380+10;
+    redhatter_l.position.y = drawAtY;
+    redhatter_r.position.y = drawAtY;
+    redhatter_r_attack.position.y = drawAtY+10;
+    redhatter_l_attack.position.y = drawAtY+10;
 
     redhatter_l.position.x = drawAtX;
     redhatter_r.position.x = drawAtX;

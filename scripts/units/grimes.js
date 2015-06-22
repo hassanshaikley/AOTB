@@ -42,7 +42,6 @@ var Grimes = function(name, x, y, hp){
     skeleton.drawText();
       var drawAtY = skeleton.getDrawAtY()-50;
   	  var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
-      console.log("DAY " + drawAtY);
   	grimes_r.position.y = drawAtY;
   	grimes_l.position.y = drawAtY;
 
