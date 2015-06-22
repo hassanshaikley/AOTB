@@ -69,15 +69,16 @@ var Fly = function(name, x, y, hp){
   var flyAnimate= 0;
   var first = false,
       loop = false;
-
+    
+    var halfHeight = skeleton.getHeight()/2;
   skeleton.draw = function() {
         this.drawText();
 
   var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
- fly_l.position.y = skeleton.getDrawAtY()-80;
-    fly_r.position.y = skeleton.getDrawAtY()-80;
-    fly_r_attack.position.y = skeleton.getDrawAtY()-27-80;
-    fly_l_attack.position.y = skeleton.getDrawAtY()-27-80;
+ fly_l.position.y = skeleton.getDrawAtY()-halfHeight;
+    fly_r.position.y = skeleton.getDrawAtY()-halfHeight;
+    fly_r_attack.position.y = skeleton.getDrawAtY()-27-halfHeight;
+    fly_l_attack.position.y = skeleton.getDrawAtY()-27-halfHeight;
 
     fly_l.position.x = drawAtX;
     fly_r.position.x = drawAtX;

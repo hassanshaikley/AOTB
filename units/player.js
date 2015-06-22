@@ -2,6 +2,7 @@
 /**************************************************
  ** PLAYER CLASS IN SERVER
  **************************************************/
+var Config = require("../config.js");
 var Player = function(startHp, _name, _team) {
     this.id = 1;
     var name = _name,
@@ -106,7 +107,7 @@ var Player = function(startHp, _name, _team) {
     };
 
     this.setY = function(newY) {
-        if (newY > -20 && newY <= 474){
+        if (newY > -20 && newY <= Config.FLOOR_HEIGHT +10){
             y = newY;
         } else {
             if ( y<250){

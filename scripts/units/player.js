@@ -251,6 +251,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     return drawAtY;
   };
 
+    this.getHeight = function(){
+	return 100;
+	};
   this.speaks = function(words){
     lastsaid.time = Date.now();
     lastsaid.text = words;
@@ -281,10 +284,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     text_x = Math.abs(768/2) - localPlayer.localX() + drawAtX;
     //	\le.log(" x - . "+text_x);
     health_shadow.position.x = text_x-25;
-    health_shadow.position.y = drawAtY-100;
+    health_shadow.position.y = drawAtY-60;
 
     health.position.x = text_x-25;
-    health.position.y = drawAtY-100;
+    health.position.y = drawAtY-60;
 
     health.scale.x = Math.abs(hp/100);
 

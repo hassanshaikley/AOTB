@@ -1,5 +1,5 @@
 var Grimes = function(name, x, y, hp){
-  var skeleton = new Player(x, (y-20), hp, name),
+  var skeleton = new Player(x, y, hp, name),
       facing_left;
 
   var spells_thumb_array = [];
@@ -37,18 +37,19 @@ var Grimes = function(name, x, y, hp){
     return "Grimes";
   };
 
+    
   skeleton.draw = function(ctx) {
     skeleton.drawText();
-
+      var drawAtY = skeleton.getDrawAtY()-50;
   	  var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
-
-  	grimes_r.position.y = 380;
-  	grimes_l.position.y = 380;
+      console.log("DAY " + drawAtY);
+  	grimes_r.position.y = drawAtY;
+  	grimes_l.position.y = drawAtY;
 
   	grimes_l.position.x = drawAtX;
   	grimes_r.position.x = drawAtX;
 
-  	if (this.getMoveDirection() === "left"){
+    if (this.getMoveDirection() === "left"){
       skeleton.imageContainer.removeChild(grimes_r);
       skeleton.imageContainer.removeChild(grimes_l);
       skeleton.imageContainer.addChild(grimes_l);
