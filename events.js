@@ -98,7 +98,13 @@ var Events = function(){
 	var that = this;
 	setTimeout( function(){
 	  var _x = attacker.getX() - 20;
-	  var _y = attacker.getY();
+	  var _y = attacker.getY()-15;
+	util.log(data.direction);
+          if (data.direction === "right"){
+		_x += 20 + 20;
+	  } else {
+		_x -=20;
+	  }
 	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y }); 
 	  that.emit("draw hitmarker",  {x: _x, y: _y }); 
 	}, 500);
