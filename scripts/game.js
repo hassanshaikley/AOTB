@@ -125,9 +125,21 @@ var setEventHandlers = function() {
   socket.on("win", onWin);
   socket.on("update player", onUpdatePlayer);
   socket.on("spell one", onSpellOne);
-
+  socket.on("draw hitmarker", onDrawHitmarker);
   socket.on("meelee attack", onMeeleeAttack);
 };
+
+//receives an _x and _y var of where to draw
+function onDrawHitmarker(data){
+	sprite = new PIXI.Sprite.fromFrame("hitmarker.png");
+	console.log("DATA "+ data.x + " " + data.y);
+	sprite.x = data.x-18 - localPlayer.getDrawAtX() + CONFIG.SCREEN_WIDTH/2;
+	sprite.y = data.y-18;
+	MAIN.stage.addChild(sprite);
+	setTimeout( function(){
+		MAIN.stage.removeChild(sprite);
+	}, 500);
+}
 
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data){

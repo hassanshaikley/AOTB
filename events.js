@@ -95,6 +95,13 @@ var Events = function(){
     function onMeeleeAttack(data){ //when a player left clicks
         var attacker = playerById(this.id);
         var i;
+	var that = this;
+	setTimeout( function(){
+	  var _x = attacker.getX() - 20;
+	  var _y = attacker.getY();
+	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y }); 
+	  that.emit("draw hitmarker",  {x: _x, y: _y }); 
+	}, 500);
         /* Make sure Meelee Attack isn't on CoolDown */
         if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
             attacker.meeleeAttackTime = Date.now();

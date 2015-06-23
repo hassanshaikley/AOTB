@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.7.1</string>
+        <string>3.8.0</string>
         <key>fileName</key>
-        <string>/Users/lilsheep/amara-game/localAssets/spritesheet.tps</string>
+        <string>/home/hassooni/aotb/localAssets/spritesheet.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -190,13 +190,9 @@
         <array>
             <filename>blood.png</filename>
             <filename>bowman.png</filename>
-            <filename>burning_side.png</filename>
-            <filename>castleleft.png</filename>
-            <filename>CastleOfOne.png</filename>
             <filename>cloud.png</filename>
             <filename>cobblestone_ground.png</filename>
             <filename>crevice.png</filename>
-            <filename>earthenfloor.png</filename>
             <filename>fireball.png</filename>
             <filename>flysheet2.png</filename>
             <filename>gold.png</filename>
@@ -288,6 +284,8 @@
             <filename>r_flysheet_walk_v2_state10.png</filename>
             <filename>r_flysheet_walk_v2_state11.png</filename>
             <filename>r_flysheet_walk_v2_state12.png</filename>
+            <filename>castleofone2.png</filename>
+            <filename>hitmarker.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
