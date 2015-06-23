@@ -131,14 +131,14 @@ var setEventHandlers = function() {
 
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data){
-  console.log("EMEE ATTACK DATA");
+  console.log("EMEE ATTACK DATA" + data.attacker);
   var player;
   if (data.attacker === "you"){
     player = localPlayer;
   } else{
-    player = playerById(data.id);
+    player = playerById(data.attacker);
   }
-
+	console.log("attacker"+player + " - " + data.id);
   player.setMeeleeAttack(true);
 
 }

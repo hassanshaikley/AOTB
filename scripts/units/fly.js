@@ -71,6 +71,7 @@ var Fly = function(name, x, y, hp){
       loop = false;
     
     var halfHeight = skeleton.getHeight()/2;
+ 
   skeleton.draw = function() {
         this.drawText();
 

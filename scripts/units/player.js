@@ -2,7 +2,6 @@ var floorHeight = 474;
 var Player = function Player(startX, startY, startHp, _name) { //ignore startX variable
   if (startX == undefined) startX = -1000;
   if (startY == undefined) startY = -1000;
-    console.log("y i s " + startY);
 
   var 	x =               startX,
 	y =               startY,
@@ -58,6 +57,19 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   }
   // Getters and setters
   this.setTeam = function(_team){
+      if (_team == 1) {
+	try {
+	  grayFilter();
+	} catch (e) {
+
+	}
+	 
+       } else {
+	 try {
+	  noFilter();
+	} catch (e){
+	}
+    }
     team = _team;
   };
 
@@ -206,7 +218,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     xDiff = Math.abs(drawAtX - x);
 
 
-      console.log("md y" + moveDifferenceY + " -- " + this.getX());
     if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
       drawAtX = x;
       drawAtY = y;
@@ -281,6 +292,15 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   this.imageContainer = new PIXI.Container();
 
+    var grayFilter = () => {
+	var filter = new PIXI.filters.GrayFilter();
+	this.imageContainer.filters = [filter];
+    }
+    var noFilter = () => {
+
+	//	this.imageContainer.filters = [];
+
+    }
   this.imageContainer.addChild(health_shadow);
   this.imageContainer.addChild(health);
 
