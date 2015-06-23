@@ -206,13 +206,14 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     xDiff = Math.abs(drawAtX - x);
 
 
-
+      console.log("md y" + moveDifferenceY + " -- " + this.getX());
     if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
       drawAtX = x;
       drawAtY = y;
-    } else if (yDiff <= 10 && moveDifferenceY == 0){
+    } else if (Math.abs(yDiff) <= 5 && moveDifferenceY == 0){
 	drawAtY = y;
      }
+
 
     xSpeed = (xDiff/10) ; 
     xSpeed = Math.floor(xSpeed);

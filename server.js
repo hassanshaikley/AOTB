@@ -48,9 +48,8 @@ Server.prototype.updateGameVariables = function(){
 	// update player positions
 	for (var _i = 0; _i < players.length; _i++){
 	    //Don't allow player to descend further than the floor
-	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
+//	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
 	    if ((players[_i].getY()+ players[_i].getHeight()/2) < Config.FLOOR_HEIGHT+40) {
-		util.log("SETTING");
 		players[_i].setY(players[_i].getY()+1);
 	    }
 		if (players[_i].isStunned()){
