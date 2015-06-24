@@ -65,6 +65,12 @@ var Shanker = function(name, x, y, hp){
     shanker_r.position.y = drawAtY;
     shanker_r_attack.position.y = drawAtY;
     shanker_l_attack.position.y = drawAtY;
+   //use to make drawing shanker mroe accurate lol 
+   if (this.getMoveDirection() === "right" ){
+	drawAtX += 20;
+	} else {
+	drawAtX += 5;
+}
 
     shanker_l.position.x = drawAtX;
     shanker_r.position.x = drawAtX;
