@@ -292,7 +292,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   this.imageContainer = new PIXI.Container();
 
-    var grayFilter = () => {
+/*    var grayFilter = () => {
 	var filter = new PIXI.filters.GrayFilter();
 	this.imageContainer.filters = [filter];
     }
@@ -300,7 +300,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 	//	this.imageContainer.filters = [];
 
-    }
+    }*/
   this.imageContainer.addChild(health_shadow);
   this.imageContainer.addChild(health);
 
@@ -316,7 +316,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
     health.position.x = text_x-20;
     health.position.y = drawAtY-60;
-	console.log("HP IS " + Math.ceil(hp/100));
     health.scale.x = Math.ceil((hp/100)*40);
 	//hp is 100 : 100
 	//	x   : 40

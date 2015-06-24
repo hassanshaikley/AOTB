@@ -57,7 +57,6 @@ var Fly = function(name, x, y, hp){
   fly_r_attack.animationSpeed = .15;
   fly_l_attack.animationSpeed = .15;
 
-  skeleton.fly_l = fly_l;
 
 
 
@@ -76,11 +75,18 @@ var Fly = function(name, x, y, hp){
         this.drawText();
 
   var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
- fly_l.position.y = skeleton.getDrawAtY()-halfHeight;
+   if (this.getMoveDirection() === "right" ){
+        drawAtX += 3;
+        } else {
+        drawAtX -= 3;
+}
+
+
+    fly_l.position.y = skeleton.getDrawAtY()-halfHeight;
     fly_r.position.y = skeleton.getDrawAtY()-halfHeight;
     fly_r_attack.position.y = skeleton.getDrawAtY()-27-halfHeight;
     fly_l_attack.position.y = skeleton.getDrawAtY()-27-halfHeight;
-
+  
     fly_l.position.x = drawAtX;
     fly_r.position.x = drawAtX;
     fly_r_attack.position.x = drawAtX-14;
@@ -150,7 +156,7 @@ var Fly = function(name, x, y, hp){
 
 
         fly_r.animationSpeed = .2;
-      fly_r.animationSpeed = .2;
+      fly_l.animationSpeed = .2;
 
 
 
@@ -206,6 +212,7 @@ var Fly = function(name, x, y, hp){
     localX = this.getX();
     return; 
   };
+
   var f_cd = 1000;
   var f_t = Date.now();
   skeleton.rightClick = function(){
