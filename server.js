@@ -3,8 +3,8 @@
  **************************************************/
 function Server(){
 	this.libs    = require("./initialize.js").loadLibraries();        //initialize.load();
-	this.events          = require("./events").Events;   
-	this.event_handler  = new this.events(); 
+	this.events          = require("./events").Events;
+	this.event_handler  = new this.events();
 	this.Spells      = require("./spellsandprojectiles").Spells;
 	require("./initialize.js").initialize();
 }
@@ -26,7 +26,7 @@ Server.prototype.updateGameVariables = function(){
 	if (game1.getWinner() !== -1 && game1.getState() === 1){
 		/* Tell everyone about it and restart the game */
 		//do this once
-		
+
 		server.libs.io.sockets.emit('win', {winner : game1.getWinner()});
 
 		game1.setState(0);
@@ -49,13 +49,13 @@ Server.prototype.updateGameVariables = function(){
 	for (var _i = 0; _i < players.length; _i++){
 	    //Don't allow player to descend further than the floor
 //	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
-	    if ((players[_i].getY()+ players[_i].getHeight()/2) < Config.FLOOR_HEIGHT+40) {
+	    if ((players[_i].getY()+ players[_i].getHeight()/2) < Config.FLOOR_HEIGHT) {
 		players[_i].setY(players[_i].getY()+1);
 	    }
 		if (players[_i].isStunned()){
 			continue;
 		}
-		
+
 		if (players[_i].getCharacterType() === "Fly"){
 			if (players[_i].getDescendAttack()){
 				if(players[_i].getY() >= 474){
@@ -96,8 +96,8 @@ Server.prototype.updateGameVariables = function(){
 	for (i = 0; i < players.length; i++) {
 
 		if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
-			if  (Math.abs(players[i].getX() - game1.shrine_1.getX())<= 100 && 
-					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined || 
+			if  (Math.abs(players[i].getX() - game1.shrine_1.getX())<= 100 &&
+					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined ||
 						Date.now() -game1.shrine_1.hitby[i] >= 1000)){
 
 				if (Math.abs(game1.shrine_1.getY() - players[i].getY()) <=150 ){
@@ -106,8 +106,8 @@ Server.prototype.updateGameVariables = function(){
 
 				}
 			}
-			if  (Math.abs(players[i].getX() - game1.shrine_0.getX()) <= 100 && 
-					players[i].getTeam() != 0 &&( game1.shrine_0.hitby[i] == undefined || 
+			if  (Math.abs(players[i].getX() - game1.shrine_0.getX()) <= 100 &&
+					players[i].getTeam() != 0 &&( game1.shrine_0.hitby[i] == undefined ||
 						Date.now() -game1.shrine_0.hitby[i] >= 1000)){
 				if (Math.abs(game1.shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
 					game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
@@ -140,14 +140,14 @@ Server.prototype.updateGameVariables = function(){
 
 
 		if  (server.Spells.spellsarray[i].getTeam() == 0
-		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()) <  
+		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()) <
 			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) {
 			if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <= (game1.shrine_1.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
 				game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
 			}
 		}
 		if  (server.Spells.spellsarray[i].getTeam() == 1
-		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_0.getX()) <  
+		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_0.getX()) <
 			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_0.getHalfWidth() ) {
 
 			if (Math.abs(game1.shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= (game1.shrine_0.getHeight() + server.Spells.spellsarray[i].getHeight())) { // shanker made contact at 114
@@ -157,15 +157,15 @@ Server.prototype.updateGameVariables = function(){
 
 		for (var j = 0; j < players.length; j++) {
 
-			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <  
+			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
-				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 && 
+				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
 				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY()) <  (players[j].getHeight() + server.Spells.spellsarray[i].getHeight() )) {
-		
+
 			//	util.log (" TEAM "+ players[j].getTeam()  + " SPELL TEAM " + server.Spells.spellsarray[i].getTeam());
 				if (players[j].getTeam() !== server.Spells.spellsarray[i].getTeam()){
 					util.log("Hits other team. Do damage.");
-					server.Spells.spellsarray[i].hit.push(players[j].id); 
+					server.Spells.spellsarray[i].hit.push(players[j].id);
 					//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
 					setHp( players[j], server.Spells.spellsarray[i].getDamage());
 					util.log("STUNNING");
@@ -186,7 +186,7 @@ Server.prototype.updateGameVariables = function(){
 	}
 
 	/* Method for telling all the units about the health of the structures and stuff */
-	server.sendUpdatedGame(); 
+	server.sendUpdatedGame();
 	setTimeout(function(){
 			server.updateGameVariables();
 			}, 1000 /15);

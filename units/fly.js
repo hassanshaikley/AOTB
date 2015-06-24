@@ -26,7 +26,7 @@ var Fly = function(name, team){
 	};
 	skeleton.moveDown = function(){
 		skeleton.move(speed, "down");
-		if (descendAttack === true && skeleton.getY() >= 475){ 
+		if (descendAttack === true && skeleton.getY() >= 475){
 			descendAttack = false; //now should notify all players
 		}
 	};
@@ -37,6 +37,9 @@ var Fly = function(name, team){
 		skeleton.move(speed, "right");
 	};
 
+    skeleton.getHeight = function(){
+        return 84;
+        };
 	return skeleton;
 };
 

@@ -2,7 +2,7 @@
  ** REDHATTER CLASS IN SERVER
  **************************************************/
 
-Player = require("./player").Player; // so it can inherits :D 
+Player = require("./player").Player; // so it can inherits :D
 var util = require("util");
 
 var Redhatter = function(name, team){
@@ -26,8 +26,10 @@ var Redhatter = function(name, team){
     skeleton.getCharacterType = function(){
         return "Redhatter";
     };
-
-    return skeleton; 
+    skeleton.getHeight = function(){
+      return 80;
+    };
+    return skeleton;
 };
 
 exports.Redhatter = Redhatter;
