@@ -101,9 +101,9 @@ var Events = function(){
 	  var _y = attacker.getY()-15;
 	util.log(data.direction);
           if (data.direction === "right"){
-		_x += 20 + 20;
+		_x += 43;
 	  } else {
-		_x -=20;
+		_x -=2;
 	  }
 	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y }); 
 	  that.emit("draw hitmarker",  {x: _x, y: _y }); 
