@@ -54,6 +54,12 @@ var Redhatter = function(name, x, y, hp){
       var drawAtY = skeleton.getDrawAtY() -50;
     var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
 
+   if (this.getMoveDirection() === "right" ){
+        drawAtX += 32;
+        } else {
+        drawAtX += 13;
+}
+
 
 
     redhatter_l.position.y = drawAtY;
