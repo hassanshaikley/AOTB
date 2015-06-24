@@ -1,6 +1,6 @@
 /**************************************************
  ** GAME EVENT HANDLERS
- **************************************************/ 
+ **************************************************/
 var  Fly            = require("./units/fly").Fly,
      Redhatter      = require("./units/redhatter").Redhatter,
      Grimes         = require("./units/grimes").Grimes,
@@ -25,8 +25,8 @@ var Events = function(){
         client.on('sendMessage', function (data) {
             this.broadcast.emit('message', { text: data.text, id: this.id});
             util.log("chat"+this.id);
-            this.emit('message', { text: data.text, id: this.id});   
-        });   
+            this.emit('message', { text: data.text, id: this.id});
+        });
         // Listen for new player message
         client.on("new player", onNewPlayer);
 		client.on("spell one", onSpellOne);
@@ -48,14 +48,14 @@ var Events = function(){
         var player = playerById(this.id);
         if(data.key === "left"){
             if (data.down){
-                player.left = true; 
+                player.left = true;
             }else {
-                player.left = false;    
+                player.left = false;
             }
         }
         if(data.key === "right"){
             if (data.down){
-                player.right = true; 
+                player.right = true;
             } else {
                 player.right = false;
             }
@@ -88,7 +88,7 @@ var Events = function(){
         v = new BowmanArrow(data.x, data.y, this.id,team );
         Spells.spellsarray.push(v);
         //create it on the sever
-        //send information of this arrow to everybody 
+        //send information of this arrow to everybody
         //arrow can appear visually on other peoples machines, but have their machiens render it independently, I think ? IDK. lol swag
     };*/
 
@@ -99,14 +99,34 @@ var Events = function(){
 	setTimeout( function(){
 	  var _x = attacker.getX() - 20;
 	  var _y = attacker.getY()-15;
-	util.log(data.direction);
-          if (data.direction === "right"){
-		_x += 43;
-	  } else {
-		_x -=2;
-	  }
-	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y }); 
-	  that.emit("draw hitmarker",  {x: _x, y: _y }); 
+	  util.log(data.direction);
+          switch (attacker.getCharacterType()) {
+          case "Shanker":
+            if (data.direction === "right"){
+		_x += 53;
+	    } else {
+		_x -=12;
+	     }
+              break;
+              case "Redhatter":
+                if (data.direction === "right"){
+                    _x +=63;
+                    } else {
+                     _x -=28;
+                }
+                _y +=10;
+                break;
+              case "Fly":
+                if (data.direction === "right"){
+                    _x+=63;
+                    } else {
+                        _x-= 28;
+                        }
+                  _y+=55;
+                break;
+          }
+	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y });
+	  that.emit("draw hitmarker",  {x: _x, y: _y });
 	}, 500);
         /* Make sure Meelee Attack isn't on CoolDown */
         if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
@@ -118,7 +138,7 @@ var Events = function(){
         //hitbox should depend on direction, so should create a hitbox then tell if the two hitboxes overlap!
         //a helped function would ideally take two rectangles and tell you if overlaps
 
-        
+
         for (i = 0; i< players.length; i++){
             if ( players[i].id != this.id){
                 if  (Math.abs(players[i].getX()- attacker.getX()) <= 50 ){
@@ -130,8 +150,8 @@ var Events = function(){
                 }
            }
        }
-        
-        
+
+
         util.log("Meelee Attack: at " + attacker.getX() + " tower at " + game1.shrine_1.getX() + " and " +game1.shrine_0.getX()  ); //between 60 and 150 is perfect
         if (attacker.getTeam() == 0){ //proper if statemetn
             util.log("ok " + (attacker.getX() - game1.shrine_1.getX()));
@@ -146,7 +166,7 @@ var Events = function(){
                 //util.log("made x");
                 if (Math.abs(game1.shrine_0.getY() - attacker.getY()) <= 150){ // shanker made contact at 114
                     game1.shrine_0.setHp(game1.shrine_0.getHp() -100 );
-                }   
+                }
             }
         }
 
@@ -154,7 +174,7 @@ var Events = function(){
         this.emit('meelee attack', {attacker: "you" });
         this.broadcast.emit('meelee attack', {attacker: this.id});
     }
-    
+
 
     function onDescendAttackChange(data){
         var dAP = playerById(this.id);
@@ -226,14 +246,14 @@ var Events = function(){
         var team = player.getTeam();
         if (player.getCharacterType() === "Grimes" && player.spellOneCastTime + TortStun.getCooldown()  <=  Date.now() ) {
             player.spellOneCastTime = Date.now();
-		    var v = new TortStun(data.x, data.y, team);	
+		    var v = new TortStun(data.x, data.y, team);
             Spells.spellsarray.push(v);
             this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true});
             this.broadcast.emit('spell one', {x: data.x, spell: "tort stun" });
         }
         if (player.getCharacterType() === "Redhatter" && player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
             player.spellOneCastTime = Date.now();
-                //var v = new TortStun(data.x, data.y, team); 
+                //var v = new TortStun(data.x, data.y, team);
                 var v = new Meteor(data.x, data.y, team);
                 Spells.spellsarray.push(v);
                 this.emit('spell one', {x: data.x, spell: "meteor" });

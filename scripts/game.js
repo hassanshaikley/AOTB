@@ -19,7 +19,7 @@ var floorHeight = 474;
 function init() {
 
   background = new Background();
-  
+
 
   MAIN.stage.addChild(background)
 
@@ -43,23 +43,23 @@ function init() {
   var adjustedX, adjustedY;
   canvas1.onmousedown = function(e){
     switch (e.which) {
-      case 1: 
+      case 1:
         clientRect = canvas1.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2; 
-        adjustedX += (e.clientX - clientRect.left); 
-        adjustedY += e.clientY - clientRect.topy;
-        localPlayer.leftClick(adjustedX, adjustedY);  
-        break;
-      case 2: 
-        console.log('middle click'); 
-        break;
-      case 3: 
-        clientRect = canvas1.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2; 
+        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2;
         adjustedX += (e.clientX - clientRect.left);
         adjustedY += e.clientY - clientRect.topy;
-        localPlayer.rightClick(adjustedX, adjustedY); 
-        break; 
+        localPlayer.leftClick(adjustedX, adjustedY);
+        break;
+      case 2:
+        console.log('middle click');
+        break;
+      case 3:
+        clientRect = canvas1.getBoundingClientRect();
+        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2;
+        adjustedX += (e.clientX - clientRect.left);
+        adjustedY += e.clientY - clientRect.topy;
+        localPlayer.rightClick(adjustedX, adjustedY);
+        break;
     }
 
   };
@@ -140,7 +140,7 @@ var setEventHandlers = function() {
 function onDrawHitmarker(data){
 	sprite = new PIXI.Sprite.fromFrame("hitmarker.png");
 	console.log("DATA "+ data.x + " " + data.y);
-	sprite.x = data.x-18 - localPlayer.getDrawAtX() + CONFIG.SCREEN_WIDTH/2;
+	sprite.x = data.x-18 - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
 	sprite.y = data.y-18;
 	MAIN.stage.addChild(sprite);
 	setTimeout( function(){
@@ -200,7 +200,7 @@ function onBleed(data){
     } else {
         _player.bleed();
     }
-  
+
 }
 /* Takes an arrows x and y position and draws it : D */
 function onArrowFired(data){
@@ -234,8 +234,8 @@ function onWin(data){
 
   message.position.set(CONFIG.SCREEN_WIDTH/2, 200);
   MAIN.stage.addChild(message);
-  setTimeout(function(){ 
-    MAIN.stage.removeChild(message); 
+  setTimeout(function(){
+    MAIN.stage.removeChild(message);
     MAIN.stage.filters = undefined;
   }, 5000);
 };
@@ -257,7 +257,7 @@ function onPortToArena(data){
 
 function onArenaPrompt(data){
   //make button appear for confirmation to join arena
-  _alert = { time: Date.now(), type:  "arena"}; 
+  _alert = { time: Date.now(), type:  "arena"};
 };
 
 function onUpdateHostile(data){
@@ -364,7 +364,7 @@ function onRespawnPlayer(data) {
   var respawnPlayer = playerById(data.id);
   if (respawnPlayer === false) {
     respawnPlayer = localPlayer;
-  } else { 
+  } else {
 
   }
   respawnPlayer.respawn();
@@ -375,7 +375,7 @@ var FPS = 60;
 /**************************************************
  ** GAME ANIMATION LOOP
  **************************************************/
-function animate() { 
+function animate() {
   requestAnimationFrame(animate);//this.update.bind(this));
   update();
   draw();
@@ -398,7 +398,7 @@ function handleCooldownVisuals(){
       CONFIG.COOLDOWNS[i].parent.filters = undefined;
       CONFIG.COOLDOWNS.splice(i, 1);
       i-=1;
-    } 
+    }
   }
 }
 
@@ -487,4 +487,3 @@ function hostileById(id) {
   };
   return false;
 };
-
