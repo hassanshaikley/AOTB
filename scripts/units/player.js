@@ -280,14 +280,14 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   var health_shadow = new PIXI.Graphics();
   health_shadow.beginFill(0x000000);
-  health_shadow.drawRect(0, 0, 100/2.2, 6);
+  health_shadow.drawRect(0, 0, 40, 6);
   health_shadow.endFill();	
 
 
   var health = new PIXI.Graphics();
 
   health.beginFill(0x00FF00);
-  health.drawRect(0, 0, 100/2.2, 6);
+  health.drawRect(0, 0, 1, 6);
   health.endFill();	
 
   this.imageContainer = new PIXI.Container();
@@ -309,15 +309,17 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   var text_x;
   this.drawText = function(){
 
-    text_x = Math.abs(768/2) - localPlayer.localX() + drawAtX;
+    text_x = CONFIG.SCREEN_WIDTH/2 - localPlayer.localX() + drawAtX;
     //	\le.log(" x - . "+text_x);
-    health_shadow.position.x = text_x-25;
+    health_shadow.position.x = text_x-20;
     health_shadow.position.y = drawAtY-60;
 
-    health.position.x = text_x-25;
+    health.position.x = text_x-20;
     health.position.y = drawAtY-60;
-
-    health.scale.x = Math.abs(hp/100);
+	console.log("HP IS " + Math.ceil(hp/100));
+    health.scale.x = Math.ceil((hp/100)*40);
+	//hp is 100 : 100
+	//	x   : 40
 
     //ol
     /*

@@ -30,6 +30,13 @@ function init() {
   shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
 
+
+  var line = new PIXI.Graphics();
+  line.beginFill(0x000000);
+  line.drawRect(CONFIG.SCREEN_WIDTH/2-1, 300, 2, 200);
+  line.endFill();
+  MAIN.stage.addChild(line);
+
   //disable right click default behavior
   canvas1.oncontextmenu = function(e){ return false; };
   var clientRect;
@@ -143,14 +150,14 @@ function onDrawHitmarker(data){
 
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data){
-  console.log("EMEE ATTACK DATA" + data.attacker);
+	console.log("l1 " + localPlayer.getX());
+	console.log("l2 " + (localPlayer.getX() - localPlayer.localX() + CONFIG.SCREEN_WIDTH/2));
   var player;
   if (data.attacker === "you"){
     player = localPlayer;
   } else{
     player = playerById(data.attacker);
   }
-	console.log("attacker"+player + " - " + data.id);
   player.setMeeleeAttack(true);
 
 }
