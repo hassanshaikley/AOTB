@@ -99,7 +99,6 @@ var Events = function(){
 	setTimeout( function(){
 	  var _x = attacker.getX() - 20;
 	  var _y = attacker.getY()-15;
-	  util.log(data.direction);
           switch (attacker.getCharacterType()) {
           case "Shanker":
             if (data.direction === "right"){
@@ -128,7 +127,7 @@ var Events = function(){
             //now iterate through all players see if it hits!
 
             didAttackHitPlayer(_x, _y, attacker.getTeam());
-
+            didAttackHitTower(_x, _y, attacker.getTeam());
 	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y });
 	  that.emit("draw hitmarker",  {x: _x, y: _y });
 	}, 500);
@@ -147,28 +146,31 @@ var Events = function(){
 
 
         util.log("Meelee Attack: at " + attacker.getX() + " tower at " + game1.shrine_1.getX() + " and " +game1.shrine_0.getX()  ); //between 60 and 150 is perfect
-        if (attacker.getTeam() == 0){ //proper if statemetn
-            util.log("ok " + (attacker.getX() - game1.shrine_1.getX()));
-            if  (Math.abs(attacker.getX() - game1.shrine_1.getX() -game1.shrine_1.getHalfWidth()) <= game1.shrine_1.getHalfWidth()*2 ){
-                if (Math.abs(game1.shrine_1.getY() - attacker.getY()) <=150 ){
-                        game1.shrine_1.setHp(game1.shrine_1.getHp() -100 );
-                }
-            }
 
-        } else { //attacker team is 1
-            if  (Math.abs(attacker.getX() - game1.shrine_0.getX() -game1.shrine_0.getHalfWidth()*2) <= game1.shrine_0.getHalfWidth()*2 ){
-                //util.log("made x");
-                if (Math.abs(game1.shrine_0.getY() - attacker.getY()) <= 150){ // shanker made contact at 114
-                    game1.shrine_0.setHp(game1.shrine_0.getHp() -100 );
-                }
-            }
-        }
 
         //Now get all the characters to animate the meelee attack = )
         this.emit('meelee attack', {attacker: "you" });
         this.broadcast.emit('meelee attack', {attacker: this.id});
     }
 
+    function didAttackHitTower(attackX, attackY, team){
+        var shrine;
+        util.log ("attacker team is " + team );
+
+        if (team == 0){
+            shrine = game1.shrine_1;
+        } else {
+            shrine = game1.shrine_0;
+        }
+        util.log("shrine x is " + shrine.getX() + "width is "+ shrine.getHalfWidth());
+        util.log("attacked at " + attackX + ", " + attackY);
+            if  (Math.abs(attackX - shrine.getX()) <= shrine.getHalfWidth() ){
+                if (Math.abs(shrine.getY() - attackY) <= shrine.getHeight()/2 ){
+                  shrine.setHp(shrine.getHp() -100 );
+               }
+      }
+
+    }
     function didAttackHitPlayer(attackX, attackY, team){
         for (i = 0; i< players.length; i++){
             if (players[i].getTeam() === team){

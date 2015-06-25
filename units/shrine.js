@@ -15,10 +15,10 @@ var Shrine = function(_team) {
     } else {
         x = 3650;
     }
-    this.getHalfWidth = function(){ 
-        return 45;
+    this.getHalfWidth = function(){
+        return 48;
     };
-    this.getHeight = function(){ 
+    this.getHeight = function(){
         return 200;
     };
     this.getTeam= function(){
@@ -39,7 +39,7 @@ var Shrine = function(_team) {
             } else {
                 game1.setWinner(0);
             }
-        
+
             hp = 0;
         } else {
             hp = newHp;
