@@ -1,4 +1,4 @@
-var Spell = require("./spell").Spell; // so it can inherits :D 
+var Spell = require("./spell").Spell; // so it can inherits :D
 var Spells = require("../spellsandprojectiles").Spells;
 
 var TortStun = function(_x, _y, _team) {
@@ -6,6 +6,9 @@ var TortStun = function(_x, _y, _team) {
 	var spell = new Spell(_x, _y, _team, 10);
 	var speed = 10;
 	var width = 50;
+    spell.getDamage = function(){
+        return 5;
+}
 	var age = 0; //timer for damage
 	spell.hit = []
 	spell.getHalfWidth = function(){
@@ -16,7 +19,7 @@ var TortStun = function(_x, _y, _team) {
 	};
 
 	spell.doEffect = function(player){
-		player.stun(500);
+		player.stun(400);
 	};
 
 	  /* Returns the cooldown for this spell*/
@@ -29,10 +32,10 @@ var TortStun = function(_x, _y, _team) {
 			Spells.spellsarray.splice(index, 1);
 		};
 	};
-	return spell; 
+	return spell;
 };
 TortStun.getCooldown = function(){
-   	 	return 1000;
+   	 	return 900;
   	};
 
 

@@ -200,7 +200,6 @@
             <filename>silverSword2.png</filename>
             <filename>skelly.png</filename>
             <filename>spire_0.png</filename>
-            <filename>spire.png</filename>
             <filename>tort_stun.png</filename>
             <filename>trees.png</filename>
             <filename>grimes_l.png</filename>
@@ -286,6 +285,7 @@
             <filename>r_flysheet_walk_v2_state12.png</filename>
             <filename>castleofone2.png</filename>
             <filename>hitmarker.png</filename>
+            <filename>spire.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

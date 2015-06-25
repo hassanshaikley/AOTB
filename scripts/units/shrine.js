@@ -12,6 +12,7 @@ var Shrine = function(_team) {
   } else {
     this.x = 3650;
   }
+
   this.getTeam= function(){
     return team;
   };
@@ -80,6 +81,12 @@ var Shrine = function(_team) {
     var noFilter = function() {
         that.imageContainer.filters = null;
     }
+      if (_team == 1) {
+	  grayFilter();
+       } else {
+	  noFilter();
+    }
+
 
   this.draw= function(){
     health.scale.x = Math.abs(this.hp/this.maxHp);
