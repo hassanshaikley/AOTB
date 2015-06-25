@@ -125,6 +125,9 @@ var Events = function(){
                   _y+=55;
                 break;
           }
+            //now iterate through all players see if it hits!
+
+
 	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y });
 	  that.emit("draw hitmarker",  {x: _x, y: _y });
 	}, 500);

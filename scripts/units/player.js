@@ -6,7 +6,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   var 	x =               startX,
 	y =               startY,
 	name =            _name,
-	hp =              100, 
+	hp =              100,
 	id,
 	alive =           true,
 	drawAtX =         x,
@@ -14,7 +14,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	postX =           x,
 	postY = 	  y,
 	moveDifferenceX = 0,
-	moveDifferenceY = 0,	
+	moveDifferenceY = 0,
 	animate =         0,
 	lastsaid = {},
 	gold = 0,
@@ -35,7 +35,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 
 
-  /* This should draw the player and not the method that they inherit 
+  /* This should draw the player and not the method that they inherit
   this.update_player = function(){
   	//console.log(meelee_attack+" <-- ");
 
@@ -46,7 +46,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   	}
     } else if (this.getMoveDirection() === "right" ){
     	  this.imageContainer.addChild(redhatter_r_attack);
-    } 
+    }
   }
   */
 
@@ -63,7 +63,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	} catch (e) {
 
 	}
-	 
+
        } else {
 	 try {
 	  noFilter();
@@ -141,27 +141,27 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   	}
     if (moveDifferenceX < 0){
       last_move_direction = "left";
-      current_action = CONFIG.ACTION.MOVING_LEFT; 
+      current_action = CONFIG.ACTION.MOVING_LEFT;
       return "left";
     } else if (moveDifferenceX > 0){
    	  last_move_direction = "right";
-      current_action = CONFIG.ACTION.MOVING_RIGHT; 
+      current_action = CONFIG.ACTION.MOVING_RIGHT;
       return "right";
     } else {
-      current_action = CONFIG.ACTION.IDLE; 
+      current_action = CONFIG.ACTION.IDLE;
       return last_move_direction;
     }
   };
 
   /* Gets the X specified by server - as opposed to X to be drawed at, since this X
-   * jumps around a lot! (server refreshes few times a second) 
+   * jumps around a lot! (server refreshes few times a second)
    */
   this.getY = function() {
     return y;
   };
 
   /* Gets the Y specified by server - as opposed to X to be drawed at, since this X
-   * jumps around a lot! (server refreshes few times a second) 
+   * jumps around a lot! (server refreshes few times a second)
    */
   this.getX = function() {
     return x;
@@ -178,7 +178,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   };
 
 
-  /* UpdateVariables function is only called when the window is focused - at rate 
+  /* UpdateVariables function is only called when the window is focused - at rate
    * of FPS
    */
   var xSpeed;
@@ -197,23 +197,23 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 		animate = 0;
       }
     }
-    /* this.id == undefined means if this is referring to the current player 
-     * Checks the difference between 
+    /* this.id == undefined means if this is referring to the current player
+     * Checks the difference between
      */
     moveDifferenceX = (drawAtX - postX);
-    moveDifferenceY = (drawAtY - postY); 
+    moveDifferenceY = (drawAtY - postY);
     if (moveDifferenceX){ /* USED TO TELL IF GOING LEFT OR RIGHT */
-      postX = drawAtX; 
-    } 
+      postX = drawAtX;
+    }
     if (moveDifferenceY){
 	postY = drawAtY;
     }
 
     //if y is 5 and drawAtY is 10
 
-    /* Basically if super far from your actual location, just teleport there 
-     * Especially useful in the case of a respawn 
-     */ 
+    /* Basically if super far from your actual location, just teleport there
+     * Especially useful in the case of a respawn
+     */
     yDiff = Math.abs(drawAtY - y);
     xDiff = Math.abs(drawAtX - x);
 
@@ -226,7 +226,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
      }
 
 
-    xSpeed = (xDiff/10) ; 
+    xSpeed = (xDiff/10) ;
     xSpeed = Math.floor(xSpeed);
 
 
@@ -239,7 +239,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
       drawAtX = x;
     }
 
-    ySpeed = (yDiff/10) ; 
+    ySpeed = (yDiff/10) ;
     ySpeed = Math.floor(ySpeed);
 
     /*		if (ySpeed==0){ //fixes stupd bug where health is a little higher
@@ -281,26 +281,26 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   var health_shadow = new PIXI.Graphics();
   health_shadow.beginFill(0x000000);
   health_shadow.drawRect(0, 0, 40, 6);
-  health_shadow.endFill();	
+  health_shadow.endFill();
 
 
   var health = new PIXI.Graphics();
 
   health.beginFill(0x00FF00);
   health.drawRect(0, 0, 1, 6);
-  health.endFill();	
-
+  health.endFill();
+  var that = this;
   this.imageContainer = new PIXI.Container();
 
-/*    var grayFilter = () => {
+    var grayFilter = function() {
 	var filter = new PIXI.filters.GrayFilter();
-	this.imageContainer.filters = [filter];
+	that.imageContainer.filters = [filter];
     }
-    var noFilter = () => {
+    var noFilter = function() {
 
-	//	this.imageContainer.filters = [];
+		that.imageContainer.filters = null;
 
-    }*/
+    }
   this.imageContainer.addChild(health_shadow);
   this.imageContainer.addChild(health);
 
@@ -339,7 +339,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
        if (Date.now() - lastsaid.time  <= 3000){
        ctx.fillStyle = "black";
        ctx.font = "bold 13px sans-serif";
-       ctx.fillText(lastsaid.text, text_x, drawAtY-80); 
+       ctx.fillText(lastsaid.text, text_x, drawAtY-80);
        }
        ctx.restore();
      */
