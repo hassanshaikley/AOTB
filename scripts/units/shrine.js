@@ -4,7 +4,7 @@ var Shrine = function(_team) {
   this.team = _team; //team random unless assigned
 
   this.x;
-  this.y = 340; //aa
+  this.y = 235; //aa
   this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
   if (_team == 0){
@@ -36,31 +36,57 @@ var Shrine = function(_team) {
   var health_shadow = new PIXI.Graphics();
   health_shadow.beginFill(0x000000);
   health_shadow.drawRect(0, 0, 300/2.2, 6);
-  health_shadow.endFill();  
+  health_shadow.endFill();
 
 
   var health = new PIXI.Graphics();
 
   health.beginFill(0x00FF00);
-  health.drawRect(0, 0, 300/2.2, 6);
-  health.endFill(); 
+   health.drawRect(0, 0, 300/2.2, 6);
+  health.endFill();
 
   //health.x =this.x -25;
   //health_shadow.x = this.x-25;
   this.health = health;
 
-  health_shadow.y = this.y -80;
-  health.y = this.y -80;
+  health_shadow.y = 0;
+  health.y = 0;
 
-  MAIN.stage.addChild(health_shadow);
-  MAIN.stage.addChild(health);
+    health.x  = health_shadow.x = -67;
 
+
+
+
+  this.imageContainer = new PIXI.Container();
+  this.imageContainer.addChild(health_shadow);
+  this.imageContainer.addChild(health);
+
+
+  var structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
+  structure2.x =  - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2 -10);
+
+   structure2.y = 20;
+
+    this.imageContainer.addChild(structure2);
+
+    MAIN.stage.addChild(this.imageContainer);
+
+  var that = this;
+
+    var grayFilter = function() {
+	var filter = new PIXI.filters.GrayFilter();
+	that.imageContainer.filters = [filter];
+    }
+    var noFilter = function() {
+        that.imageContainer.filters = null;
+    }
 
   this.draw= function(){
     health.scale.x = Math.abs(this.hp/this.maxHp);
-    this.drawAtX = CONFIG.SCREEN_WIDTH/2 + this.x - localPlayer.getDrawAtX();
-    health.x = this.drawAtX-50 -30;
-    health_shadow.x = this.drawAtX-50 -30;
+    var drawAtX = CONFIG.SCREEN_WIDTH/2 + this.x - localPlayer.getDrawAtX();
+
+      this.imageContainer.y = this.y;
+      this.imageContainer.x =  drawAtX;
 
   };
   this.getX = function() {
@@ -73,4 +99,3 @@ var Shrine = function(_team) {
   // Define which variables and methods can be accessed by the world outside
   return this;
 };
-
