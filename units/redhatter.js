@@ -29,6 +29,9 @@ var Redhatter = function(name, team){
     skeleton.getHeight = function(){
       return 80;
     };
+    skeleton.getWidth = function(){
+        return 50;
+    };
     return skeleton;
 };
 

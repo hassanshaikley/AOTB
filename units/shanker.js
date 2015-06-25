@@ -25,6 +25,9 @@ var Shanker = function(name, team){
      skeleton.getHeight = function(){
          return 60;
          };
+        skeleton.getWidth = function(){
+            return 40;
+            };
 	return skeleton;
 };
 

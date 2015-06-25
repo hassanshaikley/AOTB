@@ -127,6 +127,7 @@ var Events = function(){
           }
             //now iterate through all players see if it hits!
 
+            didAttackHitPlayer(_x, _y, attacker.getTeam());
 
 	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y });
 	  that.emit("draw hitmarker",  {x: _x, y: _y });
@@ -142,17 +143,7 @@ var Events = function(){
         //a helped function would ideally take two rectangles and tell you if overlaps
 
 
-        for (i = 0; i< players.length; i++){
-            if ( players[i].id != this.id){
-                if  (Math.abs(players[i].getX()- attacker.getX()) <= 50 ){
-                    if (Math.abs(players[i].getY() - attacker.getY()) <= 100){
-                        if ( players[i].getTeam() != attacker.getTeam() ){
-                            setHp(players[i],25);
-                        }
-                    }
-                }
-           }
-       }
+
 
 
         util.log("Meelee Attack: at " + attacker.getX() + " tower at " + game1.shrine_1.getX() + " and " +game1.shrine_0.getX()  ); //between 60 and 150 is perfect
@@ -176,6 +167,19 @@ var Events = function(){
         //Now get all the characters to animate the meelee attack = )
         this.emit('meelee attack', {attacker: "you" });
         this.broadcast.emit('meelee attack', {attacker: this.id});
+    }
+
+    function didAttackHitPlayer(attackX, attackY, team){
+        for (i = 0; i< players.length; i++){
+            if (players[i].getTeam() === team){
+                continue;
+            }
+            if  (Math.abs(players[i].getX() - attackX) <= players[i].getWidth()/2){
+                if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight()/2){
+                    setHp(players[i],25);
+                }
+           }
+       }
     }
 
 

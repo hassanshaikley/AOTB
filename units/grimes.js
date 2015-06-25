@@ -21,6 +21,9 @@ var Grimes = function(name, team){
 	skeleton.moveRight = function(){
 		skeleton.move(speed, "right");
 	};
+        skeleton.getWidth = function(){
+            return 40;
+            };
 	return skeleton;
 };
 

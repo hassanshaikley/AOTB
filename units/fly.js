@@ -40,7 +40,10 @@ var Fly = function(name, team){
     skeleton.getHeight = function(){
         return 84;
         };
-	return skeleton;
+   skeleton.getWidth = function(){
+        return 50;
+    };
+    return skeleton;
 };
 
 exports.Fly = Fly;
