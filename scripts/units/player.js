@@ -358,7 +358,7 @@ var moveTimer = 0;
     meelee_attack = _atk;
   }
 
-  this.rightClick = function(clientX, clientY){aa
+  this.rightClick = function(clientX, clientY){
     var t_x = clientX ;
     socket.emit("spell one", { x: t_x , y: clientY});
   };
