@@ -31,7 +31,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   this.getMeeleeAttack = function(){
   	return meelee_attack;
-  }
+  };
 
 
 
@@ -54,21 +54,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   this.setUpActionbar = function(){
     console.log("IMPLEMENT THIS");
-  }
+  };
   // Getters and setters
   this.setTeam = function(_team){
       if (_team == 1) {
-	try {
 	  grayFilter();
-	} catch (e) {
-
-	}
-
        } else {
-	 try {
 	  noFilter();
-	} catch (e){
-	}
     }
     team = _team;
   };
@@ -108,7 +100,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   this.bleed = function(){
     var v = new Blood(x-38, y-30);
     bloods.push(v);
-  }
+  };
 
   this.setHp = function(newHp){
     hp = newHp;
@@ -124,10 +116,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   /* Used to determine the direction that a character is facing */
   this.getCurrentAction = function (){
   	return current_action;
-  }
+  };
   this.setCurrentAction = function(action){
   	current_action = action;
-  }
+  };
   var last_move_direction;
   this.getMoveDirection = function(){
   	if (this.getMeeleeAttack()){
@@ -183,8 +175,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
    */
   var xSpeed;
   var ySpeed;
-  var yDiff
     var xDiff;
+var moveTimer = 0;
 
 
   this.updateVariables = function(){
@@ -217,11 +209,16 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     yDiff = Math.abs(drawAtY - y);
     xDiff = Math.abs(drawAtX - x);
 
+      if (moveDifferenceY == 0){
+          moveTimer ++;
+          } else {
+              moveTimer = 0;
+              }
 
     if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
       drawAtX = x;
       drawAtY = y;
-    } else if (Math.abs(yDiff) <= 5 && moveDifferenceY == 0){
+    } else if (moveTimer >= 15 && moveDifferenceY == 0){
 	drawAtY = y;
      }
 
@@ -289,8 +286,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   health.beginFill(0x00FF00);
   health.drawRect(0, 0, 1, 6);
   health.endFill();
-  var that = this;
   this.imageContainer = new PIXI.Container();
+  var that = this;
 
     var grayFilter = function() {
 	var filter = new PIXI.filters.GrayFilter();
@@ -305,6 +302,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   this.imageContainer.addChild(health);
 
   MAIN.stage.addChild(this.imageContainer);
+
+  var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
+  structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2);
+  structure.y = -116;
+
+  this.imageContainer.addChild(structure);
+
 
   var text_x;
   this.drawText = function(){
@@ -354,7 +358,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     meelee_attack = _atk;
   }
 
-  this.rightClick = function(clientX, clientY){
+  this.rightClick = function(clientX, clientY){aa
     var t_x = clientX ;
     socket.emit("spell one", { x: t_x , y: clientY});
   };

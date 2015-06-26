@@ -35,7 +35,8 @@ function init() {
   line.beginFill(0x000000);
   line.drawRect(CONFIG.SCREEN_WIDTH/2-1, 300, 2, 200);
   line.endFill();
-  MAIN.stage.addChild(line);
+ //only do if debug mode
+// MAIN.stage.addChild(line);
 
   //disable right click default behavior
   canvas1.oncontextmenu = function(e){ return false; };
@@ -151,7 +152,7 @@ function onDrawHitmarker(data){
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data){
 	console.log("l1 " + localPlayer.getX());
-	console.log("l2 " + (localPlayer.getX() - localPlayer.localX() + CONFIG.SCREEN_WIDTH/2));
+    console.log("l2 " + (localPlayer.getX() - localPlayer.localX() + CONFIG.SCREEN_WIDTH/2));
   var player;
   if (data.attacker === "you"){
     player = localPlayer;
@@ -237,6 +238,7 @@ function onWin(data){
   setTimeout(function(){
     MAIN.stage.removeChild(message);
     MAIN.stage.filters = undefined;
+
   }, 5000);
 };
 
