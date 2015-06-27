@@ -36,10 +36,12 @@ var Player = function(startHp, _name, _team, _height) {
     
 
     this.setTeam = function(newTeam){
+	//random number between 1 and 50
+	var randomOffset = Math.floor(Math.random() * ( 200 )) - 100;
         if (newTeam===1){
-            x = respawnX = 3900;
+            x = respawnX = 3900 + randomOffset;
         } else {
-            x = respawnX =1100; 
+            x = respawnX =1100 + randomOffset; 
         }
         team = newTeam;
     };
