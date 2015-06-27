@@ -17,8 +17,11 @@ var Fly = function(name, team){
 	skeleton.getCharacterType = function(){
 		return "Fly";
 	};
+	skeleton.getDamage = function(){
+	  return 10;
+	};
 
-	var speed = 10;
+	var speed = 14;
 	/* */
 
 	skeleton.moveUp = function(){

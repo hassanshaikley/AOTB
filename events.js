@@ -94,6 +94,14 @@ var Events = function(){
 
     function onMeeleeAttack(data){ //when a player left clicks
         var attacker = playerById(this.id);
+        
+	/* Make sure Meelee Attack isn't on CoolDown */
+        if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
+            attacker.meeleeAttackTime = Date.now();
+        } else {    //meelee attack is on CD
+            return;
+        }
+	
         var i;
 	var that = this;
 	setTimeout( function(){
@@ -126,17 +134,24 @@ var Events = function(){
           }
             //now iterate through all players see if it hits!
 
-            didAttackHitPlayer(_x, _y, attacker.getTeam());
-            didAttackHitTower(_x, _y, attacker.getTeam());
+	    
+            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage());
+            didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage());
+	    if (attacker.getCharacterType() === "Redhatter"){
+	      //knockback
+		var distance = 0;
+		if (data.direction == "right"){
+			distance = 200;
+		} else {
+			distance = -200;
+		}
+	      for (var i = 0; i < playersHit.length ; i++){
+		playersHit[i].setX(playersHit[i].getX() + distance);
+	    }
+	  }
 	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y });
 	  that.emit("draw hitmarker",  {x: _x, y: _y });
 	}, 500);
-        /* Make sure Meelee Attack isn't on CoolDown */
-        if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
-            attacker.meeleeAttackTime = Date.now();
-        } else {    //meelee attack is on CD
-            return;
-        }
 
         //hitbox should depend on direction, so should create a hitbox then tell if the two hitboxes overlap!
         //a helped function would ideally take two rectangles and tell you if overlaps
@@ -153,7 +168,7 @@ var Events = function(){
         this.broadcast.emit('meelee attack', {attacker: this.id});
     }
 
-    function didAttackHitTower(attackX, attackY, team){
+    function didAttackHitTower(attackX, attackY, team, damage){
         var shrine;
         util.log ("attacker team is " + team );
 
@@ -166,21 +181,24 @@ var Events = function(){
         util.log("attacked at " + attackX + ", " + attackY);
             if  (Math.abs(attackX - shrine.getX()) <= shrine.getHalfWidth() ){
                 if (Math.abs(shrine.getY() - attackY) <= shrine.getHeight()/2 ){
-                  shrine.setHp(shrine.getHp() -100 );
+                  shrine.setHp(shrine.getHp() - damage );
                }
       }
 
     }
-    function didAttackHitPlayer(attackX, attackY, team){
+    function didAttackHitPlayer(attackX, attackY, team, damage){
+	var playersHit = [];
         for (i = 0; i< players.length; i++){
             if (players[i].getTeam() === team){
                 continue;
             }
             if  (Math.abs(players[i].getX() - attackX) <= players[i].getWidth()/2){
                 if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight()/2){
-                    setHp(players[i],25);
+                    setHp(players[i], damage);
+	  	    playersHit.push(players[i]);
                 }
            }
+	return playersHit;
        }
     }
 

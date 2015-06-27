@@ -13,6 +13,9 @@ var Redhatter = function(name, team){
     skeleton.moveUp = function(){
         //   skeleton.move(speed, "up");
     };
+    skeleton.getDamage = function(){
+	return 5;
+    };
     skeleton.moveDown = function(){
         //    skeleton.move(speed, "down");
     };
