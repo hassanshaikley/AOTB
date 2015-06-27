@@ -141,9 +141,9 @@ var Events = function(){
 	      //knockback
 		var distance = 0;
 		if (data.direction == "right"){
-			distance = 200;
+			distance = 300;
 		} else {
-			distance = -200;
+			distance = -300;
 		}
 		util.log ("~>"+playersHit);
 	      for (var i = 0; i < playersHit.length ; i++){

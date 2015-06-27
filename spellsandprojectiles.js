@@ -73,7 +73,7 @@ var Meteor = function(meteorX, mCaster, _team){
 			active = true; //active spells can hurt this specific client  - this makes absolutely no sense. lol
 
 	this.getDamage = function(){
-		return 25;
+		return 15;
 	};
 
 	this.getHeight = function(){
