@@ -15,7 +15,7 @@ var TortStun = function(_x, _y, _team) {
 			return 40;
 	};
 	spell.getHeight = function(){
-			return 50;
+			return 10;
 	};
 
 	spell.doEffect = function(player){
