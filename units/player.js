@@ -111,7 +111,7 @@ var Player = function(startHp, _name, _team, _height) {
     };
 
     this.setY = function(newY) {
-        if (newY > -20 && newY <= 444){
+        if (newY > -20 && newY <= Config.FLOOR_HEIGHT + _height/2){
             y = newY;
         } else {
             if ( y<250){
