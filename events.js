@@ -193,7 +193,7 @@ var Events = function(){
             if (players[i].getTeam() === team){
                 continue;
             }
-            if  (Math.abs(players[i].getX() - attackX) <= players[i].getWidth()/2){
+            if  (Math.abs(players[i].getX() - attackX) <= players[i].getWidth()/2 +20 ){ // +20 just to make it a little easier lmao
                 if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight()/2){
                     setHp(players[i], damage);
 	  	    playersHit.push(players[i]);
