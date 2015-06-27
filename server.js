@@ -47,7 +47,6 @@ Server.prototype.updateGameVariables = function(){
 
 	// update player positions
 	for (var _i = 0; _i < players.length; _i++){
-		util.log(players[_i].getY());
 
 	    //Don't allow player to descend further than the floor
 //	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
@@ -60,7 +59,7 @@ Server.prototype.updateGameVariables = function(){
 
 		if (players[_i].getCharacterType() === "Fly"){
 			if (players[_i].getDescendAttack()){
-				if(players[_i].getY() >= Config.FLOOR_HEIGHT + players[_i].getHeight()/2){
+				if(players[_i].getY() >= Config.FLOOR_HEIGHT - players[_i].getHeight()/2){
 					players[_i].setDescendAttack(false);
 					server.libs.io.sockets.emit('descend attack changes', { id: players[_i].id, descendAttack: false });
 				} else {
