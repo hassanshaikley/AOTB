@@ -145,6 +145,7 @@ var Events = function(){
 		} else {
 			distance = -200;
 		}
+		util.log ("~>"+playersHit);
 	      for (var i = 0; i < playersHit.length ; i++){
 		playersHit[i].setX(playersHit[i].getX() + distance);
 	    }
@@ -198,8 +199,8 @@ var Events = function(){
 	  	    playersHit.push(players[i]);
                 }
            }
-	return playersHit;
        }
+	return playersHit;
     }
 
 
