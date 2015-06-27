@@ -18,7 +18,7 @@ var Fly = function(name, team){
 		return "Fly";
 	};
 	skeleton.getDamage = function(){
-	  return 10;
+	  return 15;
 	};
 
 	var speed = 14;
