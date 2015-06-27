@@ -13,7 +13,7 @@ var Shanker = function(name, team){
 	skeleton.getDamage = function(){
 		return 20;
 	};
-	var speed = 13;
+	var speed = 14;
 	/* */
 	skeleton.moveUp = function(){
 	};

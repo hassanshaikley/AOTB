@@ -35,7 +35,7 @@ var TortStun = function(_x, _y, _team) {
 	return spell;
 };
 TortStun.getCooldown = function(){
-   	 	return 900;
+   	 	return 1300;
   	};
 
 

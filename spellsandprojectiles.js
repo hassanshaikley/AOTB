@@ -105,7 +105,7 @@ var Meteor = function(meteorX, mCaster, _team){
 	return this;
 };
 	Meteor.getCooldown = function() {
-		return 1000;
+		return 1300;
 	}
 
 exports.Meteor = Meteor;
