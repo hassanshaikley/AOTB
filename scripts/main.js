@@ -24,11 +24,11 @@ function Main() {
   this.BOTACTIONBAR.y = 470;
 
   this.BOTACTIONBAR.addChild(botactionbar);
- 
   this.stage.addChild(this.BOTACTIONBAR);
 
 
-  document.body.appendChild(this.renderer.view);
+var node = document.getElementById("canvas_and_chat") 
+  node.appendChild(this.renderer.view);
 
   this.stage.interactive = true;
 

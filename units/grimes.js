@@ -10,7 +10,7 @@ var Grimes = function(name, team){
 	skeleton.getCharacterType = function(){
 		return "Grimes";
 	};
-	var speed = 12;
+	var speed = 8;
 	skeleton.moveUp = function(){
 	};
 	skeleton.moveDown = function(){
