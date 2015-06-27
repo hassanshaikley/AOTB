@@ -139,7 +139,7 @@ var setEventHandlers = function() {
 
 //receives an _x and _y var of where to draw
 function onDrawHitmarker(data){
-	sprite = new PIXI.Sprite.fromFrame("hitmarker.png");
+	var sprite = new PIXI.Sprite.fromFrame("hitmarker.png");
 	console.log("DATA "+ data.x + " " + data.y);
 	sprite.x = data.x-18 - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
 	sprite.y = data.y-18;
@@ -217,6 +217,7 @@ function onWin(data){
   var filter = new PIXI.filters.DotScreenFilter();
 
  MAIN.stage.filters = [filter];
+  console.log("Lcoal player team " + localPlayer.getTeam() + " - wins " + data.winner);
 
   if (data.winner === localPlayer.getTeam()){
       console.log("YOU WIN");

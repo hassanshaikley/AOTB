@@ -218,7 +218,7 @@ var moveTimer = 0;
     if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
       drawAtX = x;
       drawAtY = y;
-    } else if (moveTimer >= 15 && moveDifferenceY == 0){
+    } else if (moveTimer >= 45 && moveDifferenceY == 0){
 	drawAtY = y;
      }
 

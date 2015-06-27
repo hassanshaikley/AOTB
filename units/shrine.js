@@ -30,13 +30,15 @@ var Shrine = function(_team) {
     };
 
     this.setHp = function(newHp){
-
+	util.log("TEAM IS " + team);
         if (newHp >= maxHp){
             hp = maxHp;
         } else if ( newHp <= 0){
-            if (this.team == 0){
+            if (team == 0){
+		util.log("SETTING WINNER TO 1");
                 game1.setWinner(1);
             } else {
+		util.log("SETTING WINNER TO 0");
                 game1.setWinner(0);
             }
 
