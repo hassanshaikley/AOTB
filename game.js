@@ -9,6 +9,7 @@ var Game = function(){
     this.shrine_0 = new Shrine(0);
     this.shrine_1 = new Shrine(1);
 
+
     this.setShrineHp = function(newHp, team){
         if ( team === 0){
             this.shrine_0.setHp(newHp);

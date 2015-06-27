@@ -17,6 +17,9 @@ var Player = function(startHp, _name, _team, _height) {
         team;
     this.spellOneCastTime = 0;
 
+	var alive = true;
+    respawnTime = 3000;
+
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
     this.getRespawnX = function(){
@@ -72,6 +75,9 @@ var Player = function(startHp, _name, _team, _height) {
         return hp;
     };
 
+	this.getAlive = function(){
+	   return alive;
+	};
     /* Returns "dies" or "lives"*/
     this.setHp = function(newHp){
 
@@ -81,9 +87,16 @@ var Player = function(startHp, _name, _team, _height) {
         if (newHp >= maxHp){
             hp = maxHp;
         } else if ( newHp <= 0){ //hp is zero noo
-            hp = 100;
-            x = respawnX;
-            y = respawnY;
+	   alive = false;
+	   hp = 0;
+ 	    setTimeout( function() { 
+		alive = true;
+            	hp = 100;
+            	x = respawnX;
+            	y = respawnY;
+
+
+	    }, respawnTime);
             return "bleed";
         } else {
 

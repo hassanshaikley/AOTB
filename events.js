@@ -94,7 +94,11 @@ var Events = function(){
 
     function onMeeleeAttack(data){ //when a player left clicks
         var attacker = playerById(this.id);
-        
+	
+	if (! attacker.getAlive()){
+	return;
+	};       
+ 
 	/* Make sure Meelee Attack isn't on CoolDown */
         if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
             attacker.meeleeAttackTime = Date.now();
@@ -271,6 +275,11 @@ var Events = function(){
 
 	function onSpellOne(data){
 		var player = playerById(this.id);
+
+        if (! player.getAlive()){
+        return;
+        };
+
         var team = player.getTeam();
         if (player.getCharacterType() === "Grimes" && player.spellOneCastTime + TortStun.getCooldown()  <=  Date.now() ) {
             player.spellOneCastTime = Date.now();

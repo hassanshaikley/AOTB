@@ -11,9 +11,9 @@ var Shanker = function(name, team){
 		return "Shanker";
 	};
 	skeleton.getDamage = function(){
-		return 20;
+		return 25;
 	};
-	var speed = 14;
+	var speed = 15;
 	/* */
 	skeleton.moveUp = function(){
 	};
