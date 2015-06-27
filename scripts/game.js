@@ -344,7 +344,7 @@ function onNewPlayer(data) {
   remotePlayers.push(newPlayer);
 
   //add mesage to chat
-  notify("Player has joined");
+  notify( newPlayer.getName() + " has joined");
 
 };
 
@@ -361,7 +361,7 @@ function onRemovePlayer(data) {
   remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
 
 
-  notify("Player has left");
+  notify(removePlayer.getName() + " has left");
 };
 
 
