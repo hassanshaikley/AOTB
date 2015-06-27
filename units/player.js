@@ -3,7 +3,7 @@
  ** PLAYER CLASS IN SERVER
  **************************************************/
 var Config = require("../config.js");
-var Player = function(startHp, _name, _team) {
+var Player = function(startHp, _name, _team, _height) {
     this.id = 1;
     var name = _name,
         hp = 100,
@@ -12,7 +12,7 @@ var Player = function(startHp, _name, _team) {
         character_type = "Unknown", 
         gold = 0,
         respawnX,
-        respawnY = 465,
+	respawnY = Config.FLOOR_HEIGHT - _height,
         x = 2000, //whack I know
         team;
     this.spellOneCastTime = 0;
@@ -27,7 +27,11 @@ var Player = function(startHp, _name, _team) {
     }
     this.getHeight = function(){
         return 100;
-    }
+    };
+	
+//    var respawnY = Config.FLOOR_HEIGHT - this.getHeight();
+    
+
     this.setTeam = function(newTeam){
         if (newTeam===1){
             x = respawnX = 3900;
@@ -107,13 +111,13 @@ var Player = function(startHp, _name, _team) {
     };
 
     this.setY = function(newY) {
-        if (newY > -20 && newY <= Config.FLOOR_HEIGHT +10){
+        if (newY > -20 && newY <= 444){
             y = newY;
         } else {
             if ( y<250){
                 y =-19;
             } else {
-                y =474;
+                y =444;
             }
         }
     };

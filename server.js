@@ -47,6 +47,7 @@ Server.prototype.updateGameVariables = function(){
 
 	// update player positions
 	for (var _i = 0; _i < players.length; _i++){
+	     util.log(" " + players[_i].getY());
 	    //Don't allow player to descend further than the floor
 //	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
 	    if ((players[_i].getY()+ players[_i].getHeight()/2) < Config.FLOOR_HEIGHT) {
