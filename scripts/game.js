@@ -10,7 +10,6 @@ bloods = [];
 
 
 
-
 function Game(){};
 
 var floorHeight = 474;
@@ -344,6 +343,9 @@ function onNewPlayer(data) {
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
 
+  //add mesage to chat
+  notify("Player has joined");
+
 };
 
 
@@ -359,6 +361,7 @@ function onRemovePlayer(data) {
   remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
 
 
+  notify("Player has left");
 };
 
 

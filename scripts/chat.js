@@ -44,6 +44,8 @@ if (localPlayerName === "unknown"){
   }
 }
 
+
+
 var chat_scroll = document.getElementById("chat");
 chat_scroll.scrollTop = chat_scroll.scrollHeight;
 socket.on('message', function (data) {
@@ -85,6 +87,7 @@ Chat.displayObject.addChild(message);
 
 });
 
+
 $('#send').click(function () {
 
   if ($("#text").val()){
@@ -99,3 +102,7 @@ $('#chat_outer').mousedown(function(e){
 });
  $('#chat_outer').bind('contextmenu', function(){ return false });
 }
+
+function notify(text){
+ $('#chat').append(text + "</br>");
+};
