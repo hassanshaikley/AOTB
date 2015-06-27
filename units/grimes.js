@@ -27,7 +27,7 @@ var Grimes = function(name, team){
         skeleton.getWidth = function(){
             return 40;
             };
-	skeleton.getHeight() = function(){
+	skeleton.getHeight = function(){
 	 	return 100;
 	};
 	return skeleton;
