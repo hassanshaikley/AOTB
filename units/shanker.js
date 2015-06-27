@@ -5,7 +5,7 @@ Player = require("./player").Player;
 var util = require("util");
 
 var Shanker = function(name, team){
-	var skeleton = new Player(100, name, team);
+	var skeleton = new Player(100, name, team, 60/2);
 
 	skeleton.getCharacterType = function(){
 		return "Shanker";

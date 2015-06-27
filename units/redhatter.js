@@ -7,7 +7,7 @@ var util = require("util");
 
 var Redhatter = function(name, team){
     var skeleton = new Player(100, name, team, 80/2);
-    var speed = 10;
+    var speed = 9;
     /* */
 
     skeleton.moveUp = function(){
