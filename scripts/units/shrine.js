@@ -4,7 +4,7 @@ var Shrine = function(_team) {
   this.team = _team; //team random unless assigned
 
   this.x;
-  this.y = 235; //aa
+  this.y = 305; //aa
   this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
   if (_team == 0){
@@ -63,10 +63,10 @@ var Shrine = function(_team) {
   this.imageContainer.addChild(health);
 
 
-  var structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
-  structure2.x =  - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2 -10);
+  var structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("spire_fw.png"));
+  structure2.x =  - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2 );
 
-   structure2.y = 20;
+   structure2.y = -50;
 
     this.imageContainer.addChild(structure2);
 
@@ -93,7 +93,7 @@ var Shrine = function(_team) {
     var drawAtX = CONFIG.SCREEN_WIDTH/2 + this.x - localPlayer.getDrawAtX();
 
       this.imageContainer.y = this.y;
-      this.imageContainer.x =  drawAtX;
+      this.imageContainer.x = drawAtX;
 
   };
   this.getX = function() {
