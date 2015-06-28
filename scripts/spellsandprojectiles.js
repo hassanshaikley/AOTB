@@ -15,7 +15,6 @@ var Spells = {
   },
     arrow: function(clientX, clientY){
 	//var a = new Arrow(clientX, clientY);
-    console.log("MADE A NEW ARROW");
 	socket.emit("arrow created", {x : clientX, y: clientY });
   },
   yoloswag: function() {
@@ -24,7 +23,6 @@ var Spells = {
 };
 
 var BowmanArrow = function(startX, startY, _caster){
-    console.log("MADE A NEW BOWMAN ARROW LOL");
     var x = startX, y = startY;
     var caster = _caster;
     var update = function(){
