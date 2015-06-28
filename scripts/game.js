@@ -343,6 +343,13 @@ function onSocketConnected() {
 // Socket disconnected
 function onSocketDisconnect() {
   //Player disconnected from socket server
+console.log("AAA");
+
+for (var i = 0; i < remotePlayers.length; i++){
+    MAIN.stage.removeChild(remotePlayers[i].imageContainer);
+  };
+
+
 };
 
 // New player
