@@ -278,7 +278,6 @@ var Events = function(){
 
 	function onSpellOne(data){
 		var player = playerById(this.id);
-
         if (! player.getAlive()){
         return;
         };
@@ -300,8 +299,11 @@ var Events = function(){
                 this.broadcast.emit('spell one', {x: data.x, spell: "meteor" });
         }
         if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){
-
-        }
+		player.windWalk(3000);
+                this.emit('spell one', {id: player.id, spell: "windwalk", duration: 3000});
+                this.broadcast.emit('spell one', {id: player.id, spell: "windwalk", duration: 3000 });
+			
+        };
 
 	};
 

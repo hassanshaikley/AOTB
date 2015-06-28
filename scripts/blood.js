@@ -25,7 +25,7 @@ blood0.y = blood1.y = blood2.y = blood3.y = y;
     } else if ( animate ==15) {
 	MAIN.stage.removeChild(blood2);
 	MAIN.stage.addChild(blood3);
-    } else if ( animate == 20) {
+    } else if ( animate >= 20) {
 	MAIN.stage.removeChild(blood3);
       bloods.shift();
     }

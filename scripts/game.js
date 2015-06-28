@@ -141,9 +141,9 @@ function onDrawHitmarker(data){
 	var sprite = new PIXI.Sprite.fromFrame("hitmarker.png");
 	sprite.x = data.x-18 - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
 	sprite.y = data.y-18;
-	MAIN.stage.addChild(sprite);
+	//MAIN.stage.addChild(sprite);
 	setTimeout( function(){
-		MAIN.stage.removeChild(sprite);
+	//	MAIN.stage.removeChild(sprite);
 	}, 500);
 }
 
@@ -167,6 +167,11 @@ function onSpellOne(data){
   } else if (data.spell === "meteor"){
     var m = new Meteor(data.x, data.caster);
     Spells.spellsarray.push(m);
+  }
+
+  if (data.spell === "windwalk"){
+    var player = playerById(data.id);
+    player.windWalk(data.duration);
   }
 
   //if cast by this player then show the cooldown

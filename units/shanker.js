@@ -25,6 +25,10 @@ var Shanker = function(name, team){
 	skeleton.moveRight = function(){
 		skeleton.move(speed, "right");
 	};
+	skeleton.windWalk = function(length){
+		skeleton.invis = true;
+		setTimeout(function(){ skeleton.invis = false }, length);
+	};
      skeleton.getHeight = function(){
          return 60;
          };
