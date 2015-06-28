@@ -1044,7 +1044,7 @@
 	"sourceSize": {"w":200,"h":200},
 	"pivot": {"x":0.5,"y":0.5}
 },
-"spire_fw.png":
+"spire_FW.png":
 {
 	"frame": {"x":2,"y":801,"w":200,"h":200},
 	"rotated": false,
@@ -1087,6 +1087,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1703,"h":1003},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:761070eec77dc2c550c31d46a1ee07db:61658865eb0a9681e18311966dfa8c8c:729adc6043343cfda41c447ce8f464d6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:c38185bc5e4c3797c9c3616d90b09ec9:72aa5f9d93e7b2d239a095492f7055a3:729adc6043343cfda41c447ce8f464d6$"
 }
 }

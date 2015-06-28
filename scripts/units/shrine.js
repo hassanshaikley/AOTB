@@ -1,10 +1,10 @@
 var Shrine = function(_team) {
   this.maxHp = 3000;
   this.hp = this.maxHp;
-  this.team = _team; //team random unless assigned
+  this.team = _team; //team random unless assigneda
 
   this.x;
-  this.y = 305; //aa
+  this.y = 265; //aa
   this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
   if (_team == 0){
@@ -50,8 +50,8 @@ var Shrine = function(_team) {
   //health_shadow.x = this.x-25;
   this.health = health;
 
-  health_shadow.y = 0;
-  health.y = 0;
+  health_shadow.y = -10;
+  health.y = -10;
 
     health.x  = health_shadow.x = -67;
 
@@ -63,10 +63,10 @@ var Shrine = function(_team) {
   this.imageContainer.addChild(health);
 
 
-  var structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("spire_fw.png"));
+  var structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("spire_FW.png"));
   structure2.x =  - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2 );
 
-   structure2.y = -50;
+   structure2.y = -10;
 
     this.imageContainer.addChild(structure2);
 
