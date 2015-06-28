@@ -20,7 +20,6 @@ var Shanker = function(name, team){
 	skeleton.moveDown = function(){
 	};
 	skeleton.moveLeft = function(){
-	console.log(skeleton.invis);
             var bonus = 0;
             if (skeleton.invis) {
                 bonus = 4;
