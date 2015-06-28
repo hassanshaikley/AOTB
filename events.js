@@ -24,7 +24,7 @@ var Events = function(){
         client.on("disconnect", onClientDisconnect);
         client.on('sendMessage', function (data) {
             this.broadcast.emit('message', { text: data.text, id: this.id});
-            util.log("chat"+this.id);
+            util.log("chat: \t"+data.text);
             this.emit('message', { text: data.text, id: this.id});
         });
         // Listen for new player message

@@ -132,6 +132,13 @@ var Shanker = function(name, x, y, hp){
         shanker_r.animationSpeed = .2;
       shanker_r.animationSpeed = .2;
 
+    if (this.getCurrentAction() == CONFIG.ACTION.IDLE) {
+        console.log(this.getCurrentAction());
+        shanker_l.animationSpeed = 0;
+      shanker_r.animationSpeed = 0;
+  shanker_l.gotoAndPlay(0);
+  shanker_r.gotoAndPlay(0);
+       }
 
   };
 

@@ -36,7 +36,7 @@ var Redhatter = function(name, x, y, hp){
   redhatter_l.gotoAndPlay(0);
   redhatter_r.gotoAndPlay(0);
 
-  
+
   redhatter_r_attack.animationSpeed = .15;
   redhatter_l_attack.animationSpeed = .15;
 
@@ -125,9 +125,18 @@ var Redhatter = function(name, x, y, hp){
         redhatter_l.animationSpeed = .2;
       redhatter_r.animationSpeed = .2;
 
+    if (this.getCurrentAction() == CONFIG.ACTION.IDLE) {
+
+        redhatter_l.animationSpeed = 0;
+      redhatter_r.animationSpeed = 0;
+  redhatter_l.gotoAndPlay(0);
+  redhatter_r.gotoAndPlay(0);
+       }
+
+
 
   };
-  
+
   /* Constantly called for the localPlayer
    */
   skeleton.update = function(keys) {
