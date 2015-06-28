@@ -13,17 +13,26 @@ var Shanker = function(name, team){
 	skeleton.getDamage = function(){
 		return 20;
 	};
-	var speed = 15;
+	var speed = 11;
 	/* */
 	skeleton.moveUp = function(){
 	};
 	skeleton.moveDown = function(){
 	};
 	skeleton.moveLeft = function(){
-		skeleton.move(speed, "left");
+	console.log(skeleton.invis);
+            var bonus = 0;
+            if (skeleton.invis) {
+                bonus = 5;
+                }
+		skeleton.move(speed + bonus, "left");
 	};
 	skeleton.moveRight = function(){
-		skeleton.move(speed, "right");
+            var bonus = 0;
+            if (skeleton.invis){
+                bonus = 5;
+                }
+		skeleton.move(speed+bonus, "right");
 	};
 	skeleton.windWalk = function(length){
 		skeleton.invis = true;
