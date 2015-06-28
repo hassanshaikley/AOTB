@@ -134,6 +134,22 @@ var setEventHandlers = function() {
   socket.on("spell one", onSpellOne);
   socket.on("draw hitmarker", onDrawHitmarker);
   socket.on("meelee attack", onMeeleeAttack);
+  socket.on("visible again", onVisibleAgain);
+};
+
+function onVisibleAgain(data){
+
+    var player;
+    if (data.id =="you"){
+        player = localPlayer;
+  } else {
+       player  = playerById(data.id);
+    }
+      if (player.getTeam() === localPlayer.getTeam()){
+          player.imageContainer.alpha = 1;
+          } else {
+      player.setInvis(false);
+}
 };
 
 //receives an _x and _y var of where to draw
@@ -170,8 +186,19 @@ function onSpellOne(data){
   }
 
   if (data.spell === "windwalk"){
-    var player = playerById(data.id);
-    player.windWalk(data.duration);
+      console.log("windwalking");
+      var player;
+      console.log(" ~ >" +data.id);
+      if (data.id === "you" ){
+       player = localPlayer;
+      } else {
+       player = playerById(data.id);
+      }
+      if (player.getTeam() == localPlayer.getTeam()){
+          player.imageContainer.alpha = .5;
+          } else {
+       player.setInvis(true);
+};
   }
 
   //if cast by this player then show the cooldown
