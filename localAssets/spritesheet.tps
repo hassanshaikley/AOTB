@@ -286,6 +286,27 @@
             <filename>castleofone2.png</filename>
             <filename>hitmarker.png</filename>
             <filename>spire.png</filename>
+            <filename>blood0.png</filename>
+            <filename>blood1.png</filename>
+            <filename>blood2.png</filename>
+            <filename>blood3.png</filename>
+            <filename>l_flysheet_attack_v1_state1.png</filename>
+            <filename>l_flysheet_attack_v1_state2.png</filename>
+            <filename>l_flysheet_attack_v1_state3.png</filename>
+            <filename>l_flysheet_attack_v1_state4.png</filename>
+            <filename>l_flysheet_attack_v1_state5.png</filename>
+            <filename>l_flysheet_attack_v1_state6.png</filename>
+            <filename>l_flysheet_attack_v1_state7.png</filename>
+            <filename>l_flysheet_attack_v1_state8.png</filename>
+            <filename>r_flysheet_attack_v1_state1.png</filename>
+            <filename>r_flysheet_attack_v1_state2.png</filename>
+            <filename>r_flysheet_attack_v1_state3.png</filename>
+            <filename>r_flysheet_attack_v1_state4.png</filename>
+            <filename>r_flysheet_attack_v1_state5.png</filename>
+            <filename>r_flysheet_attack_v1_state6.png</filename>
+            <filename>r_flysheet_attack_v1_state7.png</filename>
+            <filename>r_flysheet_attack_v1_state8.png</filename>
+            <filename>r_flysheet_walk_v2_state1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

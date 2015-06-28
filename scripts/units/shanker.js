@@ -3,6 +3,7 @@ var Shanker = function(name, x, y, hp){
       facing_left;
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;
+  var invis = false;
 
   skeleton.getCharacterType = function(){
     return "Shanker";
@@ -54,7 +55,6 @@ var Shanker = function(name, x, y, hp){
 
 
   skeleton.draw = function() {
-    this.drawText();
    // this.update_player();
 
     var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
@@ -82,6 +82,11 @@ var Shanker = function(name, x, y, hp){
     skeleton.imageContainer.removeChild(shanker_l_attack);
     skeleton.imageContainer.removeChild(shanker_r_attack);
 
+    if (invis == true){ // if invis is rue dont draw bro
+        return;
+    };
+    
+    this.drawText();
 
 
 
@@ -139,6 +144,10 @@ var Shanker = function(name, x, y, hp){
 
 
   };
+
+	skeleton.windwalk = function(){
+	   invis = true;
+	};
   var now = Date.now();
  
 

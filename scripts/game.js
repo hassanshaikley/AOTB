@@ -139,18 +139,16 @@ var setEventHandlers = function() {
 //receives an _x and _y var of where to draw
 function onDrawHitmarker(data){
 	var sprite = new PIXI.Sprite.fromFrame("hitmarker.png");
-	console.log("DATA "+ data.x + " " + data.y);
 	sprite.x = data.x-18 - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
 	sprite.y = data.y-18;
-	MAIN.stage.addChild(sprite);
+	//MAIN.stage.addChild(sprite);
 	setTimeout( function(){
-		MAIN.stage.removeChild(sprite);
+	//	MAIN.stage.removeChild(sprite);
 	}, 500);
 }
 
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data){
-	console.log("l1 " + localPlayer.getX());
     console.log("l2 " + (localPlayer.getX() - localPlayer.localX() + CONFIG.SCREEN_WIDTH/2));
   var player;
   if (data.attacker === "you"){
@@ -169,6 +167,11 @@ function onSpellOne(data){
   } else if (data.spell === "meteor"){
     var m = new Meteor(data.x, data.caster);
     Spells.spellsarray.push(m);
+  }
+
+  if (data.spell === "windwalk"){
+    var player = playerById(data.id);
+    player.windWalk(data.duration);
   }
 
   //if cast by this player then show the cooldown
@@ -204,28 +207,23 @@ function onBleed(data){
 }
 /* Takes an arrows x and y position and draws it : D */
 function onArrowFired(data){
-  console.log("ARROW EVENT FIRED OK");
   var m = new BowmanArrow(data.x, data.y, data.caster);
   Spells.spellsarray.push(m);
 };
 
 
 function onWin(data){
-  console.log("winner: " +data.winner);
   console.log("local player team " +localPlayer.getTeam());
   var filter = new PIXI.filters.DotScreenFilter();
 
  MAIN.stage.filters = [filter];
-  console.log("Lcoal player team " + localPlayer.getTeam() + " - wins " + data.winner);
 
   if (data.winner === localPlayer.getTeam()){
-      console.log("YOU WIN");
       var message = new PIXI.Text(
       "YOU WIN!",
       {font: "32px sans-serif", fill: "white", align: "center"}
     );
  } else {
-      console.log("YOU LOSE");
       var message = new PIXI.Text(
       "YOU LOSE!",
       {font: "32px sans-serif", fill: "white", align: "center"}
@@ -318,7 +316,6 @@ function onSocketConnected() {
 // Socket disconnected
 function onSocketDisconnect() {
   //Player disconnected from socket server
-  console.log("Player Disconnected");
 };
 
 // New player

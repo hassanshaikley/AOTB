@@ -139,7 +139,7 @@ var Events = function(){
             //now iterate through all players see if it hits!
 
 	    
-            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage());
+            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage(), that);
             didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage());
 	    if (attacker.getCharacterType() === "Redhatter"){
 	      //knockback
@@ -191,7 +191,7 @@ var Events = function(){
       }
 
     }
-    function didAttackHitPlayer(attackX, attackY, team, damage){
+    function didAttackHitPlayer(attackX, attackY, team, damage, that){
 	var playersHit = [];
         for (i = 0; i< players.length; i++){
             if (players[i].getTeam() === team){
@@ -201,6 +201,9 @@ var Events = function(){
                 if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight()/2){
                     setHp(players[i], damage);
 	  	    playersHit.push(players[i]);
+		    that.broadcast.emit('bleed', { id: players[i].id });
+		    that.emit('bleed', { id: players[i].id });
+
                 }
            }
        }
@@ -275,7 +278,6 @@ var Events = function(){
 
 	function onSpellOne(data){
 		var player = playerById(this.id);
-
         if (! player.getAlive()){
         return;
         };
@@ -297,8 +299,11 @@ var Events = function(){
                 this.broadcast.emit('spell one', {x: data.x, spell: "meteor" });
         }
         if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){
-
-        }
+		player.windWalk(3000);
+                this.emit('spell one', {id: player.id, spell: "windwalk", duration: 3000});
+                this.broadcast.emit('spell one', {id: player.id, spell: "windwalk", duration: 3000 });
+			
+        };
 
 	};
 

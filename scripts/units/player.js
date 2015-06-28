@@ -104,13 +104,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   this.setHp = function(newHp){
     hp = newHp;
-    if (hp > maxHp){
-      hp = maxHp;
-    }
-
-    if (hp <= 0 && getAlive()){
-      respawn();
-    }
   };
 
   /* Used to determine the direction that a character is facing */
