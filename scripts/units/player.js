@@ -24,6 +24,12 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   	var current_action = CONFIG.ACTION.MOVING_RIGHT;
 
+    var invis = false;
+
+   this.setInvis = function(_invis){
+       invis = _invis;
+    };
+
   var meelee_attack = false;
   this.id;
 

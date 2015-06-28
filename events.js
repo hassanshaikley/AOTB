@@ -94,18 +94,23 @@ var Events = function(){
 
     function onMeeleeAttack(data){ //when a player left clicks
         var attacker = playerById(this.id);
-	
+        var damageBonus = 0;
 	if (! attacker.getAlive()){
 	return;
-	};       
- 
+	};
+
 	/* Make sure Meelee Attack isn't on CoolDown */
         if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
             attacker.meeleeAttackTime = Date.now();
         } else {    //meelee attack is on CD
             return;
         }
-	
+
+        if (attacker.invis){
+            becomeVisible(attacker, this);
+            damageBonus = 20;
+        };
+
         var i;
 	var that = this;
 	setTimeout( function(){
@@ -138,9 +143,9 @@ var Events = function(){
           }
             //now iterate through all players see if it hits!
 
-	    
-            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage(), that);
-            didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage());
+
+            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage() +damageBonus, that);
+            didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage() + damageBonus);
 	    if (attacker.getCharacterType() === "Redhatter"){
 	      //knockback
 		var distance = 0;
@@ -299,15 +304,28 @@ var Events = function(){
                 this.broadcast.emit('spell one', {x: data.x, spell: "meteor" });
         }
         if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){
-		player.windWalk(3000);
-                this.emit('spell one', {id: player.id, spell: "windwalk", duration: 3000});
-                this.broadcast.emit('spell one', {id: player.id, spell: "windwalk", duration: 3000 });
-			
+            player.spellOneCastTime = Date.now();
+	    player.invis = true;
+            var that = this;
+                setTimeout(function(){
+                    if (player.invis){
+                        becomeVisible(player, that);
+                    }
+                }, 3000);
+
+                this.emit('spell one', {id: "you", spell: "windwalk"});
+                this.broadcast.emit('spell one', {id: player.id, spell: "windwalk"});
+
         };
 
 	};
 
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
+    function becomeVisible(player, that){
+                      player.invis = false;
+                      that.emit("visible again", {id : "you"});
+                      that.broadcast.emit("visible again", {id :player.id});
+};
     //hitBy.setGold(hitBy.getGold()+1);
     function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
         hitPlayer.setHp(hitPlayer.getHp() -damage);

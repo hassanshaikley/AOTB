@@ -1,4 +1,3 @@
-
 /**************************************************
  ** PLAYER CLASS IN SERVER
  **************************************************/
@@ -9,12 +8,15 @@ var Player = function(startHp, _name, _team, _height) {
         hp = 100,
         y = 400,
         maxHp = 100, //ehh w.e lol
-        character_type = "Unknown", 
+        character_type = "Unknown",
         gold = 0,
         respawnX,
 	respawnY = Config.FLOOR_HEIGHT - _height,
-        x = 2000, //whack I know
+
+    x = 2000, //whack I know
         team;
+
+
     this.spellOneCastTime = 0;
 
 	var alive = true;
@@ -31,9 +33,9 @@ var Player = function(startHp, _name, _team, _height) {
     this.getHeight = function(){
         return 100;
     };
-	
+
 //    var respawnY = Config.FLOOR_HEIGHT - this.getHeight();
-    
+
 
     this.setTeam = function(newTeam){
 	//random number between 1 and 50
@@ -41,7 +43,7 @@ var Player = function(startHp, _name, _team, _height) {
         if (newTeam===1){
             x = respawnX = 3900 + randomOffset;
         } else {
-            x = respawnX =1100 + randomOffset; 
+            x = respawnX =1100 + randomOffset;
         }
         team = newTeam;
     };
@@ -91,7 +93,7 @@ var Player = function(startHp, _name, _team, _height) {
         } else if ( newHp <= 0){ //hp is zero noo
 	   alive = false;
 	   hp = 0;
- 	    setTimeout( function() { 
+ 	    setTimeout( function() {
 		alive = true;
             	hp = 100;
             	x = respawnX;
@@ -158,8 +160,8 @@ var Player = function(startHp, _name, _team, _height) {
 
         }
     };
-		this.stuncounter = {};	
-        
+		this.stuncounter = {};
+
         this.stun = function(duration){
             util.log("Got Stunned");
             this.stuncounter.duration = duration;
