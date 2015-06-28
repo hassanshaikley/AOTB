@@ -139,7 +139,7 @@ var Events = function(){
             //now iterate through all players see if it hits!
 
 	    
-            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage());
+            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage(), that);
             didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage());
 	    if (attacker.getCharacterType() === "Redhatter"){
 	      //knockback
@@ -191,7 +191,7 @@ var Events = function(){
       }
 
     }
-    function didAttackHitPlayer(attackX, attackY, team, damage){
+    function didAttackHitPlayer(attackX, attackY, team, damage, that){
 	var playersHit = [];
         for (i = 0; i< players.length; i++){
             if (players[i].getTeam() === team){
@@ -201,6 +201,9 @@ var Events = function(){
                 if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight()/2){
                     setHp(players[i], damage);
 	  	    playersHit.push(players[i]);
+		    that.broadcast.emit('bleed', { id: players[i].id });
+		    that.emit('bleed', { id: players[i].id });
+
                 }
            }
        }
