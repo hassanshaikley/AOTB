@@ -1,5 +1,5 @@
-var Shanker = function(name, x, y, hp){
-  var skeleton = new Player(x, y, hp, name),
+var Shanker = function(name, x, y){
+  var skeleton = new Player(x, y, 80, name),
       facing_left;
   var meelee_attack = 50;
   var spritesheet_offset_y = 0;

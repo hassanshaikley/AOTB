@@ -45,7 +45,7 @@ var BowmanArrow = function(startX, startY, _caster){
 	};
     return {
 	update : update,
-	draw:  draw, 
+	draw:  draw,
 	getX: getX,
 	setX: setX
 }
@@ -56,7 +56,7 @@ var HealingSpike = function(startX, caster){
   var caster = caster;
   var draw = function(ctx){
     var trueX = x  - localPlayer.getX() + 50;
-    ctx.drawImage(healingcross, trueX,y); 
+    ctx.drawImage(healingcross, trueX,y);
   };
   var ticker = 0;
   var update = function(){
@@ -97,12 +97,14 @@ var HealingSpike = function(startX, caster){
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
   var caster = mCaster;
-  var x =meteorX, 
+  var x =meteorX,
       y = -100,
-      active = true; //active spells can hurt this specific client 
+      active = true; //active spells can hurt this specific client
   var update = function(){
     y += 15;
     //x += 2;
+      console.log (meteorX + " " + localPlayer.getDrawAtX());
+      console.log(x);
     var index = Spells.spellsarray.indexOf(this);
     if (y >= 500){
       Spells.spellsarray.splice(index, 1);
@@ -124,8 +126,9 @@ var Meteor = function(meteorX, mCaster){
 
   var draw = function(ctx){
     var fireballX = x  -localPlayer.getX()+CONFIG.SCREEN_WIDTH/2-50;
+       meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-50;
 
-    meteorClip.x = fireballX;
+   // meteorClip.x = fireballX;
     meteorClip.y = y;
 
   };

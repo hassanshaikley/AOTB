@@ -1,5 +1,5 @@
-var Redhatter = function(name, x, y, hp){
-  var skeleton =  new Player(x, y, hp, name);
+var Redhatter = function(name, x, y){
+  var skeleton =  new Player(x, y, 70, name);
   var facing_left;
 
   /* CASTS A METEOR :D */

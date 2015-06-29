@@ -165,7 +165,6 @@ function onDrawHitmarker(data){
 
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data){
-    console.log("l2 " + (localPlayer.getX() - localPlayer.localX() + CONFIG.SCREEN_WIDTH/2));
   var player;
   if (data.attacker === "you"){
     player = localPlayer;

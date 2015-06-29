@@ -150,7 +150,6 @@ Server.prototype.updateGameVariables = function(){
              }
 
             // 0 - 2500
-            util.log(server.Spells.spellsarray[i].getTeam() + " -- " + targetShrine.getX());
             if ( (targetShrine.hitby[i] != undefined || targetShrine.hitby[i] <= 1000)){
                 continue;
             }

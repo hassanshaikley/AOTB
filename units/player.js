@@ -5,9 +5,9 @@ var Config = require("../config.js");
 var Player = function(startHp, _name, _team, _height) {
     this.id = 1;
     var name = _name,
-        hp = 100,
+        hp = startHp,
         y = 400,
-        maxHp = 100, //ehh w.e lol
+        maxHp = startHp,
         character_type = "Unknown",
         gold = 0,
         respawnX,

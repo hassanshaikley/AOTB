@@ -6,7 +6,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   var 	x =               startX,
 	y =               startY,
 	name =            _name,
-	hp =              100,
+	hp =              startHp,
 	id,
 	alive =           true,
 	drawAtX =         x,
@@ -18,7 +18,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	animate =         0,
 	lastsaid = {},
 	gold = 0,
-	maxHp = hp,
+	maxHp = startHp,
 	team,
 	frames; //list of every image used in this guys animation
 
@@ -319,7 +319,7 @@ var moveTimer = 0;
 
     health.position.x = text_x-20;
     health.position.y = drawAtY-60;
-    health.scale.x = Math.ceil((hp/100)*40);
+    health.scale.x = Math.ceil((hp/maxHp)*40);
 	//hp is 100 : 100
 	//	x   : 40
 
