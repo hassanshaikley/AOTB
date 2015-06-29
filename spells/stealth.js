@@ -11,7 +11,7 @@ var Stealth = function(_x, _y, _team) {
 };
 
 Stealth.getCooldown = function(){
-	return 20000;
+	return 10000;
 };
 
 exports.Stealth = Stealth;

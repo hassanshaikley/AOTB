@@ -90,7 +90,7 @@ var Player = function(startHp, _name, _team, _height) {
         //
         if (newHp >= maxHp){
             hp = maxHp;
-        } else if ( newHp <= 0){ //hp is zero noo
+        } else if ( newHp <= 0 && alive){ //hp is zero noo
 	   alive = false;
 	   hp = 0;
  	    setTimeout( function() {
@@ -102,7 +102,7 @@ var Player = function(startHp, _name, _team, _height) {
 
 	    }, respawnTime);
             return "bleed";
-        } else {
+        } else if (alive) {
 
             hp = newHp;
             return "bleed";
