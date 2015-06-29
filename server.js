@@ -151,12 +151,18 @@ Server.prototype.updateGameVariables = function(){
 
             // 0 - 2500
             util.log(server.Spells.spellsarray[i].getTeam() + " -- " + targetShrine.getX());
+            if ( (targetShrine.hitby[i] != undefined || targetShrine.hitby[i] <= 1000)){
+                continue;
+            }
 
-
-		if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
+	    if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
 			server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
 			if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY()) <= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
 				targetShrine.setHp(targetShrine.getHp() -25 );
+			        targetShrine.hitby[i] = Date.now();
+
+
+
 			}
 		}
 
