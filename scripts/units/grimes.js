@@ -1,5 +1,5 @@
 var Grimes = function(name, x, y, hp){
-  var skeleton = new Player(x, y, hp, name),
+  var skeleton = new Player(x, y, 100, name),
       facing_left;
 
   var spells_thumb_array = [];
@@ -10,8 +10,8 @@ var Grimes = function(name, x, y, hp){
       MAIN.BOTACTIONBAR.addChild(sword_thumb);
       var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("tortstunthumb.png"));
       MAIN.BOTACTIONBAR.addChild(tort_stun);
-      spells_thumb_array.push(tort_stun); 
-      spells_thumb_array.push(sword_thumb); 
+      spells_thumb_array.push(tort_stun);
+      spells_thumb_array.push(sword_thumb);
 
       for (var _i = 0; _i < spells_thumb_array.length; _i++){
               MAIN.BOTACTIONBAR.addChild(spells_thumb_array[_i]);
@@ -37,7 +37,7 @@ var Grimes = function(name, x, y, hp){
     return "Grimes";
   };
 
-    
+
   skeleton.draw = function(ctx) {
     skeleton.drawText();
       var drawAtY = skeleton.getDrawAtY()-50;
@@ -58,8 +58,8 @@ var Grimes = function(name, x, y, hp){
       skeleton.imageContainer.addChild(grimes_r);
   	}
   };
-  
-  /* Constantly called for the localPlayer, updates the actual 
+
+  /* Constantly called for the localPlayer, updates the actual
    * Position held by the server
    */
   skeleton.update = function(keys) {
