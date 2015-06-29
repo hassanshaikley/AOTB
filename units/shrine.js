@@ -14,7 +14,7 @@ var Shrine = function(_team) {
     if (_team == 0){
         x = 1350;
     } else {
-        x = Config.ARENA_WIDTH -350;
+        x = 1000 + Config.ARENA_WIDTH -350;
     }
     this.getHalfWidth = function(){
         return 68;
