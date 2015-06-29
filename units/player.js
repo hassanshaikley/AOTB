@@ -41,7 +41,7 @@ var Player = function(startHp, _name, _team, _height) {
 	//random number between 1 and 50
 	var randomOffset = Math.floor(Math.random() * ( 200 )) - 100;
         if (newTeam===1){
-            x = respawnX = 3900 + randomOffset;
+            x = respawnX = Config.ARENA_WIDTH + 1000 - 100 + randomOffset;
         } else {
             x = respawnX =1100 + randomOffset;
         }
@@ -120,8 +120,8 @@ var Player = function(startHp, _name, _team, _height) {
     this.setX = function(newX) {
         if (newX < 1000){
             x = 1000;
-        }else if (newX > 4000){
-            x = 4000;
+        }else if (newX > Config.ARENA_WIDTH +1000){
+            x = Config.ARENA_WIDTH +1000 ;
         } else {
             x = newX;
         }
