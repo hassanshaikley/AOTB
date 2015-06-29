@@ -142,30 +142,32 @@ Server.prototype.updateGameVariables = function(){
 
 		//see if it hits a shrine
 		//util.log( Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX())+ " < " +(server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) )
+            var targetShrine;
+            if (server.Spells.spellsarray[i].getTeam() == 0){
+               targetShrine = game1.shrine_1;
+             } else {
+               targetShrine = game1.shrine_0;
+             }
+
+            // 0 - 2500
+            util.log(server.Spells.spellsarray[i].getTeam() + " -- " + targetShrine.getX());
 
 
-		if  (server.Spells.spellsarray[i].getTeam() == 0
-		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX()) <
-			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) {
-			if (Math.abs(game1.shrine_1.getY() - server.Spells.spellsarray[i].getY()) <= (game1.shrine_1.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
-				game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
+		if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
+			server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
+			if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY()) <= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
+				targetShrine.setHp(targetShrine.getHp() -25 );
 			}
 		}
-		if  (server.Spells.spellsarray[i].getTeam() == 1
-		 	&& Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_0.getX()) <
-			server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_0.getHalfWidth() ) {
 
-			if (Math.abs(game1.shrine_0.getY() - server.Spells.spellsarray[i].getY()) <= (game1.shrine_0.getHeight() + server.Spells.spellsarray[i].getHeight())) { // shanker made contact at 114
-				game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
-			}
-		}
 
 		for (var j = 0; j < players.length; j++) {
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
-				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY()) <  (players[j].getHeight() + server.Spells.spellsarray[i].getHeight() )) {
+				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY()) <
+                            (players[j].getHeight() + server.Spells.spellsarray[i].getHeight() )) {
 
 			//	util.log (" TEAM "+ players[j].getTeam()  + " SPELL TEAM " + server.Spells.spellsarray[i].getTeam());
 				if (players[j].getTeam() !== server.Spells.spellsarray[i].getTeam()){
@@ -177,7 +179,7 @@ Server.prototype.updateGameVariables = function(){
 					server.Spells.spellsarray[i].doEffect( players[j]); //stuns / freezes / etc
 					server.libs.io.sockets.emit('bleed', { id: players[j].id });
 				} else {
-					//util.log ("Hits same team. No damage. ");
+					//util.log ("Hits same team. No damage. ");dddddddddd
 
 				}
 
@@ -201,7 +203,6 @@ Server.prototype.updateGameVariables = function(){
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
 	hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
 	//    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-	//emits to only the player that was hit -- should probably emit to all players
 	server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
 
 }

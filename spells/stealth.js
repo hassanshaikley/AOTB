@@ -1,6 +1,5 @@
-
 /* There should be spells and projectiles... */
-var Spell = require("./spell").Spell; // so it can inherits :D 
+var Spell = require("./spell").Spell; // so it can inherits :D
 var Spells = require("../spellsandprojectiles").Spells;
 
 
@@ -12,7 +11,7 @@ var Stealth = function(_x, _y, _team) {
 };
 
 Stealth.getCooldown = function(){
-	return 5000;
+	return 20000;
 };
 
 exports.Stealth = Stealth;
