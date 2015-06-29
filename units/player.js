@@ -95,7 +95,7 @@ var Player = function(startHp, _name, _team, _height) {
 	   hp = 0;
  	    setTimeout( function() {
 		alive = true;
-            	hp = 100;
+            	hp = maxHp;
             	x = respawnX;
             	y = respawnY;
 

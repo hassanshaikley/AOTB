@@ -317,6 +317,7 @@ var moveTimer = 0;
     health_shadow.position.x = text_x-20;
     health_shadow.position.y = drawAtY-60;
 
+      console.log("HP " + hp +  " MAX " + maxHp);
     health.position.x = text_x-20;
     health.position.y = drawAtY-60;
     health.scale.x = Math.ceil((hp/maxHp)*40);
