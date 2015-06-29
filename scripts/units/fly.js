@@ -54,8 +54,8 @@ var Fly = function(name, x, y, hp){
   fly_r.animationSpeed = .15;
   fly_l.animationSpeed = .15;
 
-  fly_r_attack.animationSpeed = .15;
-  fly_l_attack.animationSpeed = .15;
+  fly_r_attack.animationSpeed = .30;
+  fly_l_attack.animationSpeed = .30;
 
 
 

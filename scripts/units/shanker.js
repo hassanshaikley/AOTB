@@ -43,8 +43,8 @@ var Shanker = function(name, x, y){
   shanker_r.animationSpeed = .15;
   shanker_l.animationSpeed = .15;
 
-  shanker_r_attack.animationSpeed = .15;
-  shanker_l_attack.animationSpeed = .15;
+  shanker_r_attack.animationSpeed = .30;
+  shanker_l_attack.animationSpeed = .30;
 
   skeleton.shanker_l = shanker_l;
 

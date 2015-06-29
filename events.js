@@ -161,7 +161,7 @@ var Events = function(){
 	  }
 	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y });
 	  that.emit("draw hitmarker",  {x: _x, y: _y });
-	}, 500);
+	}, 250);
 
         //hitbox should depend on direction, so should create a hitbox then tell if the two hitboxes overlap!
         //a helped function would ideally take two rectangles and tell you if overlaps
