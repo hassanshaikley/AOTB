@@ -3,11 +3,11 @@
 
 CONFIG = {};
 
-/* Contains the width of the screen 
+/* Contains the width of the screen
  */
 CONFIG.SCREEN_WIDTH = 768;
 
-/* 
+/*
  */
 CONFIG.MEELEE_ATTACK = 0;
 CONFIG.FIRST_SPELL = 1;
@@ -15,7 +15,7 @@ CONFIG.FIRST_SPELL = 1;
 /* Array of cooldowns that have been called
  * On update loop performs the visual behavior necessary for cooldown
  */
-CONFIG.COOLDOWNS = []; 
+CONFIG.COOLDOWNS = [];
 
 CONFIG.ACTION = {};
 
@@ -26,3 +26,4 @@ CONFIG.ACTION.ATTACK_LEFT = 2;
 CONFIG.ACTION.ATTACK_RIGHT = 3;
 
 CONFIG.ACTION.IDLE = 4;
+CONFIG.ARENA_WIDTH = 1536;

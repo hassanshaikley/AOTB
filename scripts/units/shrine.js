@@ -10,7 +10,7 @@ var Shrine = function(_team) {
   if (_team == 0){
     this.x = 1350;
   } else {
-    this.x = 3650;
+    this.x =1000 + CONFIG.ARENA_WIDTH - 350;
   }
 
   this.getTeam= function(){

@@ -1,6 +1,8 @@
 /**************************************************
  ** PLAYER CLASS IN SERVER
  **************************************************/
+var Config = require("../config.js");
+
 var Shrine = function(_team) {
     var maxHp = 3000,
         hp = maxHp,
@@ -12,7 +14,7 @@ var Shrine = function(_team) {
     if (_team == 0){
         x = 1350;
     } else {
-        x = 3650;
+        x = Config.ARENA_WIDTH -350;
     }
     this.getHalfWidth = function(){
         return 68;
