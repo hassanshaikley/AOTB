@@ -4,7 +4,7 @@ var Fly = function(name, x, y, hp){
       descendAttack = false,
       descendAttackSpeed = 10;
 
-  var skeleton =  new Player(x, y, hp, name);
+  var skeleton =  new Player(x, y, 100, name);
 
 
   skeleton.setDescendAttack = function(boolean_thing, local){
@@ -13,12 +13,12 @@ var Fly = function(name, x, y, hp){
       socket.emit("descend attack change", { descendAttack: boolean_thing });
     }
   };
-  
+
 
   skeleton.getDescendAttack = function(){
     return descendAttack;
   };
-  
+
 
   var clipnames = [];
 
@@ -27,7 +27,7 @@ var Fly = function(name, x, y, hp){
   }
   var fly_r = new PIXI.extras.MovieClip(clipnames);
   clipnames =[];
-  
+
   for (var _i = 1; _i <= 12; _i ++){
     clipnames.push(PIXI.Texture.fromImage("l_flysheet_walk_v2_state"+_i+".png"));
   }
@@ -40,7 +40,7 @@ var Fly = function(name, x, y, hp){
   }
   var fly_r_attack = new PIXI.extras.MovieClip(clipnames);
   clipnames =[];
-  
+
   for (var _i = 1; _i <= 8; _i ++){
     clipnames.push(PIXI.Texture.fromImage("l_flysheet_attack_v1_state"+_i+".png"));
   }
@@ -50,7 +50,7 @@ var Fly = function(name, x, y, hp){
   fly_l.gotoAndPlay(0);
   fly_r.gotoAndPlay(0);
 
-  
+
   fly_r.animationSpeed = .15;
   fly_l.animationSpeed = .15;
 
@@ -68,9 +68,9 @@ var Fly = function(name, x, y, hp){
   var flyAnimate= 0;
   var first = false,
       loop = false;
-    
+
     var halfHeight = skeleton.getHeight()/2;
- 
+
   skeleton.draw = function() {
         this.drawText();
 
@@ -86,7 +86,7 @@ var Fly = function(name, x, y, hp){
     fly_r.position.y = skeleton.getDrawAtY()-halfHeight;
     fly_r_attack.position.y = skeleton.getDrawAtY()-27-halfHeight;
     fly_l_attack.position.y = skeleton.getDrawAtY()-27-halfHeight;
-  
+
     fly_l.position.x = drawAtX;
     fly_r.position.x = drawAtX;
     fly_r_attack.position.x = drawAtX-14;
@@ -118,7 +118,7 @@ var Fly = function(name, x, y, hp){
         fly_r_attack.animationSpeed = 0;
       }else {
         skeleton.imageContainer.addChild(fly_r_attack);
-      } 
+      }
 
     } else if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_LEFT){
       if (first === false){
@@ -186,7 +186,7 @@ var Fly = function(name, x, y, hp){
         rightMouseActionHappening = true;
       }
       //200 is pretty badass
-    } 
+    }
     if (descendAttack) {
       ctx.save();
       ctx.translate(drawAtX+60, this.getDrawAtY()-40 + 90);
@@ -208,9 +208,9 @@ var Fly = function(name, x, y, hp){
 */
   // Update player position
   skeleton.update = function(keys) {
-     
+
     localX = this.getX();
-    return; 
+    return;
   };
 
   var f_cd = 1000;
@@ -226,5 +226,5 @@ var Fly = function(name, x, y, hp){
     return "Fly";
   };
 
-  return skeleton; 
+  return skeleton;
 };
