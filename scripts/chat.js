@@ -7,7 +7,7 @@ function Chat(){
 
 
 var loadChat = function(){
-  Chat.displayObject = new PIXI.Container(); //add static member variable to chat. 
+  Chat.displayObject = new PIXI.Container(); //add static member variable to chat.
   MAIN.stage.addChild(Chat.displayObject);
 
   $(document).keypress(function(e) {
@@ -28,7 +28,7 @@ var loadChat = function(){
     } else {
       $("canvas")[0].focus();
       toggle = 1;
-    }        
+    }
 
   }
 });
@@ -48,12 +48,13 @@ if (localPlayerName === "unknown"){
 
 var chat_scroll = document.getElementById("chat");
 chat_scroll.scrollTop = chat_scroll.scrollHeight;
+
 socket.on('message', function (data) {
   var speaker = playerById(data.id);
   console.log(speaker);
 
   if (speaker == false){
-  
+
     $('#chat').append("<strong>" + localPlayer.getName() +":</strong> " + data.text + '<br />');
     localPlayer.speaks(data.text);
   } else {
@@ -61,8 +62,9 @@ socket.on('message', function (data) {
     speaker.speaks(data.text);
   }
   var name;
+
   chat_scroll.scrollTop = chat_scroll.scrollHeight;
- 
+
  /* if (speaker ){
     name = speaker.getName();
     speaker.speaks();
@@ -91,7 +93,7 @@ Chat.displayObject.addChild(message);
 $('#send').click(function () {
 
   if ($("#text").val()){
-    socket.emit('sendMessage', 
+    socket.emit('sendMessage',
       { text: $('#text').val() });
     $('#text').val('');
   }
@@ -105,4 +107,8 @@ $('#chat_outer').mousedown(function(e){
 
 function notify(text){
  $('#chat').append(text + "</br>");
+var chat_scroll = document.getElementById("chat");
+
+  chat_scroll.scrollTop = chat_scroll.scrollHeight;
+
 };

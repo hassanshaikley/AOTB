@@ -9,9 +9,9 @@ var Fly = function(name, x, y, hp){
 
   skeleton.setDescendAttack = function(boolean_thing, local){
     descendAttack = boolean_thing;
-    if (local) {
+   /* if (local) {
       socket.emit("descend attack change", { descendAttack: boolean_thing });
-    }
+    }*/
   };
 
 
