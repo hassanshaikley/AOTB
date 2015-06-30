@@ -16,7 +16,6 @@ var Keys = function(up, left, right, down) {
     //65 left, 87 up, 68 right, 83 down
     $(window).keydown(function(e){
 
-        console.log(e.keyCode);
 			/* Prevent Backspace from going to the previous page */
       if (e.keyCode  ===8 && !($("#text").is(':focus'))){ // dont do it if focused on chat
 			 e.preventDefault();

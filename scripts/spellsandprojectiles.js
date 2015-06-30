@@ -104,6 +104,7 @@ var Meteor = function(meteorX, mCaster){
     var team;
     this.setTeam = function(_team){
         team = _team;
+        console.log("SETTING TEAM ");
       if (team == 1){
 	var filter = new PIXI.filters.GrayFilter();
 	meteorClip.filters = [filter];
@@ -112,8 +113,6 @@ var Meteor = function(meteorX, mCaster){
   this.update = function(){
     y += 15;
     //x += 2;
-      console.log (meteorX + " " + localPlayer.getDrawAtX());
-      console.log(x);
     var index = Spells.spellsarray.indexOf(this);
 
 
