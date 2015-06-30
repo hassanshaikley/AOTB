@@ -368,7 +368,6 @@ var moveTimer = 0;
 
   this.rightClick = function(clientX, clientY){
     var t_x = clientX ;
-      util.log("Spell one biatch");
     socket.emit("spell one", { x: t_x , y: clientY});
   };
 
