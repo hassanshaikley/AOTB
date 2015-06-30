@@ -182,7 +182,6 @@ Server.prototype.updateGameVariables = function(){
 
 			//	util.log (" TEAM "+ players[j].getTeam()  + " SPELL TEAM " + server.Spells.spellsarray[i].getTeam());
 				if (players[j].getTeam() !== server.Spells.spellsarray[i].getTeam()){
-					util.log("Hits other team. Do damage.");
 					server.Spells.spellsarray[i].hit.push(players[j].id);
 					//var life_status = players[j].setHp(players[j].getHp() - server.Spells.spellsarray[i].getDamage());
 					setHp( players[j], server.Spells.spellsarray[i].getDamage());

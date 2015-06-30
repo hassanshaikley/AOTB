@@ -106,7 +106,12 @@ var Meteor = function(meteorX, mCaster, _team){
 	Meteor.getCooldown = function() {
 		return 6000;
 	}
+var DescendAttack = {};
+DescendAttack.getCooldown = function(){
+        return 6000;
 
+};
+exports.DescendAttack = DescendAttack;
 exports.Meteor = Meteor;
 exports.Spells = Spells;
 exports.BowmanArrow = BowmanArrow;

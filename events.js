@@ -12,7 +12,8 @@ var  Fly            = require("./units/fly").Fly,
      Meteor         = require("./spellsandprojectiles.js").Meteor,
      Stealth        = require("./spells/stealth.js").Stealth,
      TortStun       = require("./spells/tortstun.js").TortStun,
-     BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow;
+     BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow,
+    DescendAttack = require("./spellsandprojectiles.js").DescendAttack;
 
      var CONFIG = require("./config");
 
@@ -75,10 +76,8 @@ var Events = function(){
             }
         }
         if (data.key === "jump" && data.down){ // only when u press down
-            util.log (player.getY() + " " +  player.getHeight()/2 + " " +CONFIG.FLOOR_HEIGHT);
             if (!player.jumping  && player.getY() + player.getHeight()/2 === CONFIG.FLOOR_HEIGHT) {
                    player.jumping = true;
-                util.log("Jumps");
                    setTimeout(function() { player.jumping = false }, 250);
                 }
             }
@@ -162,7 +161,6 @@ var Events = function(){
 		} else {
 			distance = -300;
 		}
-		util.log ("~>"+playersHit);
 	      for (var i = 0; i < playersHit.length ; i++){
 		playersHit[i].setX(playersHit[i].getX() + distance);
 	    }
@@ -175,12 +173,6 @@ var Events = function(){
         //a helped function would ideally take two rectangles and tell you if overlaps
 
 
-
-
-
-        util.log("Meelee Attack: at " + attacker.getX() + " tower at " + game1.shrine_1.getX() + " and " +game1.shrine_0.getX()  ); //between 60 and 150 is perfect
-
-
         //Now get all the characters to animate the meelee attack = )
         this.emit('meelee attack', {attacker: "you" });
         this.broadcast.emit('meelee attack', {attacker: this.id});
@@ -188,15 +180,11 @@ var Events = function(){
 
     function didAttackHitTower(attackX, attackY, team, damage){
         var shrine;
-        util.log ("attacker team is " + team );
-
         if (team == 0){
             shrine = game1.shrine_1;
         } else {
             shrine = game1.shrine_0;
         }
-        util.log("shrine x is " + shrine.getX() + "width is "+ shrine.getHalfWidth());
-        util.log("attacked at " + attackX + ", " + attackY);
             if  (Math.abs(attackX - shrine.getX()) <= shrine.getHalfWidth() ){
                 if (Math.abs(shrine.getY() - attackY) <= shrine.getHeight()/2 ){
                   shrine.setHp(shrine.getHp() - damage );
@@ -229,7 +217,6 @@ var Events = function(){
     };
     function onRespawn(){
         var respawnPlayer = playerById(this.id);
-        util.log("a player has respawned (id:" + this.id + ")");
         respawnPlayer.alive = true;
         respawnPlayer.hp = 100;
         this.emit("respawn player", {id: this.id});
@@ -300,10 +287,10 @@ var Events = function(){
             this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true});
             this.broadcast.emit('spell one', {x: data.x, spell: "tort stun" });
         }
-        if (player.getCharacterType() === "Fly" ){
+        if (player.getCharacterType() === "Fly" && player.spellOneCastTime + DescendAttack.getCooldown() <= Date.now() ){
         util.log( "descend attacks");
-
-        player.setDescendAttack(data.descendAttack);
+            player.spellOneCastTime = Date.now();
+        player.setDescendAttack(true);
         this.emit("descend attack changes", { id: "self", descendAttack: true });
         this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: true});
             }
