@@ -1,4 +1,3 @@
-
 m_cd = 1000; //cooldowns : D
 h_cd = 1000;
 var Spells = {
@@ -68,7 +67,7 @@ var Meteor = function(meteorX, mCaster, _team){
 		return team;
 	}
 
-	var x =meteorX, 
+	var x =meteorX,
 			y = -100,
 			active = true; //active spells can hurt this specific client  - this makes absolutely no sense. lol
 
@@ -105,7 +104,7 @@ var Meteor = function(meteorX, mCaster, _team){
 	return this;
 };
 	Meteor.getCooldown = function() {
-		return 1300;
+		return 6000;
 	}
 
 exports.Meteor = Meteor;
