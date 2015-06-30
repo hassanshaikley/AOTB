@@ -300,6 +300,11 @@ var moveTimer = 0;
     }
   this.imageContainer.addChild(health_shadow);
   this.imageContainer.addChild(health);
+// name = "i";
+  var name_text = new PIXI.Text(name);
+   name_text.style.font = "bold 10px arial";
+    name_text.style.align = "center";
+    this.imageContainer.addChild(name_text);
 
   MAIN.stage.addChild(this.imageContainer);
 
@@ -311,10 +316,13 @@ var moveTimer = 0;
 
     console.log("NAME " + this.getName());
   var text_x;
+
   this.drawText = function(){
 
-    text_x = CONFIG.SCREEN_WIDTH/2 - localPlayer.localX() + drawAtX;
-    //	\le.log(" x - . "+text_x);
+     text_x = CONFIG.SCREEN_WIDTH/2 - localPlayer.localX() + drawAtX;
+     name_text.x = text_x - name_text.width/2;
+      name_text.y = drawAtY - 80;
+     //	\le.log(" x - . "+text_x);
     health_shadow.position.x = text_x-20;
     health_shadow.position.y = drawAtY-60;
 

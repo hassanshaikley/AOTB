@@ -1,12 +1,12 @@
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
-  if (req.isAuthenticated()){
-
+  if (req.isAuthenticated()){ //if loggedi n go to profile page
     res.redirect('/profile');
   } else {
     res.render('index.ejs', {
       authenticated: req.isAuthenticated(),
-      user : "",
+      user : req.user,
+      name: false
     });
    }
   });
@@ -24,7 +24,7 @@ module.exports = function(app, passport) {
  //     if (err) console.log("Shit");
       res.render('index.ejs', {
         authenticated: req.isAuthenticated(),
-        user : req.user, // get the user out of session and pass to template
+        name : req.user.local.nickname, // get the user out of session and pass to template
         character : req.body.character_type,
       });
 

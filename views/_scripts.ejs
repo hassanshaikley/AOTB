@@ -29,16 +29,16 @@
 
 
 <script>
-	<% if (user) { %>
-		var localPlayerName = "<%= user && user.local.nickname %>";
-		var characterType = "<%= user && character %>";
+	<% if (name) { %>
+		var localPlayerName = "<%= name %>";
+		var characterType = "<%= character %>";
 	<% } else {%>
 		var a = Math.floor(Math.random()*4);
-		if ( a == 0){		
+		if ( a == 0){
 			var characterType = "Fly";
 		} else if (a == 1 ){
 			var characterType = "Redhatter";
-		} else if (a == 2) { 
+		} else if (a == 2) {
 			var characterType = "Shanker";
 		} else {
 			var characterType = "Grimes";
