@@ -2,8 +2,7 @@ module.exports = function(app, passport) {
   app.get('/', function(req, res) {
   if (req.isAuthenticated()){
 
-//    res.redirect('/profile');
-      util.log("SWAA");
+    res.redirect('/profile');
   } else {
     res.render('index.ejs', {
       authenticated: req.isAuthenticated(),

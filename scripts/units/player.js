@@ -309,7 +309,7 @@ var moveTimer = 0;
 
   this.imageContainer.addChild(structure);
 
-
+    console.log("NAME " + this.getName());
   var text_x;
   this.drawText = function(){
 
