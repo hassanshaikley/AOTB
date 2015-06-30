@@ -10,6 +10,12 @@
   </head>
   <body>
 
+
+    <div class="container">
+      <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+      </div>
     <% if (! user.local.nickname ) { %>
     <h2> You don't have a nickname! Create one!</h2>
     <form action="/newname" method="post">
@@ -24,11 +30,9 @@
  <% } else { %>
      <h2> Welcome <%= user.local.nickname %></h2>
  <% } %>
-    <div class="container">
-      <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-      </div>
+ <% if (message && message === "nickname taken" ) { %>
+ <h4> That nickname is already taken. </h4>
+ <% } %>
 
       </br>
       </br>

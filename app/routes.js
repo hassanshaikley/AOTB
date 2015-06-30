@@ -64,15 +64,17 @@ module.exports = function(app, passport) {
   });
 
   app.get('/profile', isLoggedIn, function(req, res) {
-    var mongoose = require('mongoose');
-    var Character = mongoose.model('Character');
-    Character.find({ "_user" : req.user._id }, function(err, _characters){
-      if (err) console.log("Shit");
+//    var mongoose = require('mongoose');
+//    var Character = mongoose.model('Character');
+
+  //  Character.find({ "_user" : req.user._id }, function(err, _characters){
+   //   if (err) console.log("Shit");
       res.render('profile.ejs', {
         user : req.user, // get the user out of session and pass to template
-        characters : _characters
+          message : "nothing"
+ //      characters : _characters
       });
-    });
+ //   });
   });
 
   app.get('/logout', function(req, res) {
@@ -95,10 +97,17 @@ module.exports = function(app, passport) {
       var User = require('./models/user');
       util.log (" ID " + req.user.local.email);
       User.findOne( { "local.email" : req.user.local.email }, function(err, doc) {
-          util.log( doc.local.email);
-          doc.local.nickname = nickname;
-          doc.save();
-          res.redirect('/profile');
+          User.findOne( { "local.nickname" : nickname }, function (err, doc2){
+              if (doc2){
+                  res.render('profile.ejs', { user: req.user,  message: "nickname taken" });
+
+                  } else {
+                      util.log( doc.local.email);
+                      doc.local.nickname = nickname;
+                      doc.save();
+                      res.redirect('/profile');
+              }
+              });
           });
   });
 
