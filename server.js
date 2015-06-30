@@ -55,7 +55,7 @@ Server.prototype.updateGameVariables = function(){
 	    //Don't allow player to descend further than the floor
 //	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
 	    if ((players[_i].getY()+ players[_i].getHeight()/2) < Config.FLOOR_HEIGHT && ! players[_i].jumping) {
-                var fallHeight = 15;
+                var fallHeight = 20;
                 if (players[_i].getCharacterType() == "Fly"){
                     fallHeight = 1;
                     }

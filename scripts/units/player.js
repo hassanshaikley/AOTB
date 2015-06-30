@@ -241,14 +241,12 @@ var moveTimer = 0;
     /*		if (ySpeed==0){ //fixes stupd bug where health is a little higher
 		drawAtY = y;
 		}*/
-      console.log ( y  - drawAtY + " " + ySpeed);
     if (ySpeed == 0 ) { ySpeed = 1;};
     if (y - drawAtY > (ySpeed *2)){
       drawAtY+= ySpeed;
     } else if ( y-drawAtY < - (ySpeed*2)) {
       drawAtY-= ySpeed;
     } else {
-        console.log("SAP");
      drawAtY = y;
 
     }
