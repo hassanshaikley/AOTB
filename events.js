@@ -79,7 +79,7 @@ var Events = function(){
             if (!player.jumping  && player.getY() + player.getHeight()/2 === CONFIG.FLOOR_HEIGHT) {
                    player.jumping = true;
                 util.log("Jumps");
-                   setTimeout(function() { player.jumping = false }, 1000);
+                   setTimeout(function() { player.jumping = false }, 500);
                 }
             }
     }

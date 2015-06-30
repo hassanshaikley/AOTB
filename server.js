@@ -55,9 +55,13 @@ Server.prototype.updateGameVariables = function(){
 	    //Don't allow player to descend further than the floor
 //	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
 	    if ((players[_i].getY()+ players[_i].getHeight()/2) < Config.FLOOR_HEIGHT && ! players[_i].jumping) {
-		players[_i].setY(players[_i].getY()+1);
+                var fallHeight = 15;
+                if (players[_i].getCharacterType() == "Fly"){
+                    fallHeight = 1;
+                    }
+		players[_i].setY(players[_i].getY()+fallHeight);
 	    } else if (players[_i].jumping){
-                   players[_i].setY(players[_i].getY() - 20);
+                   players[_i].setY(players[_i].getY() - 15);
                 }
 		if (players[_i].isStunned()){
 			continue;

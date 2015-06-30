@@ -128,13 +128,15 @@ var Player = function(startHp, _name, _team, _height) {
     };
 
     this.setY = function(newY) {
-        if (newY > -20 && newY <= Config.FLOOR_HEIGHT - _height/2){
+        util.log("SETTING Y " + newY + " " + (Config.FLOOR_HEIGHT - _height));
+        if (newY > -20 && newY <= Config.FLOOR_HEIGHT - _height){
             y = newY;
         } else {
             if ( y<250){
                 y =-19;
             } else {
-                y = Config.FLOOR_HEIGHT - _height/2;
+                util.log ("YEP" + Config.FLOOR_HEIGHT - _height);
+                y = Config.FLOOR_HEIGHT - _height;
             }
         }
     };

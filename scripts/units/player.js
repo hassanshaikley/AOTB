@@ -217,9 +217,9 @@ var moveTimer = 0;
     if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
       drawAtX = x;
       drawAtY = y;
-    } else if (moveTimer >= 45 && moveDifferenceY == 0){
+    } /*else if (moveDifferenceY == 0){
 	drawAtY = y;
-     }
+     }*/
 
 
     xSpeed = (xDiff/10) ;
@@ -241,13 +241,16 @@ var moveTimer = 0;
     /*		if (ySpeed==0){ //fixes stupd bug where health is a little higher
 		drawAtY = y;
 		}*/
-
+      console.log ( y  - drawAtY + " " + ySpeed);
+    if (ySpeed == 0 ) { ySpeed = 1;};
     if (y - drawAtY > (ySpeed *2)){
       drawAtY+= ySpeed;
     } else if ( y-drawAtY < - (ySpeed*2)) {
       drawAtY-= ySpeed;
     } else {
-      drawAtY = y;
+        console.log("SAP");
+     drawAtY = y;
+
     }
 
 
@@ -317,7 +320,6 @@ var moveTimer = 0;
     health_shadow.position.x = text_x-20;
     health_shadow.position.y = drawAtY-60;
 
-      console.log("HP " + hp +  " MAX " + maxHp);
     health.position.x = text_x-20;
     health.position.y = drawAtY-60;
     health.scale.x = Math.ceil((hp/maxHp)*40);
