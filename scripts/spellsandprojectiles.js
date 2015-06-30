@@ -96,27 +96,38 @@ var HealingSpike = function(startX, caster){
 };
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
-  var caster = mCaster;
+    this.caster = mCaster;
   var x =meteorX,
-      y = -100,
-      active = true; //active spells can hurt this specific client
-  var update = function(){
+      y = -100;
+      this.active = true; //active spells can hurt this specific client
+
+    var team;
+    this.setTeam = function(_team){
+        team = _team;
+      if (team == 1){
+	var filter = new PIXI.filters.GrayFilter();
+	meteorClip.filters = [filter];
+          }
+        }
+  this.update = function(){
     y += 15;
     //x += 2;
       console.log (meteorX + " " + localPlayer.getDrawAtX());
       console.log(x);
     var index = Spells.spellsarray.indexOf(this);
+
+
     if (y >= 500){
       Spells.spellsarray.splice(index, 1);
       MAIN.stage.removeChild(meteorClip);
     };
   };
 
-  var getX = function(){
+  this.getX = function(){
     return x;
   };
 
-  var getY = function(){
+  this.getY = function(){
     return y;
   };
 
@@ -124,7 +135,7 @@ var Meteor = function(meteorX, mCaster){
   MAIN.stage.addChild(meteorClip);
 
 
-  var draw = function(ctx){
+  this.draw = function(ctx){
     var fireballX = x  -localPlayer.getX()+CONFIG.SCREEN_WIDTH/2-50;
        meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-50;
 
@@ -133,17 +144,6 @@ var Meteor = function(meteorX, mCaster){
 
   };
 
-  var getDamage = function(){
-    return 25;
-  };
-  return {
 
-    getX : getX,
-          getY : getY,
-          draw : draw,
-          update : update,
-          active : active,
-          caster : caster,
-          getDamage: getDamage
-  }
+  return this ;
 };

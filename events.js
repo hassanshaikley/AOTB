@@ -311,8 +311,8 @@ var Events = function(){
                 //var v = new TortStun(data.x, data.y, team);
                 var v = new Meteor(data.x, data.y, team);
                 Spells.spellsarray.push(v);
-                this.emit('spell one', {x: data.x, spell: "meteor" });
-                this.broadcast.emit('spell one', {x: data.x, spell: "meteor" });
+                this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam() });
+                this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam() });
         }
         if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){
             player.spellOneCastTime = Date.now();

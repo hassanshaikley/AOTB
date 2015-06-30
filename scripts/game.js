@@ -181,6 +181,7 @@ function onSpellOne(data){
 	  Spells.spellsarray.push(m);
   } else if (data.spell === "meteor"){
     var m = new Meteor(data.x, data.caster);
+    m.setTeam(data.team);
     Spells.spellsarray.push(m);
   }
 
