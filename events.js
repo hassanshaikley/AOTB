@@ -74,7 +74,7 @@ var Events = function(){
                 player.down = false;
             }
         }
-        if (data.key === "jump"){
+        if (data.key === "jump" && data.down){ // only when u press down
             util.log (player.getY() + " " +  player.getHeight()/2 + " " +CONFIG.FLOOR_HEIGHT);
             if (!player.jumping  && player.getY() + player.getHeight()/2 === CONFIG.FLOOR_HEIGHT) {
                    player.jumping = true;
