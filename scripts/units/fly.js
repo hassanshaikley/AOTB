@@ -215,13 +215,6 @@ var Fly = function(name, x, y, hp){
 
   var f_cd = 1000;
   var f_t = Date.now();
-  skeleton.rightClick = function(){
-    //lol terrible design
-    if (Date.now() - f_t > f_cd){
-      skeleton.setDescendAttack(true, true);
-      f_t = Date.now();
-    }
-  }
   skeleton.getCharacterType = function(){
     return "Fly";
   };

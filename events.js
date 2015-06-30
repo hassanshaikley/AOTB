@@ -300,12 +300,12 @@ var Events = function(){
             this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true});
             this.broadcast.emit('spell one', {x: data.x, spell: "tort stun" });
         }
-        if (player.getCharacterType() === "Fly" && true){
-        util.log(data.descendAttack);
+        if (player.getCharacterType() === "Fly" ){
+        util.log( "descend attacks");
 
         player.setDescendAttack(data.descendAttack);
-        this.emit("descend attack changes", { id: "self", descendAttack: data.descendAttack });
-        this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: data.descendAttack});
+        this.emit("descend attack changes", { id: "self", descendAttack: true });
+        this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: true});
             }
         if (player.getCharacterType() === "Redhatter" && player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
             player.spellOneCastTime = Date.now();
