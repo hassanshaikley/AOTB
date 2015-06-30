@@ -20,7 +20,7 @@ var Player = function(startHp, _name, _team, _height) {
     this.spellOneCastTime = 0;
 
 	var alive = true;
-    respawnTime = 3000;
+    respawnTime = 5000;
 
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
