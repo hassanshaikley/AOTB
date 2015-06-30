@@ -30,8 +30,8 @@
 
 <script>
 	<% if (user) { %>
-		var localPlayerName = "<%= user && character.name %>";
-		var characterType = "<%= user && character.race %>";
+		var localPlayerName = "<%= user && user.local.nickname %>";
+		var characterType = "<%= user && character %>";
 	<% } else {%>
 		var a = Math.floor(Math.random()*4);
 		if ( a == 0){		

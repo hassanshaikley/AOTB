@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-  <head>
+  <head>n
     <title>Amara | Profile </title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -9,6 +9,21 @@
     </style>
   </head>
   <body>
+
+    <% if (! user.local.nickname ) { %>
+    <h2> You don't have a nickname! Create one!</h2>
+    <form action="/newname" method="post">
+		<div class="form-group">
+			<label>Email</label>
+			<input maxlength="16" type="text" class="form-control" name="nickname">
+		</div>
+
+
+		<button type="submit" class="btn btn-warning btn-lg">Set Name</button>
+      </form>
+ <% } else { %>
+     <h2> Welcome <%= user.local.nickname %></h2>
+ <% } %>
     <div class="container">
       <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> Profile Page</h1>
@@ -16,21 +31,42 @@
       </div>
 
       </br>
-      <a href="create_character"> create character</a>
       </br>
       </br>
       <form action="/" method="post">
         <div class="row">
-          <div class="col-sm-12">
-            <% for( var i= 0; i< characters.length; i++ ){ %>
-            <button value="<%= characters[i].id %>" name="charId">
+<div class="col-sm-12">
+
+            <button value="Shanker" name="character_type">
               <h3><span class="fa fa-user"></span> Play </h3>
               <p>
-              <strong>Character </strong>: <%= characters[i].race %>
-              <h3><span class="fa fa-user"></span> <%= characters[i].name %></h3>
-              </p>
+              <strong>Character </strong>: Shanker
+              <p></p>
             </button>
-            <% } %>
+
+            <button value="Redhatter" name="character_type">
+              <h3><span class="fa fa-user"></span> Play </h3>
+              <p>
+              <strong>Character </strong>: Redhatter
+              <p></p>
+            </button>
+
+            <button value="Fly" name="character_type">
+              <h3><span class="fa fa-user"></span> Play </h3>
+              <p>
+              <strong>Character </strong>: Fly
+              <p></p>
+            </button>
+
+            <button value="Grimes" name="character_type">
+              <h3><span class="fa fa-user"></span> Play </h3>
+              <p>
+              <strong>Character </strong>: Grimes
+              <p></p>
+            </button>
+
+          </div>
+
           </div>
         </div>
       </form>

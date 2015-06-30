@@ -1,32 +1,38 @@
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
-  if (req.isAuthenticated()){ 
-    res.redirect('/profile');
+  if (req.isAuthenticated()){
+
+//    res.redirect('/profile');
+      util.log("SWAA");
   } else {
-    res.render('index.ejs', { 
+    res.render('index.ejs', {
       authenticated: req.isAuthenticated(),
       user : "",
-    }); 
+    });
    }
   });
   app.get('/test', function(req, res) {
-    res.render('test-index.ejs', { 
+    res.render('test-index.ejs', {
       authenticated: false,
-      user : "", 
+      user : "",
     });
   });
   app.post('/', function(req, res) {
-    var mongoose = require('mongoose');
-    var Character = mongoose.model('Character');
-    Character.findOne({ "_id" : req.body.charId }, function(err, _character){
-      if (err) console.log("Shit");
+   // var mongoose = require('mongoose');
+    //var Character = mongoose.model('Character');
+
+//    Character.findOne({ "_id" : req.body.charId }, function(err, _character){
+ //     if (err) console.log("Shit");
       res.render('index.ejs', {
         authenticated: req.isAuthenticated(),
         user : req.user, // get the user out of session and pass to template
-        character : _character,
+        character : req.body.character_type,
       });
-    });
+
+
+  //  });
   });
+/*
   app.post('/create_char', isLoggedIn, function(req, res){
     var mongoose = require('mongoose');
     var Character = mongoose.model('Character');
@@ -38,14 +44,14 @@ module.exports = function(app, passport) {
     }
     var _char = new Character({ race: req.body.char_type, _user: req.user._id, name: c_name });
     _char.save(function(err) {
-      if (err) return handleError(err); 
+      if (err) return handleError(err);
       //saved
       res.redirect('/profile');
-    }); 
-  });
+    });
+  });*/
 
   app.get('/login', isNotLoggedIn, function(req, res) {
-    res.render('login.ejs', { message: req.flash('loginMessage') }); 
+    res.render('login.ejs', { message: req.flash('loginMessage') });
   });
 
   app.get('/signup', isNotLoggedIn, function(req, res) {
@@ -80,6 +86,22 @@ module.exports = function(app, passport) {
     failureFlash : true // allow flash messages
   }));
 
+  app.post('/newname', function(req, res){
+     //util.log(" ~  ~  > " + req.user + " " +req.body.nickname);
+      var nickname = req.body.nickname;
+      nickname = nickname.substring(0,16);
+
+
+      var User = require('./models/user');
+      util.log (" ID " + req.user.local.email);
+      User.findOne( { "local.email" : req.user.local.email }, function(err, doc) {
+          util.log( doc.local.email);
+          doc.local.nickname = nickname;
+          doc.save();
+          res.redirect('/profile');
+          });
+  });
+
   app.post('/login', passport.authenticate('local-login', {
     successRedirect : '/profile', // redirect to the secure profile section
     failureRedirect : '/login', // redirect back to the signup page if there is an error
@@ -90,7 +112,7 @@ module.exports = function(app, passport) {
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
-  // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
   if (req.isAuthenticated())
     return next();
   // if they aren't redirect them to the home page
@@ -98,7 +120,7 @@ function isLoggedIn(req, res, next) {
 }
 
 function isNotLoggedIn(req, res, next) {
-  // if user is authenticated in the session, carry on 
+  // if user is authenticated in the session, carry on
   if (!req.isAuthenticated())
     return next();
   // if they aren't redirect them to the home page

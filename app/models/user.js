@@ -9,9 +9,10 @@ var character = mongoose.model('Character');
 var UserSchema = mongoose.Schema({
   local: {
            email: String,
-    password: String 
+      nickname: String,
+    password: String
          },
-    characters: [{type: mongoose.Schema.ObjectId, ref: 'Characters'}] 
+    characters: [{type: mongoose.Schema.ObjectId, ref: 'Characters'}]
 
 });
 
@@ -64,14 +65,14 @@ UserSchema.methods.createCharacter = function(user, name, race, cb){
    _char._user = __user._id;
    _char.save(function(err, dude){
    if (err) console.log("aah " + err);
-   console.log("SAVED " + dude.name); 
+   console.log("SAVED " + dude.name);
    __user.characters.push(dude);
    __user.save();
    });
    });
    });*/
 /*
-User.findOne(function(err, __user){ 
+User.findOne(function(err, __user){
   UserSchema.methods.createCharacter(__user, "theotherfly", "Fly", function(err, character){
     if(err) console.log(err);
     console.log(character);
@@ -82,15 +83,15 @@ UserSchema.methods.usersCharacters = function(email,cb){
   User.findOne( {'local.email' : email }).exec(function(err, user){
     if (err) console.log("shit");
     var _return = [];
-   
+
 		if (!user){
 			console.log("MAN USER IS NULL");
 			return
-		} 
+		}
     user.characters.forEach(function(err, i){
       Character.findOne({ "_id" :user.characters[i] }).exec(function(err2, dude){
         _return.push(dude);
-        
+
         /* Can't think of a smarter way to return :( */
         if ( i == user.characters.length-1)
           cb(_return);
