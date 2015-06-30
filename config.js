@@ -11,5 +11,5 @@ var CONFIG = {};
 	CONFIG.Team_L = 0;
 	CONFIG.Team_R = 1;
         CONFIG.FLOOR_HEIGHT =474;
-CONFIG.ARENA_WIDTH = 1536;
+CONFIG.ARENA_WIDTH = 1836; //was 1536
 module.exports = CONFIG;
