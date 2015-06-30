@@ -307,6 +307,7 @@ function onUpdateHostile(data){
 
 function onDescendAttackChanges(data){
     var _player = playerById(data.id);
+	console.log("AAA");
     if (_player === false){
         localPlayer.setDescendAttack(data.descendAttack);
     } else {
