@@ -133,7 +133,7 @@ var Events = function(){
               break;
               case "Redhatter":
                 if (data.direction === "right"){
-                    _x +=63;
+                    _x +=50;
                     } else {
                      _x -=28;
                 }
