@@ -57,10 +57,10 @@ var Meteor = function(meteorX, mCaster, _team){
 
 
 	this.getHalfWidth = function(){
-		return 10;
+		return 20;
 	};
 	this.getHalfHeight = function(){
-		return 50;
+		return 2;
 	};
 
 	this.getTeam = function(){
@@ -106,6 +106,9 @@ var Meteor = function(meteorX, mCaster, _team){
 	Meteor.getCooldown = function() {
 		return 6000;
 	}
+Meteor.getHalfWidth = function(){
+    return 18;
+};
 var DescendAttack = {};
 DescendAttack.getCooldown = function(){
         return 6000;

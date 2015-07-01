@@ -41,13 +41,13 @@ var Grimes = function(name, x, y, hp){
   skeleton.draw = function(ctx) {
     skeleton.drawText();
       var drawAtY = skeleton.getDrawAtY()-50;
-  	  var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+  	  var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50 + 20;
   	grimes_r.position.y = drawAtY;
   	grimes_l.position.y = drawAtY;
 
   	grimes_l.position.x = drawAtX;
   	grimes_r.position.x = drawAtX;
-
+      skeleton.setMeeleeAttack(false);
     if (this.getMoveDirection() === "left"){
       skeleton.imageContainer.removeChild(grimes_r);
       skeleton.imageContainer.removeChild(grimes_l);

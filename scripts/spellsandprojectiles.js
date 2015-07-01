@@ -99,6 +99,7 @@ var Meteor = function(meteorX, mCaster){
     this.caster = mCaster;
   var x =meteorX,
       y = -100;
+    console.log("New meteor " + meteorX);
       this.active = true; //active spells can hurt this specific client
 
     var team;
@@ -112,6 +113,7 @@ var Meteor = function(meteorX, mCaster){
         }
   this.update = function(){
     y += 15;
+    //  y+=1;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
 
@@ -135,8 +137,7 @@ var Meteor = function(meteorX, mCaster){
 
 
   this.draw = function(ctx){
-    var fireballX = x  -localPlayer.getX()+CONFIG.SCREEN_WIDTH/2-50;
-       meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-50;
+     meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-18;
 
    // meteorClip.x = fireballX;
     meteorClip.y = y;

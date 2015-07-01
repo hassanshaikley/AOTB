@@ -32,10 +32,11 @@ var TortStun = function(_x, _y, _team) {
 			Spells.spellsarray.splice(index, 1);
 		};
 	};
+        spell.name ="tortstun";
 	return spell;
 };
 TortStun.getCooldown = function(){
-   	 	return 1300;
+   	 	return 2000;
   	};
 
 

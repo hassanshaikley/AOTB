@@ -35,7 +35,7 @@ function init() {
   line.drawRect(CONFIG.SCREEN_WIDTH/2-1, 300, 2, 200);
   line.endFill();
  //only do if debug mode
-// MAIN.stage.addChild(line);
+ //MAIN.stage.addChild(line);
 
   //disable right click default behavior
   canvas1.oncontextmenu = function(e){ return false; };
@@ -154,12 +154,13 @@ function onVisibleAgain(data){
 
 //receives an _x and _y var of where to draw
 function onDrawHitmarker(data){
-	var sprite = new PIXI.Sprite.fromFrame("hitmarker.png");
-	sprite.x = data.x-18 - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
-	sprite.y = data.y-18;
-	//MAIN.stage.addChild(sprite);
+        console.log("DRAING AT " +data.x);
+	var sprite = new PIXI.Sprite.fromFrame("hitmarker.fw.png");
+	sprite.x = data.x - localPlayer.getDrawAtX() + CONFIG.SCREEN_WIDTH/2;
+	sprite.y = data.y-10;
+	MAIN.stage.addChild(sprite);
 	setTimeout( function(){
-	//	MAIN.stage.removeChild(sprite);
+		MAIN.stage.removeChild(sprite);
 	}, 500);
 }
 
@@ -176,6 +177,7 @@ function onMeeleeAttack(data){
 }
 
 function onSpellOne(data){
+    console.log('MAKING DAT METEOR BRO');
   if (data.spell === "tort stun"){ //should be a variable shared between server and client
 	  var m = new TortStun(data.x, data.y, data.caster);
 	  Spells.spellsarray.push(m);
@@ -183,7 +185,9 @@ function onSpellOne(data){
     var m = new Meteor(data.x, data.caster);
     m.setTeam(data.team);
     Spells.spellsarray.push(m);
+      console.log(data.x);
   }
+
 
   if (data.spell === "windwalk"){
       console.log("windwalking");

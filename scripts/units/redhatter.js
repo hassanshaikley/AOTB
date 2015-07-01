@@ -57,8 +57,8 @@ var Redhatter = function(name, x, y){
    if (this.getMoveDirection() === "right" ){
         drawAtX += 32;
         } else {
-        drawAtX += 13;
-}
+        drawAtX += 20;
+            }
 
 
 

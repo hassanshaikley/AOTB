@@ -36,7 +36,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 
   this.getMeeleeAttack = function(){
-  	return meelee_attack;
+      return meelee_attack;
   };
 
 
@@ -225,6 +225,9 @@ var moveTimer = 0;
     xSpeed = (xDiff/10) ;
     xSpeed = Math.floor(xSpeed);
 
+      if(xSpeed == 0 ){
+          xSpeed = 1;
+          }
 
     if (x - drawAtX > xSpeed*2){
       drawAtX+= xSpeed;
@@ -314,7 +317,6 @@ var moveTimer = 0;
 
   this.imageContainer.addChild(structure);
 
-    console.log("NAME " + this.getName());
   var text_x;
 
   this.drawText = function(){

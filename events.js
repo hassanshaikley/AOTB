@@ -147,6 +147,13 @@ var Events = function(){
                         }
                   _y+=55;
                 break;
+              case "Grimes":
+              if (data.direction === "right"){
+                  _x+=35;
+                  } else {
+                      _x-=15;
+                      }
+              break;
           }
             //now iterate through all players see if it hits!
 
@@ -192,7 +199,7 @@ var Events = function(){
       }
 
     }
-    function didAttackHitPlayer(attackX, attackY, team, damage, that){
+    function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing){
 	var playersHit = [];
         for (i = 0; i< players.length; i++){
             if (players[i].getTeam() === team){
@@ -202,9 +209,12 @@ var Events = function(){
                 if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight()/2){
                     setHp(players[i], damage);
 	  	    playersHit.push(players[i]);
-		    that.broadcast.emit('bleed', { id: players[i].id });
-		    that.emit('bleed', { id: players[i].id });
-
+                    if (that != undefined) {
+		        that.broadcast.emit('bleed', { id: players[i].id });
+		        that.emit('bleed', { id: players[i].id });
+                    } else {
+                        socketthing.emit('bleed', {id : players[i].id } );
+                    }
                 }
            }
        }
@@ -296,6 +306,7 @@ var Events = function(){
             }
         if (player.getCharacterType() === "Redhatter" && player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
             player.spellOneCastTime = Date.now();
+
                 //var v = new TortStun(data.x, data.y, team);
                 var v = new Meteor(data.x, data.y, team);
                 Spells.spellsarray.push(v);
@@ -350,6 +361,7 @@ var Events = function(){
     };
 
     return {
+        didAttackHitPlayer : didAttackHitPlayer,
         setEventHandlers : setEventHandlers,
     };
 };

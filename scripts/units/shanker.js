@@ -146,7 +146,6 @@ var Shanker = function(name, x, y){
       if (_invis){
     MAIN.stage.removeChild(skeleton.imageContainer);
     } else {
-console.log("ADING BACK OK");
    MAIN.stage.addChild(skeleton.imageContainer);
         }
 
