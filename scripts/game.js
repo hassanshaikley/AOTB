@@ -156,7 +156,7 @@ function onVisibleAgain(data){
 function onDrawHitmarker(data){
         console.log("DRAING AT " +data.x);
 	var sprite = new PIXI.Sprite.fromFrame("hitmarker.fw.png");
-	sprite.x = data.x - localPlayer.getDrawAtX() + CONFIG.SCREEN_WIDTH/2;
+	sprite.x = data.x - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
 	sprite.y = data.y-10;
 	MAIN.stage.addChild(sprite);
 	setTimeout( function(){

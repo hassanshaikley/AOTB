@@ -125,10 +125,12 @@ var Events = function(){
 	  var _y = attacker.getY()-15;
           switch (attacker.getCharacterType()) {
           case "Shanker":
+              util.log("ATTACKIN - as shanekr");
             if (data.direction === "right"){
-		_x += 53;
+                util.log("ATACKING RIGHT");
+		_x += 50;
 	    } else {
-		_x -=12;
+		_x -=25;
 	     }
               break;
               case "Redhatter":
@@ -149,9 +151,9 @@ var Events = function(){
                 break;
               case "Grimes":
               if (data.direction === "right"){
-                  _x+=35;
+                  _x+=45;
                   } else {
-                      _x-=15;
+                      _x-=30;
                       }
               break;
           }
