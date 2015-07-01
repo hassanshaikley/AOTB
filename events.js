@@ -155,6 +155,7 @@ var Events = function(){
                   } else {
                       _x-=30;
                       }
+              _y+=10;
               break;
           }
             //now iterate through all players see if it hits!
