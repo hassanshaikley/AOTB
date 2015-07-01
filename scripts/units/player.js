@@ -62,7 +62,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     console.log("IMPLEMENT THIS");
   };
   // Getters and setters
-  this.setTeam = function(_team){ 
+  this.setTeam = function(_team){
 	if (_team === team){
 	return;
 	}
@@ -277,8 +277,16 @@ var moveTimer = 0;
 	return 100;
 	};
   this.speaks = function(words){
-    lastsaid.time = Date.now();
-    lastsaid.text = words;
+      chat_text.text = words;
+      var old_text = chat_text.text;
+      setTimeout( function() {
+
+          if (chat_text.text == old_text){
+              chat_text.text = "";
+          }
+
+      }, 3000 );
+
   };
 
   var health_shadow = new PIXI.Graphics();
@@ -308,6 +316,10 @@ var moveTimer = 0;
     name_text.style.align = "center";
     this.imageContainer.addChild(name_text);
 
+   var chat_text = new PIXI.Text("");
+   chat_text.style.font = "bold 10px arial";
+    chat_text.style.align = "center";
+    this.imageContainer.addChild(chat_text);
   MAIN.stage.addChild(this.imageContainer);
 
   var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
@@ -322,8 +334,12 @@ var moveTimer = 0;
 
      text_x = CONFIG.SCREEN_WIDTH/2 - localPlayer.localX() + drawAtX;
      name_text.x = text_x - name_text.width/2;
-      name_text.y = drawAtY - 80;
-     //	\le.log(" x - . "+text_x);
+      name_text.y= drawAtY - 80;
+      chat_text.y = drawAtY - 90;
+      chat_text.x = text_x - chat_text.width/2;
+      chat_text.y -=10;
+
+   //	\le.log(" x - . "+text_x);
     health_shadow.position.x = text_x-20;
     health_shadow.position.y = drawAtY-60;
 
