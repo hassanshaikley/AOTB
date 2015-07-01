@@ -107,16 +107,15 @@ var Meteor = function(meteorX, mCaster){
         team = _team;
         console.log("SETTING TEAM ");
       if (team == 1){
-	var filter = new PIXI.filters.GrayFilter();
-	meteorClip.filters = [filter];
-          }
+
+        teamOneFilter(meteorClip);
         }
+}
   this.update = function(){
     y += 15;
     //  y+=1;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
-
 
     if (y >= 500){
       Spells.spellsarray.splice(index, 1);

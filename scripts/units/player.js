@@ -62,9 +62,12 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     console.log("IMPLEMENT THIS");
   };
   // Getters and setters
-  this.setTeam = function(_team){
+  this.setTeam = function(_team){ 
+	if (_team === team){
+	return;
+	}
       if (_team == 1) {
-	  grayFilter();
+          teamOneFilter(that.imageContainer);
        } else {
 	  noFilter();
     }
@@ -292,10 +295,6 @@ var moveTimer = 0;
   this.imageContainer = new PIXI.Container();
   var that = this;
 
-    var grayFilter = function() {
-	var filter = new PIXI.filters.GrayFilter();
-	that.imageContainer.filters = [filter];
-    }
     var noFilter = function() {
 
 		that.imageContainer.filters = null;
@@ -304,7 +303,7 @@ var moveTimer = 0;
   this.imageContainer.addChild(health_shadow);
   this.imageContainer.addChild(health);
 // name = "i";
-  var name_text = new PIXI.Text(name);
+   var name_text = new PIXI.Text(name);
    name_text.style.font = "bold 10px arial";
     name_text.style.align = "center";
     this.imageContainer.addChild(name_text);

@@ -27,7 +27,7 @@ function Main() {
   this.stage.addChild(this.BOTACTIONBAR);
 
 
-var node = document.getElementById("canvas_and_chat") 
+var node = document.getElementById("canvas_and_chat")
   node.appendChild(this.renderer.view);
 
   this.stage.interactive = true;
@@ -44,9 +44,9 @@ var node = document.getElementById("canvas_and_chat")
 };
 
 Main.prototype.loadSpriteSheet = function() {
-  var loader = new PIXI.loaders.Loader(); 
+  var loader = new PIXI.loaders.Loader();
 var url;
- // if (location.origin === "http://localhost:5000" && 
+ // if (location.origin === "http://localhost:5000" &&
     //UrlExists("/localAssets/spritesheet.png")){
     url ="localAssets/";
 /*} else {
@@ -70,3 +70,15 @@ Main.prototype.spriteSheetLoaded = function() {
   init();
   requestAnimationFrame(this.update.bind(this));
 };
+
+
+
+// helper
+
+function teamOneFilter(imageContainer){
+	var filter = new PIXI.filters.ColorStepFilter();
+        var filter2 = new PIXI.filters.GrayFilter()
+        filter2.gray = .6;
+        filter.invert = .3;
+	imageContainer.filters = [filter, filter2];
+}
