@@ -268,9 +268,12 @@ var Events = function(){
             console.log("MADE HSANKAAR");
             var newPlayer = new Shanker(data.name);
         }
-        else { // (data.characterType === "Crevice"){
+        else if (data.characterType === "Crevice"){
+            util.log("made ac revice broo");
             var newPlayer = new Crevice(data.name);
-        }
+        } else {
+           util.log("GOT SOME PROBLEMS ");
+            }
         newPlayer.id = this.id;
         game1.addPlayer(newPlayer);
         this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType() });

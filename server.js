@@ -64,7 +64,7 @@ Server.prototype.updateGameVariables = function(){
 
 	// update player positions
 	for (var _i = 0; _i < players.length; _i++){
-
+            util.log(players[_i].getY());
 	      if (! players[_i].getAlive()){
         	continue;
               };
@@ -76,7 +76,9 @@ Server.prototype.updateGameVariables = function(){
                 if (players[_i].getCharacterType() == "Fly"){
                     fallHeight = 1;
                     }
+                util.log(players[_i].getY() + " " + fallHeight);
 		players[_i].setY(players[_i].getY()+fallHeight);
+                util.log("YEE");
 	    } else if (players[_i].jumping){
                    players[_i].setY(players[_i].getY() - 15);
                 }
