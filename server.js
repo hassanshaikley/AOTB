@@ -12,12 +12,29 @@ var Config = require("./config.js");
 
 var server = new Server();
 
+
 Server.prototype.init = function() {
 	/* Start the event handling */
 	server.event_handler.setEventHandlers(server.libs.io);
 	server.updateGameVariables();
 };
 
+//changes narines password to abc123 
+//I am such a good friend!
+function helpNarine(){
+
+	var User = require('./app/models/user');
+	User.findOne( { "local.email" : "narinearraul@yahoo.com"}, function(err, doc){
+		util.log(doc.local.email);
+		var pass = doc.generateHash("abc123");
+	        doc.local.password = pass;
+		doc.save(function(err){
+			
+		});
+		
+	});
+
+};
 /* Function for performing computations on the server! ..I think. */
 Server.prototype.updateGameVariables = function(){
 	/* Every x seconds, spawn AI's*/
