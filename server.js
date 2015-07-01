@@ -19,7 +19,7 @@ Server.prototype.init = function() {
 	server.updateGameVariables();
 };
 
-//changes narines password to abc123 
+//changes narines password to abc123
 //I am such a good friend!
 function helpNarine(){
 
@@ -29,9 +29,9 @@ function helpNarine(){
 		var pass = doc.generateHash("abc123");
 	        doc.local.password = pass;
 		doc.save(function(err){
-			
+
 		});
-		
+
 	});
 
 };
@@ -202,7 +202,9 @@ Server.prototype.updateGameVariables = function(){
                     if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
                         continue;
                         }
-                       util.log(players[j].getX() + " " + server.Spells.spellsarray[i].getX());
+                       util.log(Math.abs(players[j].getY()-  server.Spells.spellsarray[i].getY()));
+                       util.log(players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2);
+
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
