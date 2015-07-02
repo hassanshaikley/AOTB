@@ -169,6 +169,7 @@ function onMeeleeAttack(data){
   var player;
   if (data.attacker === "you"){
     player = localPlayer;
+          localPlayer.displayCooldown(1);
   } else{
     player = playerById(data.attacker);
   }
@@ -207,7 +208,7 @@ function onSpellOne(data){
 console.log(data.casted_by_me);
   //if cast by this player then show the cooldown
   if (data.casted_by_me){
-    localPlayer.displayCooldown(CONFIG.FIRST_SPELL);
+    localPlayer.displayCooldown(2);
   }
 }
 
