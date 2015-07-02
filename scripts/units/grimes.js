@@ -5,7 +5,6 @@ var Grimes = function(name, x, y, hp){
   var spells_thumb_array = [];
 
   skeleton.setUpActionbar = function(){
-
       var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));
       MAIN.BOTACTIONBAR.addChild(sword_thumb);
       var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("tortstunthumb.png"));
@@ -14,8 +13,8 @@ var Grimes = function(name, x, y, hp){
       spells_thumb_array.push(sword_thumb);
 
       for (var _i = 0; _i < spells_thumb_array.length; _i++){
-              MAIN.BOTACTIONBAR.addChild(spells_thumb_array[_i]);
-              spells_thumb_array.x = 50*_i;
+          helpers.addThumbToActionBar(spells_thumb_array[_i]);
+
       }
 
      /* sword_thumb.interactive = true;
@@ -56,7 +55,7 @@ var Grimes = function(name, x, y, hp){
       skeleton.imageContainer.removeChild(grimes_r);
       skeleton.imageContainer.removeChild(grimes_l);
       skeleton.imageContainer.addChild(grimes_r);
-  	}
+    }
   };
 
   /* Constantly called for the localPlayer, updates the actual

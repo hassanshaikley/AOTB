@@ -353,7 +353,6 @@ var moveTimer = 0;
       chat_text.y = drawAtY - 90;
       chat_text.x = text_x - chat_text.width/2;
       chat_text.y -=10;
-      console.log(that.getDrawAtX() + " " + that.getX());
 
    //	\le.log(" x - . "+text_x);
     health_shadow.position.x = text_x-20;
@@ -407,7 +406,6 @@ var moveTimer = 0;
   this.leftClick = function(){
     if (Date.now()  - now >= 1000 ){
      // meelee_attack = 0;
-	console.log(localPlayer.getMoveDirection());
       socket.emit("meelee attack", { direction: localPlayer.getMoveDirection()} );
       now = Date.now();
     }
