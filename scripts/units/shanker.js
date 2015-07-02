@@ -13,7 +13,7 @@ var Shanker = function(name, x, y){
   skeleton.setUpActionbar = function(){
       var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));
       MAIN.BOTACTIONBAR.addChild(sword_thumb);
-      var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("tortstunthumb.png"));
+      var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("stealth_thumb.png"));
       MAIN.BOTACTIONBAR.addChild(tort_stun);
       spells_thumb_array.push(sword_thumb);
 spells_thumb_array.push(tort_stun);

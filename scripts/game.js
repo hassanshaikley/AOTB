@@ -205,9 +205,10 @@ function onSpellOne(data){
       player.windWalk();
 };
   }
-console.log(data.casted_by_me);
+    console.log(data.id);
+console.log(data.casted_by_me || data.id ==="you");
   //if cast by this player then show the cooldown
-  if (data.casted_by_me){
+  if (data.casted_by_me || data.id =="you"){
     localPlayer.displayCooldown(2);
   }
 }
