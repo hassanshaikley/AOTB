@@ -64,7 +64,6 @@ Server.prototype.updateGameVariables = function(){
 
 	// update player positions
 	for (var _i = 0; _i < players.length; _i++){
-            util.log(players[_i].getY());
 	      if (! players[_i].getAlive()){
         	continue;
               };
