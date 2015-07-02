@@ -68,7 +68,20 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	}
       if (_team == 1) {
           teamOneFilter(that.imageContainer);
+          that.imageContainer.removeChild(health);
+          health = new PIXI.Graphics();
+          health.beginFill(0xFF0000);
+  health.drawRect(0, 0, 1, 6);
+  health.endFill();
+          that.imageContainer.addChild(health);
        } else {
+          teamOneFilter(that.imageContainer);
+          that.imageContainer.removeChild(health);
+          health = new PIXI.Graphics();
+          health.beginFill(0x00FF00);
+  health.drawRect(0, 0, 1, 6);
+  health.endFill();
+          that.imageContainer.addChild(health);
 	  noFilter();
     }
     team = _team;
@@ -297,7 +310,9 @@ var moveTimer = 0;
 
   var health = new PIXI.Graphics();
 
+
   health.beginFill(0x00FF00);
+
   health.drawRect(0, 0, 1, 6);
   health.endFill();
   this.imageContainer = new PIXI.Container();

@@ -18,7 +18,7 @@ function Main() {
 
   /* Add the action bar*/
   var botactionbar = new PIXI.Graphics();
-  botactionbar.beginFill(0x333333);
+  botactionbar.beginFill(0x000000);
   botactionbar.drawRect(0, 0, 768, 50); //470 to 530
   botactionbar.endFill();
   this.BOTACTIONBAR.y = 470;
