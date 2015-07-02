@@ -188,18 +188,13 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>blood.png</filename>
             <filename>bowman.png</filename>
-            <filename>cloud.png</filename>
-            <filename>cobblestone_ground.png</filename>
-            <filename>crevice.png</filename>
             <filename>fireball.png</filename>
             <filename>flysheet2.png</filename>
             <filename>gold.png</filename>
             <filename>silverShield2.png</filename>
             <filename>silverSword2.png</filename>
             <filename>skelly.png</filename>
-            <filename>spire_0.png</filename>
             <filename>tort_stun.png</filename>
             <filename>trees.png</filename>
             <filename>grimes_l.png</filename>
@@ -284,8 +279,6 @@
             <filename>r_flysheet_walk_v2_state11.png</filename>
             <filename>r_flysheet_walk_v2_state12.png</filename>
             <filename>castleofone2.png</filename>
-            <filename>hitmarker.png</filename>
-            <filename>spire.png</filename>
             <filename>blood0.png</filename>
             <filename>blood1.png</filename>
             <filename>blood2.png</filename>
@@ -307,6 +300,16 @@
             <filename>r_flysheet_attack_v1_state7.png</filename>
             <filename>r_flysheet_attack_v1_state8.png</filename>
             <filename>r_flysheet_walk_v2_state1.png</filename>
+            <filename>healz.png</filename>
+            <filename>_CastleOfOne_v2.fw.png</filename>
+            <filename>cobblestone_ground_v2.fw.png</filename>
+            <filename>hitmarker.fw.png</filename>
+            <filename>r_CastleOfOne_v2.fw.png</filename>
+            <filename>redHatter_v2.png</filename>
+            <filename>spire_FW.png</filename>
+            <filename>hydra.png</filename>
+            <filename>crevice_l.png</filename>
+            <filename>crevice_r.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
