@@ -316,7 +316,9 @@ function onDescendAttackChanges(data){
 	console.log("AAA");
     if (_player === false){
         localPlayer.setDescendAttack(data.descendAttack);
-    } else {
+            localPlayer.displayCooldown(2);
+
+   } else {
         _player.setDescendAttack(data.descendAttack);
     }
 };

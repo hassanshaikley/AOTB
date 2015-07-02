@@ -310,6 +310,8 @@
             <filename>hydra.png</filename>
             <filename>crevice_l.png</filename>
             <filename>crevice_r.png</filename>
+            <filename>stealth_thumb.png</filename>
+            <filename>descend_thumb.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

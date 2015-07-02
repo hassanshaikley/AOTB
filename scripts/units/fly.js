@@ -16,8 +16,33 @@ var Fly = function(name, x, y, hp){
 
 
   skeleton.getDescendAttack = function(){
+
     return descendAttack;
   };
+
+
+  var spells_thumb_array = [];
+
+  skeleton.setUpActionbar = function(){
+      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));
+      MAIN.BOTACTIONBAR.addChild(sword_thumb);
+      var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("descend_thumb.png"));
+      MAIN.BOTACTIONBAR.addChild(tort_stun);
+      spells_thumb_array.push(sword_thumb);
+spells_thumb_array.push(tort_stun);
+
+
+      for (var _i = 0; _i < spells_thumb_array.length; _i++){
+          console.log("HI teee");
+          helpers.addThumbToActionBar(spells_thumb_array[_i], "description" );
+      }
+
+     /* sword_thumb.interactive = true;
+
+      sword_thumb.mouseover = function(mouseData){
+        console.log("MOUSE OVER!");
+      }*/
+  }
 
 
   var clipnames = [];
