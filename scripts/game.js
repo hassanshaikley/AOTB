@@ -201,10 +201,10 @@ function onSpellOne(data){
       if (player.getTeam() == localPlayer.getTeam()){
           player.imageContainer.alpha = .5;
           } else {
-       player.setInvis(true);
+      player.windWalk();
 };
   }
-
+console.log(data.casted_by_me);
   //if cast by this player then show the cooldown
   if (data.casted_by_me){
     localPlayer.displayCooldown(CONFIG.FIRST_SPELL);

@@ -307,7 +307,7 @@ var Events = function(){
         util.log( "descend attacks");
             player.spellOneCastTime = Date.now();
         player.setDescendAttack(true);
-        this.emit("descend attack changes", { id: "self", descendAttack: true });
+        this.emit("descend attack changes", { id: "self", descendAttack: true, casted_by_me: true });
         this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: true});
             }
         if (player.getCharacterType() === "Redhatter" && player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
@@ -316,7 +316,7 @@ var Events = function(){
                 //var v = new TortStun(data.x, data.y, team);
                 var v = new Meteor(data.x, data.y, team);
                 Spells.spellsarray.push(v);
-                this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam() });
+                this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), casted_by_me: true });
                 this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam() });
         }
         if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){

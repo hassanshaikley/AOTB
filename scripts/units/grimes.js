@@ -9,12 +9,13 @@ var Grimes = function(name, x, y, hp){
       MAIN.BOTACTIONBAR.addChild(sword_thumb);
       var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("tortstunthumb.png"));
       MAIN.BOTACTIONBAR.addChild(tort_stun);
-      spells_thumb_array.push(tort_stun);
       spells_thumb_array.push(sword_thumb);
+      spells_thumb_array.push(tort_stun);
+
 
       for (var _i = 0; _i < spells_thumb_array.length; _i++){
-          helpers.addThumbToActionBar(spells_thumb_array[_i]);
 
+          helpers.addThumbToActionBar(spells_thumb_array[_i], "description" );
       }
 
      /* sword_thumb.interactive = true;
@@ -22,7 +23,6 @@ var Grimes = function(name, x, y, hp){
       sword_thumb.mouseover = function(mouseData){
         console.log("MOUSE OVER!");
       }*/
-      tort_stun.x = 50;
   }
 
   var grimes_l =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);

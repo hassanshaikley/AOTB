@@ -416,8 +416,11 @@ var moveTimer = 0;
   }
 
   this.displayCooldown = function(spellNumber){
+      console.log("yo i am dispalying cooldown k on " +spellNumber);
     var casted_spell = MAIN.BOTACTIONBAR.getChildAt(spellNumber);
     filter = new PIXI.filters.PixelateFilter();
+      console.log(filter);
+
     casted_spell.filters = [filter];
     CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell });
   }

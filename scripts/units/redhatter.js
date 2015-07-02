@@ -14,6 +14,28 @@ var Redhatter = function(name, x, y){
     return "Redhatter";
   };
 
+    var spells_thumb_array = [];
+  skeleton.setUpActionbar = function(){
+      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));
+      MAIN.BOTACTIONBAR.addChild(sword_thumb);
+      var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("fireball.png"));
+      MAIN.BOTACTIONBAR.addChild(tort_stun);
+      spells_thumb_array.push(sword_thumb)
+      spells_thumb_array.push(tort_stun);
+
+
+      for (var _i = 0; _i < spells_thumb_array.length; _i++){
+
+          helpers.addThumbToActionBar(spells_thumb_array[_i], "description" );
+      }
+
+     /* sword_thumb.interactive = true;
+
+      sword_thumb.mouseover = function(mouseData){
+        console.log("MOUSE OVER!");
+      }*/
+  }
+
 
   var redhatter_l = new PIXI.extras.MovieClip([PIXI.Texture.fromImage("l_redhatter1.png"),PIXI.Texture.fromImage("l_redhatter2.png"),PIXI.Texture.fromImage("l_redhatter3.png"),PIXI.Texture.fromImage("l_redhatter4.png")]);
   var redhatter_r = new PIXI.extras.MovieClip([PIXI.Texture.fromImage("r_redhatter1.png"),PIXI.Texture.fromImage("r_redhatter2.png"),PIXI.Texture.fromImage("r_redhatter3.png"),PIXI.Texture.fromImage("r_redhatter4.png")]);

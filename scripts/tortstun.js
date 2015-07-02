@@ -3,16 +3,16 @@ var TortStun = function(_x,_y, _team ){
 	var cooldown = 1000;
   var x = _x, //center x
       y = 370;
- 	var timer = 0; 
-	this.update = function(){
-		timer = timer+1;
-    if (y >= 360){
-			y = y-2;
-    } else if (timer >= 200 ){
-      MAIN.stage.removeChild(tortStunClip)
-			var index = Spells.spellsarray.indexOf(this);
-			Spells.spellsarray.splice(index, 1);
-		}
+  var timer = 0;
+  this.update = function(){
+      timer = timer+1;
+      if (y >= 360){
+          y = y-2;
+      } else if (timer >= 200 ){
+                MAIN.stage.removeChild(tortStunClip)
+		var index = Spells.spellsarray.indexOf(this);
+		Spells.spellsarray.splice(index, 1);
+      }
   };
 
   this.getX = function(){
