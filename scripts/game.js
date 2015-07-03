@@ -222,18 +222,14 @@ function onSpellOne(data){
 /* Updates location of all connected players*/
 function onUpdatePlayer(data){
     var player = playerById(data.id);
-    if (player){
-        player.setX(data.x);
-        player.setY(data.y);
-        player.setHp(data.hp);
-        player.setTeam(data.team);
-    } else {
-        localPlayer.setX(data.x);
-        localPlayer.setY(data.y);
-        localPlayer.setHp(data.hp);
-        localPlayer.setTeam(data.team);
-
-    }
+    if (!player){
+	 player = localPlayer;
+    } 
+    player.setX(data.x);
+    player.setY(data.y);
+    player.setHp(data.hp);
+    player.setTeam(data.team);
+    player.coordinateList.push( { x: data.x, y: data.y } );
 }
 function onBleed(data){
     var _player = playerById(data.id);

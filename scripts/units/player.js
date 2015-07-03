@@ -3,6 +3,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   if (startX == undefined) startX = -1000;
   if (startY == undefined) startY = -1000;
 
+	this.coordinateList = [];
   var 	x =               startX,
 	y =               startY,
 	name =            _name,
@@ -24,6 +25,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   	var current_action = CONFIG.ACTION.MOVING_RIGHT;
 
+  var that = this;
     var invis = false;
 
    this.setInvis = function(_invis){
@@ -195,32 +197,65 @@ var moveTimer = 0;
 
 
   this.updateVariables = function(){
-    //used to calculate direction
-    //var newerX = x;
+      if (Math.abs(drawAtY - y) >= 100){
+          drawAtY = y;
+          drawAtX =x;
+          }
 
-    if (this.getMoveDirection() !== "none"){
-      animate++;
-      if (animate >= 60){
-		animate = 0;
-      }
-    }
-    /* this.id == undefined means if this is referring to the current player
-     * Checks the difference between
-     */
+
     moveDifferenceX = (drawAtX - postX);
     moveDifferenceY = (drawAtY - postY);
-    if (moveDifferenceX){ /* USED TO TELL IF GOING LEFT OR RIGHT */
+    if (moveDifferenceX){ // USED TO TELL IF GOING LEFT OR RIGHT
       postX = drawAtX;
     }
     if (moveDifferenceY){
 	postY = drawAtY;
     }
 
+
+
+      var _y;
+      var _x;
+      if (that.coordinateList.length > 1){
+	    //_x = that.coordinateList[that.coordinateList.length - 1].x;
+           // _y = that.coordinateList[that.coordinateList.length - 1].y;
+          var coords = that.coordinateList.shift();
+          _x = coords.x;
+          _y = coords.y;
+      }
+      else{
+          _x = x;
+          _y = y;
+
+      }
+
+
+
+    // console.log ( (x-_x) + ", " + (y-_y));
+	drawAtY -= (drawAtY -_y)/4; //
+	drawAtX -= (drawAtX - _x)/4;
+
+    //used to calculate direction
+    //var newerX = x;
+
+/*
+    if (this.getMoveDirection() !== "none"){
+      animate++;
+      if (animate >= 60){
+		animate = 0;
+      }
+    }
+
+
+    // this.id == undefined means if this is referring to the current player
+    // Checks the difference between
+     //
+
     //if y is 5 and drawAtY is 10
 
-    /* Basically if super far from your actual location, just teleport there
-     * Especially useful in the case of a respawn
-     */
+    // Basically if super far from your actual location, just teleport there
+     // Especially useful in the case of a respawn
+     //
     yDiff = Math.abs(drawAtY - y);
     xDiff = Math.abs(drawAtX - x);
 
@@ -233,9 +268,9 @@ var moveTimer = 0;
     if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
       drawAtX = x;
       drawAtY = y;
-    } /*else if (moveDifferenceY == 0){
-	drawAtY = y;
-     }*/
+    }//else if (moveDifferenceY == 0){
+//	drawAtY = y;
+     //}
 
 
     xSpeed = (xDiff/10) ;
@@ -257,9 +292,9 @@ var moveTimer = 0;
     ySpeed = (yDiff/10) ;
     ySpeed = Math.floor(ySpeed);
 
-    /*		if (ySpeed==0){ //fixes stupd bug where health is a little higher
-		drawAtY = y;
-		}*/
+    	//	if (ySpeed==0){ //fixes stupd bug where health is a little higher
+	//	drawAtY = y;
+		//}
     if (ySpeed == 0 ) { ySpeed = 1;};
     if (y - drawAtY > (ySpeed *2)){
       drawAtY+= ySpeed;
@@ -270,7 +305,7 @@ var moveTimer = 0;
 
     }
 
-
+*/
   };
 
   /* The X that we want to draw at to give the illusion of smooth movement
@@ -316,7 +351,6 @@ var moveTimer = 0;
   health.drawRect(0, 0, 1, 6);
   health.endFill();
   this.imageContainer = new PIXI.Container();
-  var that = this;
 
     var noFilter = function() {
 
@@ -347,7 +381,9 @@ var moveTimer = 0;
 
   this.drawText = function(){
 
+	if (Math.abs(drawAtX - x) > 10){
       console.log( Math.abs(x - drawAtX));
+	}
 
      text_x = CONFIG.SCREEN_WIDTH/2 - localPlayer.localX() + drawAtX;
      name_text.x = text_x - name_text.width/2;
