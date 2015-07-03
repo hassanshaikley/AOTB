@@ -216,6 +216,13 @@ var moveTimer = 0;
 
       var _y;
       var _x;
+
+      if (that.coordinateList.length > 10){
+          var temp = that.coordinateList[that.coordinateList.length-1];
+          var _x = temp.x;
+          var _y = temp.y;
+          that.coordinateList = [];
+         }
       if (that.coordinateList.length > 1){
 	    //_x = that.coordinateList[that.coordinateList.length - 1].x;
            // _y = that.coordinateList[that.coordinateList.length - 1].y;
