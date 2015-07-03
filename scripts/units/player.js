@@ -415,16 +415,13 @@ var moveTimer = 0;
     return localPlayer.getDrawAtX();
   }
 
-  this.displayCooldown = function(spellNumber){
+  this.displayCooldown = function(spellNumber, cooldownTime){
       console.log("yo i am dispalying cooldown k on " +spellNumber);
     var casted_spell = MAIN.BOTACTIONBAR.getChildAt(spellNumber);
     filter = new PIXI.filters.PixelateFilter();
-      console.log(filter);
-
-
-      var duration = 1000;
-      casted_spell.filters = [filter];
-    CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell, duration: duration });
+    console.log(filter);
+    casted_spell.filters = [filter];
+    CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell, duration: cooldownTime });
   }
 
   // Define which variables and methods can be accessed

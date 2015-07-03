@@ -149,7 +149,7 @@ function onVisibleAgain(data){
           player.imageContainer.alpha = 1;
           } else {
       player.setInvis(false);
-}
+      }
 };
 
 //receives an _x and _y var of where to draw
@@ -169,7 +169,7 @@ function onMeeleeAttack(data){
   var player;
   if (data.attacker === "you"){
     player = localPlayer;
-          localPlayer.displayCooldown(1);
+    localPlayer.displayCooldown(1, 1000);
   } else{
     player = playerById(data.attacker);
   }
@@ -179,18 +179,22 @@ function onMeeleeAttack(data){
 
 function onSpellOne(data){
     console.log('MAKING DAT METEOR BRO');
+    var cd;
   if (data.spell === "tort stun"){ //should be a variable shared between server and client
 	  var m = new TortStun(data.x, data.y, data.caster);
 	  Spells.spellsarray.push(m);
+      cd = 3000;
   } else if (data.spell === "meteor"){
     var m = new Meteor(data.x, data.caster);
     m.setTeam(data.team);
     Spells.spellsarray.push(m);
       console.log(data.x);
+      cd = 6000;
   }
 
 
   if (data.spell === "windwalk"){
+      cd = 6000;
       console.log("windwalking");
       var player;
       console.log(" ~ >" +data.id);
@@ -199,17 +203,18 @@ function onSpellOne(data){
       } else {
        player = playerById(data.id);
       }
+
       if (player.getTeam() == localPlayer.getTeam()){
           player.imageContainer.alpha = .5;
-          } else {
-      player.windWalk();
-};
+      } else {
+          player.windWalk();
+      };
   }
     console.log(data.id);
-console.log(data.casted_by_me || data.id ==="you");
+    console.log(data.casted_by_me || data.id ==="you");
   //if cast by this player then show the cooldown
   if (data.casted_by_me || data.id =="you"){
-    localPlayer.displayCooldown(2);
+    localPlayer.displayCooldown(2, cd);
   }
 }
 
@@ -316,7 +321,7 @@ function onDescendAttackChanges(data){
 	console.log("AAA");
     if (_player === false){
         localPlayer.setDescendAttack(data.descendAttack);
-            localPlayer.displayCooldown(2);
+            localPlayer.displayCooldown(2, 6000);
 
    } else {
         _player.setDescendAttack(data.descendAttack);
@@ -433,8 +438,8 @@ function handleCooldownVisuals(){
   for ( i = 0; i < CONFIG.COOLDOWNS.length; i++ ){
       console.log(CONFIG.COOLDOWNS[i].duration);
     if (CONFIG.COOLDOWNS[i].filter.size.x > .25){
-      CONFIG.COOLDOWNS[i].filter.size.y = CONFIG.COOLDOWNS[i].filter.size.y - .01; // . 18 measna about 1 second
-      CONFIG.COOLDOWNS[i].filter.size.x = CONFIG.COOLDOWNS[i].filter.size.x -.01;
+      CONFIG.COOLDOWNS[i].filter.size.y = CONFIG.COOLDOWNS[i].filter.size.y - (.165/CONFIG.COOLDOWNS[i].duration)*1000; // . 18 measna about 1 second
+      CONFIG.COOLDOWNS[i].filter.size.x = CONFIG.COOLDOWNS[i].filter.size.x -(.165/CONFIG.COOLDOWNS[i].duration)*1000;
     }// else {
      // CONFIG.COOLDOWNS[i].filter.mark_for_deletion = true;
   //  }
