@@ -4,7 +4,7 @@
 var Config = require("../config.js");
 
 var Shrine = function(_team) {
-    var maxHp = 3000,
+    var maxHp = 1000,
         hp = maxHp,
         team = _team; //team random unless assigned
 

@@ -1,5 +1,5 @@
 var Shrine = function(_team) {
-	this.maxHp = 3000;
+	this.maxHp = 1000;
 	this.hp = this.maxHp;
 	this.team = _team; //team random unless assigneda
 
