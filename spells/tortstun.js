@@ -7,7 +7,7 @@ var TortStun = function(_x, _y, _team) {
 	var speed = 10;
 	var width = 50;
     spell.getDamage = function(){
-        return 5;
+        return 15;
 }
 	var age = 0; //timer for damage
 	spell.hit = []

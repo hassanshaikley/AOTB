@@ -392,6 +392,7 @@ function onNewPlayer(data) {
   //add mesage to chat
   notify( newPlayer.getName() + " has joined");
 
+MAIN.updateLayersOrder();
 };
 
 
@@ -474,7 +475,6 @@ function update() {
   };
 
   localPlayer.update(keys);
-MAIN.updateLayersOrder();
 };
 
 
