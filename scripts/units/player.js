@@ -347,6 +347,8 @@ var moveTimer = 0;
 
   this.drawText = function(){
 
+      console.log( Math.abs(x - drawAtX));
+
      text_x = CONFIG.SCREEN_WIDTH/2 - localPlayer.localX() + drawAtX;
      name_text.x = text_x - name_text.width/2;
       name_text.y= drawAtY - 80;
@@ -416,10 +418,9 @@ var moveTimer = 0;
   }
 
   this.displayCooldown = function(spellNumber, cooldownTime){
-      console.log("yo i am dispalying cooldown k on " +spellNumber);
     var casted_spell = MAIN.BOTACTIONBAR.getChildAt(spellNumber);
     filter = new PIXI.filters.PixelateFilter();
-    console.log(filter);
+
     casted_spell.filters = [filter];
     CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell, duration: cooldownTime });
   }

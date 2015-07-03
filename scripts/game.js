@@ -188,7 +188,6 @@ function onSpellOne(data){
     var m = new Meteor(data.x, data.caster);
     m.setTeam(data.team);
     Spells.spellsarray.push(m);
-      console.log(data.x);
       cd = 6000;
   }
 
@@ -436,7 +435,6 @@ function animate() {
 function handleCooldownVisuals(){
   var i;
   for ( i = 0; i < CONFIG.COOLDOWNS.length; i++ ){
-      console.log(CONFIG.COOLDOWNS[i].duration);
     if (CONFIG.COOLDOWNS[i].filter.size.x > .25){
       CONFIG.COOLDOWNS[i].filter.size.y = CONFIG.COOLDOWNS[i].filter.size.y - (.165/CONFIG.COOLDOWNS[i].duration)*1000; // . 18 measna about 1 second
       CONFIG.COOLDOWNS[i].filter.size.x = CONFIG.COOLDOWNS[i].filter.size.x -(.165/CONFIG.COOLDOWNS[i].duration)*1000;
