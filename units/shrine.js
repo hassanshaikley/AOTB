@@ -31,7 +31,6 @@ var Shrine = function(_team) {
     };
 
     this.setHp = function(newHp){
-	util.log("TEAM IS " + team);
         if (newHp >= maxHp){
             hp = maxHp;
         } else if ( newHp <= 0){

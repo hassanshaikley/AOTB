@@ -431,12 +431,13 @@ function animate() {
 function handleCooldownVisuals(){
   var i;
   for ( i = 0; i < CONFIG.COOLDOWNS.length; i++ ){
+      console.log(CONFIG.COOLDOWNS[i].duration);
     if (CONFIG.COOLDOWNS[i].filter.size.x > .25){
-      CONFIG.COOLDOWNS[i].filter.size.y = CONFIG.COOLDOWNS[i].filter.size.y - .18;
-      CONFIG.COOLDOWNS[i].filter.size.x = CONFIG.COOLDOWNS[i].filter.size.x -.18;
-    } else {
-      CONFIG.COOLDOWNS[i].filter.mark_for_deletion = true;
-    }
+      CONFIG.COOLDOWNS[i].filter.size.y = CONFIG.COOLDOWNS[i].filter.size.y - .01; // . 18 measna about 1 second
+      CONFIG.COOLDOWNS[i].filter.size.x = CONFIG.COOLDOWNS[i].filter.size.x -.01;
+    }// else {
+     // CONFIG.COOLDOWNS[i].filter.mark_for_deletion = true;
+  //  }
   }
 
   for ( i = 0; i < CONFIG.COOLDOWNS.length; i++ ){

@@ -33,8 +33,8 @@ spells_thumb_array.push(tort_stun);
 
 
     skeleton.windWalk = function(){
-
-        seleton.setInvis(true);
+        console.log("WIND WALKIN K ");
+        skeleton.setInvis(true);
 
     };
 

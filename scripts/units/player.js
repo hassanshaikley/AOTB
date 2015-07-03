@@ -421,8 +421,10 @@ var moveTimer = 0;
     filter = new PIXI.filters.PixelateFilter();
       console.log(filter);
 
-    casted_spell.filters = [filter];
-    CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell });
+
+      var duration = 1000;
+      casted_spell.filters = [filter];
+    CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell, duration: duration });
   }
 
   // Define which variables and methods can be accessed
