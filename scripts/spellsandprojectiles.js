@@ -112,7 +112,7 @@ var Meteor = function(meteorX, mCaster){
         }
 }
   this.update = function(){
-    y += 15;
+    y += 13;
     //  y+=1;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
@@ -131,12 +131,12 @@ var Meteor = function(meteorX, mCaster){
     return y;
   };
 
-  var meteorClip =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("fireball.png")]);
+  var meteorClip =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("meteor_v5.fw.png")]);
   MAIN.stage.addChild(meteorClip);
 
 
   this.draw = function(ctx){
-     meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-18;
+     meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-25;
 
    // meteorClip.x = fireballX;
     meteorClip.y = y;
