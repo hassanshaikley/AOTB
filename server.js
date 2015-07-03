@@ -75,9 +75,7 @@ Server.prototype.updateGameVariables = function(){
                 if (players[_i].getCharacterType() == "Fly"){
                     fallHeight = 1;
                     }
-                util.log(players[_i].getY() + " " + fallHeight);
 		players[_i].setY(players[_i].getY()+fallHeight);
-                util.log("YEE");
 	    } else if (players[_i].jumping){
                    players[_i].setY(players[_i].getY() - 15);
                 }
