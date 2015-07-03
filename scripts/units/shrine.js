@@ -40,8 +40,11 @@ var Shrine = function(_team) {
 
 
 	var health = new PIXI.Graphics();
-
+        if (_team == 0){
 	health.beginFill(0x00FF00);
+            } else {
+                health.beginFill(0xFF0000);
+                }
 	health.drawRect(0, 0, 300/2.2, 6);
 	health.endFill();
 
