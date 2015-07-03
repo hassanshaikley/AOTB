@@ -88,6 +88,8 @@ function init() {
     //something has went wrong
     window.location.assign('/profile');
   }
+localPlayer.imageContainer.zIndex =5;
+
   // Initialise socket connection
   var host = location.origin;
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
@@ -472,6 +474,7 @@ function update() {
   };
 
   localPlayer.update(keys);
+MAIN.updateLayersOrder();
 };
 
 

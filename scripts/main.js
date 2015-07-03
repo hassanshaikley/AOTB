@@ -17,6 +17,7 @@ function Main() {
 
 
   /* Add the action bar*/
+
   var botactionbar = new PIXI.Graphics();
   botactionbar.beginFill(0x000000);
   botactionbar.drawRect(0, 0, 768, 50); //470 to 530
@@ -82,3 +83,14 @@ function teamOneFilter(imageContainer){
         filter.invert = .3;
 	imageContainer.filters = [filter, filter2];
 }
+
+
+/* call this function whenever you added a new layer/container */
+Main.prototype.updateLayersOrder = function () {
+    console.log (" OOK ");
+    this.stage.children.sort(function(a,b) {
+        a.zIndex = a.zIndex || 0;
+        b.zIndex = b.zIndex || 0;
+        return a.zIndex - b.zIndex;
+    });
+};
