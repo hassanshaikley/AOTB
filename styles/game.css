@@ -7,6 +7,7 @@
 #canvas_and_chat {
 margin: 10px;
 width: 1100px;
+ margin: auto;
 }
 body {
   	background: cornflowerblue;

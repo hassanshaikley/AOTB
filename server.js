@@ -201,7 +201,6 @@ Server.prototype.updateGameVariables = function(){
                     if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
                         continue;
                         }
-                       util.log(Math.abs(players[j].getY()-  server.Spells.spellsarray[i].getY()));
                        util.log(players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2);
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
@@ -210,7 +209,6 @@ Server.prototype.updateGameVariables = function(){
 				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY()) <
                             (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2)) {
 
-                            util.log(server.Spells.spellsarray[i].getX() + " VERSUS " + players[j].getX());
 	                    //the - 10 hing is bullshit so fucking confused rn
                             server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX()-10, y: server.Spells.spellsarray[i].getY() });
 				server.Spells.spellsarray[i].hit.push(players[j].id);
