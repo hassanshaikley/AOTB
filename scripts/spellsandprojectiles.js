@@ -112,7 +112,7 @@ var Meteor = function(meteorX, mCaster){
         }
 }
   this.update = function(){
-    y += 13;
+    y += 10;
     //  y+=1;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
@@ -139,7 +139,7 @@ var Meteor = function(meteorX, mCaster){
      meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-25;
 
    // meteorClip.x = fireballX;
-    meteorClip.y = y;
+    meteorClip.y = y-20;
 
   };
 

@@ -127,7 +127,12 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   };
 
   this.setHp = function(newHp){
-    hp = newHp;
+      var oldHp = hp;
+      hp = newHp;
+      if (oldHp >0 && newHp <= 0){
+          notify( "<strong>" + that.getName() + "</strong> has died");
+          }
+      oldHp = null; //fuck closures
   };
 
   /* Used to determine the direction that a character is facing */

@@ -224,7 +224,7 @@ function onUpdatePlayer(data){
     var player = playerById(data.id);
     if (!player){
 	 player = localPlayer;
-    } 
+    }
     player.setX(data.x);
     player.setY(data.y);
     player.setHp(data.hp);
@@ -386,7 +386,7 @@ function onNewPlayer(data) {
   remotePlayers.push(newPlayer);
 
   //add mesage to chat
-  notify( newPlayer.getName() + " has joined");
+  notify( "<strong>" + newPlayer.getName() + "</strong> has joined");
 
 MAIN.updateLayersOrder();
 };
@@ -404,7 +404,7 @@ function onRemovePlayer(data) {
   remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
 
 
-  notify(removePlayer.getName() + " has left");
+  notify("<strong>"+removePlayer.getName() + "</strong> has left");
 };
 
 
