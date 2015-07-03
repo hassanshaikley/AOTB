@@ -58,7 +58,7 @@ socket.on('message', function (data) {
     $('#chat').append("<strong>" + localPlayer.getName() +":</strong> " + data.text + '<br />');
     localPlayer.speaks(data.text);
   } else {
-    $('#chat').append("<strong>" + speaker.getName() +"</strong> " + data.text + '<br />');
+    $('#chat').append("<strong>" + speaker.getName() +":</strong> " + data.text + '<br />');
     speaker.speaks(data.text);
   }
   var name;
