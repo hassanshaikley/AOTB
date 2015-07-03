@@ -197,7 +197,7 @@ var moveTimer = 0;
 
 
   this.updateVariables = function(){
-      if (Math.abs(drawAtY - y) >= 100){
+      if (Math.abs(drawAtY - y) >= 500 ||Math.abs(drawAtX -x) > 500 ){
           drawAtY = y;
           drawAtX =x;
           }

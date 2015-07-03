@@ -96,8 +96,6 @@ Server.prototype.updateGameVariables = function(){
 					players[_i].moveDown();
 					players[_i].moveDown();
 					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
 
 					continue;
 				}
