@@ -5,12 +5,12 @@ var Grimes = function(name, x, y, hp){
   var spells_thumb_array = [];
 
   skeleton.setUpActionbar = function(){
-      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));
+      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
       MAIN.BOTACTIONBAR.addChild(sword_thumb);
       var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("tortstunthumb.png"));
       MAIN.BOTACTIONBAR.addChild(tort_stun);
-      spells_thumb_array.push(sword_thumb);
       spells_thumb_array.push(tort_stun);
+      spells_thumb_array.push(sword_thumb);
 
 
       for (var _i = 0; _i < spells_thumb_array.length; _i++){
@@ -23,6 +23,7 @@ var Grimes = function(name, x, y, hp){
       sword_thumb.mouseover = function(mouseData){
         console.log("MOUSE OVER!");
       }*/
+      tort_stun.x = 50;
   }
 
   var grimes_l =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);

@@ -24,7 +24,7 @@ var Fly = function(name, x, y, hp){
   var spells_thumb_array = [];
 
   skeleton.setUpActionbar = function(){
-      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("sword_thumb.png"));
+      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
       MAIN.BOTACTIONBAR.addChild(sword_thumb);
       var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("descend_thumb.png"));
       MAIN.BOTACTIONBAR.addChild(tort_stun);
