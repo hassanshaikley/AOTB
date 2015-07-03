@@ -98,7 +98,7 @@ var HealingSpike = function(startX, caster){
 var Meteor = function(meteorX, mCaster){
     this.caster = mCaster;
   var x =meteorX,
-      y = -100;
+      y = -70;
     console.log("New meteor " + meteorX);
       this.active = true; //active spells can hurt this specific client
 

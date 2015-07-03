@@ -57,7 +57,7 @@ var Meteor = function(meteorX, mCaster, _team){
 
 
 	this.getHalfWidth = function(){
-		return 20;
+		return 30;
 	};
 	this.getHalfHeight = function(){
 		return 2;
@@ -80,7 +80,7 @@ var Meteor = function(meteorX, mCaster, _team){
 	}
 
 	this.update = function(){
-		y += 50;
+		y += 30;
 		//x += 2;
 		var index = Spells.spellsarray.indexOf(this);
 		if (y >= 500){
@@ -104,7 +104,7 @@ var Meteor = function(meteorX, mCaster, _team){
 	return this;
 };
 	Meteor.getCooldown = function() {
-		return 6000;
+		return 1000;
 	}
 Meteor.getHalfWidth = function(){
     return 18;
