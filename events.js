@@ -125,7 +125,6 @@ var Events = function(){
 	  var _y = attacker.getY()-15;
           switch (attacker.getCharacterType()) {
           case "Shanker":
-              util.log("ATTACKIN - as shanekr");
             if (data.direction === "right"){
                 util.log("ATACKING RIGHT");
 		_x += 50;
