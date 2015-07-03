@@ -60,7 +60,7 @@ var Meteor = function(meteorX, mCaster, _team){
 		return 30;
 	};
 	this.getHalfHeight = function(){
-		return 2;
+		return 50;
 	};
 
 	this.getTeam = function(){
@@ -80,7 +80,7 @@ var Meteor = function(meteorX, mCaster, _team){
 	}
 
 	this.update = function(){
-		y += 30;
+		y += 50;
 		//x += 2;
 		var index = Spells.spellsarray.indexOf(this);
 		if (y >= 500){
