@@ -176,7 +176,6 @@ Server.prototype.updateGameVariables = function(){
 			if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY()) <= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
                             var damage = server.Spells.spellsarray[i].getDamage();
                                 if (server.Spells.spellsarray[i].name =="tortstun"){
-                                    util.log("yep tort stun");
                                     damage +=100;
                                     }
 				targetShrine.setHp(targetShrine.getHp() -damage );
@@ -201,7 +200,7 @@ Server.prototype.updateGameVariables = function(){
                     if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
                         continue;
                         }
-                       util.log(players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2);
+  //                     util.log(players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2);
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
