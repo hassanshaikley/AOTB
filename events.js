@@ -68,27 +68,12 @@ var Events = function(){
             }
     }
 
-    /*
-    function onArrowCreated(data){
-        //util.log("arrow created son");
-        //get the arrow and validate that this move was allowed
-        this.emit('arrow fired', {x: data.x, y :data.y, caster: this.id });
-        this.broadcast.emit('arrow fired', {x: data.x, y: data.y, caster: this.id});
-
-        // spell is maintained on the server :D
-        var team =playerById(this.id).getTeam();
-        v = new BowmanArrow(data.x, data.y, this.id,team );
-        Spells.spellsarray.push(v);
-        //create it on the sever
-        //send information of this arrow to everybody
-        //arrow can appear visually on other peoples machines, but have their machiens render it independently, I think ? IDK. lol swag
-    };*/
 
     function onMeeleeAttack(data){ //when a player left clicks
         var attacker = playerById(this.id);
         var damageBonus = 0;
 	if (! attacker.getAlive()){
-	return;
+	    return;
 	};
 
 	/* Make sure Meelee Attack isn't on CoolDown */
@@ -253,7 +238,7 @@ var Events = function(){
             var newPlayer = new Crevice(data.name);
         } else {
            util.log("GOT SOME PROBLEMS ");
-            }
+        }
         newPlayer.id = this.id;
         game1.addPlayer(newPlayer);
         this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType() });
@@ -269,7 +254,6 @@ var Events = function(){
 
     };
     function onSpellTwo(data){
-        util.log("spell two gon k");
         var player =playerById(this.id);
         switch (player.getCharacterType()){
             case "Redhatter":
@@ -331,14 +315,14 @@ var Events = function(){
 
         };
 
-	};
+    };
 
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
     function becomeVisible(player, that){
-                      player.invis = false;
-                      that.emit("visible again", {id : "you"});
-                      that.broadcast.emit("visible again", {id :player.id});
-};
+        player.invis = false;
+        that.emit("visible again", {id : "you"});
+        that.broadcast.emit("visible again", {id :player.id});
+    };
     //hitBy.setGold(hitBy.getGold()+1);
     function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
         hitPlayer.setHp(hitPlayer.getHp() -damage);
