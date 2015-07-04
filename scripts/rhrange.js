@@ -3,7 +3,7 @@ var RHRange = function(_x,_y, direction){
   var x = _x -10 , //center x
       y = _y - 10;
 
-    var speed = 2;
+    var speed = 2.2;
 
     if (direction ==="left"){
         speed = - speed;
@@ -35,7 +35,7 @@ var RHRange = function(_x,_y, direction){
   MAIN.stage.addChild(rhrClip);
 
   this.draw = function(){
-    var newX = x  -localPlayer.getDrawAtX()+CONFIG.SCREEN_WIDTH/2;
+    var newX = Math.floor(x)  -localPlayer.getDrawAtX()+CONFIG.SCREEN_WIDTH/2;
     rhrClip.position.x = newX;
     rhrClip.position.y = y;
   };
