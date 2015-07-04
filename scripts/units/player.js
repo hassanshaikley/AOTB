@@ -453,6 +453,11 @@ var moveTimer = 0;
     socket.emit("spell one", { x: t_x , y: clientY});
   };
 
+    this.castSpellTwo = function(){
+        console.log("OFF GOES SPELL TOW");
+        socket.emit("spell two", { x: localPlayer.getX(), y: localPlayer.getY(), direction :localPlayer.getMoveDirection()});
+    };
+
   this.leftClick = function(){
     if (Date.now()  - now >= 1000 ){
      // meelee_attack = 0;

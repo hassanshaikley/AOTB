@@ -137,8 +137,24 @@ var setEventHandlers = function() {
   socket.on("draw hitmarker", onDrawHitmarker);
   socket.on("meelee attack", onMeeleeAttack);
   socket.on("visible again", onVisibleAgain);
+  socket.on("spell two", onSpellTwo);
 };
 
+function onSpellTwo(data){
+    console.log("SPELL TWO COMES BAKK");
+    switch (data.spell){
+        case "rhrange":
+        console.log("RHRANGE CASTED AT " + data.x +", " +data.y);
+        var v = new RHRange(data.x, data.y, data.direction);
+        Spells.spellsarray.push(v);
+
+        if (data.caster === "you"){
+            localPlayer.displayCooldown(3, 500);
+        }
+
+        }
+
+};
 function onVisibleAgain(data){
 
     var player;

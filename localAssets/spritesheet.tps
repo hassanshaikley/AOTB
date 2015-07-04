@@ -312,6 +312,9 @@
             <filename>crevice_r.png</filename>
             <filename>stealth_thumb.png</filename>
             <filename>descend_thumb.png</filename>
+            <filename>attack1_icon_v3.fw.png</filename>
+            <filename>invisibility_icon_v2.fw.png</filename>
+            <filename>meteor_v5.fw.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

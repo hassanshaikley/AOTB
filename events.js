@@ -12,6 +12,7 @@ var  Fly            = require("./units/fly").Fly,
      Meteor         = require("./spellsandprojectiles.js").Meteor,
      Stealth        = require("./spells/stealth.js").Stealth,
      TortStun       = require("./spells/tortstun.js").TortStun,
+    RHRange =  require("./spells/rhrange.js").RHRange;
      BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow,
     DescendAttack = require("./spellsandprojectiles.js").DescendAttack;
 
@@ -31,6 +32,7 @@ var Events = function(){
         // Listen for new player message
         client.on("new player", onNewPlayer);
 		client.on("spell one", onSpellOne);
+        client.on("spell two", onSpellTwo);
         client.on("respawn player", onRespawn);
         client.on("descend attack change", onDescendAttackChange);
         client.on("meelee attack", onMeeleeAttack);
@@ -287,6 +289,23 @@ var Events = function(){
         players.push(newPlayer);
 
     };
+    function onSpellTwo(data){
+        util.log("spell two gon k");
+        var player =playerById(this.id);
+        switch (player.getCharacterType()){
+            case "Redhatter":
+               var v = new RHRange(data.x, data.y, data.direction, player.getTeam());
+               if (!player.spellTwoCastTime || player.spellTwoCastTime + RHRange.getCooldown() <= Date.now()){
+               player.spellTwoCastTime = Date.now();
+               Spells.spellsarray.push(v);
+               this.emit('spell two', { x : data.x, y: data.y, spell: "rhrange", direction: data.direction, caster: "you" });
+               this.broadcast.emit('spell two', {x : data.x, y: data.y, spell: "rhrange", direction: data.direction});
+               }
+               break;
+
+            }
+
+        }
 
 	function onSpellOne(data){
 		var player = playerById(this.id);

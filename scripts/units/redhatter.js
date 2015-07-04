@@ -24,6 +24,11 @@ var Redhatter = function(name, x, y){
       spells_thumb_array.push(tort_stun);
 
 
+      var rhrangethumb = new PIXI.Sprite(PIXI.Texture.fromFrame("rh_range.png"));
+      spells_thumb_array.push(rhrangethumb);
+      rhrangethumb.x =15;
+      rhrangethumb.y = 15;
+
       for (var _i = 0; _i < spells_thumb_array.length; _i++){
 
           helpers.addThumbToActionBar(spells_thumb_array[_i], "description" );
