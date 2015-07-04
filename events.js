@@ -255,7 +255,7 @@ var Events = function(){
     };
     function onSpellTwo(data){
         var player =playerById(this.id);
-        if (! player.getAlive)){
+        if (! (player.getAlive)){
         return;
         };
         switch (player.getCharacterType()){
