@@ -466,7 +466,7 @@ var moveTimer = 0;
   }
 
   this.displayCooldown = function(spellNumber, cooldownTime){
-    var casted_spell = MAIN.BOTACTIONBAR.getChildAt(spellNumber);
+    var casted_spell = MAIN.BOTACTIONBAR.getChildAt(spellNumber+2);
     filter = new PIXI.filters.PixelateFilter();
 
     casted_spell.filters = [filter];

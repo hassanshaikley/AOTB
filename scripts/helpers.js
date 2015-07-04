@@ -1,5 +1,5 @@
 var helpers = {};
-helpers.xAdd = 0;
+helpers.xAdd = 210;
 helpers.addThumbToActionBar = function(image, description){
     console.log("HI");
     MAIN.BOTACTIONBAR.addChild(image);

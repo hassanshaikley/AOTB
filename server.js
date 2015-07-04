@@ -158,9 +158,8 @@ Server.prototype.updateGameVariables = function(){
 
 	/* Iterate through every spell, if it hits someone then let them take the hit son : D */
 	for (i = 0; i < server.Spells.spellsarray.length; i++){
+            //server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX(), y: server.Spells.spellsarray[i].getY() });
 
-
-		//see if it hits a shrine
 		//util.log( Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX())+ " < " +(server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) )
             var targetShrine;
             if (server.Spells.spellsarray[i].getTeam() == 0){
@@ -170,11 +169,8 @@ Server.prototype.updateGameVariables = function(){
              }
 
             // 0 - 2500
-            if ( (targetShrine.hitby[i] != undefined || targetShrine.hitby[i] <= 1000)){
-                continue;
-            }
-
-	    if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
+            if ( ! (targetShrine.hitby[i] != undefined || targetShrine.hitby[i] <= 1000)){
+	        if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
 			server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
 			if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY()) <= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
                             var damage = 25;
@@ -188,6 +184,10 @@ Server.prototype.updateGameVariables = function(){
 
 			}
 		}
+
+            }
+
+
 
                  /*   server.event_handler.didAttackHitPlayer( server.Spells.spellsarray[i].getX(),
                                                    server.Spells.spellsarray[i].getY(),
