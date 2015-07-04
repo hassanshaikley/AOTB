@@ -18,6 +18,7 @@ var Player = function(startHp, _name, _team, _height) {
 
 
     this.spellOneCastTime = 0;
+    this.emptyYSpace = 2;
 
 	var alive = true;
     respawnTime = 2000; // was 15000

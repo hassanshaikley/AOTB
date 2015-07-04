@@ -77,7 +77,7 @@ Server.prototype.updateGameVariables = function(){
                     }
 		players[_i].setY(players[_i].getY()+fallHeight);
 	    } else if (players[_i].jumping){
-                   players[_i].setY(players[_i].getY() - 20);
+                   players[_i].setY(players[_i].getY() - 25);
                 }
 		if (players[_i].isStunned()){
 			continue;
@@ -200,13 +200,13 @@ Server.prototype.updateGameVariables = function(){
                     if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
                         continue;
                         }
-  //                     util.log(players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2);
+                       util.log( Math.abs(players[j].getY() +players[j].emptyYSpace - server.Spells.spellsarray[i].getY())+ " >" + (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2 - players[j].emptyYSpace));
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
-				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY()) <
-                            (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2)) {
+				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() -+players[j].emptyYSpace) <
+                            (players[j].getHeight()/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
 
 	                    //the - 10 hing is bullshit so fucking confused rn
                             server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX()-10, y: server.Spells.spellsarray[i].getY() });

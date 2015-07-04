@@ -10,6 +10,8 @@ var Redhatter = function(name, team){
     var speed = 9;
     /* */
 
+    skeleton.emptyYSpace = 10;
+
     skeleton.moveUp = function(){
         //   skeleton.move(speed, "up");
     };
