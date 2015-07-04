@@ -76,7 +76,7 @@ var Meteor = function(meteorX, mCaster, _team){
 	};
 
 	this.getHeight = function(){
-		return 30;
+		return 20;
 	}
 
 	this.update = function(){

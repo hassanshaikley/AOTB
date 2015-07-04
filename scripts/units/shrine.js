@@ -33,6 +33,12 @@ var Shrine = function(_team) {
 		return "lives";
 	};
 
+
+       var health_bar_on_screen = new PIXI.Graphics();
+
+
+      MAIN.BOTACTIONBAR.addChild(health_bar_on_screen);
+
 	var health_shadow = new PIXI.Graphics();
 	health_shadow.beginFill(0x000000);
 	health_shadow.drawRect(0, 0, 300/2.2, 6);
@@ -41,10 +47,22 @@ var Shrine = function(_team) {
 
 	var health = new PIXI.Graphics();
         if (_team == 0){
-	health.beginFill(0x00FF00);
-            } else {
-                health.beginFill(0xFF0000);
-                }
+	    health.beginFill(0x00FF00);
+                health_bar_on_screen.beginFill(0x00FF00);
+                health_bar_on_screen.drawRect(0, 15, 1, 20);
+                health_bar_on_screen.x = 0;
+        } else {
+
+             health.beginFill(0xFF0000);
+
+            health_bar_on_screen.beginFill(0xFF0000);
+            health_bar_on_screen.drawRect(0, 15, 1, 20);
+            health_bar_on_screen.x = CONFIG.SCREEN_WIDTH-200;
+           teamOneFilter(health_bar_on_screen);
+        }
+
+
+    health_bar_on_screen.endFill();
 	health.drawRect(0, 0, 300/2.2, 6);
 	health.endFill();
 
@@ -56,8 +74,6 @@ var Shrine = function(_team) {
 	health.y = 30;
 
 	health.x  = health_shadow.x = -67;
-
-
 
 
 	this.imageContainer = new PIXI.Container();
@@ -92,13 +108,15 @@ var Shrine = function(_team) {
 		noFilter();
 	}
 
-
+//health_bar_on_screen.zIndex = 2;
 	this.draw= function(){
 		health.scale.x = Math.abs(this.hp/this.maxHp);
 		var drawAtX = CONFIG.SCREEN_WIDTH/2 + this.x - localPlayer.getDrawAtX();
 
 		this.imageContainer.y = this.y;
 		this.imageContainer.x = drawAtX;
+
+            health_bar_on_screen.scale.x = Math.floor((this.hp/this.maxHp)*200);
 
 	};
 	this.getX = function() {
