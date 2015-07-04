@@ -200,7 +200,7 @@ Server.prototype.updateGameVariables = function(){
                     if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
                         continue;
                         }
-                       util.log( Math.abs(players[j].getY() +players[j].emptyYSpace - server.Spells.spellsarray[i].getY())+ " >" + (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2 - players[j].emptyYSpace));
+                       //util.log( Math.abs(players[j].getY() +players[j].emptyYSpace - server.Spells.spellsarray[i].getY())+ " >" + (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2 - players[j].emptyYSpace));
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
