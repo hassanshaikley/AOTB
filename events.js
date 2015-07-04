@@ -12,9 +12,9 @@ var  Fly            = require("./units/fly").Fly,
      Meteor         = require("./spellsandprojectiles.js").Meteor,
      Stealth        = require("./spells/stealth.js").Stealth,
      TortStun       = require("./spells/tortstun.js").TortStun,
-    RHRange =  require("./spells/rhrange.js").RHRange;
+     RHRange =  require("./spells/rhrange.js").RHRange;
      BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow,
-    DescendAttack = require("./spellsandprojectiles.js").DescendAttack;
+     DescendAttack = require("./spellsandprojectiles.js").DescendAttack;
 
      var CONFIG = require("./config");
 
@@ -31,10 +31,9 @@ var Events = function(){
         });
         // Listen for new player message
         client.on("new player", onNewPlayer);
-		client.on("spell one", onSpellOne);
+	client.on("spell one", onSpellOne);
         client.on("spell two", onSpellTwo);
         client.on("respawn player", onRespawn);
-        client.on("descend attack change", onDescendAttackChange);
         client.on("meelee attack", onMeeleeAttack);
         client.on("init me", initClient);
         client.on("key press", onKeyPress);
@@ -50,32 +49,16 @@ var Events = function(){
     function onKeyPress(data){
         var player = playerById(this.id);
         if(data.key === "left"){
-            if (data.down){
-                player.left = true;
-            }else {
-                player.left = false;
-            }
+                player.left = data.down;
         }
         if(data.key === "right"){
-            if (data.down){
-                player.right = true;
-            } else {
-                player.right = false;
-            }
+                player.right = data.down;
         }
         if(data.key === "up"){
-            if (data.down){
-                player.up = true;
-            } else {
-                player.up = false;
-            }
+                player.up = data.down;
         }
         if(data.key === "down"){
-            if (data.down){
-                player.down = true;
-            } else {
-                player.down = false;
-            }
+                player.down = data.down;
         }
         if (data.key === "jump" && data.down){ // only when u press down
             if (!player.jumping  && player.getY() + player.getHeight()/2 === CONFIG.FLOOR_HEIGHT) {
@@ -196,12 +179,11 @@ var Events = function(){
         } else {
             shrine = game1.shrine_0;
         }
-            if  (Math.abs(attackX - shrine.getX()) <= shrine.getHalfWidth() ){
-                if (Math.abs(shrine.getY() - attackY) <= shrine.getHeight()/2 ){
+        if  (Math.abs(attackX - shrine.getX()) <= shrine.getHalfWidth() ){
+            if (Math.abs(shrine.getY() - attackY) <= shrine.getHeight()/2 ){
                   shrine.setHp(shrine.getHp() - damage );
-               }
-      }
-
+            }
+        }
     }
     function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing){
 	var playersHit = [];
@@ -220,15 +202,12 @@ var Events = function(){
                         socketthing.emit('bleed', {id : players[i].id } );
                     }
                 }
-           }
-       }
+            }
+        }
 	return playersHit;
     }
 
 
-    function onDescendAttackChange(data){
-
-    };
     function onRespawn(){
         var respawnPlayer = playerById(this.id);
         respawnPlayer.alive = true;

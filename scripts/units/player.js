@@ -3,7 +3,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   if (startX == undefined) startX = -1000;
   if (startY == undefined) startY = -1000;
 
-	this.coordinateList = [];
+	this.coordinateList = []; //array of all the positions the server says the unit is at
   var 	x =               startX,
 	y =               startY,
 	name =            _name,
@@ -65,24 +65,24 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   };
   // Getters and setters
   this.setTeam = function(_team){
-	if (_team === team){
+      if (_team === team){
 	return;
-	}
+      }
       if (_team == 1) {
           teamOneFilter(that.imageContainer);
           that.imageContainer.removeChild(health);
           health = new PIXI.Graphics();
           health.beginFill(0xFF0000);
-  health.drawRect(0, 0, 1, 6);
-  health.endFill();
+          health.drawRect(0, 0, 1, 6);
+          health.endFill();
           that.imageContainer.addChild(health);
        } else {
           teamOneFilter(that.imageContainer);
           that.imageContainer.removeChild(health);
           health = new PIXI.Graphics();
           health.beginFill(0x00FF00);
-  health.drawRect(0, 0, 1, 6);
-  health.endFill();
+          health.drawRect(0, 0, 1, 6);
+          health.endFill();
           that.imageContainer.addChild(health);
 	  noFilter();
     }
@@ -151,7 +151,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   		} else {
   			current_action = CONFIG.ACTION.ATTACK_RIGHT;
   			return "right";
-  		}
+  	        }
   	}
     if (moveDifferenceX < 0){
       last_move_direction = "left";
@@ -197,8 +197,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
    */
   var xSpeed;
   var ySpeed;
-    var xDiff;
-var moveTimer = 0;
+  var xDiff;
+  var moveTimer = 0;
 
 
   this.updateVariables = function(){
@@ -241,83 +241,8 @@ var moveTimer = 0;
 
       }
 
-
-
-    // console.log ( (x-_x) + ", " + (y-_y));
 	drawAtY -= (drawAtY -_y)/4; //
 	drawAtX -= (drawAtX - _x)/4;
-
-    //used to calculate direction
-    //var newerX = x;
-
-/*
-    if (this.getMoveDirection() !== "none"){
-      animate++;
-      if (animate >= 60){
-		animate = 0;
-      }
-    }
-
-
-    // this.id == undefined means if this is referring to the current player
-    // Checks the difference between
-     //
-
-    //if y is 5 and drawAtY is 10
-
-    // Basically if super far from your actual location, just teleport there
-     // Especially useful in the case of a respawn
-     //
-    yDiff = Math.abs(drawAtY - y);
-    xDiff = Math.abs(drawAtX - x);
-
-      if (moveDifferenceY == 0){
-          moveTimer ++;
-          } else {
-              moveTimer = 0;
-              }
-
-    if (yDiff >= 500 || xDiff >= 500){ // teleports bc distance is too far man
-      drawAtX = x;
-      drawAtY = y;
-    }//else if (moveDifferenceY == 0){
-//	drawAtY = y;
-     //}
-
-
-    xSpeed = (xDiff/10) ;
-    xSpeed = Math.floor(xSpeed);
-
-      if(xSpeed == 0 ){
-          xSpeed = 1;
-          }
-
-    if (x - drawAtX > xSpeed*2){
-      drawAtX+= xSpeed;
-    } else if ( x-drawAtX < - (xSpeed*2) ) {
-      drawAtX-= xSpeed;
-
-    } else {
-      drawAtX = x;
-    }
-
-    ySpeed = (yDiff/10) ;
-    ySpeed = Math.floor(ySpeed);
-
-    	//	if (ySpeed==0){ //fixes stupd bug where health is a little higher
-	//	drawAtY = y;
-		//}
-    if (ySpeed == 0 ) { ySpeed = 1;};
-    if (y - drawAtY > (ySpeed *2)){
-      drawAtY+= ySpeed;
-    } else if ( y-drawAtY < - (ySpeed*2)) {
-      drawAtY-= ySpeed;
-    } else {
-     drawAtY = y;
-
-    }
-
-*/
   };
 
   /* The X that we want to draw at to give the illusion of smooth movement
