@@ -255,6 +255,9 @@ var Events = function(){
     };
     function onSpellTwo(data){
         var player =playerById(this.id);
+        if (! player.getAlive)){
+        return;
+        };
         switch (player.getCharacterType()){
             case "Redhatter":
                var v = new RHRange(data.x, data.y, data.direction, player.getTeam());
