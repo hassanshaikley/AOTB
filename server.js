@@ -174,8 +174,9 @@ Server.prototype.updateGameVariables = function(){
 	        if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
 			server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
 			if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY()) <= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
-                            var damage = 25;
+                            var damage = server.Spells.spellsarray[i].getDamage();
                                 if (server.Spells.spellsarray[i].name =="tortstun"){
+                                    util.log("yep tort stun");
                                     damage +=100;
                                     }
 				targetShrine.setHp(targetShrine.getHp() -damage );
