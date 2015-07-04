@@ -149,7 +149,7 @@ function onSpellTwo(data){
         Spells.spellsarray.push(v);
 
         if (data.caster === "you"){
-            localPlayer.displayCooldown(3, 500);
+            localPlayer.displayCooldown(3, 700);
         }
 
         }

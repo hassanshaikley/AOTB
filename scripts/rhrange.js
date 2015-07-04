@@ -1,5 +1,5 @@
 var RHRange = function(_x,_y, direction){
-  var cooldown = 500;
+  var cooldown = 700;
   var x = _x -10 , //center x
       y = _y - 10;
 

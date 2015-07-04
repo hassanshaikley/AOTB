@@ -43,7 +43,7 @@ var RHRange = function(_x, _y, _direction, _team) {
 	return spell;
 };
 RHRange.getCooldown = function(){
-   	 	return 500;
+   	 	return 700;
 };
 
 
