@@ -77,7 +77,7 @@ Server.prototype.updateGameVariables = function(){
                     }
 		players[_i].setY(players[_i].getY()+fallHeight);
 	    } else if (players[_i].jumping){
-                   players[_i].setY(players[_i].getY() - 15);
+                   players[_i].setY(players[_i].getY() - 20);
                 }
 		if (players[_i].isStunned()){
 			continue;
