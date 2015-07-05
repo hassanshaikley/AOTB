@@ -96,7 +96,6 @@ var Events = function(){
           switch (attacker.getCharacterType()) {
           case "Shanker":
             if (data.direction === "right"){
-                util.log("ATACKING RIGHT");
 		_x += 50;
 	    } else {
 		_x -=25;
@@ -230,7 +229,6 @@ var Events = function(){
         else if (data.characterType === CONFIG.Bowman){
             var newPlayer = new Bowman(data.name);
         } else if (data.characterType === CONFIG.Shanker){
-            console.log("MADE HSANKAAR");
             var newPlayer = new Shanker(data.name);
         }
         else if (data.characterType === "Crevice"){
