@@ -31,9 +31,7 @@ var RHRange = function(_x, _y, _direction, _team) {
 
 	spell.update = function(){
 	var index = Spells.spellsarray.indexOf(this);
-            var util = require("util");
 			//look for everyone in range and do damage to them + stun them
-            util.log(startX  +" x "+ spell.getX()) ;
 
             spell.setX(spell.getX() + speed);
             if (Math.abs(startX-spell.getX()) > 200){
