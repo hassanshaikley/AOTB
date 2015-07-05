@@ -22,9 +22,16 @@ module.exports = function(app, passport) {
 
 //    Character.findOne({ "_id" : req.body.charId }, function(err, _character){
  //     if (err) console.log("Shit");
+      var nickname = req.user.local.nickname;
+      if (!nickname){
+          nickname = "idk";
+      }
+
+      util.log("NICKNAME" + nickname);
+
       res.render('index.ejs', {
         authenticated: req.isAuthenticated(),
-        name : req.user.local.nickname, // get the user out of session and pass to template
+        name : nickname, // get the user out of session and pass to template
         character : req.body.character_type,
       });
 
