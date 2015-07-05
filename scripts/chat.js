@@ -39,14 +39,15 @@ if (localPlayerName === "unknown"){
 
   notify("Move with WASD, jump with spacebar, attack by right-clicking and left-clicking and sometimes q.", true);
   notify("Chat with enter", true);
+  notify("Red team and green team are differentiated by the colors of their health bars.", true);
 
   setTimeout(function(){
-      notify("This game is in Alpha. Code is pushed to it daily. With that said a lot of bugs emerge, so bare with us and let us know what bugs you run into! Please post feedback to the FaceBook page or tweet it to @millenialpride.", true);
+      notify("This game is in Alpha. Code is pushed to it daily. With that said a lot of bugs emerge, so bare with us and let us know what bugs you run into! Please post feedback and bugs to the FaceBook page or tweet it to @millenialpride.", true);
   }, 15000);
 
   setTimeout(function(){
       notify("Refresh to randomly pick another character, (refreshing is also a hack to switch teams in the meantime) or sign up to actually be able to pick the character you want to play as!", true);
-  }, 3000);
+  }, 1000);
 
 
 
@@ -57,7 +58,7 @@ if (localPlayerName === "unknown"){
       } else {
           notify("Somebody else is connected. The hunt is on.", true);
       }
-  }, 1000);
+  }, 3000);
 }
 
 
