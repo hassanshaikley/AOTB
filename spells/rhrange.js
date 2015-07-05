@@ -30,10 +30,12 @@ var RHRange = function(_x, _y, _direction, _team) {
 	  /* Returns the cooldown for this spell*/
 
 	spell.update = function(){
-		var index = Spells.spellsarray.indexOf(this);
+	var index = Spells.spellsarray.indexOf(this);
+            var util = require("util");
 			//look for everyone in range and do damage to them + stun them
-            spell.setX(spell.getX() + speed);
+            util.log(startX  +" x "+ spell.getX()) ;
 
+            spell.setX(spell.getX() + speed);
             if (Math.abs(startX-spell.getX()) > 200){
                  Spells.spellsarray.splice(index, 1);
             }

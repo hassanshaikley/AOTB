@@ -160,7 +160,7 @@ Server.prototype.updateGameVariables = function(){
 	for (i = 0; i < server.Spells.spellsarray.length; i++){
             //server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX(), y: server.Spells.spellsarray[i].getY() });
 
-            //util.log(server.Spells.spellsarray.length);
+            util.log(server.Spells.spellsarray.length);
 		//util.log( Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX())+ " < " +(server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) )
             var targetShrine;
             if (server.Spells.spellsarray[i].getTeam() == 0){
@@ -200,7 +200,6 @@ Server.prototype.updateGameVariables = function(){
                     if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
                         continue;
                         }
-                       //util.log( Math.abs(players[j].getY() +players[j].emptyYSpace - server.Spells.spellsarray[i].getY())+ " >" + (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2 - players[j].emptyYSpace));
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()

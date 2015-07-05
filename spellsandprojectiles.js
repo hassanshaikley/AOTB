@@ -21,16 +21,16 @@ var BowmanArrow = function(startX, startY, _caster){
 		return 50;
 	};
 	var getX = function(){
-
+            return x;
 	};
 	var setX = function(newX){
-
+            x = newX;
 	};
 	var getY = function(){
-
+            return y;
 	};
 	var setY = function(newY){
-
+            y = newY;
 	};
 	var getDamage = function(){
 		return 25;
@@ -65,7 +65,7 @@ var Meteor = function(meteorX, mCaster, _team){
 
 	this.getTeam = function(){
 		return team;
-	}
+	};
 
 	var x =meteorX,
 			y = -100,
