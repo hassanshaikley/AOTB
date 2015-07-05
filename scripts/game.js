@@ -422,6 +422,10 @@ function onRemovePlayer(data) {
 
 
   notify("<strong>"+removePlayer.getName() + "</strong> has left");
+  if (!remotePlayers.length){
+      notify("Woops! Looks like everyone is gone! Try sending the link to a friend.", true);
+      }
+
 };
 
 
