@@ -53,7 +53,7 @@ if (localPlayerName === "unknown"){
   setTimeout(function() {
       if (remotePlayers.length == 0){
 
-          notify("It looks like nobody else is connected right now. Send thlink to a friend and play with them..or stop by later. Your choice. : )", true);
+          notify("It looks like nobody else is connected right now. Send the link to a friend and play with them..or stop by later. Your choice. : )", true);
       } else {
           notify("Somebody else is connected. The hunt is on.", true);
       }
