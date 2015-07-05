@@ -34,13 +34,26 @@ var loadChat = function(){
 });
 
 if (localPlayerName === "unknown"){
-  $('#chat').append("<strong>ADMIN:</strong> hi <br />");
-  $('#chat').append("<strong>ADMIN:</strong> Move with WASD <br />");
-  $('#chat').append("<strong>ADMIN:</strong> Attack with Right Click <br />");
-  $('#chat').append("<strong>ADMIN:</strong> Chat with enter <br />");
+
+ notify("Welcome to Arena of the Bits. A game where your objective is to break into the enemy castle by destroying the door", true);
+
+  notify("Move with WASD, jump with spacebar, attack by right-clicking and left-clicking and sometimes q.", true);
+  notify("Chat with enter", true);
+
+  setTimeout(function(){
+      notify("This game is in Alpha. Code is pushed to it daily. With that said a lot of bugs emerge, so bare with us and let us know what bugs you run into! Please post feedback to the FaceBook page or tweet it to @millenialpride.", true);
+  }, 15000);
+
+  setTimeout(function(){
+      notify("Refresh to randomly pick another character, (refreshing is also a hack to switch teams in the meantime) or sign up to actually be able to pick the character you want to play as!", true);
+  }, 3000);
+
+
+
+
   if (remotePlayers.length == 0){
 
-    $('#chat').append("<strong>ADMIN:</strong> Nobody else is connected right now : (<br />");
+    notify("It looks like nobody else is connected right now. Send thlink to a friend and play with them..or stop by later. Your choice. : )", true);
   }
 }
 
@@ -105,7 +118,10 @@ $('#chat_outer').mousedown(function(e){
  $('#chat_outer').bind('contextmenu', function(){ return false });
 }
 
-function notify(text){
+function notify(text, admin){
+ if (admin) {
+     text = "<strong>ADMIN: </strong>" +  text;
+ }
  $('#chat').append(text + "</br>");
 var chat_scroll = document.getElementById("chat");
 
