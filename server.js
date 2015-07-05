@@ -24,10 +24,10 @@ Server.prototype.init = function() {
 function helpNarine(){
 
 	var User = require('./app/models/user');
-	User.findOne( { "local.email" : "narinearraul@yahoo.com"}, function(err, doc){
+	User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
 		util.log(doc.local.email);
-		var pass = doc.generateHash("abc123");
-	        doc.local.password = pass;
+	//	var pass = doc.generateHash("abc123");
+	        doc.local.nickname = "sejoody";
 		doc.save(function(err){
 
 		});

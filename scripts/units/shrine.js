@@ -79,6 +79,7 @@ var Shrine = function(_team) {
 	this.imageContainer = new PIXI.Container();
 	//this.imageContainer.addChild(health_shadow);
 	//this.imageContainer.addChild(health);
+	this.imageContainer.zIndex = 1;
 
 	if (this.team == 0 ){
 		var structure2 = new PIXI.Sprite(PIXI.Texture.fromImage("r_CastleOfOne_v2.fw.png"));

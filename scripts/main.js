@@ -11,7 +11,7 @@ function Main() {
   bgcolor.drawRect(0, 0, 768, 520);
   bgcolor.endFill();
   this.stage.addChild(bgcolor);
-
+  this.stage.zIndex = -1;
 
   this.BOTACTIONBAR = new PIXI.Container();
 
@@ -27,7 +27,7 @@ function Main() {
   this.BOTACTIONBAR.addChild(botactionbar);
   this.stage.addChild(this.BOTACTIONBAR);
 
-
+	this.BOTACTIONBAR.zIndex = 100;
 var node = document.getElementById("canvas_and_chat")
   node.appendChild(this.renderer.view);
 

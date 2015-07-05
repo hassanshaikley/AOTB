@@ -398,6 +398,7 @@ function onNewPlayer(data) {
   }
   console.log("ID "+data.id);
   newPlayer.id = data.id;
+  newPlayer.imageContainer.zIndex = 5;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
 
