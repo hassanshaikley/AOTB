@@ -240,6 +240,7 @@ Server.prototype.updateGameVariables = function(){
 /* LETS TELL IF SOMEBODY is hit on the server */
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
 	hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
+        util.log(hitPlayer.getAlive());
 	//    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
 	server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
 

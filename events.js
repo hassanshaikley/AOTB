@@ -326,7 +326,11 @@ var Events = function(){
     };
     //hitBy.setGold(hitBy.getGold()+1);
     function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
+        var wasAlive = hitPlayer.getAlive();
         hitPlayer.setHp(hitPlayer.getHp() -damage);
+        if (!hitPlayer.getAlive() && wasAlive){
+            //increment number of kills dude got
+        }
         //    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
         //    io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
     }
