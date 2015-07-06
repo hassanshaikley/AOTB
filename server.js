@@ -204,7 +204,7 @@ Server.prototype.updateGameVariables = function(){
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
-				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() -+players[j].emptyYSpace) <
+				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() + players[j].emptyYSpace) <
                             (players[j].getHeight()/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
 
 	                    //the - 10 hing is bullshit so fucking confused rn
