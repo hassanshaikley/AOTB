@@ -103,9 +103,16 @@ Server.prototype.updateGameVariables = function(){
 		};
 		if (players[_i].left){
 			players[_i].moveLeft();
+                        if (players[_i].getX() === 1000){
+                            players[_i].left = false;
+                        }
 		}
 		if (players[_i].right){
 			players[_i].moveRight();
+
+                    if(players[_i].getX() === Config.ARENA_WIDTH + 1000){
+                        players[_i].right = false;
+                        }
 		}
 		if (players[_i].up){
 			players[_i].moveUp();
@@ -233,6 +240,7 @@ Server.prototype.updateGameVariables = function(){
 /* LETS TELL IF SOMEBODY is hit on the server */
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
 	hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
+        util.log(hitPlayer.getAlive());
 	//    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
 	server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
 

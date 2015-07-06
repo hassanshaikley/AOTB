@@ -116,9 +116,11 @@ $('#send').click(function () {
   }
 });
 
+/*
 $('#chat_outer').mousedown(function(e){
   e.preventDefault();
-});
+}); */
+
  $('#chat_outer').bind('contextmenu', function(){ return false });
 }
 
