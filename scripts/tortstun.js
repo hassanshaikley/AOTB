@@ -8,7 +8,7 @@ var TortStun = function(_x,_y, _team ){
       timer = timer+1;
       if (y >= 360){
           y = y-2;
-      } else if (timer >= 200 ){
+      } else if (timer >= 100 ){
                 MAIN.stage.removeChild(tortStunClip)
 		var index = Spells.spellsarray.indexOf(this);
 		Spells.spellsarray.splice(index, 1);
