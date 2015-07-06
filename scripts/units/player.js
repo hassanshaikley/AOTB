@@ -144,15 +144,33 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   };
   var last_move_direction;
   this.getMoveDirection = function(){
-  	if (this.getMeeleeAttack()){
-  		if (last_move_direction === "left"){
+
+
+    if (this.getMeeleeAttack()){
+        if (last_move_direction === "left"){
   			current_action = CONFIG.ACTION.ATTACK_LEFT;
   			return "left";
-  		} else {
+        } else {
   			current_action = CONFIG.ACTION.ATTACK_RIGHT;
   			return "right";
-  	        }
   	}
+    }
+
+    //have keys override move direction for local player
+
+      //console.log(this.id);
+    if ( that.id === localPlayer.id){
+    if (keys["68"]){
+        current_action = CONFIG.ACTION.MOVING_RIGHT;
+        return "right";
+    }
+
+    if (keys["65"]){
+        current_action = CONFIG.ACTION.MOVING_LEFT;
+        return "left";
+    }
+    }
+
     if (moveDifferenceX < 0){
       last_move_direction = "left";
       current_action = CONFIG.ACTION.MOVING_LEFT;
