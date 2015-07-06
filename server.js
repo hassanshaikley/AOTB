@@ -103,9 +103,16 @@ Server.prototype.updateGameVariables = function(){
 		};
 		if (players[_i].left){
 			players[_i].moveLeft();
+                        if (players[_i].getX() === 1000){
+                            players[_i].left = false;
+                        }
 		}
 		if (players[_i].right){
 			players[_i].moveRight();
+
+                    if(players[_i].getX() === Config.ARENA_WIDTH + 1000){
+                        players[_i].right = false;
+                        }
 		}
 		if (players[_i].up){
 			players[_i].moveUp();

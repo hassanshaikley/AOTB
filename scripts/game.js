@@ -114,6 +114,7 @@ var setEventHandlers = function() {
   },false);
   window.addEventListener('focus', function() {
     //usually when they tab in -- I think
+      keys = new Keys();
   },false);
   socket.on("connect", onSocketConnected);
   socket.on("disconnect", onSocketDisconnect);
