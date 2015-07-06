@@ -1,6 +1,6 @@
 {
-  "name": "_dubs",
-  "version": "0.0.0",
+  "name": "aotb",
+  "version": "0.6.0",
   "description": "GAME",
   "main": "views/index.ejs",
   "scripts": {
@@ -15,7 +15,8 @@
   "keywords": [
     "GAME",
     "AMARA",
-    "AMARANTHIST"
+    "AMARANTHIST",
+    "BROWSER GAME"
   ],
   "author": "Hassan Shaikley",
   "license": "ISC",

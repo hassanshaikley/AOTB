@@ -1,6 +1,3 @@
-/**************************************************
- ** GAME JS -CLIENT SIDE
- **************************************************/
 var canvas,     // Canvas DOM element
     ctx,      // Canvas rendering context
     keys,     // Keyboard input
@@ -9,55 +6,67 @@ var canvas,     // Canvas DOM element
     socket,
     _alert;     // Socket connection
 
-var utilityCanvas = document.getElementById("utilityCanvas");
-var utility_ctx = utilityCanvas.getContext("2d");
-var actionBarCanvas = document.getElementById("infoBar");
-var action_ctx = actionBarCanvas.getContext("2d");
+bloods = [];
 
-if (!development){
-  $('body').bind('contextmenu', function(){ return false });
-}
+
+
+function Game(){};
+
 var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
-var drawX = 0;//in relation to this variable 
 
 function init() {
+
+  background = new Background();
+
+
+  MAIN.stage.addChild(background)
+
+  canvas1 = document.getElementsByTagName("canvas")[0];
+  ctx =  canvas1.getContext("webgl");
+
   shrine_0 = new Shrine(0);
   shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
-  canvas = document.getElementById("gameCanvas");
-  ctx = canvas.getContext("2d");
+
+
+  var line = new PIXI.Graphics();
+  line.beginFill(0x000000);
+  line.drawRect(CONFIG.SCREEN_WIDTH/2-1, 300, 2, 200);
+  line.endFill();
+ //only do if debug mode
+ //MAIN.stage.addChild(line);
+
   //disable right click default behavior
-  canvas.oncontextmenu = function(e){return false;}
+  canvas1.oncontextmenu = function(e){ return false; };
   var clientRect;
   var adjustedX, adjustedY;
-  canvas.onmousedown = function(e){
+  canvas1.onmousedown = function(e){
     switch (e.which) {
-      case 1: 
-        clientRect = ctx.canvas.getBoundingClientRect();
-        localPlayer.leftClick();  
-        var y = e.clientY - clientRect.top;
-        break;
-      case 2: 
-        console.log('middle click'); 
-        break;
-      case 3: 
-        clientRect = ctx.canvas.getBoundingClientRect();
-        adjustedX = drawX + localPlayer.getX(); 
-        adjustedX += (e.clientX - clientRect.left) -100; //should work without the 100...but 100 makes it work :l
-
+      case 1:
+        clientRect = canvas1.getBoundingClientRect();
+        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2;
+        adjustedX += (e.clientX - clientRect.left);
         adjustedY += e.clientY - clientRect.topy;
-        localPlayer.rightClick(adjustedX, adjustedY); 
-        break; 
+        localPlayer.leftClick(adjustedX, adjustedY);
+        break;
+      case 2:
+        console.log('middle click');
+        break;
+      case 3:
+        clientRect = canvas1.getBoundingClientRect();
+        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2;
+        adjustedX += (e.clientX - clientRect.left);
+        adjustedY += e.clientY - clientRect.topy;
+        localPlayer.rightClick(adjustedX, adjustedY);
+        break;
     }
-  }
+
+  };
 
   // Initialise keyboard controls
   keys = new Keys();
 
-  // Calculate a random start position for the local player
-  // The minus 5 (half a player size) stops the player being
-  // placed right on the egde of the screen
   var startX =0,
       startY = floorHeight-10,
       startHp = 100;
@@ -73,48 +82,45 @@ function init() {
     localPlayer = new Shanker(localPlayerName);
   } else if (characterType === "Crevice"){
     localPlayer = new Crevice(localPlayerName);
-  } 
-  else {
-    alert("Something has went wrong");
-  };
+  } else if (characterType === "Grimes"){
+    localPlayer = new Grimes(localPlayerName);
+  } else {
+    //something has went wrong
+    window.location.assign('/profile');
+  }
+localPlayer.imageContainer.zIndex =5;
+
   // Initialise socket connection
   var host = location.origin;
   socket = io.connect(host, {port: PORT, transports: ["websocket"]});
   remotePlayers = [];
   setEventHandlers();
   socket.emit("init me");
-};
+  animate();
+  loadChat();
+  localPlayer.setUpActionbar();
 
+
+
+}
 
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/
-var focus_tab = true;
 var setEventHandlers = function() {
   window.addEventListener("keydown", onKeydown, false);
   window.addEventListener("keyup", onKeyup, false);
   window.addEventListener('blur', function() {
-    focus_tab = false;
-    //socket.disconnect();
   },false);
   window.addEventListener('focus', function() {
-    focus_tab = true;
-    Spells.spellsarray = []; //remove all rockets, or else its cray cray
-
-    keys = new Keys(); //resets the keys, otherwise left stays left, right, etc
+    //usually when they tab in -- I think
   },false);
-  // Window resize
-  //  window.addEventListener("resize", onResize, false);
   socket.on("connect", onSocketConnected);
-  // Socket disconnection
   socket.on("disconnect", onSocketDisconnect);
-  // New player message received
   socket.on("new player", onNewPlayer);
-  // Player move message received
-  // Player removed message received
   socket.on("remove player", onRemovePlayer);
-  socket.on("meteor cast", onMeteorCast);
-    socket.on("arrow fired", onArrowFired);
+  socket.on("bleed", onBleed);
+  socket.on("arrow fired", onArrowFired);
   socket.on("healing spike cast", onHealingSpikeCast);
   socket.on("respawn player", onRespawnPlayer);
   socket.on("descend attack changes", onDescendAttackChanges);
@@ -127,36 +133,162 @@ var setEventHandlers = function() {
   socket.on("init me", onInitMe);
   socket.on("win", onWin);
   socket.on("update player", onUpdatePlayer);
+  socket.on("spell one", onSpellOne);
+  socket.on("draw hitmarker", onDrawHitmarker);
+  socket.on("meelee attack", onMeeleeAttack);
+  socket.on("visible again", onVisibleAgain);
+  socket.on("spell two", onSpellTwo);
 };
 
-/* Updates location of all connected players*/
+function onSpellTwo(data){
+    console.log("SPELL TWO COMES BAKK");
+    switch (data.spell){
+        case "rhrange":
+        console.log("RHRANGE CASTED AT " + data.x +", " +data.y);
+        var v = new RHRange(data.x, data.y, data.direction);
+        Spells.spellsarray.push(v);
 
+        if (data.caster === "you"){
+            localPlayer.displayCooldown(3, 700);
+        }
+
+        }
+
+};
+function onVisibleAgain(data){
+
+    var player;
+    if (data.id =="you"){
+        player = localPlayer;
+  } else {
+       player  = playerById(data.id);
+    }
+      if (player.getTeam() === localPlayer.getTeam()){
+          player.imageContainer.alpha = 1;
+          } else {
+      player.setInvis(false);
+      }
+};
+
+//receives an _x and _y var of where to draw
+function onDrawHitmarker(data){
+        console.log("DRAING AT " +data.x);
+	var sprite = new PIXI.Sprite.fromFrame("hitmarker.fw.png");
+	sprite.x = data.x - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
+	sprite.y = data.y-10;
+	MAIN.stage.addChild(sprite);
+	setTimeout( function(){
+		MAIN.stage.removeChild(sprite);
+	}, 500);
+}
+
+/* Useful for animation, that's it*/
+function onMeeleeAttack(data){
+  var player;
+  if (data.attacker === "you"){
+    player = localPlayer;
+    localPlayer.displayCooldown(1, 1000);
+  } else{
+    player = playerById(data.attacker);
+  }
+  player.setMeeleeAttack(true);
+
+}
+
+function onSpellOne(data){
+    console.log('MAKING DAT METEOR BRO');
+    var cd;
+  if (data.spell === "tort stun"){ //should be a variable shared between server and client
+	  var m = new TortStun(data.x, data.y, data.caster);
+	  Spells.spellsarray.push(m);
+      cd = 3000;
+  } else if (data.spell === "meteor"){
+    var m = new Meteor(data.x, data.caster);
+    m.setTeam(data.team);
+    Spells.spellsarray.push(m);
+      cd = 6000;
+  }
+
+
+  if (data.spell === "windwalk"){
+      cd = 6000;
+      console.log("windwalking");
+      var player;
+      console.log(" ~ >" +data.id);
+      if (data.id === "you" ){
+       player = localPlayer;
+      } else {
+       player = playerById(data.id);
+      }
+
+      if (player.getTeam() == localPlayer.getTeam()){
+          player.imageContainer.alpha = .5;
+      } else {
+          player.windWalk();
+      };
+  }
+    console.log(data.id);
+    console.log(data.casted_by_me || data.id ==="you");
+  //if cast by this player then show the cooldown
+  if (data.casted_by_me || data.id =="you"){
+    localPlayer.displayCooldown(2, cd);
+  }
+}
+
+/* Updates location of all connected players*/
 function onUpdatePlayer(data){
     var player = playerById(data.id);
-    if (player){
-        player.setX(data.x);
-        player.setY(data.y);
-        player.setHp(data.hp);
-        player.setTeam(data.team);
-    } else {
-        localPlayer.setX(data.x);
-        localPlayer.setY(data.y);
-        localPlayer.setHp(data.hp);
-        localPlayer.setTeam(data.team);
-
+    if (!player){
+	 player = localPlayer;
     }
+    player.setX(data.x);
+    player.setY(data.y);
+    player.setHp(data.hp);
+    player.setTeam(data.team);
+    player.coordinateList.push( { x: data.x, y: data.y } );
+}
+function onBleed(data){
+    var _player = playerById(data.id);
+    if (_player === false){
+        localPlayer.bleed();
+    } else {
+        _player.bleed();
+    }
+
 }
 /* Takes an arrows x and y position and draws it : D */
 function onArrowFired(data){
   var m = new BowmanArrow(data.x, data.y, data.caster);
   Spells.spellsarray.push(m);
 };
+
+
 function onWin(data){
-  if (data.winner == 0){
-      console.log("team 0 wins");
+  console.log("local player team " +localPlayer.getTeam());
+  var filter = new PIXI.filters.DotScreenFilter();
+
+ MAIN.stage.filters = [filter];
+
+  if (data.winner === localPlayer.getTeam()){
+      var message = new PIXI.Text(
+      "YOU WIN!",
+      {font: "32px sans-serif", fill: "white", align: "center"}
+    );
  } else {
-      console.log("team 1 wins");
+      var message = new PIXI.Text(
+      "YOU LOSE!",
+      {font: "32px sans-serif", fill: "white", align: "center"}
+    );
+
   }
+
+  message.position.set(CONFIG.SCREEN_WIDTH/2, 200);
+  MAIN.stage.addChild(message);
+  setTimeout(function(){
+    MAIN.stage.removeChild(message);
+    MAIN.stage.filters = undefined;
+
+  }, 5000);
 };
 
 function onShrineHp(data){
@@ -173,10 +305,12 @@ function onSetGold(data){
 function onPortToArena(data){
   /* Remove all players not in the arena from your thing*/
 };
+
 function onArenaPrompt(data){
   //make button appear for confirmation to join arena
-  _alert = { time: Date.now(), type:  "arena"}; 
+  _alert = { time: Date.now(), type:  "arena"};
 };
+
 function onUpdateHostile(data){
   var _h;
   /*
@@ -196,23 +330,22 @@ function onUpdateHostile(data){
 
 
 function onDescendAttackChanges(data){
-    var _player = playerById(data.id); 
-    if (_player === undefined){
+    var _player = playerById(data.id);
+	console.log("AAA");
+    if (_player === false){
+        localPlayer.setDescendAttack(data.descendAttack);
+            localPlayer.displayCooldown(2, 6000);
 
-    }else {
+   } else {
         _player.setDescendAttack(data.descendAttack);
     }
 };
-function onMeteorCast(data){
-  var m = new Meteor(data.meteor_x, data.caster);
-  Spells.spellsarray.push(m);
-};
+
+
 function onHealingSpikeCast(data){
   var m = new HealingSpike(data._x, data.caster);
   Spells.spellsarray.push(m);
 };
-
-
 
 // Keyboard key down
 function onKeydown(e) {
@@ -237,47 +370,71 @@ function onSocketConnected() {
 // Socket disconnected
 function onSocketDisconnect() {
   //Player disconnected from socket server
-  remotePlayers = [];
+console.log("AAA");
+
+for (var i = 0; i < remotePlayers.length; i++){
+    MAIN.stage.removeChild(remotePlayers[i].imageContainer);
+  };
+
+
 };
 
 // New player
 function onNewPlayer(data) {
   // Initialise the new player
+  var newPlayer;
   if (data.characterType === "Fly"){
-    var newPlayer = new Fly(data.name, data.x, data.y, data.hp);
+    newPlayer = new Fly(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Redhatter") {
-    var newPlayer = new Redhatter(data.name, data.x, data.y, data.hp);
+    newPlayer = new Redhatter(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Bowman") {
-    var newPlayer = new Bowman(data.name, data.x, data.y, data.hp);
+    newPlayer = new Bowman(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Shanker") {
-    var newPlayer = new Shanker(data.name, data.x, data.y, data.hp);
+    newPlayer = new Shanker(data.name, data.x, data.y, data.hp);
   } else if (data.characterType === "Crevice") {
-    var newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
+    newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
+  }else if (data.characterType === "Grimes") {
+    newPlayer = new Grimes(data.name, data.x, data.y, data.hp);
   }
+  console.log("ID "+data.id);
   newPlayer.id = data.id;
+  newPlayer.imageContainer.zIndex = 5;
   // Add new player to the remote players array
   remotePlayers.push(newPlayer);
 
+  //add mesage to chat
+  notify( "<strong>" + newPlayer.getName() + "</strong> has joined");
+
+MAIN.updateLayersOrder();
 };
 
 
 function onRemovePlayer(data) {
   var removePlayer = playerById(data.id);
   // Player not found
+    MAIN.stage.removeChild(removePlayer.imageContainer);
+
   if (!removePlayer) {
     return;
   };
   // Remove player from array
   remotePlayers.splice(remotePlayers.indexOf(removePlayer), 1);
+
+
+  notify("<strong>"+removePlayer.getName() + "</strong> has left");
+  if (!remotePlayers.length){
+      notify("Woops! Looks like everyone is gone! Try sending the link to a friend.", true);
+      }
+
 };
 
 
 /* Should only be able to do this on yourself */
 function onRespawnPlayer(data) {
   var respawnPlayer = playerById(data.id);
-  if (respawnPlayer == false) {
+  if (respawnPlayer === false) {
     respawnPlayer = localPlayer;
-  } else { 
+  } else {
 
   }
   respawnPlayer.respawn();
@@ -288,24 +445,50 @@ var FPS = 60;
 /**************************************************
  ** GAME ANIMATION LOOP
  **************************************************/
-function animate() { 
-  window.requestAnimFrame(animate); //palce this before render to ensure as close to wanted fps
+function animate() {
+  requestAnimationFrame(animate);//this.update.bind(this));
   update();
   draw();
+
 };
 
+function handleCooldownVisuals(){
+  var i;
+  for ( i = 0; i < CONFIG.COOLDOWNS.length; i++ ){
+    if (CONFIG.COOLDOWNS[i].filter.size.x > .25){
+      CONFIG.COOLDOWNS[i].filter.size.y = CONFIG.COOLDOWNS[i].filter.size.y - (.165/CONFIG.COOLDOWNS[i].duration)*1000; // . 18 measna about 1 second
+      CONFIG.COOLDOWNS[i].filter.size.x = CONFIG.COOLDOWNS[i].filter.size.x -(.165/CONFIG.COOLDOWNS[i].duration)*1000;
+    }// else {
+     // CONFIG.COOLDOWNS[i].filter.mark_for_deletion = true;
+  //  }
+  }
+
+  for ( i = 0; i < CONFIG.COOLDOWNS.length; i++ ){
+    if (CONFIG.COOLDOWNS[i].filter.mark_for_deletion){
+      CONFIG.COOLDOWNS[i].parent.filters = undefined;
+      CONFIG.COOLDOWNS.splice(i, 1);
+      i-=1;
+    }
+  }
+}
 
 /**************************************************
  ** GAME UPDATE
  **************************************************/
-
 var oldTime = Date.now();
 var newTime = Date.now();
 var updateTime = 50;
 function update() {
+
+  handleCooldownVisuals();
+    background.updateX(localPlayer.getDrawAtX() );
   /* Updates the spells locations :D */
   for (i = 0; i < Spells.spellsarray.length; i++){
     Spells.spellsarray[i].update();
+  };
+  for (i = 0; i < remotePlayers.length; i++) {
+    /* Inefficient implementation, lazy yolo*/
+    remotePlayers[i].updateVariables();
   };
 
   localPlayer.update(keys);
@@ -317,47 +500,25 @@ function update() {
  **************************************************/
 function draw() {
   // Wipe the canvas clean
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  utility_ctx.clearRect(0, 0, utilityCanvas.width, utilityCanvas.height);
-  action_ctx.clearRect(0,0, actionBarCanvas.width, actionBarCanvas.height);
-    drawBackground();
+   // drawBackground();
   //draw shrine here i think
   shrine_0.draw();
   shrine_1.draw();
 
   var i;
-  for (i = 0; i < remotePlayers.length; i++) {
-    /* Inefficient implementation, lazy yolo*/
-      remotePlayers[i].draw(ctx);
-      remotePlayers[i].updateVariables();
-  }
+
   for (i = 0; i < Spells.spellsarray.length; i++){
-    Spells.spellsarray[i].draw(ctx)
+    Spells.spellsarray[i].draw();
+  };
+  for (i = 0; i < remotePlayers.length; i++) {
+    remotePlayers[i].draw();
   };
   localPlayer.updateVariables();
-  localPlayer.draw(ctx);
-  drawRightCanvas();
-  drawAction();
+  localPlayer.draw();
   drawForeground();
 };
-function drawAction(){
-  action_ctx.fillStyle="red";
-  action_ctx.font="20px sans-serif";
-  if (Date.now() - localPlayer.meteor < m_cd ){
-    var maths = Math.round(((Date.now() - localPlayer.meteor )*actionBarCanvas.height)/ m_cd);
-    action_ctx.fillRect(0, maths, 10, actionBarCanvas.height);
-  } else {
-  }
-};
 
-function drawRightCanvas(){
-  utility_ctx.save();
-  utility_ctx.fillStyle="#CCC";
-  utility_ctx.font="bold 13px sans-serif";
-  utility_ctx.drawImage(goldCoins, 200, 280);
-  utility_ctx.fillText(localPlayer.getGold(), 180, 300);
-  utility_ctx.restore();
-};
+
 var z = 0;
 var _anim = 0;
 var cloud_x = 0;
@@ -367,57 +528,13 @@ function drawForeground(){
   }
 
 }
-function drawBackground(){
-          ctx.shadowBlur=20;
-                ctx.shadowColor="black";
-  cloud_x+=.01;
-  var displacement = drawX-localPlayer.getX();
-  //drawX is not changing aaah
-  var count = "Players: " + (remotePlayers.length + 1);
-  ctx.fillText(count, 40,10);
-  for (var _i = 0; _i < 7; _i ++){
-    ctx.drawImage(ground ,0,0, 400, 100, displacement+3000 +400*_i,400, 400, 100);
-  } 
-  for (var _i = 0; _i < 9; _i++){
-    ctx.drawImage(cobbleStone, 0,0, 300, 100, displacement+300 +_i*300, 405, 300, 100); 
-  }
-  ctx.drawImage(cloud, displacement+cloud_x-800, 80);
-  ctx.drawImage(cloud, displacement+cloud_x-1200, 200);
-  ctx.drawImage(cloud, displacement+cloud_x-400, 150);
-  ctx.drawImage(cloud, displacement+cloud_x, 50);
-  ctx.drawImage(cloud, displacement+cloud_x+300, 20);
-  ctx.drawImage(cloud, displacement+cloud_x+1300, 120);
-  ctx.drawImage(cloud, displacement+cloud_x+900, 50);
-  ctx.drawImage(cloud, displacement+cloud_x+1600, 90);
-  ctx.drawImage(cloud, displacement+cloud_x+1900, 20);
-  ctx.drawImage(cloud, displacement+cloud_x+2000, 150);
-  ctx.drawImage(cloud, displacement+cloud_x+2500, 80);
-  ctx.drawImage(cloud, displacement+cloud_x+3000, 200);
-  ctx.drawImage(cloud, displacement+cloud_x+3500, 150);
-  ctx.drawImage(cloud, displacement+cloud_x+4000, 50);
-  ctx.drawImage(cloud, displacement+cloud_x+5000, 20);
-  //  ctx.drawImage(burningBuildingSide, 0,0, z, 0, displacement, 100,100,100)
-//  ctx.drawImage(CastleOfOne, displacement-100,95, 1000, 398);
-  if (_anim %20 == 0){ 
-    z+=100;
-    if (z >= 400){
-      z =0;
-    }
-  }
-//  ctx.drawImage(castleLeft, 0, 0, 100, 100, displacement+2300, 290, 200, 200);
-//  ctx.drawImage(burningBuildingSide, z,0,100,100, displacement+2500, 290, 200, 200);
-  _anim++;
-          ctx.shadowBlur=0;
-                ctx.shadowColor="";
- ctx.fillRect(4000-localPlayer.getX() +canvas.width/2,0, 500,500);
- ctx.fillRect(1000-localPlayer.getX() -canvas.width/2-200,0, 1000,500);
-};
+
 // Browser window resize
 
 function onResize(e) {
   // Maximise the canvas
-  canvas.width = 800;
-  canvas.height = 500;
+  //canvas.width = 800;
+  //canvas.height = 500;
 };
 // Find player by ID
 function playerById(id) {

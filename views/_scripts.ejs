@@ -1,0 +1,58 @@
+<script src="scripts/config.js"></script>
+
+<script src="scripts/pixi.js"></script>
+<script src="scripts/jquery.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="scripts/position.js"></script>
+<script src="scripts/units/fly.js"></script>
+<script src="scripts/units/grimes.js"></script>
+<script src="scripts/units/redhatter.js"></script>
+<script src="scripts/units/skelly.js"></script>
+<script src="scripts/units/bowman.js"></script>
+<script src="scripts/units/shanker.js"></script>
+<script src="scripts/units/crevice.js"></script>
+<script src="scripts/units/shrine.js"></script>
+<script src="scripts/rhrange.js"></script>
+
+<script src="scripts/spellsandprojectiles.js"></script>
+<script src="scripts/tortstun.js"></script>
+<script src="scripts/background.js"></script>
+<script src="scripts/assetLoader.js"></script>
+<script src="scripts/blood.js"></script>
+<script src="scripts/units/player.js"></script>
+
+<script src="scripts/game.js"></script>
+<script src="scripts/keys.js"></script>
+<script src="scripts/chat.js"></script>
+<script src="scripts/helpers.js"></script>
+
+<script src="scripts/main.js"></script>
+
+
+<script>
+	<% if (name) { %>
+		var localPlayerName = "<%= name %>";
+		var characterType = "<%= character %>";
+	<% } else {%>
+		var a = Math.floor(Math.random()*3);
+		if ( a == 0){
+			var characterType = "Fly";
+		} else if (a == 1 ){
+			var characterType = "Redhatter";
+		} else if (a == 2) {
+			var characterType = "Shanker";
+		} else {
+			var characterType = "Grimes";
+		}
+		var localPlayerName = "unknown";
+
+ 	<% } %>
+	if (location.origin != "http://localhost:5000"){
+  		$('body').bind('contextmenu', function(){ return false; });
+	}
+	PORT = 5000;
+
+
+	MAIN = new Main();
+</script>

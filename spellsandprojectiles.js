@@ -1,90 +1,120 @@
-/**************************************************
- ** Spells, Projectile and Attacks all messed with here
- **************************************************/
 m_cd = 1000; //cooldowns : D
 h_cd = 1000;
 var Spells = {
-  spellsarray: [],
+spellsarray: [],
+	 afunction: function() {
 
-  afunction: function() {
-    /* */
-  }
+	}
 };
 var BowmanArrow = function(startX, startY, _caster){
-    var hit =[];
-    var caster = _caster;
-    var x= startX, y = startY;
-    var update = function(){
-
-    };
-    
-    var getX = function(){
+	this.hit =[];
+	var caster = _caster;
+	var x= startX, y = startY;
+	var update = function(){
 
 	};
-    var setX = function(newX){
 
+	var getHalfWidth = function(){
+		return 50;
 	};
-    var getY = function(){
-
+	var getHeight = function(){
+		return 50;
 	};
-    var setY = function(newY){
-
+	var getX = function(){
+            return x;
 	};
-    var getDamage = function(){
-	return 25;
+	var setX = function(newX){
+            x = newX;
 	};
-    return {
-	update : update,
-	getX: getX,
-	setX: setX,
-	getDamage : getDamage
-}
+	var getY = function(){
+            return y;
+	};
+	var setY = function(newY){
+            y = newY;
+	};
+	var getDamage = function(){
+		return 25;
+	};
+	var doEffect = function(player){
+		//heh
+	}
+	return {
+       update : update,
+			 getX: getX,
+			 setX: setX,
+			 getDamage : getDamage,
+			 getHalfWidth : getHalfWidth,
+			 doEffect : doEffect,
+			 getHalfHeight : getHalfHeight
+	}
 };
 
+var Meteor = function(meteorX, mCaster, _team){
+	var caster = mCaster;
+	var caster_team;
+	this.hit = [];
+	var team = _team;
 
-/* startY isn't necessary, but neither is swag */
-var Meteor = function(meteorX, mCaster){
-  var caster = mCaster;
-  var caster_team;
-  var hit = [];
-  var x =meteorX, 
-      y = -100,
-      active = true; //active spells can hurt this specific client 
-    var getDamage = function(){
-	return 25;
+
+	this.getHalfWidth = function(){
+		return 30;
+	};
+	this.getHalfHeight = function(){
+		return 50;
 	};
 
-  var update = function(){
-    y += 50;
-    //x += 2;
-    var index = Spells.spellsarray.indexOf(this);
-    if (y >= 500){
-      Spells.spellsarray.splice(index, 1);
-    };
-  };
+	this.getTeam = function(){
+		return team;
+	};
 
-  var getX = function(){
-    return x;
-  };
+	var x =meteorX,
+			y = -100,
+			active = true; //active spells can hurt this specific client  - this makes absolutely no sense. lol
 
-  var getY = function(){
-    return y;
-  };
-  var getDamage = function(){
-    return 25;
-  };
-  return {
+	this.getDamage = function(){
+		return 15;
+	};
 
-         getX : getX,
-         getY : getY,
-         update : update,
-         active : active,
-         caster : caster,
-         caster_team : caster_team,
-         getDamage: getDamage,
-         hit : hit
-  }
+	this.getHeight = function(){
+		return 20;
+	}
+
+	this.update = function(){
+		y += 50;
+		//x += 2;
+		var index = Spells.spellsarray.indexOf(this);
+		if (y >= 500){
+			Spells.spellsarray.splice(index, 1);
+		};
+	};
+
+	this.doEffect = function(player){
+		//do nothing
+	}
+	this.getX = function(){
+		return x;
+	};
+
+	this.getY = function(){
+		return y;
+	};
+	this.getDamage = function(){
+		return 25;
+	};
+	return this;
 };
+	Meteor.getCooldown = function() {
+		return 6000;
+	}
+Meteor.getHalfWidth = function(){
+    return 18;
+};
+var DescendAttack = {};
+DescendAttack.getCooldown = function(){
+        return 6000;
+
+};
+exports.DescendAttack = DescendAttack;
 exports.Meteor = Meteor;
 exports.Spells = Spells;
 exports.BowmanArrow = BowmanArrow;

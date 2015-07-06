@@ -1,8 +1,10 @@
 /**************************************************
  ** PLAYER CLASS IN SERVER
  **************************************************/
+var Config = require("../config.js");
+
 var Shrine = function(_team) {
-    var maxHp = 3000,
+    var maxHp = 1000,
         hp = maxHp,
         team = _team; //team random unless assigned
 
@@ -12,10 +14,13 @@ var Shrine = function(_team) {
     if (_team == 0){
         x = 1350;
     } else {
-        x = 3650;
+        x = 1000 + Config.ARENA_WIDTH -350;
     }
-    this.getWidth = function(){
-        return 128;
+    this.getHalfWidth = function(){
+        return 88;
+    };
+    this.getHeight = function(){
+        return 200;
     };
     this.getTeam= function(){
         return team;
@@ -29,6 +34,14 @@ var Shrine = function(_team) {
         if (newHp >= maxHp){
             hp = maxHp;
         } else if ( newHp <= 0){
+            if (team == 0){
+		util.log("SETTING WINNER TO 1");
+                game1.setWinner(1);
+            } else {
+		util.log("SETTING WINNER TO 0");
+                game1.setWinner(0);
+            }
+
             hp = 0;
         } else {
             hp = newHp;

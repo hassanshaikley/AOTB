@@ -6,19 +6,9 @@ h_cd = 1000;
 var Spells = {
   spellsarray: [],
 
-  meteor: function(clientX, clientY) {
-    if (!localPlayer.meteor  || Date.now()-localPlayer.meteor > m_cd){
-      var x = clientX;
-       var m_x = x -400;
-      var m = new Meteor(m_x);
-      socket.emit("meteor cast", { meteor_x : m.getX()});
-      localPlayer.meteor = Date.now();
-    }
-  },
   healingSpike: function(clientX, clientY) {
     if (!localPlayer.healingcross || Date.now()-localPlayer.healingcross > h_cd){
-      var x = clientX;
-      var m = new HealingSpike(x);
+      var m = new HealingSpike(clientX);
       socket.emit("healing spike cast", { _x : m.getX()});
       localPlayer.healingcross = Date.now();
     }
@@ -39,7 +29,7 @@ var BowmanArrow = function(startX, startY, _caster){
 	x = x + 2;
     };
     var draw = function(){
-	ctx.drawImage(arrow, x, y);
+	 //ctx.drawImage(arrow, x, y);
 	};
     var getX = function(){
 	return x;
@@ -48,14 +38,14 @@ var BowmanArrow = function(startX, startY, _caster){
 	var x = newX;
 	};
     var getY = function(){
-	return 400;
-	};
+	   return 400;
+	 };
     var setY = function(newY){
 
 	};
     return {
 	update : update,
-	draw:  draw, 
+	draw:  draw,
 	getX: getX,
 	setX: setX
 }
@@ -66,7 +56,7 @@ var HealingSpike = function(startX, caster){
   var caster = caster;
   var draw = function(ctx){
     var trueX = x  - localPlayer.getX() + 50;
-    ctx.drawImage(healingcross, trueX,y); 
+    ctx.drawImage(healingcross, trueX,y);
   };
   var ticker = 0;
   var update = function(){
@@ -106,44 +96,53 @@ var HealingSpike = function(startX, caster){
 };
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
-  var caster = mCaster;
-  var x =meteorX, 
-      y = -100,
-      active = true; //active spells can hurt this specific client 
-  var update = function(){
-    y += 15;
+    this.caster = mCaster;
+  var x =meteorX,
+      y = -70;
+    console.log("New meteor " + meteorX);
+      this.active = true; //active spells can hurt this specific client
+
+    var team;
+    this.setTeam = function(_team){
+        team = _team;
+        console.log("SETTING TEAM ");
+      if (team == 1){
+
+        teamOneFilter(meteorClip);
+        }
+}
+  this.update = function(){
+    y += 10;
+    //  y+=1;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
+
     if (y >= 500){
       Spells.spellsarray.splice(index, 1);
+      MAIN.stage.removeChild(meteorClip);
     };
   };
 
-  var getX = function(){
+  this.getX = function(){
     return x;
   };
 
-  var getY = function(){
+  this.getY = function(){
     return y;
   };
-  var draw = function(ctx){
-    /* Check if a spell hits - going to need to be refactored*/
-    ctx.save();
-    var fireballX = x  -localPlayer.getX()+ 50+canvas.width/2;
-    ctx.drawImage(fireballSprite,0,0, 100, 100, fireballX, y, 100, 100);
-    ctx.restore();
-  };
-  var getDamage = function(){
-    return 25;
-  };
-  return {
 
-    getX : getX,
-          getY : getY,
-          draw : draw,
-          update : update,
-          active : active,
-          caster : caster,
-          getDamage: getDamage
-  }
+  var meteorClip =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("meteor_v5.fw.png")]);
+  MAIN.stage.addChild(meteorClip);
+
+
+  this.draw = function(ctx){
+     meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-25;
+
+   // meteorClip.x = fireballX;
+    meteorClip.y = y-20;
+
+  };
+
+
+  return this ;
 };

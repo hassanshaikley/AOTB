@@ -1,30 +1,50 @@
 /**************************************************
  ** PLAYER CLASS IN SERVER
  **************************************************/
-var Player = function(startHp, _name, _team) {
+var Config = require("../config.js");
+var Player = function(startHp, _name, _team, _height) {
     this.id = 1;
     var name = _name,
-        hp = 100,
-        y = 465,
-        maxHp = 100, //ehh w.e lol
-        character_type = "Unknown", 
+        hp = startHp,
+        y = 400,
+        maxHp = startHp,
+        character_type = "Unknown",
         gold = 0,
         respawnX,
-        x = 2000, //whack I know
+	respawnY = Config.FLOOR_HEIGHT - _height,
+
+    x = 2000, //whack I know
         team;
+
+
+    this.spellOneCastTime = 0;
+    this.emptyYSpace = 2;
+
+	var alive = true;
+    respawnTime = 2000; // was 15000
 
     this.hitby =[]; // object holding who hit you and when  (really useful for a fly who u only want to damage u once)
 
     this.getRespawnX = function(){
         return respawnX;
     };
+    this.getHalfWidth = function(){
+        return 30;
+    }
+    this.getHeight = function(){
+        return 100;
+    };
+
+//    var respawnY = Config.FLOOR_HEIGHT - this.getHeight();
+
+
     this.setTeam = function(newTeam){
+	//random number between 1 and 50
+	var randomOffset = Math.floor(Math.random() * ( 200 )) - 100;
         if (newTeam===1){
-            util.log("team 1 so 3900");
-            x = respawnX = 3900;
+            x = respawnX = Config.ARENA_WIDTH + 1000 - 100 + randomOffset;
         } else {
-            util.log("team 0 so 1100");
-            x = respawnX =1100; 
+            x = respawnX =1100 + randomOffset;
         }
         team = newTeam;
     };
@@ -60,6 +80,9 @@ var Player = function(startHp, _name, _team) {
         return hp;
     };
 
+	this.getAlive = function(){
+	   return alive;
+	};
     /* Returns "dies" or "lives"*/
     this.setHp = function(newHp){
 
@@ -68,13 +91,22 @@ var Player = function(startHp, _name, _team) {
         //
         if (newHp >= maxHp){
             hp = maxHp;
-        } else if ( newHp <= 0){ //hp is zero noo
-            //hp = 0;
-            //respawn!
-            hp = 100;
-            x = respawnX;
-        } else {
+        } else if ( newHp <= 0 && alive){ //hp is zero noo
+	   alive = false;
+	   hp = 0;
+ 	    setTimeout( function() {
+		alive = true;
+            	hp = maxHp;
+            	x = respawnX;
+            	y = respawnY;
+
+
+	    }, respawnTime);
+            return "bleed";
+        } else if (alive) {
+
             hp = newHp;
+            return "bleed";
         }
     };
 
@@ -89,21 +121,21 @@ var Player = function(startHp, _name, _team) {
     this.setX = function(newX) {
         if (newX < 1000){
             x = 1000;
-        }else if (newX > 4000){
-            x = 4000;
+        }else if (newX > Config.ARENA_WIDTH +1000){
+            x = Config.ARENA_WIDTH +1000 ;
         } else {
             x = newX;
         }
     };
 
     this.setY = function(newY) {
-        if (y > -20 && y < 475){
+        if (newY > -20 && newY <= Config.FLOOR_HEIGHT - _height){
             y = newY;
         } else {
             if ( y<250){
                 y =-19;
             } else {
-                y =474;
+                y = Config.FLOOR_HEIGHT - _height;
             }
         }
     };
@@ -129,6 +161,28 @@ var Player = function(startHp, _name, _team) {
 
         }
     };
+		this.stuncounter = {};
+
+        this.stun = function(duration){
+            util.log("Got Stunned");
+            this.stuncounter.duration = duration;
+            this.stuncounter.when = Date.now();
+        }
+
+		this.isStunned = function(){
+            if (Date.now() < this.stuncounter.when + this.stuncounter.duration){ //if stun is over
+                return true;
+            } else {
+                return false;
+            }
+        }
+		this.checkIfStillStunned = function(){
+			if (Date.now() >= this.stuncounter.when + this.stuncounter.duration){ //if stun is over
+				this.stuncounter.duration = null;
+			} //else do nothing
+		}
+
+
     // Define which variables and methods can be accessed by the world outside
     return this;
 };

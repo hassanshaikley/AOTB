@@ -6,12 +6,12 @@ module.exports = {
   loadLibraries : function(){
     this.hi = "hello"; // hello for good measure
     util          = require("util");
-    this.logfmt = require("logfmt"); // Heroku key-value logger
+//    this.logfmt = require("logfmt"); // Heroku key-value logger
     this.mongoose = require('mongoose'); // DB simplifier
     this.passport = require('passport'); // Authentication
     this.express = require("express"); // Express JS
     this.flash    = require('connect-flash'); // Flash Messages
-    this.port = Number(process.env.PORT || 5000); // Locally uses port 5000, else uses port of server
+    this.port = 5000; // Locally uses port 5000, else uses port of server
     this.configDB      = require('./config/database.js');
     this.cookieParser  = require('cookie-parser');
     this.bodyParser    = require('body-parser');
@@ -46,7 +46,7 @@ module.exports = {
     this.app.set('views', __dirname + '/views');
     require('./app/routes.js')(this.app, this.passport); 
     this.app.engine('html', require('ejs').renderFile);
-    this.app.use(this.logfmt.requestLogger());
+//    this.app.use(this.logfmt.requestLogger());
     this.app.use("/styles", this.express.static(__dirname + '/styles'));
     this.app.use("/localAssets", this.express.static(__dirname + '/localAssets'));
     this.app.use("/scripts", this.express.static(__dirname + '/scripts'));
