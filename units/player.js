@@ -3,7 +3,7 @@
  **************************************************/
 var Config = require("../config.js");
 
-var InputComponent = require("./input_component.js").InputComponent;
+var MovementComponent = require("./movement_component.js").MovementComponent;
 
 var Player = function(startHp, _name, _team, _height) {
     this.id = 1;
@@ -19,7 +19,7 @@ var Player = function(startHp, _name, _team, _height) {
     x = 2000, //whack I know
         team;
 
-    var myInputComponent = new InputComponent();
+    var myMovementComponent = new MovementComponent();
 
 
     this.spellOneCastTime = 0;
@@ -190,7 +190,7 @@ var Player = function(startHp, _name, _team, _height) {
     var that = this;
 
     this.update = function(){
-        myInputComponent.update(that);
+        myMovementComponent.update(that);
         };
 
 

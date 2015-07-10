@@ -1,4 +1,4 @@
-exports.InputComponent = function(){
+exports.MovementComponent = function(){
 
     this.update = function(that){
         if(that.left){
