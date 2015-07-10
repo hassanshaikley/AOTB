@@ -2,7 +2,6 @@
  ** REDHATTER CLASS IN SERVER
  **************************************************/
 Player = require("./player").Player;
-var util = require("util");
 
 var Grimes = function(name, team){
 	var skeleton = new Player(100, name, team,  100/2);

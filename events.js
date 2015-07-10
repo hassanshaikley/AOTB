@@ -19,7 +19,7 @@ var  Fly            = require("./units/fly").Fly,
      var CONFIG = require("./config");
 
     canvas_width = 800;
-
+var util = require("util");
 var Events = function(){
     function onSocketConnection(client) {
         // Listen for client disconnected

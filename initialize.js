@@ -1,5 +1,4 @@
 global.Point = require("./point.js").Point;
-global.util          = require("util");
 
 /* Defines a bunch of variables and settings */
 var Shrine = require('./units/shrine.js').Shrine;
