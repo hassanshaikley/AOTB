@@ -12,7 +12,6 @@ var Config = require("./config.js");
 
 var server = new Server();
 
-
 Server.prototype.init = function() {
 	/* Start the event handling */
 	server.event_handler.setEventHandlers(server.libs.io);

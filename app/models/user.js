@@ -16,8 +16,6 @@ var UserSchema = mongoose.Schema({
 
 });
 
-var util = require("util");
-
 // methods ======================
 // generating a hash
 UserSchema.methods.generateHash = function(password) {

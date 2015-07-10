@@ -13,8 +13,6 @@ exports.MovementComponent = function(){
         if (that.down){
             that.moveDown();
             }
-
-
     }
 
 };
