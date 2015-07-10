@@ -101,6 +101,8 @@ Server.prototype.updateGameVariables = function(){
 				}
 			};
 		};
+            players[_i].update();
+            /*
 		if (players[_i].left){
 			players[_i].moveLeft();
                         if (players[_i].getX() === 1000){
@@ -119,7 +121,7 @@ Server.prototype.updateGameVariables = function(){
 		}
 		if (players[_i].down){
 			players[_i].moveDown();
-		}
+		}*/
 	}
 
 	/* Algorithm for determining who's hit by a fly... */

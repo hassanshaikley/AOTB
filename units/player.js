@@ -2,6 +2,9 @@
  ** PLAYER CLASS IN SERVER
  **************************************************/
 var Config = require("../config.js");
+
+var InputComponent = require("./input_component.js").InputComponent;
+
 var Player = function(startHp, _name, _team, _height) {
     this.id = 1;
     var name = _name,
@@ -15,6 +18,8 @@ var Player = function(startHp, _name, _team, _height) {
 
     x = 2000, //whack I know
         team;
+
+    var myInputComponent = new InputComponent();
 
 
     this.spellOneCastTime = 0;
@@ -181,6 +186,12 @@ var Player = function(startHp, _name, _team, _height) {
 				this.stuncounter.duration = null;
 			} //else do nothing
 		}
+
+    var that = this;
+
+    this.update = function(){
+        myInputComponent.update(that);
+        };
 
 
     // Define which variables and methods can be accessed by the world outside
