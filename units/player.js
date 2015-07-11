@@ -6,7 +6,10 @@ var Config = require("../config.js");
 var MovementComponent = require("./movement_component.js").MovementComponent;
 
 var Player = function(startHp, _name, _team, _height) {
+     var myMovementComponent = new MovementComponent();
+
     this.id = 1;
+ 
     var name = _name,
         hp = startHp,
         y = 400,
@@ -16,10 +19,11 @@ var Player = function(startHp, _name, _team, _height) {
         respawnX,
 	respawnY = Config.FLOOR_HEIGHT - _height,
 
+
+
     x = 2000, //whack I know
         team;
 
-    var myMovementComponent = new MovementComponent();
 
 
     this.spellOneCastTime = 0;
@@ -169,7 +173,6 @@ var Player = function(startHp, _name, _team, _height) {
 		this.stuncounter = {};
 
         this.stun = function(duration){
-            util.log("Got Stunned");
             this.stuncounter.duration = duration;
             this.stuncounter.when = Date.now();
         }
@@ -191,11 +194,10 @@ var Player = function(startHp, _name, _team, _height) {
 
     this.update = function(){
         myMovementComponent.update(that);
-        };
+    };
 
 
     // Define which variables and methods can be accessed by the world outside
-    return this;
 };
 
 exports.Player = Player;
