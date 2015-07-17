@@ -2,7 +2,7 @@ var util = require("util");
 var Config = require("../config.js");
 
 // On update moves a player : D
-exports.MovementComponent = function(){
+exports.MovementComponent = function(speed, that){
 
     function gravity(that){
         if (that.getY()  > Config.FLOOR_HEIGHT - that.height/2) { //if its greater than the ground (V great)!
@@ -15,6 +15,15 @@ exports.MovementComponent = function(){
 
     }
 
+
+    that.getSpeed = function(){
+        return speed;
+    }
+
+    that.setSpeed = function(newSpeed){
+        speed = newSpeed;
+    }
+
     function jump(that){
         if (that.jumping){ //jumping
             util.log(that.jumping)
@@ -22,7 +31,7 @@ exports.MovementComponent = function(){
         }
     }
 
-    this.update = function(that, speed){
+    this.update = function(that){
 
         if (that == null || speed == null){
             throw new Error("Yo, speed and that need to exist for movement component to update");

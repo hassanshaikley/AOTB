@@ -11,9 +11,11 @@ var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
 var Redhatter = function(name, team){
     var health = 70;
     var speed = 9;
+    var width = 50;
+    var height = 50;
 
-    var myMovementComponent = new MovementComponent(); // handles key input
-    var myBaseUnitComponent = new BaseUnitComponent(health, this); //handles hp & movement
+    var myMovementComponent = new MovementComponent(speed, this); 
+    var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
     var myBaseTeamComponent = new BaseTeamComponent(this);
 
     this.height = 68;
@@ -49,7 +51,7 @@ var Redhatter = function(name, team){
     };
     var that = this;
     this.update = function(){
-        myMovementComponent.update(that, speed);
+        myMovementComponent.update(that);
         myBaseUnitComponent.update();
         myBaseTeamComponent.update();
     };

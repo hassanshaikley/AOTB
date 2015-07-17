@@ -11,7 +11,7 @@ var Shanker = function(name, team){
 	var width = 50;
 	var height = 50;
 
-    var myMovementComponent = new MovementComponent(); // handles key input
+    var myMovementComponent = new MovementComponent(speed, this); // handles key input
     var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
     var myBaseTeamComponent = new BaseTeamComponent(this);
 
@@ -40,7 +40,7 @@ var Shanker = function(name, team){
     this.width = 40;
     var that = this;
     this.update = function(){
-        myMovementComponent.update(that, speed);
+        myMovementComponent.update(that);
         myBaseUnitComponent.update();
         myBaseTeamComponent.update();
     };
