@@ -2,41 +2,63 @@
  ** REDHATTER CLASS IN SERVER
  **************************************************/
 
-Player = require("./player").Player; // so it can inherits :D
 
+var MovementComponent = require("./movement_component.js").MovementComponent;
+var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
+var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
+//var util = require("util");
+//var Point = require("../point.js").Point;
 var Redhatter = function(name, team){
-    var skeleton = new Player(70, name, team, 80/2);
+    var health = 70;
     var speed = 9;
-    /* */
 
-    skeleton.emptyYSpace = 10;
+    var myMovementComponent = new MovementComponent(); // handles key input
+    var myBaseUnitComponent = new BaseUnitComponent(health, this); //handles hp & movement
+    var myBaseTeamComponent = new BaseTeamComponent(this);
 
-    skeleton.moveUp = function(){
-        //   skeleton.move(speed, "up");
-    };
-    skeleton.getDamage = function(){
-	return 15;
-    };
-    skeleton.moveDown = function(){
-        //    skeleton.move(speed, "down");
-    };
-    skeleton.moveLeft = function(){
-        skeleton.move(speed, "left");
-    };
-    skeleton.moveRight = function(){
-        skeleton.move(speed, "right");
+    this.height = 68;
+
+    this.getRespawnX = function(){
+        return 1500;
+    }
+
+    this.getAlive = function(){
+        return true;
+    }
+
+    this.getName = function(){
+        return "idk man";
+    }
+    this.isStunned = function(){
+        return 0;
+    }
+
+    this.getHp = function(){
+        return 50;
+    }
+
+   // var skeleton = new Player(70, name, team, 80/2);
+
+    this.emptyYSpace = 10;
+    
+    this.getDamage = function(){
+	   return 15;
     };
 
-    skeleton.getCharacterType = function(){
+    this.getCharacterType = function(){
         return "Redhatter";
     };
-    skeleton.getHeight = function(){
-      return 80;
-    };
-    skeleton.getWidth = function(){
+    
+
+    this.getWidth = function(){
         return 50;
     };
-    return skeleton;
+    var that = this;
+    this.update = function(){
+        myMovementComponent.update(that, speed);
+        myBaseUnitComponent.update();
+        myBaseTeamComponent.update();
+    };
 };
 
 exports.Redhatter = Redhatter;

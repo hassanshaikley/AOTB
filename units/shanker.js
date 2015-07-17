@@ -14,10 +14,8 @@ var Shanker = function(name, team){
 	};
 	var speed = 12;
 	/* */
-	skeleton.moveUp = function(){
-	};
-	skeleton.moveDown = function(){
-	};
+
+/*
 	skeleton.moveLeft = function(){
             var bonus = 0;
             if (skeleton.invis) {
@@ -31,7 +29,8 @@ var Shanker = function(name, team){
                 bonus = 4;
                 }
 		skeleton.move(speed+bonus, "right");
-	};
+	}; */
+	
 	skeleton.windWalk = function(length){
 		skeleton.invis = true;
 		setTimeout(function(){ skeleton.invis = false }, length);

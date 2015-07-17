@@ -42,10 +42,10 @@ var Game = function(){
     this.addPlayer = function(newPlayer){
         if (this.team1 > this.team0){
             this.team0.push(newPlayer);
-            newPlayer.setTeam(0);
+            newPlayer.team = 0
         } else {
             this.team1.push(newPlayer);
-            newPlayer.setTeam(1);
+            newPlayer.team = 1;
         }
     };
     this.removePlayer = function(thePlayer){

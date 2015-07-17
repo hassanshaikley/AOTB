@@ -4,12 +4,15 @@
 var Config = require("../config.js");
 
 var MovementComponent = require("./movement_component.js").MovementComponent;
+var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
 
 var Player = function(startHp, _name, _team, _height) {
-     var myMovementComponent = new MovementComponent();
+    var myMovementComponent = new MovementComponent();
+    var myBaseUnitComponent = new BaseUnitComponent();
 
-    this.id = 1;
- 
+    this.id = 1; //default ID -- Supposed to be over-ridden
+    var speed =5 ;
+
     var name = _name,
         hp = startHp,
         y = 400,
@@ -190,14 +193,13 @@ var Player = function(startHp, _name, _team, _height) {
 			} //else do nothing
 		}
 
+    //this.x = myBaseUnitComponent.x;
+    //this.y = myBaseUnitComponent.y;
+
     var that = this;
-
     this.update = function(){
-        myMovementComponent.update(that);
+        myMovementComponent.update(that, speed);
     };
-
-
-    // Define which variables and methods can be accessed by the world outside
 };
 
 exports.Player = Player;

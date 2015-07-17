@@ -49,7 +49,7 @@ Server.prototype.updateGameVariables = function(){
 				//a few seconds have elapsed, now reset everyones position
 			for(var _i = 0; _i < players.length; _i++){
 				players[_i].setHp(100);
-				players[_i].setX(players[_i].getRespawnX());
+				players[_i].x = (players[_i].getRespawnX());
 				//emit to that player to go to respawn
 			}
 				game1.setWinner(-1);
@@ -66,24 +66,13 @@ Server.prototype.updateGameVariables = function(){
         	continue;
               };
 
-	    //Don't allow player to descend further than the floor
-//	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
-	    if ((players[_i].getY()+ players[_i].getHeight()/2) < Config.FLOOR_HEIGHT && ! players[_i].jumping) {
-                var fallHeight = 20;
-                if (players[_i].getCharacterType() == "Fly"){
-                    fallHeight = 1;
-                    }
-		players[_i].setY(players[_i].getY()+fallHeight);
-	    } else if (players[_i].jumping){
-                   players[_i].setY(players[_i].getY() - 25);
-                }
 		if (players[_i].isStunned()){
 			continue;
 		}
 
 		if (players[_i].getCharacterType() === "Fly"){
 			if (players[_i].getDescendAttack()){
-				if(players[_i].getY() >= Config.FLOOR_HEIGHT - players[_i].getHeight()/2){
+				if(players[_i].y >= Config.FLOOR_HEIGHT - players[_i].getHeight()/2){
 					players[_i].setDescendAttack(false);
 					server.libs.io.sockets.emit('descend attack changes', { id: players[_i].id, descendAttack: false });
 				} else {
@@ -100,26 +89,6 @@ Server.prototype.updateGameVariables = function(){
 			};
 		};
             players[_i].update();
-            /*
-		if (players[_i].left){
-			players[_i].moveLeft();
-                        if (players[_i].getX() === 1000){
-                            players[_i].left = false;
-                        }
-		}
-		if (players[_i].right){
-			players[_i].moveRight();
-
-                    if(players[_i].getX() === Config.ARENA_WIDTH + 1000){
-                        players[_i].right = false;
-                        }
-		}
-		if (players[_i].up){
-			players[_i].moveUp();
-		}
-		if (players[_i].down){
-			players[_i].moveDown();
-		}*/
 	}
 
 	/* Algorithm for determining who's hit by a fly... */
@@ -128,20 +97,20 @@ Server.prototype.updateGameVariables = function(){
 	for (i = 0; i < players.length; i++) {
 
 		if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
-			if  (Math.abs(players[i].getX() - game1.shrine_1.getX())<= 100 &&
+			if  (Math.abs(players[i].x - game1.shrine_1.getX())<= 100 &&
 					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined ||
 						Date.now() -game1.shrine_1.hitby[i] >= 1000)){
 
-				if (Math.abs(game1.shrine_1.getY() - players[i].getY()) <=150 ){
+				if (Math.abs(game1.shrine_1.getY() - players[i].y )<=150 ){
 					game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
 					game1.shrine_1.hitby[i] = Date.now();
 
 				}
 			}
-			if  (Math.abs(players[i].getX() - game1.shrine_0.getX()) <= 100 &&
+			if  ( Math.abs(players[i].x - game1.shrine_0.x <= 100 &&
 					players[i].getTeam() != 0 &&( game1.shrine_0.hitby[i] == undefined ||
-						Date.now() -game1.shrine_0.hitby[i] >= 1000)){
-				if (Math.abs(game1.shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
+						(Date.now() -game1.shrine_0.hitby[i]) >= 1000))) {
+				if (Math.abs(game1.shrine_0.getY() - players[i].y) <= 150){ // shanker made contact at 114
 					game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
 					game1.shrine_0.hitby[i] = Date.now();
 				}
@@ -149,8 +118,8 @@ Server.prototype.updateGameVariables = function(){
 			//now see if hits any players
 			for (j = 0; j < players.length; j++){
 				if (i != j){  //so a player does not attack him/herself
-					if (Math.abs(players[i].getX() - players[j].getX()) <= 30 && players[i].getTeam() != players[j].getTeam() && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
-						if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
+					if (Math.abs(players[i].x - players[j].x )<= 30 && players[i].getTeam() != players[j].getTeam() && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
+						if (Math.abs(players[i].y - players[j].y) <= 100){
 							//  var life_status = players[j].setHp(players[j].getHp() - 25);
 							setHp(players[j], 25);
 							players[j].hitby[i] = Date.now();
@@ -180,7 +149,7 @@ Server.prototype.updateGameVariables = function(){
             if (  (targetShrine.hitby[i] == undefined) || Date.now() - targetShrine.hitby[i] > 1000){
 	        if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
 			server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
-			if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY()) <= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
+			if (Math.abs(targetShrine.y - server.Spells.spellsarray[i].y )<= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
                             var damage = server.Spells.spellsarray[i].getDamage();
                                 if (server.Spells.spellsarray[i].name =="tortstun"){
                                     damage +=100;
@@ -208,14 +177,14 @@ Server.prototype.updateGameVariables = function(){
                         continue;
                         }
 
-			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
+			if (Math.abs( players[j].x - server.Spells.spellsarray[i].getX()) <
 				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
-				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() + players[j].emptyYSpace) <
-                            (players[j].getHeight()/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
+				Math.abs( players[j].y - server.Spells.spellsarray[i].y + players[j].emptyYSpace) <
+                            (players[j].height/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
 
 	                    //the - 10 hing is bullshit so fucking confused rn
-                            server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX()-10, y: server.Spells.spellsarray[i].getY() });
+                            server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX()-10, y: server.Spells.spellsarray[i].y });
 				server.Spells.spellsarray[i].hit.push(players[j].id);
 				setHp( players[j], server.Spells.spellsarray[i].getDamage());
 				server.Spells.spellsarray[i].doEffect( players[j]); //stuns / freezes / etc
@@ -227,7 +196,7 @@ Server.prototype.updateGameVariables = function(){
 	};
 
 	for (var j = 0; j < players.length; j++){
-		server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].getTeam() });
+		server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].x, y: players[j].y, hp: players[j].getHp(), team: players[j].team });
 	}
 
 	/* Method for telling all the units about the health of the structures and stuff */
