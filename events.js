@@ -62,8 +62,8 @@ var Events = function(){
                 player.down = data.down;
         }
         if (data.key === "jump" && data.down){ // only when u press down
-            util.log("JUMPINGG AAA " + player.y + " -- " + player.height/2 + " -- " + CONFIG.FLOOR_HEIGHT);
-            if (!player.jumping  && player.y + player.height/2 === CONFIG.FLOOR_HEIGHT) {
+            util.log("JUMPINGG AAA " + player.getY() + " -- " + player.height/2 + " -- " + CONFIG.FLOOR_HEIGHT);
+            if (!player.jumping  && player.getY() + player.height/2 === CONFIG.FLOOR_HEIGHT) {
                    player.jumping = true;
                    setTimeout(function() { 
                         player.jumping = false 
@@ -96,8 +96,8 @@ var Events = function(){
         var i;
 	var that = this;
 	setTimeout( function(){
-	  var _x = attacker.x - 20;
-	  var _y = attacker.y-15;
+	  var _x = attacker.getX() - 20;
+	  var _y = attacker.getY()-15;
           switch (attacker.getCharacterType()) {
           case "Shanker":
             if (data.direction === "right"){
@@ -145,7 +145,7 @@ var Events = function(){
 			distance = -300;
 		}
 	      for (var i = 0; i < playersHit.length ; i++){
-		playersHit[i].setX(playersHit[i].x + distance);
+		playersHit[i].setX(playersHit[i].getX() + distance);
 	    }
 	  }
 	  that.broadcast.emit("draw hitmarker",  {x: _x, y: _y });
@@ -180,8 +180,8 @@ var Events = function(){
             if (players[i].team === team){
                 continue;
             }
-            if  (Math.abs(players[i].x - attackX) <= players[i].getWidth()/2 +20 ){ // +20 just to make it a little easier lmao
-                if (Math.abs(players[i].y - attackY) <= players[i].height/2){
+            if  (Math.abs(players[i].getX() - attackX) <= players[i].getWidth()/2 +20 ){ // +20 just to make it a little easier lmao
+                if (Math.abs(players[i].getY() - attackY) <= players[i].height/2){
                     setHp(players[i], damage);
 	  	    playersHit.push(players[i]);
                     if (that != undefined) {
@@ -244,12 +244,12 @@ var Events = function(){
         }
         newPlayer.id = this.id;
         game1.addPlayer(newPlayer);
-        this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.x, y: newPlayer.y, name: newPlayer.getName(), characterType : newPlayer.getCharacterType() });
+        this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType() });
         // Send existing players to the new player
         var i, existingPlayer;
         for (i = 0; i < players.length; i++) {
             existingPlayer = players[i];
-            this.emit("new player", {id: existingPlayer.id, x: existingPlayer.x, y: existingPlayer.y, hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType(), team: newPlayer.team});
+            this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType(), team: newPlayer.team});
         };
         util.log("Total # of players is " + (players.length+1));
         // Add new player to the players array
@@ -343,7 +343,7 @@ var Events = function(){
     /* sends a message to one player and responds with it's team*/
     var initClient = function(){
         var initPlayer = playerById(this.id);
-        this.emit("init me", { team: initPlayer.team, x: initPlayer.getRespawnX()});
+        this.emit("init me", { team: initPlayer.team, x: initPlayer.respawnX});
     };
     /**************************************************
      ** GAME HELPER FUNCTIONS

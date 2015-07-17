@@ -193,9 +193,6 @@ var Player = function(startHp, _name, _team, _height) {
 			} //else do nothing
 		}
 
-    //this.x = myBaseUnitComponent.x;
-    //this.y = myBaseUnitComponent.y;
-
     var that = this;
     this.update = function(){
         myMovementComponent.update(that, speed);

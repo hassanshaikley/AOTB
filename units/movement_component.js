@@ -5,12 +5,12 @@ var Config = require("../config.js");
 exports.MovementComponent = function(){
 
     function gravity(that){
-        if (that.y  > Config.FLOOR_HEIGHT - that.height/2) { //if its greater than the ground (V great)!
-            that.y = Config.FLOOR_HEIGHT - that.height/2; 
-        } else if (that.y < 0){ //trying to fly way too high rn
-            that.y = 0;
-        } else if (!that.jumping && ! (that.y === Config.FLOOR_HEIGHT - that.height/2)){
-            that.y = that.y+25;
+        if (that.getY()  > Config.FLOOR_HEIGHT - that.height/2) { //if its greater than the ground (V great)!
+            that.setY(Config.FLOOR_HEIGHT - that.height/2); 
+        } else if (that.getY() < 0){ //trying to fly way too high rn
+            that.setY(0);
+        } else if (!that.jumping && ! (that.getY() === Config.FLOOR_HEIGHT - that.height/2)){
+            that.setY( that.getY()+25);
         }
 
     }
@@ -18,38 +18,36 @@ exports.MovementComponent = function(){
     function jump(that){
         if (that.jumping){ //jumping
             util.log(that.jumping)
-            that.y = (that.y - 25);
+            that.setY(that.getY() - 25);
         }
     }
 
     this.update = function(that, speed){
+
         if (that == null || speed == null){
             throw new Error("Yo, speed and that need to exist for movement component to update");
         }
 
-
-        //Don't allow player to descend further than the floor
-//      util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
         jump(that);
 
         if(that.left){
-            that.x = that.x - speed;
+            that.setX(that.getX() - speed);
         }
         if (that.right){
-            that.x = that.x + speed
+            that.setX(that.getX() + speed);
         }
         if (that.up){
-            that.y = that.y - speed;
+            that.setY(that.getY() - speed);
         }
         if (that.down){
-           that.y = that.y+speed;
+           that.setY( that.getY()+speed);
         }
 
-        if (that.x <= 1000){
-            that.x = 1000;
+        if (that.getX() <= 1000){
+            that.setX (1000);
         }
-        else if (that.x >= Config.ARENA_WIDTH + 1000){
-            that.x = Config.ARENA_WIDTH + 1000;
+        else if (that.getX() >= Config.ARENA_WIDTH + 1000){
+            that.setX( Config.ARENA_WIDTH + 1000);
         }
 
         gravity(that);

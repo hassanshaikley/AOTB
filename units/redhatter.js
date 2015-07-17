@@ -18,10 +18,6 @@ var Redhatter = function(name, team){
 
     this.height = 68;
 
-    this.getRespawnX = function(){
-        return 1500;
-    }
-
     this.getAlive = function(){
         return true;
     }
@@ -29,9 +25,7 @@ var Redhatter = function(name, team){
     this.getName = function(){
         return "idk man";
     }
-    this.isStunned = function(){
-        return 0;
-    }
+
 
     this.getHp = function(){
         return 50;

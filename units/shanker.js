@@ -1,47 +1,52 @@
 /**************************************************
  ** REDHATTER CLASS IN SERVER
  **************************************************/
-Player = require("./player").Player;
+var MovementComponent = require("./movement_component.js").MovementComponent;
+var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
+var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
 
 var Shanker = function(name, team){
-	var skeleton = new Player(80, name, team, 60/2);
+	var speed = 12;
+	var health = 80;
 
-	skeleton.getCharacterType = function(){
+
+    var myMovementComponent = new MovementComponent(); // handles key input
+    var myBaseUnitComponent = new BaseUnitComponent(health, this); //handles hp & movement
+    var myBaseTeamComponent = new BaseTeamComponent(this);
+
+    myBaseTeamComponent.setTeam(0);
+
+	this.getCharacterType = function(){
 		return "Shanker";
 	};
-	skeleton.getDamage = function(){
+	this.getDamage = function(){
 		return 20;
 	};
-	var speed = 12;
-	/* */
 
-/*
-	skeleton.moveLeft = function(){
-            var bonus = 0;
-            if (skeleton.invis) {
-                bonus = 4;
-                }
-		skeleton.move(speed + bonus, "left");
+	this.getName = function(){
+		return "not implemented";
 	};
-	skeleton.moveRight = function(){
-            var bonus = 0;
-            if (skeleton.invis){
-                bonus = 4;
-                }
-		skeleton.move(speed+bonus, "right");
-	}; */
+	this.getAlive = function(){
+		return "the fuck okee";
+	};
+
+	this.getHp = function(){
+		return 100;
+	}
 	
-	skeleton.windWalk = function(length){
+	this.windWalk = function(length){
 		skeleton.invis = true;
 		setTimeout(function(){ skeleton.invis = false }, length);
 	};
-     skeleton.getHeight = function(){
-         return 60;
-         };
-        skeleton.getWidth = function(){
-            return 40;
-            };
-	return skeleton;
+    this.height =   60;
+    this.width = 40;
+    var that = this;
+    this.update = function(){
+        myMovementComponent.update(that, speed);
+        myBaseUnitComponent.update();
+        myBaseTeamComponent.update();
+    };
+
 };
 
 exports.Shanker = Shanker;

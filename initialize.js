@@ -1,4 +1,3 @@
-global.Point = require("./point.js").Point;
 
 /* Defines a bunch of variables and settings */
 var Shrine = require('./units/shrine.js').Shrine;
