@@ -8,6 +8,9 @@ exports.BaseUnitComponent = function(_health,that){
 		throw("Dude come on, you need health to create a base unit");
 	}
 
+    that.spellOneCastTime = 0;
+    that.spellTwoCastTime = 0;
+
 	this.health = _health;
 	// |||         * would be the center position of the unit
 	// |*|      

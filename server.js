@@ -98,7 +98,7 @@ Server.prototype.updateGameVariables = function(){
 
 		if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
 			if  (Math.abs(players[i].x - game1.shrine_1.getX())<= 100 &&
-					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined ||
+					players[i].team != 1 && (game1.shrine_0.hitby[i] == undefined ||
 						Date.now() -game1.shrine_1.hitby[i] >= 1000)){
 
 				if (Math.abs(game1.shrine_1.getY() - players[i].y )<=150 ){
@@ -108,7 +108,7 @@ Server.prototype.updateGameVariables = function(){
 				}
 			}
 			if  ( Math.abs(players[i].x - game1.shrine_0.x <= 100 &&
-					players[i].getTeam() != 0 &&( game1.shrine_0.hitby[i] == undefined ||
+					players[i].team != 0 &&( game1.shrine_0.hitby[i] == undefined ||
 						(Date.now() -game1.shrine_0.hitby[i]) >= 1000))) {
 				if (Math.abs(game1.shrine_0.getY() - players[i].y) <= 150){ // shanker made contact at 114
 					game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
@@ -118,7 +118,7 @@ Server.prototype.updateGameVariables = function(){
 			//now see if hits any players
 			for (j = 0; j < players.length; j++){
 				if (i != j){  //so a player does not attack him/herself
-					if (Math.abs(players[i].x - players[j].x )<= 30 && players[i].getTeam() != players[j].getTeam() && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
+					if (Math.abs(players[i].x - players[j].x )<= 30 && players[i].team != players[j].team && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
 						if (Math.abs(players[i].y - players[j].y) <= 100){
 							//  var life_status = players[j].setHp(players[j].getHp() - 25);
 							setHp(players[j], 25);
@@ -173,7 +173,7 @@ Server.prototype.updateGameVariables = function(){
                                                     server.libs.io.sockets);*/
 
 		for (var j = 0; j < players.length; j++) {
-                    if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
+                    if ( players[j].team == server.Spells.spellsarray[i].getTeam()){
                         continue;
                         }
 

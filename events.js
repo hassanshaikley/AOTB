@@ -281,6 +281,7 @@ var Events = function(){
         if (! player.getAlive()){
         return;
         };
+        util.log("O " + player.getCharacterType() + " - " + player.spellOneCastTime);
 
         if (player.getCharacterType() === "Grimes" && player.spellOneCastTime + TortStun.getCooldown()  <=  Date.now() ) {
             player.spellOneCastTime = Date.now();
@@ -298,7 +299,7 @@ var Events = function(){
             }
         if (player.getCharacterType() === "Redhatter" && player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
             player.spellOneCastTime = Date.now();
-
+            util.log("YEP");
                 //var v = new TortStun(data.x, data.y, team);
                 var v = new Meteor(data.x, data.y, player.team);
                 Spells.spellsarray.push(v);
