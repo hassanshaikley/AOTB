@@ -8,10 +8,11 @@ var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
 var Shanker = function(name, team){
 	var speed = 12;
 	var health = 80;
-
+	var width = 50;
+	var height = 50;
 
     var myMovementComponent = new MovementComponent(); // handles key input
-    var myBaseUnitComponent = new BaseUnitComponent(health, this); //handles hp & movement
+    var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
     var myBaseTeamComponent = new BaseTeamComponent(this);
 
     myBaseTeamComponent.setTeam(0);
@@ -30,9 +31,6 @@ var Shanker = function(name, team){
 		return "the fuck okee";
 	};
 
-	this.getHp = function(){
-		return 100;
-	}
 	
 	this.windWalk = function(length){
 		skeleton.invis = true;

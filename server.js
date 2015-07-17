@@ -121,7 +121,7 @@ Server.prototype.updateGameVariables = function(){
 					if (Math.abs(players[i].getX() - players[j].getX() )<= 30 && players[i].team != players[j].team && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
 						if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
 							//  var life_status = players[j].setHp(players[j].getHp() - 25);
-							setHp(players[j], 25);
+							players[j].doDamage(25);
 							players[j].hitby[i] = Date.now();
 							server.libs.io.sockets.emit('bleed', { id: players[j].id });
 
@@ -195,6 +195,8 @@ Server.prototype.updateGameVariables = function(){
 		server.Spells.spellsarray[i].update();
 	};
 
+
+	//appears to iterate through every player and submit their info to everyone
 	for (var j = 0; j < players.length; j++){
 		server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].team });
 	}
@@ -208,9 +210,9 @@ Server.prototype.updateGameVariables = function(){
 
 /* LETS TELL IF SOMEBODY is hit on the server */
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
-	hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
+	hitPlayer.doDamage(damage); //sets the damage
 	//    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-	server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
+	//server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
 
 }
 

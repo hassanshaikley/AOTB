@@ -1,7 +1,7 @@
 /* Units include towers, NPCs, and players
  * A Base unit has health, a position
  */
-exports.BaseUnitComponent = function(maxHp,that){
+exports.BaseUnitComponent = function(maxHp, width, height, that){
     
     var x = 1500;
     var y = 250;
@@ -15,12 +15,20 @@ exports.BaseUnitComponent = function(maxHp,that){
 
     var currHp = maxHp;
 
-
 	that.getHp = function(){
 		return currHp;
 	};
+
 	that.doDamage = function(damage){
 		currHp = currHp -damage;
+	};
+
+	that.getWidth = function(){
+		return width;
+	};
+
+	that.getHeight = function(){
+		return height;
 	};
 
     that.isStunned = function(){
