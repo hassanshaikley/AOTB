@@ -1,24 +1,23 @@
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/
-var  Fly            = require("./units/fly").Fly,
-     Redhatter      = require("./units/redhatter").Redhatter,
-     Grimes         = require("./units/grimes").Grimes,
-     Bowman         = require("./units/bowman").Bowman,
-     Skelly         = require("./units/skelly").Skelly,
-     Shanker        = require("./units/shanker").Shanker,
-     Crevice        = require("./units/crevice").Crevice,
-     Spells         = require("./spellsandprojectiles.js").Spells,
-     Meteor         = require("./spellsandprojectiles.js").Meteor,
-     Stealth        = require("./spells/stealth.js").Stealth,
-     TortStun       = require("./spells/tortstun.js").TortStun,
+var  Fly = require("./units/fly").Fly,
+     Redhatter = require("./units/redhatter").Redhatter,
+     Grimes = require("./units/grimes").Grimes,
+     Bowman = require("./units/bowman").Bowman,
+     Skelly = require("./units/skelly").Skelly,
+     Shanker = require("./units/shanker").Shanker,
+     Crevice = require("./units/crevice").Crevice,
+     Spells = require("./spellsandprojectiles.js").Spells,
+     Meteor = require("./spellsandprojectiles.js").Meteor,
+     Stealth = require("./spells/stealth.js").Stealth,
+     TortStun = require("./spells/tortstun.js").TortStun,
      RHRange =  require("./spells/rhrange.js").RHRange;
      BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow,
      DescendAttack = require("./spellsandprojectiles.js").DescendAttack;
 
-     var CONFIG = require("./config");
+    var CONFIG = require("./config");
 
-    canvas_width = 800;
 var util = require("util");
 
 var Events = function(){
@@ -223,25 +222,27 @@ var Events = function(){
         // Create a new player
         util.log("A " + (data.characterType || "unknown") + " has joined the game.");
         if (data.characterType === CONFIG.Fly){
-            var newPlayer = new Fly(data.name);
+            var newPlayer = new Fly();
         }
         else if (data.characterType === CONFIG.Redhatter){
-            var newPlayer = new Redhatter(data.name);
-				}
+            var newPlayer = new Redhatter();
+		}
         else if (data.characterType === CONFIG.Grimes){
-            var newPlayer = new Grimes(data.name);
+            var newPlayer = new Grimes();
         }
         else if (data.characterType === CONFIG.Bowman){
-            var newPlayer = new Bowman(data.name);
+            var newPlayer = new Bowman();
         } else if (data.characterType === CONFIG.Shanker){
-            var newPlayer = new Shanker(data.name);
+            util.log("MAKING ASHANKARR");
+            var newPlayer = new Shanker();
         }
         else if (data.characterType === "Crevice"){
             util.log("made ac revice broo");
-            var newPlayer = new Crevice(data.name);
+            var newPlayer = new Crevice();
         } else {
            util.log("GOT SOME PROBLEMS ");
         }
+        newPlayer.setName(data.name)
         newPlayer.id = this.id;
         game1.addPlayer(newPlayer);
         this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType() });

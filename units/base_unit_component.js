@@ -5,6 +5,8 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
     
     var x = 1500;
     var y = 250;
+
+    var name = "unknown";
 	
 	if (maxHp == null){
 		throw("Dude come on, you need health to create a base unit");
@@ -48,6 +50,13 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
     };
     that.setY = function(_y){
     	y = _y;
+    };
+
+    that.getName = function(){
+    	return name;
+    };
+    that.setName = function(newName){
+    	name = newName;
     };
 
     this.update = function(){

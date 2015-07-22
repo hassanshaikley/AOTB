@@ -8,7 +8,7 @@ var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
 var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
 //var util = require("util");
 //var Point = require("../point.js").Point;
-var Redhatter = function(name, team){
+var Redhatter = function(team){
     var health = 70;
     var speed = 9;
     var width = 50;
@@ -23,11 +23,6 @@ var Redhatter = function(name, team){
     this.getAlive = function(){
         return true;
     }
-
-    this.getName = function(){
-        return "idk man";
-    }
-
 
     this.getHp = function(){
         return 50;

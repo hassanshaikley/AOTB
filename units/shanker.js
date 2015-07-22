@@ -5,7 +5,7 @@ var MovementComponent = require("./movement_component.js").MovementComponent;
 var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
 var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
 
-var Shanker = function(name, team){
+var Shanker = function(team){
 	var speed = 12;
 	var health = 80;
 	var width = 50;
@@ -14,6 +14,7 @@ var Shanker = function(name, team){
     var myMovementComponent = new MovementComponent(speed, this); // handles key input
     var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
     var myBaseTeamComponent = new BaseTeamComponent(this);
+
 
     myBaseTeamComponent.setTeam(0);
 
@@ -24,9 +25,6 @@ var Shanker = function(name, team){
 		return 20;
 	};
 
-	this.getName = function(){
-		return "not implemented";
-	};
 	this.getAlive = function(){
 		return "the fuck okee";
 	};

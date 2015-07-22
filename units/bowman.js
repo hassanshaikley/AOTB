@@ -3,7 +3,7 @@
  **************************************************/
 Player = require("./player").Player;
 
-var Bowman = function(name, team){
+var Bowman = function(team){
   var skeleton = new Player(100, name, team);
 
   skeleton.getCharacterType = function(){
