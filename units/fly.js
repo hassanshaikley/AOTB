@@ -34,15 +34,10 @@ var Fly = function(team){
 	  return 15;
 	};
 
-	this.moveUp = function(){
-		skeleton.move(speed, "up");
+	this.drop = function(){
+		that.setY(that.getY() + 100);
 	};
-	this.moveDown = function(){
-		skeleton.move(speed, "down");
-		if (descendAttack === true && skeleton.getY() >= 475){
-			descendAttack = false; //now should notify all players
-		}
-	};
+
 
 	this.getAlive = function(){
         return true;

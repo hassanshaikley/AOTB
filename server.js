@@ -77,12 +77,7 @@ Server.prototype.updateGameVariables = function(){
 					server.libs.io.sockets.emit('descend attack changes', { id: players[_i].id, descendAttack: false });
 				} else {
 
-					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
+					players[_i].drop();
 
 					continue;
 				}
@@ -116,8 +111,10 @@ Server.prototype.updateGameVariables = function(){
 				}
 			}
 			//now see if hits any players
+			var util = require("util");
 			for (j = 0; j < players.length; j++){
 				if (i != j){  //so a player does not attack him/herself
+					util.log(players[j] +" ");
 					if (Math.abs(players[i].getX() - players[j].getX() )<= 30 && players[i].team != players[j].team && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
 						if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
 							//  var life_status = players[j].setHp(players[j].getHp() - 25);

@@ -14,6 +14,7 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
 
     that.spellOneCastTime = 0;
     that.spellTwoCastTime = 0;
+    that.hitby = [];
 
     var currHp = maxHp;
 
