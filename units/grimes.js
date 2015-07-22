@@ -1,35 +1,41 @@
 /**************************************************
  ** REDHATTER CLASS IN SERVER
  **************************************************/
-Player = require("./player").Player;
+var MovementComponent = require("./movement_component.js").MovementComponent;
+var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
+var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
+
 
 var Grimes = function(team){
-	var skeleton = new Player(100, name, team,  100/2);
+	var speed = 8;
+	var health = 100;
+	var width = 40;
+	var height = 60;
 
-	skeleton.getCharacterType = function(){
+    var myMovementComponent = new MovementComponent(speed, this); // handles key input
+    var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
+    var myBaseTeamComponent = new BaseTeamComponent(this);
+
+
+	this.getCharacterType = function(){
 		return "Grimes";
 	};
-	skeleton.getDamage = function(){
+	this.getDamage = function(){
 		return 15;
 	};
-	var speed = 8;
-	skeleton.moveUp = function(){
-	};
-	skeleton.moveDown = function(){
-	};
-	skeleton.moveLeft = function(){
-		skeleton.move(speed, "left");
-	};
-	skeleton.moveRight = function(){
-		skeleton.move(speed, "right");
-	};
-        skeleton.getWidth = function(){
-            return 40;
-            };
-	skeleton.getHeight = function(){
-	 	return 100;
-	};
-	return skeleton;
+	
+    this.getAlive = function(){
+        return true;
+    };
+
+    var that = this;
+
+    this.update = function(){
+        myMovementComponent.update(that);
+        myBaseUnitComponent.update();
+        myBaseTeamComponent.update();
+    };
+
 };
 
 exports.Grimes = Grimes;

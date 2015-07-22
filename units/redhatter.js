@@ -12,21 +12,16 @@ var Redhatter = function(team){
     var health = 70;
     var speed = 9;
     var width = 50;
-    var height = 50;
+    var height = 68;
 
     var myMovementComponent = new MovementComponent(speed, this); 
     var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
     var myBaseTeamComponent = new BaseTeamComponent(this);
 
-    this.height = 68;
 
     this.getAlive = function(){
         return true;
-    }
-
-    this.getHp = function(){
-        return 50;
-    }
+    };
 
    // var skeleton = new Player(70, name, team, 80/2);
 
@@ -40,10 +35,6 @@ var Redhatter = function(team){
         return "Redhatter";
     };
     
-
-    this.getWidth = function(){
-        return 50;
-    };
     var that = this;
     this.update = function(){
         myMovementComponent.update(that);

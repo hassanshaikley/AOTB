@@ -5,11 +5,11 @@ var Config = require("../config.js");
 exports.MovementComponent = function(speed, that){
 
     function gravity(that){
-        if (that.getY()  > Config.FLOOR_HEIGHT - that.height/2) { //if its greater than the ground (V great)!
-            that.setY(Config.FLOOR_HEIGHT - that.height/2); 
+        if (that.getY()  > Config.FLOOR_HEIGHT - that.getHeight()/2) { //if its greater than the ground (V great)!
+            that.setY(Config.FLOOR_HEIGHT - that.getHeight()/2); 
         } else if (that.getY() < 0){ //trying to fly way too high rn
             that.setY(0);
-        } else if (!that.jumping && ! (that.getY() === Config.FLOOR_HEIGHT - that.height/2)){
+        } else if (!that.jumping && ! (that.getY() === Config.FLOOR_HEIGHT - that.getHeight()/2)){
             that.setY( that.getY()+25);
         }
 
