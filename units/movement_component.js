@@ -2,7 +2,10 @@ var util = require("util");
 var Config = require("../config.js");
 
 // On update moves a player : D
-exports.MovementComponent = function(speed, that){
+exports.MovementComponent = function(speed, that, ySpeed){
+    ySpeed = typeof ySpeed !== 'undefined' ? ySpeed : 0;
+
+    var fallSpeed = typeof ySpeed !== 'undefined' ? 1 : 25;
 
     function gravity(that){
         if (that.getY()  > Config.FLOOR_HEIGHT - that.getHeight()/2) { //if its greater than the ground (V great)!
@@ -10,7 +13,7 @@ exports.MovementComponent = function(speed, that){
         } else if (that.getY() < 0){ //trying to fly way too high rn
             that.setY(0);
         } else if (!that.jumping && ! (that.getY() === Config.FLOOR_HEIGHT - that.getHeight()/2)){
-            that.setY( that.getY()+25);
+            that.setY( that.getY()+fallSpeed);
         }
 
     }
@@ -46,10 +49,10 @@ exports.MovementComponent = function(speed, that){
             that.setX(that.getX() + speed);
         }
         if (that.up){
-            that.setY(that.getY() - speed);
+            that.setY(that.getY() - ySpeed);
         }
         if (that.down){
-           that.setY( that.getY()+speed);
+           that.setY( that.getY()+ySpeed);
         }
 
         if (that.getX() <= 1000){
