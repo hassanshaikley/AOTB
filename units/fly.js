@@ -39,10 +39,6 @@ var Fly = function(team){
 	};
 
 
-	this.getAlive = function(){
-        return true;
-    };
-
     var that =this;
     this.update = function(){
         myMovementComponent.update(that);

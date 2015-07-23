@@ -24,9 +24,6 @@ var Grimes = function(team){
 		return 15;
 	};
 	
-    this.getAlive = function(){
-        return true;
-    };
 
     var that = this;
 

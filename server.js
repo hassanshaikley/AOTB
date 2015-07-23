@@ -10,6 +10,8 @@ function Server(){
 }
 var Config = require("./config.js");
 
+var util = require("util");
+
 var server = new Server();
 
 Server.prototype.init = function() {
@@ -83,6 +85,9 @@ Server.prototype.updateGameVariables = function(){
 				}
 			};
 		};
+
+			util.log("team " + players[_i].getTeam())
+
             players[_i].update();
 	}
 
@@ -93,7 +98,7 @@ Server.prototype.updateGameVariables = function(){
 
 		if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
 			if  (Math.abs(players[i].getX() - game1.shrine_1.getX())<= 100 &&
-					players[i].team != 1 && (game1.shrine_0.hitby[i] == undefined ||
+					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined ||
 						Date.now() -game1.shrine_1.hitby[i] >= 1000)){
 
 				if (Math.abs(game1.shrine_1.getY() - players[i].getY() )<=150 ){
@@ -103,7 +108,7 @@ Server.prototype.updateGameVariables = function(){
 				}
 			}
 			if  ( Math.abs(players[i].getX() - game1.shrine_0.getX() <= 100 &&
-					players[i].team != 0 &&( game1.shrine_0.hitby[i] == undefined ||
+					players[i].getTeam() != 0 &&( game1.shrine_0.hitby[i] == undefined ||
 						(Date.now() -game1.shrine_0.hitby[i]) >= 1000))) {
 				if (Math.abs(game1.shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
 					game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
@@ -111,11 +116,10 @@ Server.prototype.updateGameVariables = function(){
 				}
 			}
 			//now see if hits any players
-			var util = require("util");
 			for (j = 0; j < players.length; j++){
 				if (i != j){  //so a player does not attack him/herself
-					util.log(players[j] +" ");
-					if (Math.abs(players[i].getX() - players[j].getX() )<= 30 && players[i].team != players[j].team && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
+					util.log(players[j].hitby +" ");
+					if (Math.abs(players[i].getX() - players[j].getX() )<= 30 && players[i].getTeam() != players[j].getTeam() && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
 						if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
 							//  var life_status = players[j].setHp(players[j].getHp() - 25);
 							players[j].doDamage(25);
@@ -170,12 +174,12 @@ Server.prototype.updateGameVariables = function(){
                                                     server.libs.io.sockets);*/
 
 		for (var j = 0; j < players.length; j++) {
-                    if ( players[j].team == server.Spells.spellsarray[i].getTeam()){
+                    if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
                         continue;
                         }
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
-				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
+				 players[j].getWidth()/2 + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
 				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() + players[j].emptyYSpace) <
                             (players[j].height/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
@@ -195,7 +199,7 @@ Server.prototype.updateGameVariables = function(){
 
 	//appears to iterate through every player and submit their info to everyone
 	for (var j = 0; j < players.length; j++){
-		server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].team });
+		server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].getTeam() });
 	}
 
 	/* Method for telling all the units about the health of the structures and stuff */

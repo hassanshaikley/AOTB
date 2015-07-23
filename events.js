@@ -4,10 +4,10 @@
 var  Fly = require("./units/fly").Fly,
      Redhatter = require("./units/redhatter").Redhatter,
      Grimes = require("./units/grimes").Grimes,
-     Bowman = require("./units/bowman").Bowman,
-     Skelly = require("./units/skelly").Skelly,
+  //   Bowman = require("./units/bowman").Bowman,
+   //  Skelly = require("./units/skelly").Skelly,
      Shanker = require("./units/shanker").Shanker,
-     Crevice = require("./units/crevice").Crevice,
+   //  Crevice = require("./units/crevice").Crevice,
      Spells = require("./spellsandprojectiles.js").Spells,
      Meteor = require("./spellsandprojectiles.js").Meteor,
      Stealth = require("./spells/stealth.js").Stealth,
@@ -76,11 +76,11 @@ var Events = function(){
     function onMeeleeAttack(data){ //when a player left clicks
         var attacker = playerById(this.id);
         var damageBonus = 0;
-	if (! attacker.getAlive()){
-	    return;
-	};
+	    if (! attacker.getAlive()){
+	       return;
+	    };
 
-	/* Make sure Meelee Attack isn't on CoolDown */
+	   /* Make sure Meelee Attack isn't on CoolDown */
         if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
             attacker.meeleeAttackTime = Date.now();
         } else {    //meelee attack is on CD
@@ -93,10 +93,10 @@ var Events = function(){
         };
 
         var i;
-	var that = this;
-	setTimeout( function(){
-	  var _x = attacker.getX() - 20;
-	  var _y = attacker.getY()-15;
+	   var that = this;
+	   setTimeout( function(){
+	    var _x = attacker.getX() - 20;
+	   var _y = attacker.getY()-15;
           switch (attacker.getCharacterType()) {
           case "Shanker":
             if (data.direction === "right"){
@@ -133,8 +133,8 @@ var Events = function(){
             //now iterate through all players see if it hits!
 
 
-            var playersHit = didAttackHitPlayer(_x, _y, attacker.team, attacker.getDamage() +damageBonus, that);
-            didAttackHitTower(_x, _y, attacker.team, attacker.getDamage() + damageBonus);
+            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage() +damageBonus, that);
+            didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage() + damageBonus);
 	    if (attacker.getCharacterType() === "Redhatter"){
 	      //knockback
 		var distance = 0;
@@ -176,7 +176,7 @@ var Events = function(){
     function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing){
 	var playersHit = [];
         for (i = 0; i< players.length; i++){
-            if (players[i].team === team){
+            if (players[i].getTeam() === team){
                 continue;
             }
             if  (Math.abs(players[i].getX() - attackX) <= players[i].getWidth()/2 +20 ){ // +20 just to make it a little easier lmao
@@ -250,7 +250,7 @@ var Events = function(){
         var i, existingPlayer;
         for (i = 0; i < players.length; i++) {
             existingPlayer = players[i];
-            this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType(), team: newPlayer.team});
+            this.emit("new player", {id: existingPlayer.id, x: existingPlayer.getX(), y: existingPlayer.getY(), hp: existingPlayer.getHp(), name: existingPlayer.getName(), characterType : existingPlayer.getCharacterType(), team: newPlayer.getTeam()});
         };
         util.log("Total # of players is " + (players.length+1));
         // Add new player to the players array
@@ -264,7 +264,7 @@ var Events = function(){
         };
         switch (player.getCharacterType()){
             case "Redhatter":
-               var v = new RHRange(data.x, data.y, data.direction, player.team);
+               var v = new RHRange(data.x, data.y, data.direction, player.getTeam());
                if (!player.spellTwoCastTime || player.spellTwoCastTime + RHRange.getCooldown() <= Date.now()){
                player.spellTwoCastTime = Date.now();
                Spells.spellsarray.push(v);
@@ -286,7 +286,7 @@ var Events = function(){
 
         if (player.getCharacterType() === "Grimes" && player.spellOneCastTime + TortStun.getCooldown()  <=  Date.now() ) {
             player.spellOneCastTime = Date.now();
-		    var v = new TortStun(data.x, data.y, player.team);
+		    var v = new TortStun(data.x, data.y, player.getTeam());
             Spells.spellsarray.push(v);
             this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true});
             this.broadcast.emit('spell one', {x: data.x, spell: "tort stun" });
@@ -302,10 +302,10 @@ var Events = function(){
             player.spellOneCastTime = Date.now();
             util.log("YEP");
                 //var v = new TortStun(data.x, data.y, team);
-                var v = new Meteor(data.x, data.y, player.team);
+                var v = new Meteor(data.x, data.y, player.getTeam());
                 Spells.spellsarray.push(v);
-                this.emit('spell one', {x: data.x, spell: "meteor", team: player.team, casted_by_me: true });
-                this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.team });
+                this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), casted_by_me: true });
+                this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam() });
         }
         if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){
             player.spellOneCastTime = Date.now();
@@ -344,7 +344,7 @@ var Events = function(){
     /* sends a message to one player and responds with it's team*/
     var initClient = function(){
         var initPlayer = playerById(this.id);
-        this.emit("init me", { team: initPlayer.team, x: initPlayer.respawnX});
+        this.emit("init me", { team: initPlayer.getTeam(), x: initPlayer.respawnX});
     };
     /**************************************************
      ** GAME HELPER FUNCTIONS

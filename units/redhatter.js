@@ -19,10 +19,6 @@ var Redhatter = function(team){
     var myBaseTeamComponent = new BaseTeamComponent(this);
 
 
-    this.getAlive = function(){
-        return true;
-    };
-
    // var skeleton = new Player(70, name, team, 80/2);
 
     this.emptyYSpace = 10;

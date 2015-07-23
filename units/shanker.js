@@ -25,9 +25,6 @@ var Shanker = function(team){
 		return 20;
 	};
 
-	this.getAlive = function(){
-		return "the fuck okee";
-	};
 	
 	this.windWalk = function(length){
 		skeleton.invis = true;

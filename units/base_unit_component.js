@@ -22,6 +22,10 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
 		return currHp;
 	};
 
+    that.getAlive = function(){
+        return (that.getHp() > 0)
+    };
+
 	that.doDamage = function(damage){
 		currHp = currHp -damage;
 	};

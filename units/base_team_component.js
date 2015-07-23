@@ -3,7 +3,9 @@ exports.BaseTeamComponent = function(that, team){
 		team = 0;
 		
 	}
-	that.team = team;
+	that.getTeam = function(){
+		return team;
+	};
 
 	this.setTeam = function(){
 		var randomOffset = Math.floor(Math.random() * ( 200 )) - 100;
