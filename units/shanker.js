@@ -16,7 +16,7 @@ var Shanker = function(team){
     var myBaseTeamComponent = new BaseTeamComponent(this);
 
 
-    myBaseTeamComponent.setTeam(0);
+    this.setTeam();
 
 	this.getCharacterType = function(){
 		return "Shanker";
