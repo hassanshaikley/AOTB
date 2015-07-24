@@ -27,7 +27,11 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
     };
 
 	that.doDamage = function(damage){
+
 		currHp = currHp -damage;
+        if (currHp <= 0){
+            currHp = 0;
+        }
 	};
 
 	that.getWidth = function(){
