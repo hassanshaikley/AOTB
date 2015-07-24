@@ -347,7 +347,7 @@ var Events = function(){
     /* sends a message to one player and responds with it's team*/
     var initClient = function(){
         var initPlayer = playerById(this.id);
-        this.emit("init me", { team: initPlayer.getTeam(), x: initPlayer.respawnX});
+        this.emit("init me", { team: initPlayer.getTeam(), x: initPlayer.getRespawnX()});
     };
     /**************************************************
      ** GAME HELPER FUNCTIONS

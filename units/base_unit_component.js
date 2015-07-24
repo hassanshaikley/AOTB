@@ -42,7 +42,7 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
 
     that.respawn = function(){
         currHp = maxHp;
-        that.setX(that.respawnX);
+        that.setX(that.getRespawnX());
     };
 
 	that.getWidth = function(){

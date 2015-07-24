@@ -51,7 +51,7 @@ Server.prototype.updateGameVariables = function(){
 				//a few seconds have elapsed, now reset everyones position
 			for(var _i = 0; _i < players.length; _i++){
 				players[_i].setHp(100);
-				players[_i].getX() = players[_i].respawnX;
+				players[_i].getX() = players[_i].getRespawnX();
 				//emit to that player to go to respawn
 			}
 				game1.setWinner(-1);
