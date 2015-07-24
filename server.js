@@ -146,22 +146,18 @@ Server.prototype.updateGameVariables = function(){
 
             // 0 - 2500
             if (  (targetShrine.hitby[i] == undefined) || Date.now() - targetShrine.hitby[i] > 1000){
-	        if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
-			server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
-			if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY())<= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
-                            var damage = server.Spells.spellsarray[i].getDamage();
-                                if (server.Spells.spellsarray[i].name =="tortstun"){
-                                    damage +=100;
-                                    }
-				targetShrine.setHp(targetShrine.getHp() -damage );
-			        targetShrine.hitby[i] = Date.now();
-
-
-
-			}
-		}
-
-            }
+	        	if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
+				server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
+					if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY())<= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
+                		var damage = server.Spells.spellsarray[i].getDamage();
+                		if (server.Spells.spellsarray[i].name =="tortstun"){
+                    		damage +=100;
+                		}
+						targetShrine.setHp(targetShrine.getHp() -damage );
+			    		targetShrine.hitby[i] = Date.now();
+					}
+				}
+    		}
 
 
 
@@ -172,15 +168,18 @@ Server.prototype.updateGameVariables = function(){
                                                     server.libs.io.sockets);*/
 
 		for (var j = 0; j < players.length; j++) {
-                    if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
-                        continue;
-                        }
+            if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
+                continue;
+            }
+            	util.log((Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() ) + " < "
++                            (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2)))
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
 				 players[j].getWidth()/2 + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
 				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() + players[j].emptyYSpace) <
                             (players[j].getHeight()/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
+				    util.log("Se");
 
 	                    //the - 10 hing is bullshit so fucking confused rn
                             server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX()-10, y: server.Spells.spellsarray[i].getY() });
