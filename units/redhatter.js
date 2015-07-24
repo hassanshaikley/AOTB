@@ -17,6 +17,7 @@ var Redhatter = function(team){
     var myMovementComponent = new MovementComponent(speed, this); 
     var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
     var myBaseTeamComponent = new BaseTeamComponent(this);
+        this.setTeam();
 
 
    // var skeleton = new Player(70, name, team, 80/2);

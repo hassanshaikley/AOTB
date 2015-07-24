@@ -61,8 +61,8 @@ var Events = function(){
                 player.down = data.down;
         }
         if (data.key === "jump" && data.down){ // only when u press down
-            util.log("JUMPINGG AAA " + player.getY() + " -- " + player.height/2 + " -- " + CONFIG.FLOOR_HEIGHT);
-            if (!player.jumping  && player.getY() + player.height/2 === CONFIG.FLOOR_HEIGHT) {
+            util.log("JUMPINGG AAA " + player.getY() + " -- " + player.getHeight()/2 + " -- " + CONFIG.FLOOR_HEIGHT);
+            if (!player.jumping  && player.getY() + player.getHeight()/2 === CONFIG.FLOOR_HEIGHT) {
                    player.jumping = true;
                    setTimeout(function() { 
                         player.jumping = false 
@@ -133,8 +133,8 @@ var Events = function(){
             //now iterate through all players see if it hits!
 
 
-            var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage() +damageBonus, that);
-            didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage() + damageBonus);
+        var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage() +damageBonus, that);
+        didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage() + damageBonus);
 	    if (attacker.getCharacterType() === "Redhatter"){
 	      //knockback
 		var distance = 0;
@@ -178,9 +178,12 @@ var Events = function(){
         for (i = 0; i< players.length; i++){
             if (players[i].getTeam() === team){
                 continue;
-            }
+            };
+            util.log((players[i].getX() - attackX ) + " " + (players[i].getWidth()/2 + 20 ));
             if  (Math.abs(players[i].getX() - attackX) <= players[i].getWidth()/2 +20 ){ // +20 just to make it a little easier lmao
-                if (Math.abs(players[i].getY() - attackY) <= players[i].height/2){
+                util.log("CHECK !");
+                if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight()/2){
+                    util.log("CHEEEK");
                     setHp(players[i], damage);
 	  	    playersHit.push(players[i]);
                     if (that != undefined) {
@@ -333,7 +336,7 @@ var Events = function(){
     //hitBy.setGold(hitBy.getGold()+1);
     function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
         var wasAlive = hitPlayer.getAlive();
-        hitPlayer.setHp(hitPlayer.getHp() -damage);
+        hitPlayer.doDamage(damage);
         if (!hitPlayer.getAlive() && wasAlive){
             //increment number of kills dude got
         }

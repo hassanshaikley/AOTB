@@ -15,6 +15,7 @@ var Grimes = function(team){
     var myMovementComponent = new MovementComponent(speed, this); // handles key input
     var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
     var myBaseTeamComponent = new BaseTeamComponent(this);
+    this.setTeam();
 
 
 	this.getCharacterType = function(){

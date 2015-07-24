@@ -6,6 +6,8 @@ exports.BaseTeamComponent = function(that, team){
 	};
 
 	that.setTeam = function(newTeam){
+		var util = require("util");
+
 		if (newTeam == null){
 			var newTeam = Math.round(Math.random());		
 		}
@@ -17,6 +19,7 @@ exports.BaseTeamComponent = function(that, team){
 		}
 		that.x = that.respawnX;
 
+		util.log("setting team to " + newTeam);
 		team = newTeam;
 	}
 

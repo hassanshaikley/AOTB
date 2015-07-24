@@ -86,8 +86,6 @@ Server.prototype.updateGameVariables = function(){
 			};
 		};
 
-			util.log("team " + players[_i].getTeam())
-
             players[_i].update();
 	}
 
@@ -182,7 +180,7 @@ Server.prototype.updateGameVariables = function(){
 				 players[j].getWidth()/2 + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
 				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() + players[j].emptyYSpace) <
-                            (players[j].height/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
+                            (players[j].getHeight()/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
 
 	                    //the - 10 hing is bullshit so fucking confused rn
                             server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX()-10, y: server.Spells.spellsarray[i].getY() });
