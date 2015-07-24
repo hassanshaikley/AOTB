@@ -25,14 +25,25 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
     that.getAlive = function(){
         return (that.getHp() > 0)
     };
+    that.getRespawnTime = function(){
+        return 3000;
+    };
 
 	that.doDamage = function(damage){
 
 		currHp = currHp -damage;
         if (currHp <= 0){
             currHp = 0;
+            setTimeout(function(){
+                that.respawn();
+            }, that.getRespawnTime());
         }
 	};
+
+    that.respawn = function(){
+        currHp = maxHp;
+        that.setX(that.respawnX);
+    };
 
 	that.getWidth = function(){
 		return width;
