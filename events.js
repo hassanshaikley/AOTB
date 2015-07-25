@@ -312,8 +312,9 @@ var Events = function(){
         }
         if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){
             player.spellOneCastTime = Date.now();
-	    player.invis = true;
+	        player.invis = true;
             var that = this;
+            player.setSpeed(player.getBaseSpeed()*1.40);
                 setTimeout(function(){
                     if (player.invis){
                         becomeVisible(player, that);
@@ -330,6 +331,7 @@ var Events = function(){
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
     function becomeVisible(player, that){
         player.invis = false;
+        player.setSpeed(player.getBaseSpeed());
         that.emit("visible again", {id : "you"});
         that.broadcast.emit("visible again", {id :player.id});
     };

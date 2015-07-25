@@ -28,7 +28,11 @@ var Shanker = function(team){
 	
 	this.windWalk = function(length){
 		skeleton.invis = true;
-		setTimeout(function(){ skeleton.invis = false }, length);
+		var util = require("util");
+		util.log("GONE");
+		var oldSpeed = that.getSpeed()
+		this.setSpeed(oldSpeed*1.20)
+		setTimeout(function(){ that.invis = false; that.setSpeed(oldSpeed);  }, length);
 	};
 
     var that = this;

@@ -5,7 +5,7 @@ var Config = require("../config.js");
 exports.MovementComponent = function(speed, that, ySpeed){
     var fallSpeed = typeof ySpeed !== 'undefined' ? 1 : 25;
     ySpeed = typeof ySpeed !== 'undefined' ? ySpeed : 0;
-
+    var baseSpeed = speed;
 
     console.log("ys"+ ySpeed);
 
@@ -22,6 +22,9 @@ exports.MovementComponent = function(speed, that, ySpeed){
 
     }
 
+    that.getBaseSpeed = function(){
+        return baseSpeed;
+    };
 
     that.getSpeed = function(){
         return speed;
