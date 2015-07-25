@@ -282,7 +282,7 @@ var Events = function(){
               util.log("Fly carry tigger");
                  //k do fly carry method
                 for (var _i =0 ; _i < players.length; _i++){
-                    if (players[_i].getTeam() != player.getTeam()){
+                    //if (players[_i].getTeam() != player.getTeam()){
                         util.log("AN EMENY");
                         if (distance(players[_i].getX(), player.getX()) < 100){
                             util.log("Made x");
@@ -292,7 +292,7 @@ var Events = function(){
                                 players[_i].birdStun(player);
                             }
                         }
-                    }
+                    //}
                 }
 
               break;
