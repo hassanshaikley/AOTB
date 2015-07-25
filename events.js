@@ -247,6 +247,7 @@ var Events = function(){
         }
         newPlayer.setName(data.name)
         newPlayer.id = this.id;
+        newPlayer.setX(newPlayer.getRespawnX());
         game1.addPlayer(newPlayer);
         this.broadcast.emit("new player", {id: newPlayer.id, x: newPlayer.getX(), y: newPlayer.getY(), name: newPlayer.getName(), characterType : newPlayer.getCharacterType() });
         // Send existing players to the new player
