@@ -64,9 +64,9 @@ var Events = function(){
             util.log("JUMPINGG AAA " + player.getY() + " -- " + player.getHeight()/2 + " -- " + CONFIG.FLOOR_HEIGHT);
             if (!player.jumping  && player.getY() + player.getHeight()/2 === CONFIG.FLOOR_HEIGHT) {
                    player.jumping = true;
-                   setTimeout(function() { 
-                        player.jumping = false 
-                    }, 
+                   setTimeout(function() {
+                        player.jumping = false
+                    },
                 250);
             }
         }
@@ -262,6 +262,7 @@ var Events = function(){
 
     };
     function onSpellTwo(data){
+        util.log("Spell two");
         var player =playerById(this.id);
         if (! (player.getAlive)){
         return;
@@ -276,6 +277,25 @@ var Events = function(){
                this.broadcast.emit('spell two', {x : data.x, y: data.y, spell: "rhrange", direction: data.direction});
                }
                break;
+            case "Fly":
+              //Carry other unit lmfao
+              util.log("Fly carry tigger");
+                 //k do fly carry method
+                for (var _i =0 ; _i < players.length; _i++){
+                    if (players[_i].getTeam() != player.getTeam()){
+                        util.log("AN EMENY");
+                        if (distance(players[_i].getX(), player.getX()) < 100){
+                            util.log("Made x");
+                            if (distance(players[_i].getY(), player.getY()) < 100){
+                                     util.log("Made y");
+                                 //so stun the player and lock his location to the flys : D
+                                players[_i].birdStun(player);
+                            }
+                        }
+                    }
+                }
+
+              break;
 
             }
 
@@ -363,6 +383,12 @@ var Events = function(){
         };
         return false;
     };
+
+   function distance(pos1, pos2){
+       var distance = Math.abs(pos1 - pos2);
+       util.log("dst is " + distance);
+       return distance;
+   }
 
     return {
         didAttackHitPlayer : didAttackHitPlayer,

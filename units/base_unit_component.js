@@ -2,12 +2,12 @@
  * A Base unit has health, a position
  */
 exports.BaseUnitComponent = function(maxHp, width, height, that){
-    
+
     var x = 1500;
     var y = 250;
-
+    var birdStun = {active: false, bird: false };
     var name = "unknown";
-	
+
 	if (maxHp == null){
 		throw("Dude come on, you need health to create a base unit");
 	}
@@ -63,11 +63,11 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
     that.getX = function(){
     	return x;
     };
-    
+
     that.getY = function(){
     	return y;
     };
-    
+
     that.setX = function(_x){
     	x = _x;
     };
@@ -82,7 +82,20 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
     	name = newName;
     };
 
+
+    that.birdStun = function(bird){ //locks location to bird and makes it incapable of moving
+        birdStun.active = true;
+        birdStun.bird = bird;
+        setTimeout(function(){
+            birdStun.active = false;
+        }, 3000);
+    };
+
     this.update = function(){
     	//perhaps apply damage that has been given to this unit?
-    }
+        if (birdStun.active){
+            that.setX(birdStun.bird.getX());
+            that.setY(birdStun.bird.getY() +50);
+         }
+    };
 };

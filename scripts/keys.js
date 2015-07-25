@@ -2,7 +2,7 @@
  ** GAME KEYBOARD CLASS
  **************************************************/
 mouseData = 5;
-
+var spellTwoCd = false;
 var Keys = function(up, left, right, down) {
 
 
@@ -27,12 +27,18 @@ var Keys = function(up, left, right, down) {
         return;
       }
 
+
         if (e.keyCode === 81){
-            localPlayer.castSpellTwo();
-            };
+             if(!spellTwoCd){
+                 spellTwoCd = true;
+                 localPlayer.castSpellTwo();
+                 setTimeout(function(){ spellTwoCd = false; }, 500);
+                }
+        };
 
 
-			if ( this.keys[e.keyCode] === undefined || this.keys[e.keyCode] === false  ){
+
+	if ( this.keys[e.keyCode] === undefined || this.keys[e.keyCode] === false  ){
             this.keys[e.keyCode] = true;
             if(e.keyCode === 65){//left
                 socket.emit('key press', { key: "left", down: true});
