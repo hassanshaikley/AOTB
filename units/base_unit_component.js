@@ -84,6 +84,9 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
 
 
     that.birdStun = function(bird){ //locks location to bird and makes it incapable of moving
+        if (birdStun.active) { //spell is already going on
+            return;
+        }
         birdStun.active = true;
         birdStun.bird = bird;
         setTimeout(function(){
