@@ -10,8 +10,9 @@ function Server(){
 }
 var Config = require("./config.js");
 
-var server = new Server();
+var util = require("util");
 
+var server = new Server();
 
 Server.prototype.init = function() {
 	/* Start the event handling */
@@ -25,7 +26,6 @@ function helpNarine(){
 
 	var User = require('./app/models/user');
 	User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
-		util.log(doc.local.email);
 	//	var pass = doc.generateHash("abc123");
 	        doc.local.nickname = "sejoody";
 		doc.save(function(err){
@@ -51,7 +51,7 @@ Server.prototype.updateGameVariables = function(){
 				//a few seconds have elapsed, now reset everyones position
 			for(var _i = 0; _i < players.length; _i++){
 				players[_i].setHp(100);
-				players[_i].setX(players[_i].getRespawnX());
+				players[_i].getX() = players[_i].getRespawnX();
 				//emit to that player to go to respawn
 			}
 				game1.setWinner(-1);
@@ -68,17 +68,6 @@ Server.prototype.updateGameVariables = function(){
         	continue;
               };
 
-	    //Don't allow player to descend further than the floor
-//	    util.log(players[_i].getY() + " " + players[_i].getHeight() + " " + (Config.FLOOR_HEIGHT+20));
-	    if ((players[_i].getY()+ players[_i].getHeight()/2) < Config.FLOOR_HEIGHT && ! players[_i].jumping) {
-                var fallHeight = 20;
-                if (players[_i].getCharacterType() == "Fly"){
-                    fallHeight = 1;
-                    }
-		players[_i].setY(players[_i].getY()+fallHeight);
-	    } else if (players[_i].jumping){
-                   players[_i].setY(players[_i].getY() - 35);
-                }
 		if (players[_i].isStunned()){
 			continue;
 		}
@@ -90,36 +79,14 @@ Server.prototype.updateGameVariables = function(){
 					server.libs.io.sockets.emit('descend attack changes', { id: players[_i].id, descendAttack: false });
 				} else {
 
-					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
-					players[_i].moveDown();
+					players[_i].drop();
 
 					continue;
 				}
 			};
 		};
-		if (players[_i].left){
-			players[_i].moveLeft();
-                        if (players[_i].getX() === 1000){
-                            players[_i].left = false;
-                        }
-		}
-		if (players[_i].right){
-			players[_i].moveRight();
 
-                    if(players[_i].getX() === Config.ARENA_WIDTH + 1000){
-                        players[_i].right = false;
-                        }
-		}
-		if (players[_i].up){
-			players[_i].moveUp();
-		}
-		if (players[_i].down){
-			players[_i].moveDown();
-		}
+            players[_i].update();
 	}
 
 	/* Algorithm for determining who's hit by a fly... */
@@ -132,15 +99,15 @@ Server.prototype.updateGameVariables = function(){
 					players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined ||
 						Date.now() -game1.shrine_1.hitby[i] >= 1000)){
 
-				if (Math.abs(game1.shrine_1.getY() - players[i].getY()) <=150 ){
+				if (Math.abs(game1.shrine_1.getY() - players[i].getY() )<=150 ){
 					game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
 					game1.shrine_1.hitby[i] = Date.now();
 
 				}
 			}
-			if  (Math.abs(players[i].getX() - game1.shrine_0.getX()) <= 100 &&
+			if  ( Math.abs(players[i].getX() - game1.shrine_0.getX() <= 100 &&
 					players[i].getTeam() != 0 &&( game1.shrine_0.hitby[i] == undefined ||
-						Date.now() -game1.shrine_0.hitby[i] >= 1000)){
+						(Date.now() -game1.shrine_0.hitby[i]) >= 1000))) {
 				if (Math.abs(game1.shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
 					game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
 					game1.shrine_0.hitby[i] = Date.now();
@@ -149,10 +116,11 @@ Server.prototype.updateGameVariables = function(){
 			//now see if hits any players
 			for (j = 0; j < players.length; j++){
 				if (i != j){  //so a player does not attack him/herself
-					if (Math.abs(players[i].getX() - players[j].getX()) <= 30 && players[i].getTeam() != players[j].getTeam() && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
+					util.log(players[j].hitby +" ");
+					if (Math.abs(players[i].getX() - players[j].getX() )<= 30 && players[i].getTeam() != players[j].getTeam() && (players[j].hitby[i] == undefined || Date.now() -players[j].hitby[i] >= 1000)){
 						if (Math.abs(players[i].getY() - players[j].getY()) <= 100){
 							//  var life_status = players[j].setHp(players[j].getHp() - 25);
-							setHp(players[j], 25);
+							players[j].doDamage(25);
 							players[j].hitby[i] = Date.now();
 							server.libs.io.sockets.emit('bleed', { id: players[j].id });
 
@@ -178,22 +146,18 @@ Server.prototype.updateGameVariables = function(){
 
             // 0 - 2500
             if (  (targetShrine.hitby[i] == undefined) || Date.now() - targetShrine.hitby[i] > 1000){
-	        if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
-			server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
-			if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY()) <= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
-                            var damage = server.Spells.spellsarray[i].getDamage();
-                                if (server.Spells.spellsarray[i].name =="tortstun"){
-                                    damage +=100;
-                                    }
-				targetShrine.setHp(targetShrine.getHp() -damage );
-			        targetShrine.hitby[i] = Date.now();
-
-
-
-			}
-		}
-
-            }
+	        	if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
+				server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
+					if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY())<= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
+                		var damage = server.Spells.spellsarray[i].getDamage();
+                		if (server.Spells.spellsarray[i].name =="tortstun"){
+                    		damage +=100;
+                		}
+						targetShrine.setHp(targetShrine.getHp() -damage );
+			    		targetShrine.hitby[i] = Date.now();
+					}
+				}
+    		}
 
 
 
@@ -204,15 +168,18 @@ Server.prototype.updateGameVariables = function(){
                                                     server.libs.io.sockets);*/
 
 		for (var j = 0; j < players.length; j++) {
-                    if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
-                        continue;
-                        }
+            if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
+                continue;
+            }
+            	util.log((Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() ) + " < "
++                            (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2)))
 
 			if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
-				 players[j].getHalfWidth() + server.Spells.spellsarray[i].getHalfWidth()
+				 players[j].getWidth()/2 + server.Spells.spellsarray[i].getHalfWidth()
 				&& server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
 				Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() + players[j].emptyYSpace) <
                             (players[j].getHeight()/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
+				    util.log("Se");
 
 	                    //the - 10 hing is bullshit so fucking confused rn
                             server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX()-10, y: server.Spells.spellsarray[i].getY() });
@@ -226,6 +193,8 @@ Server.prototype.updateGameVariables = function(){
 		server.Spells.spellsarray[i].update();
 	};
 
+
+	//appears to iterate through every player and submit their info to everyone
 	for (var j = 0; j < players.length; j++){
 		server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].getTeam() });
 	}
@@ -239,10 +208,9 @@ Server.prototype.updateGameVariables = function(){
 
 /* LETS TELL IF SOMEBODY is hit on the server */
 function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
-	hitPlayer.setHp(hitPlayer.getHp() -damage); //sets the damage
-        util.log(hitPlayer.getAlive());
+	hitPlayer.doDamage(damage); //sets the damage
 	//    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-	server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
+	//server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
 
 }
 

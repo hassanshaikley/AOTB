@@ -1,52 +1,51 @@
 /**************************************************
  ** FLY CLASS IN SERVER
  **************************************************/
-Player = require("./player").Player;
-var Fly = function(name, team){
-	var skeleton =  new Player(50, name, team, 84/2);
+var MovementComponent = require("./movement_component.js").MovementComponent;
+var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
+var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
+
+var Fly = function(team){
+	var speed = 14;
+	var health = 50;
+	var width = 50;
+	var height = 84;
+
+	var ySpeed = speed;
+
+    var myMovementComponent = new MovementComponent(speed, this, ySpeed); // handles key input
+    var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
+    var myBaseTeamComponent = new BaseTeamComponent(this);
+    this.setTeam();
+
 	var descendAttack = false;
 
-	skeleton.setDescendAttack = function(boolean_thing){
+	this.setDescendAttack = function(boolean_thing){
 		descendAttack = boolean_thing;
 	};
 
-	skeleton.getDescendAttack = function(){
+	this.getDescendAttack = function(){
 		return descendAttack;
 	};
 
-	skeleton.getCharacterType = function(){
+	this.getCharacterType = function(){
 		return "Fly";
 	};
-	skeleton.getDamage = function(){
+	this.getDamage = function(){
 	  return 15;
 	};
 
-	var speed = 14;
-	/* */
-
-	skeleton.moveUp = function(){
-		skeleton.move(speed, "up");
-	};
-	skeleton.moveDown = function(){
-		skeleton.move(speed, "down");
-		if (descendAttack === true && skeleton.getY() >= 475){
-			descendAttack = false; //now should notify all players
-		}
-	};
-	skeleton.moveLeft = function(){
-		skeleton.move(speed, "left");
-	};
-	skeleton.moveRight = function(){
-		skeleton.move(speed, "right");
+	this.drop = function(){
+		that.setY(that.getY() + 100);
 	};
 
-    skeleton.getHeight = function(){
-        return 84;
-        };
-   skeleton.getWidth = function(){
-        return 50;
+
+    var that =this;
+    this.update = function(){
+        myMovementComponent.update(that);
+        myBaseUnitComponent.update();
+        myBaseTeamComponent.update();
     };
-    return skeleton;
 };
 
 exports.Fly = Fly;

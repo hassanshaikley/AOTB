@@ -1,3 +1,4 @@
+var util = require("util");
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
   if (req.isAuthenticated()){ //if loggedi n go to profile page
@@ -27,7 +28,7 @@ module.exports = function(app, passport) {
           nickname = "idk";
       }
 
-      util.log("NICKNAME" + nickname);
+      util.log(nickname + " has entered the game");
 
       res.render('index.ejs', {
         authenticated: req.isAuthenticated(),

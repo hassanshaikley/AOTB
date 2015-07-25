@@ -2,9 +2,8 @@
  ** REDHATTER CLASS IN SERVER
  **************************************************/
 Player = require("./player").Player;
-var util = require("util");
 
-var Bowman = function(name, team){
+var Bowman = function(team){
   var skeleton = new Player(100, name, team);
 
   skeleton.getCharacterType = function(){

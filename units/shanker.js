@@ -1,49 +1,47 @@
 /**************************************************
  ** REDHATTER CLASS IN SERVER
  **************************************************/
-Player = require("./player").Player;
-var util = require("util");
+var MovementComponent = require("./movement_component.js").MovementComponent;
+var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
+var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
 
-var Shanker = function(name, team){
-	var skeleton = new Player(80, name, team, 60/2);
+var Shanker = function(team){
+	var speed = 12;
+	var health = 80;
+	var width = 40;
+	var height = 60;
 
-	skeleton.getCharacterType = function(){
+    var myMovementComponent = new MovementComponent(speed, this); // handles key input
+    var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
+    var myBaseTeamComponent = new BaseTeamComponent(this);
+
+
+    this.setTeam();
+
+	this.getCharacterType = function(){
 		return "Shanker";
 	};
-	skeleton.getDamage = function(){
+	this.getDamage = function(){
 		return 20;
 	};
-	var speed = 12;
-	/* */
-	skeleton.moveUp = function(){
-	};
-	skeleton.moveDown = function(){
-	};
-	skeleton.moveLeft = function(){
-            var bonus = 0;
-            if (skeleton.invis) {
-                bonus = 4;
-                }
-		skeleton.move(speed + bonus, "left");
-	};
-	skeleton.moveRight = function(){
-            var bonus = 0;
-            if (skeleton.invis){
-                bonus = 4;
-                }
-		skeleton.move(speed+bonus, "right");
-	};
-	skeleton.windWalk = function(length){
+
+	
+	this.windWalk = function(length){
 		skeleton.invis = true;
-		setTimeout(function(){ skeleton.invis = false }, length);
+		var util = require("util");
+		util.log("GONE");
+		var oldSpeed = that.getSpeed()
+		this.setSpeed(oldSpeed*1.20)
+		setTimeout(function(){ that.invis = false; that.setSpeed(oldSpeed);  }, length);
 	};
-     skeleton.getHeight = function(){
-         return 60;
-         };
-        skeleton.getWidth = function(){
-            return 40;
-            };
-	return skeleton;
+
+    var that = this;
+    this.update = function(){
+        myMovementComponent.update(that);
+        myBaseUnitComponent.update();
+        myBaseTeamComponent.update();
+    };
+
 };
 
 exports.Shanker = Shanker;

@@ -2,7 +2,6 @@
  ** Skelly 
  **************************************************/
 Player = require("./player").Player;
-var util = require("util");
 
 var Skelly = function( _team){
   var name = "Skelly";

@@ -1,3 +1,4 @@
+
 /* Defines a bunch of variables and settings */
 var Shrine = require('./units/shrine.js').Shrine;
 var Game = require('./game.js').Game;
@@ -5,7 +6,6 @@ module.exports = {
   //loads all the libraries into this object : D 
   loadLibraries : function(){
     this.hi = "hello"; // hello for good measure
-    util          = require("util");
 //    this.logfmt = require("logfmt"); // Heroku key-value logger
     this.mongoose = require('mongoose'); // DB simplifier
     this.passport = require('passport'); // Authentication
