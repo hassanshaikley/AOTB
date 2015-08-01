@@ -8,9 +8,9 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
     var birdStun = {active: false, bird: false };
     var name = "unknown";
 
-	if (maxHp == null){
-		throw("Dude come on, you need health to create a base unit");
-	}
+    if (maxHp == null){
+	throw("Dude come on, you need health to create a base unit");
+    }
 
     that.spellOneCastTime = 0;
     that.spellTwoCastTime = 0;
@@ -21,10 +21,14 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
 
     var currHp = maxHp;
 
-	that.getHp = function(){
-		return currHp;
-	};
+    that.getHp = function(){
+	return currHp;
+    };
 
+    that.resetHp= function(){
+        currHp = maxHp;
+
+    };
     that.getAlive = function(){
         return (that.getHp() > 0)
     };
@@ -32,29 +36,29 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
         return 3000;
     };
 
-	that.doDamage = function(damage){
+    that.doDamage = function(damage){
 
-		currHp = currHp -damage;
+	currHp = currHp -damage;
         if (currHp <= 0){
             currHp = 0;
             setTimeout(function(){
                 that.respawn();
             }, that.getRespawnTime());
         }
-	};
+    };
 
     that.respawn = function(){
         currHp = maxHp;
         that.setX(that.getRespawnX());
     };
 
-	that.getWidth = function(){
-		return width;
-	};
+    that.getWidth = function(){
+	return width;
+    };
 
-	that.getHeight = function(){
-		return height;
-	};
+    that.getHeight = function(){
+	return height;
+    };
 
     that.isStunned = function(){
         return 0;
@@ -99,6 +103,6 @@ exports.BaseUnitComponent = function(maxHp, width, height, that){
         if (birdStun.active){
             that.setX(birdStun.bird.getX());
             that.setY(birdStun.bird.getY() +50);
-         }
+        }
     };
 };

@@ -9,31 +9,50 @@ var Game = function(){
     this.shrine_0 = new Shrine(0);
     this.shrine_1 = new Shrine(1);
 
+    var that = this;
+    this.update = function(){
+
+
+    };
 
     this.setShrineHp = function(newHp, team){
         if ( team === 0){
             this.shrine_0.setHp(newHp);
             if (this.shrine_0.getHp() === 0){
-               this.setWinner(1);
+                this.setWinner(1);
             }
         } else {
             this.shrine_1.setHp(newHp);
             if (this.shrine_1.getHp() === 0){
-               this.setWinner(0);
+                this.setWinner(0);
             }
         }
     }
     this.setWinner = function(w){
         winner = w; //0 or 1 depending on the winning team
+
+        //After winner is ser
+        setTimeout(function(){
+            //reset game after a winner is set
+            var players = that.getPlayers();
+            for (var i = 0; i < players.length; i++){
+                players[i].resetHp();
+		players[i].setX(players[i].getRespawnX());
+                winner = -1; //why the fuck do i do this?
+	        game1.setShrineHp(3000, 0);
+	        game1.setShrineHp(3000, 1);
+                game1.setState(1);
+            }
+        }, 5000);
     };
     this.getWinner = function(){
-          return winner;
+        return winner;
     };
     this.setState = function(s){ //0 means game is over
         if (state === 1 && s === 0){ // game finished
             state = s;
             return "GAME OVER";
-        } 
+        }
         state = s;
     };
     this.getState = function(){
@@ -50,14 +69,14 @@ var Game = function(){
     };
     this.removePlayer = function(thePlayer){
         for (var _i = 0; _i < this.team1.length; _i++){
-          if (this.team1[_i].id === thePlayer.id){
-           this.team1.splice(_i, 1);
-         }
-        } 
+            if (this.team1[_i].id === thePlayer.id){
+                this.team1.splice(_i, 1);
+            }
+        }
         for (var _i = 0; _i < this.team0.length; _i++){
-          if (this.team0[_i].id === thePlayer.id){
-           this.team0.splice(_i, 1);
-         }
+            if (this.team0[_i].id === thePlayer.id){
+                this.team0.splice(_i, 1);
+            }
         }
     };
     this.getPlayers = function(){
