@@ -34,6 +34,11 @@ var Shrine = function(_team) {
         if (newHp >= maxHp){
             hp = maxHp;
         } else if ( newHp <= 0){
+            console.log(game1.getWinner() +" < -- ");
+            if (game1.getWinner() != -1){
+                console.log("Already A WINNER SON " + game1.getWinner());
+                return;
+                }
             if (team == 0){
                 game1.setWinner(1);
             } else {

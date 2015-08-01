@@ -45,14 +45,12 @@ Server.prototype.updateGameVariables = function(){
     /* Manage AI behavior */
     /* if there is a winner */
 
+    // This is true for a moment, when the game has a winner.
     if (game1.getWinner() !== -1 && game1.getState() === 1){
 	/* Tell everyone about it and restart the game */
-	//do this once
-
 	server.libs.io.sockets.emit('win', {winner : game1.getWinner()});
-
+        // 0 means the state is over
 	game1.setState(0);
-
     }
 
     // update player positions
