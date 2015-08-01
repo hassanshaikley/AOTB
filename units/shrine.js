@@ -38,7 +38,7 @@ var Shrine = function(_team) {
             if (game1.getWinner() != -1){
                 console.log("Already A WINNER SON " + game1.getWinner());
                 return;
-                }
+            }
             if (team == 0){
                 game1.setWinner(1);
             } else {
