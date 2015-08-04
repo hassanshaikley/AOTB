@@ -14,7 +14,7 @@ var Fly = function(team){
 	var ySpeed = speed;
 
     var myMovementComponent = new MovementComponent(speed, this, ySpeed); // handles key input
-    var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this); 
+    var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this);
     var myBaseTeamComponent = new BaseTeamComponent(this);
     this.setTeam();
 

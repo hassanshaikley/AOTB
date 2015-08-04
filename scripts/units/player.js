@@ -278,6 +278,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     return drawAtY;
   };
 
+    this.getWidth = function(){
+        return 100;
+};
     this.getHeight = function(){
 	return 100;
 	};
@@ -338,8 +341,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   this.drawText = function(){
 
-	if (Math.abs(drawAtX - x) > 10){
-      console.log( Math.abs(x - drawAtX));
+	if (Math.abs(drawAtX - x) > 10){ // idk what this was for
+            //console.log( Math.abs(x - drawAtX));
 	}
 
      text_x = CONFIG.SCREEN_WIDTH/2 - localPlayer.localX() + drawAtX;
@@ -383,15 +386,45 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
        ctx.restore();
      */
   };
-  var now = Date.now()- 1000;
+    var now = Date.now()- 1000;
 
-  //useful for animating
-  this.setMeeleeAttack = function(_atk){
-  	if(_atk){
-  	current_action = CONFIG.ACTION.MEELEE_ATTACK;
-    }
-    meelee_attack = _atk;
-  }
+    var that = this;
+    /* Sets the current action to meeleee attack(For animation)
+     * And then checks for Collision
+     * To-DO:
+     *   Inform the server about a collision if it happens.
+     **/
+    this.setMeeleeAttack = function(_atk){
+        if(_atk){
+  	  current_action = CONFIG.ACTION.MEELEE_ATTACK;
+      }
+
+      //Anonymous function for determining if someone is hit
+      setTimeout(function(){
+
+          // build an array of every player in the game
+          var allPlayers = remotePlayers.slice();
+          allPlayers.push(localPlayer);
+
+          //remove this player from the array because a player obv cant attack itself lol
+          var index = allPlayers.indexOf( that)
+          if (index > -1 ){
+              allPlayers.splice(index);
+          } else {
+              console.log("wait what");
+          }
+          console.log(index + " < -- " );
+          for (var i = 0; i < allPlayers.length; i++){
+              if (helpers.collision(allPlayers[i], that)){
+                  //let the server know there was a collision
+                  console.log("GRINS");
+              }
+
+          }
+      }, 200);
+
+        meelee_attack = _atk;
+    };
 
   this.rightClick = function(clientX, clientY){
     var t_x = clientX ;
@@ -399,9 +432,11 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   };
 
     this.castSpellTwo = function(){
-        console.log("OFF GOES SPELL TOW");
         socket.emit("spell two", { x: localPlayer.getX(), y: localPlayer.getY(), direction :localPlayer.getMoveDirection()});
     };
+
+
+  /* */
 
   this.leftClick = function(){
     if (Date.now()  - now >= 1000 ){
