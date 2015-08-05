@@ -2,8 +2,7 @@ var Redhatter = function(name, x, y){
   var skeleton =  new Player(x, y, 70, name);
   var facing_left;
 
-  /* CASTS A METEOR :D */
-
+    var CC = new CollisionComponent(skeleton, 50, 50);
   skeleton.rightClick = function(clientX, clientY){
     var t_x = clientX ;
     socket.emit("spell one", { x: t_x });
@@ -15,10 +14,10 @@ var Redhatter = function(name, x, y){
   };
 
     var spells_thumb_array = [];
-  skeleton.setUpActionbar = function(){
-      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
-      MAIN.BOTACTIONBAR.addChild(sword_thumb);
-      var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("fireball.png"));
+    skeleton.setUpActionbar = function(){
+        var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
+        MAIN.BOTACTIONBAR.addChild(sword_thumb);
+        var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("fireball.png"));
       MAIN.BOTACTIONBAR.addChild(tort_stun);
       spells_thumb_array.push(sword_thumb)
       spells_thumb_array.push(tort_stun);

@@ -95,9 +95,9 @@ var Events = function(){
         var i;
 	   var that = this;
 	   setTimeout( function(){
-	    var _x = attacker.getX() - 20;
-	   var _y = attacker.getY()-15;
-          switch (attacker.getCharacterType()) {
+	       var _x = attacker.getX() - 20;
+	       var _y = attacker.getY()-15;
+               switch (attacker.getCharacterType()) {
           case "Shanker":
             if (data.direction === "right"){
 		_x += 50;

@@ -173,6 +173,7 @@ function onVisibleAgain(data){
 
 //receives an _x and _y var of where to draw
 function onDrawHitmarker(data){
+/*
         console.log("DRAING AT " +data.x);
 	var sprite = new PIXI.Sprite.fromFrame("hitmarker.fw.png");
 	sprite.x = data.x - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
@@ -181,6 +182,7 @@ function onDrawHitmarker(data){
 	setTimeout( function(){
 		MAIN.stage.removeChild(sprite);
 	}, 500);
+*/
 }
 
 /* Useful for animation, that's it*/
@@ -193,6 +195,7 @@ function onMeeleeAttack(data){
     player = playerById(data.attacker);
   }
   player.setMeeleeAttack(true);
+
 
 }
 
@@ -373,7 +376,8 @@ function onSocketDisconnect() {
   //Player disconnected from socket server
 console.log("AAA");
 
-for (var i = 0; i < remotePlayers.length; i++){
+for (var i = 0; i < remotePlayers
+.length; i++){
     MAIN.stage.removeChild(remotePlayers[i].imageContainer);
   };
 

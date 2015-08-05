@@ -24,6 +24,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	frames; //list of every image used in this guys animation
 
   	var current_action = CONFIG.ACTION.MOVING_RIGHT;
+    var meelee_attack_component = new MeeleeAttackComponent(this);
 
   var that = this;
     var invis = false;
@@ -395,35 +396,64 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
      *   Inform the server about a collision if it happens.
      **/
     this.setMeeleeAttack = function(_atk){
+        console.log("SETTING MEE");
         if(_atk){
-  	  current_action = CONFIG.ACTION.MEELEE_ATTACK;
-      }
-
-      //Anonymous function for determining if someone is hit
-      setTimeout(function(){
-
-          // build an array of every player in the game
-          var allPlayers = remotePlayers.slice();
-          allPlayers.push(localPlayer);
-
-          //remove this player from the array because a player obv cant attack itself lol
-          var index = allPlayers.indexOf( that)
-          if (index > -1 ){
-              allPlayers.splice(index);
-          } else {
-              console.log("wait what");
-          }
-          console.log(index + " < -- " );
-          for (var i = 0; i < allPlayers.length; i++){
-              if (helpers.collision(allPlayers[i], that)){
-                  //let the server know there was a collision
-                  console.log("GRINS");
-              }
-
-          }
-      }, 200);
+  	    current_action = CONFIG.ACTION.MEELEE_ATTACK;
+        }
 
         meelee_attack = _atk;
+        if (!_atk){
+            return;
+        }
+
+        //only hapens if meelee attack ist rue
+        //Anonymous function for determining if someone is hit
+        setTimeout(function(){
+            console.log("OK");
+
+            // build an array of every player in the game
+            var allPlayers = remotePlayers.slice();
+            allPlayers.push(localPlayer);
+
+            //remove this player from the array because a player obv cant attack itself lol
+            var index = allPlayers.indexOf( that)
+            if (index > -1 ){
+                allPlayers.splice(index);
+            } else {
+                console.log("wait what");
+            }
+
+
+
+            //draws hit box
+            if (CONFIG.SHOW_HITBOXES){
+                var bb = that.getMeeleeAttackBoundingBox();
+                var box = new PIXI.Graphics();
+                box.beginFill(0x00FF00);
+                box.drawRect(0, 0, bb.getWidth(), bb.getHeight());
+                box.endFill();
+                box.alpha  = .1;
+
+	        box.x = bb.getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2 - bb.getWidth()/2;
+	        box.y = bb.getY() - bb.getWidth()/2;
+                console.log("ADDING BOX");
+                MAIN.stage.addChild(box);
+	        setTimeout( function(){
+	            MAIN.stage.removeChild(box);
+	        }, 100);
+            }
+
+
+            for (var i = 0; i < allPlayers.length; i++){
+                if (helpers.collision(allPlayers[i], that.getMeeleeAttackBoundingBox())){
+                    //let the server know the attack landed
+
+                    console.log("GRINS");
+                }
+
+            }
+        }, 200);
+
     };
 
   this.rightClick = function(clientX, clientY){
@@ -448,7 +478,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
   this.localX = function(){
     return localPlayer.getDrawAtX();
-  }
+  };
 
   this.displayCooldown = function(spellNumber, cooldownTime){
     var casted_spell = MAIN.BOTACTIONBAR.getChildAt(spellNumber+2);
@@ -456,7 +486,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
     casted_spell.filters = [filter];
     CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell, duration: cooldownTime });
-  }
+  };
 
   // Define which variables and methods can be accessed
 };
