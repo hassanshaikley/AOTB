@@ -22,3 +22,27 @@ helpers.collision = function(thing1, thing2){
     };
     return false;
 };
+
+helpers.highlightPlayerHitboxes = function(){
+    var allPlayers = remotePlayers.slice();
+    allPlayers.push(localPlayer);
+    for (var _i =0; _i < allPlayers.length; _i++){
+        console.log("SON");
+        var box = new PIXI.Graphics();
+
+        box.beginFill(0x00FF00);
+        box.drawRect(0, 0, allPlayers[_i].getWidth(), allPlayers[_i].getHeight());
+        box.endFill();
+        box.alpha  = .4;
+
+	box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2 - allPlayers[_i].getWidth()/2;
+	box.y = allPlayers[_i].getY() - allPlayers[_i].getHeight()/2;
+        MAIN.stage.addChild(box);
+
+
+	setTimeout( function(){
+	    MAIN.stage.removeChild(box);
+	}, 400);
+
+    };
+};

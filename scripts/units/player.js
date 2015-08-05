@@ -396,7 +396,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
      *   Inform the server about a collision if it happens.
      **/
     this.setMeeleeAttack = function(_atk){
-        console.log("SETTING MEE");
         if(_atk){
   	    current_action = CONFIG.ACTION.MEELEE_ATTACK;
         }
@@ -409,8 +408,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         //only hapens if meelee attack ist rue
         //Anonymous function for determining if someone is hit
         setTimeout(function(){
-            console.log("OK");
-
             // build an array of every player in the game
             var allPlayers = remotePlayers.slice();
             allPlayers.push(localPlayer);
@@ -420,7 +417,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
             if (index > -1 ){
                 allPlayers.splice(index);
             } else {
-                console.log("wait what");
+
             }
 
 
@@ -432,15 +429,17 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
                 box.beginFill(0x00FF00);
                 box.drawRect(0, 0, bb.getWidth(), bb.getHeight());
                 box.endFill();
-                box.alpha  = .1;
+                box.alpha  = .4;
 
 	        box.x = bb.getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2 - bb.getWidth()/2;
 	        box.y = bb.getY() - bb.getWidth()/2;
-                console.log("ADDING BOX");
                 MAIN.stage.addChild(box);
+
+                helpers.highlightPlayerHitboxes();
+
 	        setTimeout( function(){
 	            MAIN.stage.removeChild(box);
-	        }, 100);
+	        }, 400);
             }
 
 
