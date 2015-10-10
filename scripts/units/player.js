@@ -392,16 +392,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     var that = this;
     /* Sets the current action to meeleee attack(For animation)
      * And then checks for Collision
-     * To-DO:
-     *   Inform the server about a collision if it happens.
      **/
-    this.setMeeleeAttack = function(_atk){
+    this.setMeeleeAttack = function(_atk, attack_id){
         if(_atk){
   	    current_action = CONFIG.ACTION.MEELEE_ATTACK;
         }
-
         meelee_attack = _atk;
-        if (!_atk){
+        if (!_atk){ // If meeelee attack is set to false, return
             return;
         }
 
@@ -411,16 +408,17 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
             // build an array of every player in the game
             var allPlayers = remotePlayers.slice();
             allPlayers.push(localPlayer);
-
             //remove this player from the array because a player obv cant attack itself lol
-            var index = allPlayers.indexOf( that)
+            var index = allPlayers.indexOf(that);
+            console.log(allPlayers.length +" <--- # of allplayers");
             if (index > -1 ){
-                allPlayers.splice(index);
+                console.log("SPLICING " + index);
+                allPlayers.splice(index, 1);
             } else {
 
+
             }
-
-
+            console.log("SIZE OF ALL PLAYERS IS " + allPlayers.length);
 
             //draws hit box
             if (CONFIG.SHOW_HITBOXES){
@@ -435,19 +433,19 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	        box.y = bb.getY() - bb.getWidth()/2;
                 MAIN.stage.addChild(box);
 
-                helpers.highlightPlayerHitboxes();
+//                helpers.highlightPlayerHitboxes();
 
 	        setTimeout( function(){
 	            MAIN.stage.removeChild(box);
 	        }, 400);
             }
 
-
+            console.log(allPlayers.length + " DOIING ");
             for (var i = 0; i < allPlayers.length; i++){
                 if (helpers.collision(allPlayers[i], that.getMeeleeAttackBoundingBox())){
                     //let the server know the attack landed
-
-                    console.log("GRINS");
+                    socket.emit("meelee hits", { "meelee hits": allPlayers[i].id, "hit_by":that.id, "attack_id" : attack_id});
+                    console.log("Meelee Hits");
                 }
 
             }

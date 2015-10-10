@@ -14,9 +14,7 @@ helpers.collision = function(thing1, thing2){
     var yDist = Math.abs(thing1.getY() - thing2.getY());
 
     if (xDist <= thing1.getWidth()/2  + thing2.getWidth()/2){
-        console.log("X Collides");
         if (yDist <= thing1.getHeight()/2 + thing2.getHeight()/2){
-            console.log("Y Collides");
             return true;
         }
     };
@@ -26,6 +24,7 @@ helpers.collision = function(thing1, thing2){
 helpers.highlightPlayerHitboxes = function(){
     var allPlayers = remotePlayers.slice();
     allPlayers.push(localPlayer);
+    console.log(allPlayers.length +"<");
     for (var _i =0; _i < allPlayers.length; _i++){
         console.log("SON");
         var box = new PIXI.Graphics();
@@ -44,5 +43,5 @@ helpers.highlightPlayerHitboxes = function(){
 	    MAIN.stage.removeChild(box);
 	}, 400);
 
-    };
+    }
 };

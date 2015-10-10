@@ -37,8 +37,57 @@ var Events = function(){
         client.on("meelee attack", onMeeleeAttack);
         client.on("init me", initClient);
         client.on("key press", onKeyPress);
+        client.on("meelee hits", onMeeleeHits);
     };
 
+
+    /* Function that is called whenever a player is said to be hit
+     * If 80% of clients say it happened within .1 seconds of it happening
+     * Then we will say that it has really happened.
+     */
+    meelee_hits = [];
+    function onMeeleeHits(data){
+        util.log("HITS>>" + data.attack_id + " -- " + data.hit);
+
+
+        var hit;
+        if (data.hit) {
+            hit = playerById(data.hit);
+        } else {
+            hit = playerById(this.id);
+        }
+        var hit_by = playerById(data.hit_by);
+
+
+        var msg = hit.id + "--" +hit_by.id;
+        if (meelee_hits[data.attack_id]){
+            meelee_hits[data.attack_id]++;
+        } else {
+            meelee_hits[data.attack_id] = 1;
+        }
+
+        // if attack with this id has happened enough times, then the attack is real
+        if (meelee_hits[data.attack_id] >= ( .6 * players.length)){
+            util.log("THE ATTACK MUST BE REAL");
+            //F FUCK YES
+            //  if enemy
+            util.log(" -- " + hit);
+            util.log("----" + hit_by);
+            if (hit.getTeam() != hit_by.getTeam()){
+                //do damage to hit_by according to hits damage
+                setHp(hit, hit_by.getDamage());
+            }
+            util.log(hit.getHp()+ " new hp");
+        }
+        util.log (meelee_hits[data.attack_id] + " HMM ");
+
+        // After a second, remove the attack to free up memory
+        if (meelee_hits[data.attack_id] == 1){
+            setTimeout(function(){
+                meelee_hits.splice(0,1);
+            }, 1000);
+        }
+    };
     var setEventHandlers = function(io) {
         // Socket.IO
         io.set("transports", ["websocket"]);
@@ -67,20 +116,25 @@ var Events = function(){
                    setTimeout(function() {
                         player.jumping = false
                     },
-                250);
+                400);
             }
         }
     }
 
 
+    /* Every meelee attack has an ID
+     *
+     */
+    var attack_id = 0;
     function onMeeleeAttack(data){ //when a player left clicks
+        /*
         var attacker = playerById(this.id);
         var damageBonus = 0;
 	    if (! attacker.getAlive()){
 	       return;
 	    };
 
-	   /* Make sure Meelee Attack isn't on CoolDown */
+	   // Make sure Meelee Attack isn't on CoolDown
         if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
             attacker.meeleeAttackTime = Date.now();
         } else {    //meelee attack is on CD
@@ -98,7 +152,7 @@ var Events = function(){
 	       var _x = attacker.getX() - 20;
 	       var _y = attacker.getY()-15;
                switch (attacker.getCharacterType()) {
-          case "Shanker":
+               case "Shanker":
             if (data.direction === "right"){
 		_x += 50;
 	    } else {
@@ -154,10 +208,45 @@ var Events = function(){
         //hitbox should depend on direction, so should create a hitbox then tell if the two hitboxes overlap!
         //a helped function would ideally take two rectangles and tell you if overlaps
 
-
+*/
         //Now get all the characters to animate the meelee attack = )
-        this.emit('meelee attack', {attacker: "you" });
-        this.broadcast.emit('meelee attack', {attacker: this.id});
+        this.emit('meelee attack', {attacker: this.id, attack_id: attack_id  });
+        this.broadcast.emit('meelee attack', {attacker: this.id, attack_id : attack_id});
+        attack_id++;
+        /* After .1 seconds iterates through hit array, to validate that
+         * a player is truly hit
+         * First needs to tabulate
+         */
+        var attacker_id = this.id;
+        /*setTimeout(function(){
+            util.log("TRYIN " + meelee_hits.length);
+            var temp_array =[];
+
+            for (var i = 0; i < meelee_hits.length; i++){
+
+                if (meelee_hits[i].hit_id == attacker_id){
+
+                    //THIS DOESNT WORK BC WHAT IF ONE ATTACK HITS SEVERAL PEOPLE AAA : (
+                    if (temp_array[hit_by_id]){
+                        temp_array[hit_by_id]++;
+                    } else {
+                        temp_array[hit_by_id] = 0;
+                    }
+                };
+            };
+
+            for (var i = 0; i < temp_array.length; i++){
+
+                if (temp_array[i] > (players.length * .8) ){
+                    util.log("Yeah I think " + playerById(temp_array[i]) +"s hit actually went through");
+                    temp_array[i] = 0;
+                }
+            };
+
+
+        }, 300);*/
+
+
     }
 
     function didAttackHitTower(attackX, attackY, team, damage){

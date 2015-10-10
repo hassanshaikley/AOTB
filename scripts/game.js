@@ -161,14 +161,14 @@ function onVisibleAgain(data){
     var player;
     if (data.id =="you"){
         player = localPlayer;
-  } else {
-       player  = playerById(data.id);
+    } else {
+      player  = playerById(data.id);
     }
-      if (player.getTeam() === localPlayer.getTeam()){
-          player.imageContainer.alpha = 1;
-          } else {
-      player.setInvis(false);
-      }
+    if (player.getTeam() === localPlayer.getTeam()){
+        player.imageContainer.alpha = 1;
+    } else {
+        player.setInvis(false);
+    }
 };
 
 //receives an _x and _y var of where to draw
@@ -188,13 +188,16 @@ function onDrawHitmarker(data){
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data){
   var player;
-  if (data.attacker === "you"){
+    player = playerById(data.attacker);
+
+    console.log(data.attack_id + "~~~<--");
+
+  if (!player){
     player = localPlayer;
     localPlayer.displayCooldown(1, 1000);
-  } else{
-    player = playerById(data.attacker);
   }
-  player.setMeeleeAttack(true);
+    console.log("player is " + player.getCharacterType());
+    player.setMeeleeAttack(true, data.attack_id);
 
 
 }

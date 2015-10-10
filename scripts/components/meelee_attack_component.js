@@ -28,7 +28,7 @@ var MeeleeAttackComponent = function(that){
             break;
         case "Fly":
             if (direction === "right"){
-                center_x = 63;
+                center_x += 63;
             } else {
                 center_x -= 28;
             }

@@ -67,6 +67,8 @@ var Game = function(){
             newPlayer.team = 1;
         }
     };
+
+
     this.removePlayer = function(thePlayer){
         for (var _i = 0; _i < this.team1.length; _i++){
             if (this.team1[_i].id === thePlayer.id){
@@ -81,6 +83,19 @@ var Game = function(){
     };
     this.getPlayers = function(){
         return this.team1.concat(this.team0);
+    };
+    var attacks =[];
+    this.attackHits = function(hit, hit_by){
+        var attack = {};
+        attack.hit_by = hit_by;
+        attack.hit = hit;
+        //For a hit to be real at least 50% of the players need to recognize it. Lol.
+	// var attacks = {hit_by : hit_by};
+        
+	//After 300 millisec assume he wasn't hit
+        setTimeout(function(){
+            //attack.
+        }, 300);
     };
 };
 
