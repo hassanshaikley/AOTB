@@ -197,7 +197,7 @@ function onMeeleeAttack(data){
     localPlayer.displayCooldown(1, 1000);
   }
     console.log("player is " + player.getCharacterType());
-    player.setMeeleeAttack(true, data.attack_id);
+    player.setMeeleeAttack(true, data.attack_id, data.direction);
 
 
 }

@@ -208,44 +208,19 @@ var Events = function(){
         //hitbox should depend on direction, so should create a hitbox then tell if the two hitboxes overlap!
         //a helped function would ideally take two rectangles and tell you if overlaps
 
-*/
-        //Now get all the characters to animate the meelee attack = )
-        this.emit('meelee attack', {attacker: this.id, attack_id: attack_id  });
-        this.broadcast.emit('meelee attack', {attacker: this.id, attack_id : attack_id});
-        attack_id++;
-        /* After .1 seconds iterates through hit array, to validate that
-         * a player is truly hit
-         * First needs to tabulate
          */
-        var attacker_id = this.id;
-        /*setTimeout(function(){
-            util.log("TRYIN " + meelee_hits.length);
-            var temp_array =[];
 
-            for (var i = 0; i < meelee_hits.length; i++){
+        var attacker = playerById(this.id);
+        if (attacker.invis){
+            becomeVisible(attacker, this);
+//            attacker.meeleeBonus();
 
-                if (meelee_hits[i].hit_id == attacker_id){
-
-                    //THIS DOESNT WORK BC WHAT IF ONE ATTACK HITS SEVERAL PEOPLE AAA : (
-                    if (temp_array[hit_by_id]){
-                        temp_array[hit_by_id]++;
-                    } else {
-                        temp_array[hit_by_id] = 0;
-                    }
-                };
-            };
-
-            for (var i = 0; i < temp_array.length; i++){
-
-                if (temp_array[i] > (players.length * .8) ){
-                    util.log("Yeah I think " + playerById(temp_array[i]) +"s hit actually went through");
-                    temp_array[i] = 0;
-                }
-            };
-
-
-        }, 300);*/
-
+        };
+        util.log("meelee attack " + data.direction);
+        //Now get all the characters to animate the meelee attack = )
+        this.emit('meelee attack', {attacker: this.id, attack_id: attack_id, direction: data.direction  });
+        this.broadcast.emit('meelee attack', {attacker: this.id, attack_id : attack_id, direction: data.direction});
+        attack_id++;
 
     }
 

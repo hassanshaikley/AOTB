@@ -23,10 +23,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	team,
 	frames; //list of every image used in this guys animation
 
-  	var current_action = CONFIG.ACTION.MOVING_RIGHT;
+    var current_action = CONFIG.ACTION.MOVING_RIGHT;
     var meelee_attack_component = new MeeleeAttackComponent(this);
 
-  var that = this;
+    var that = this;
     var invis = false;
 
    this.setInvis = function(_invis){
@@ -147,7 +147,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
   this.getMoveDirection = function(){
 
 
-    if (this.getMeeleeAttack()){
+      if (this.getMeeleeAttack()){
         if (last_move_direction === "left"){
   			current_action = CONFIG.ACTION.ATTACK_LEFT;
   			return "left";
@@ -393,15 +393,21 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     /* Sets the current action to meeleee attack(For animation)
      * And then checks for Collision
      **/
-    this.setMeeleeAttack = function(_atk, attack_id){
+    this.setMeeleeAttack = function(_atk, attack_id, direction){
         if(_atk){
-  	    current_action = CONFIG.ACTION.MEELEE_ATTACK;
-        }
-        meelee_attack = _atk;
-        if (!_atk){ // If meeelee attack is set to false, return
+            if (direction == "left"){
+                current_action = CONFIG.ACTION.ATTACK_LEFT;
+                last_move_direction = "left";
+            } else {
+  	        current_action = CONFIG.ACTION.ATTACK_RIGHT;
+                last_move_direction = "right";
+            }
+        } else { // If meeelee attack is set to false, return
+            console.log("MEELEE ATTACK FALSE NOW");
+            meelee_attack = _atk;
             return;
         }
-
+        meelee_attack = _atk; //alwayst true
         //only hapens if meelee attack ist rue
         //Anonymous function for determining if someone is hit
         setTimeout(function(){
@@ -410,7 +416,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
             allPlayers.push(localPlayer);
             //remove this player from the array because a player obv cant attack itself lol
             var index = allPlayers.indexOf(that);
-            console.log(allPlayers.length +" <--- # of allplayers");
+
             if (index > -1 ){
                 console.log("SPLICING " + index);
                 allPlayers.splice(index, 1);
@@ -418,7 +424,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 
             }
-            console.log("SIZE OF ALL PLAYERS IS " + allPlayers.length);
 
             //draws hit box
             if (CONFIG.SHOW_HITBOXES){
@@ -440,7 +445,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	        }, 400);
             }
 
-            console.log(allPlayers.length + " DOIING ");
+
             for (var i = 0; i < allPlayers.length; i++){
                 if (helpers.collision(allPlayers[i], that.getMeeleeAttackBoundingBox())){
                     //let the server know the attack landed

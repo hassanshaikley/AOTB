@@ -148,15 +148,14 @@ var Redhatter = function(name, x, y){
     }
 
 
-        redhatter_l.animationSpeed = .2;
+      redhatter_l.animationSpeed = .2;
       redhatter_r.animationSpeed = .2;
 
     if (this.getCurrentAction() == CONFIG.ACTION.IDLE) {
-
         redhatter_l.animationSpeed = 0;
-      redhatter_r.animationSpeed = 0;
-  redhatter_l.gotoAndPlay(0);
-  redhatter_r.gotoAndPlay(0);
+        redhatter_r.animationSpeed = 0;
+        redhatter_l.gotoAndPlay(0);
+        redhatter_r.gotoAndPlay(0);
        }
 
 
