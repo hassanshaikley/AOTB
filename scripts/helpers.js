@@ -21,12 +21,15 @@ helpers.collision = function(thing1, thing2){
     return false;
 };
 
+var hitboxes = [];
 helpers.highlightPlayerHitboxes = function(){
     var allPlayers = remotePlayers.slice();
     allPlayers.push(localPlayer);
     console.log(allPlayers.length +"<");
+
     for (var _i =0; _i < allPlayers.length; _i++){
         console.log("SON");
+
         var box = new PIXI.Graphics();
 
         box.beginFill(0x00FF00);
@@ -37,10 +40,11 @@ helpers.highlightPlayerHitboxes = function(){
 	box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2 - allPlayers[_i].getWidth()/2;
 	box.y = allPlayers[_i].getY() - allPlayers[_i].getHeight()/2;
         MAIN.stage.addChild(box);
-
+        hitboxes.push(box);
 
 	setTimeout( function(){
-	    MAIN.stage.removeChild(box);
+            var hitbox = hitboxes.pop();
+             	    MAIN.stage.removeChild(hitbox);
 	}, 400);
 
     }
