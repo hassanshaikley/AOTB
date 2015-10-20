@@ -360,10 +360,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     health.position.x = text_x-20;
     health.position.y = drawAtY-60;
     health.scale.x = Math.ceil((hp/maxHp)*40);
-	//hp is 100 : 100
-	//	x   : 40
-
-    //ol
     /*
        ctx.save();
        ctx.textAlign = 'center';
@@ -390,6 +386,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     var now = Date.now()- 1000;
 
     var that = this;
+
+
+
     /* Sets the current action to meeleee attack(For animation)
      * And then checks for Collision
      **/
@@ -424,9 +423,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
 
             }
-
             //draws hit box
             if (CONFIG.SHOW_HITBOXES){
+
+
                 var bb = that.getMeeleeAttackBoundingBox();
                 var box = new PIXI.Graphics();
                 box.beginFill(0x00FF00);
@@ -438,7 +438,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 	        box.y = bb.getY() - bb.getWidth()/2;
                 MAIN.stage.addChild(box);
 
-//                helpers.highlightPlayerHitboxes();
+                helpers.highlightPlayerHitboxes();
 
 	        setTimeout( function(){
 	            MAIN.stage.removeChild(box);
@@ -490,5 +490,4 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     CONFIG.COOLDOWNS.push( { filter: filter, parent: casted_spell, duration: cooldownTime });
   };
 
-  // Define which variables and methods can be accessed
 };

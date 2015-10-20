@@ -9,9 +9,9 @@ var Fly = function(name, x, y, hp){
 
   skeleton.setDescendAttack = function(boolean_thing, local){
     descendAttack = boolean_thing;
-   /* if (local) {
-      socket.emit("descend attack change", { descendAttack: boolean_thing });
-    }*/
+    /* if (local) {
+       socket.emit("descend attack change", { descendAttack: boolean_thing });
+       }*/
   };
 
 
@@ -24,24 +24,24 @@ var Fly = function(name, x, y, hp){
   var spells_thumb_array = [];
 
   skeleton.setUpActionbar = function(){
-      var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
-      MAIN.BOTACTIONBAR.addChild(sword_thumb);
-      var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("descend_thumb.png"));
-      MAIN.BOTACTIONBAR.addChild(tort_stun);
-      spells_thumb_array.push(sword_thumb);
-spells_thumb_array.push(tort_stun);
+    var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
+    MAIN.BOTACTIONBAR.addChild(sword_thumb);
+    var tort_stun =new PIXI.Sprite(PIXI.Texture.fromFrame("descend_thumb.png"));
+    MAIN.BOTACTIONBAR.addChild(tort_stun);
+    spells_thumb_array.push(sword_thumb);
+    spells_thumb_array.push(tort_stun);
 
 
-      for (var _i = 0; _i < spells_thumb_array.length; _i++){
-          console.log("HI teee");
-          helpers.addThumbToActionBar(spells_thumb_array[_i], "description" );
-      }
+    for (var _i = 0; _i < spells_thumb_array.length; _i++){
+      console.log("HI teee");
+      helpers.addThumbToActionBar(spells_thumb_array[_i], "description" );
+    }
 
-     /* sword_thumb.interactive = true;
+    /* sword_thumb.interactive = true;
 
-      sword_thumb.mouseover = function(mouseData){
-        console.log("MOUSE OVER!");
-      }*/
+       sword_thumb.mouseover = function(mouseData){
+       console.log("MOUSE OVER!");
+       }*/
   }
 
 
@@ -85,26 +85,26 @@ spells_thumb_array.push(tort_stun);
 
 
 
- // var flySprite =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("flysheet1.png"),PIXI.Texture.fromFrame("flysheet2.png"),PIXI.Texture.fromFrame("flysheet3.png")]);
+  // var flySprite =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("flysheet1.png"),PIXI.Texture.fromFrame("flysheet2.png"),PIXI.Texture.fromFrame("flysheet3.png")]);
 
   skeleton.imageContainer.addChild(fly_r);
-    fly_r.gotoAndPlay(0);
+  fly_r.gotoAndPlay(0);
 
   var flyAnimate= 0;
   var first = false,
       loop = false;
 
-    var halfHeight = skeleton.getHeight()/2;
+  var halfHeight = skeleton.getHeight()/2;
 
   skeleton.draw = function() {
-        this.drawText();
+    this.drawText();
 
-  var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
-   if (this.getMoveDirection() === "right" ){
-        drawAtX += 3;
-        } else {
-        drawAtX -= 3;
-}
+    var drawAtX  = CONFIG.SCREEN_WIDTH/2 + skeleton.getDrawAtX() - skeleton.localX() -50;
+    if (this.getMoveDirection() === "right" ){
+      drawAtX += 3;
+    } else {
+      drawAtX -= 3;
+    }
 
 
     fly_l.position.y = skeleton.getDrawAtY()-halfHeight;
@@ -127,44 +127,44 @@ spells_thumb_array.push(tort_stun);
 
     if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT){
       if (first === false){
-        fly_r_attack.gotoAndPlay(0);
-        first = true; //at the very end set first to true
-        fly_r_attack.animationSpeed = .2;
+	fly_r_attack.gotoAndPlay(0);
+	first = true; //at the very end set first to true
+	fly_r_attack.animationSpeed = .2;
 
       }
       if (fly_r_attack.currentFrame === 1){
-        loop = true;
+	loop = true;
       }
       if (fly_r_attack.currentFrame === 0 && loop){
-        first = false;
-        //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
-        this.setMeeleeAttack(false);
-        loop = false;
-        fly_r_attack.animationSpeed = 0;
+	first = false;
+	//this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
+	this.setMeeleeAttack(false);
+	loop = false;
+	fly_r_attack.animationSpeed = 0;
       }else {
-        skeleton.imageContainer.addChild(fly_r_attack);
+	skeleton.imageContainer.addChild(fly_r_attack);
       }
 
     } else if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_LEFT){
       if (first === false){
-        fly_l_attack.gotoAndPlay(0);
-        first = true; //at the very end set first to true
-        fly_l_attack.animationSpeed = .2;
+	fly_l_attack.gotoAndPlay(0);
+	first = true; //at the very end set first to true
+	fly_l_attack.animationSpeed = .2;
 
       }
       skeleton.imageContainer.addChild(fly_l_attack);
       if (fly_l_attack.currentFrame === 1){
-        loop = true;
+	loop = true;
       }
       if (fly_l_attack.currentFrame === 0 && loop){
-        first = false;
-        //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
-        this.setMeeleeAttack(false);
-        loop = false;
-        fly_l_attack.animationSpeed = 0;
+	first = false;
+	//this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
+	this.setMeeleeAttack(false);
+	loop = false;
+	fly_l_attack.animationSpeed = 0;
 
       } else {
-              skeleton.imageContainer.addChild(fly_l_attack);
+	skeleton.imageContainer.addChild(fly_l_attack);
       }
 
     } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_RIGHT){
@@ -173,76 +173,76 @@ spells_thumb_array.push(tort_stun);
       skeleton.imageContainer.addChild(fly_l);
     }  else { //is idling
       if (this.getMoveDirection() === "left"){
-        skeleton.imageContainer.addChild(fly_l);
+	skeleton.imageContainer.addChild(fly_l);
       } else {
-        skeleton.imageContainer.addChild(fly_r);
+	skeleton.imageContainer.addChild(fly_r);
       }
     }
 
 
-        fly_r.animationSpeed = .2;
-      fly_l.animationSpeed = .2;
+    fly_r.animationSpeed = .2;
+    fly_l.animationSpeed = .2;
 
 
 
 
 
-/*  fly_r.x = drawAtX;
-   fly_r.y = this.getDrawAtY()-75; // hacky I know wtf I know wtff
-*/
+    /*  fly_r.x = drawAtX;
+	fly_r.y = this.getDrawAtY()-75; // hacky I know wtf I know wtff
+     */
 
-/*
-    this.drawText();
-    ctx.save();
-    if (skeleton.getTeam()==0){
-      ctx.shadowBlur=20;
-      ctx.shadowColor="blue";
-    }
-    else {
-      ctx.shadowBlur=20;
-      ctx.shadowColor="green";
-    }
+    /*
+       this.drawText();
+       ctx.save();
+       if (skeleton.getTeam()==0){
+       ctx.shadowBlur=20;
+       ctx.shadowColor="blue";
+       }
+       else {
+       ctx.shadowBlur=20;
+       ctx.shadowColor="green";
+       }
 
 
-    ctx.drawImage(silverShield, drawAtX+ 20, this.getDrawAtY()-3);
+       ctx.drawImage(silverShield, drawAtX+ 20, this.getDrawAtY()-3);
 
-    if (descendAttack || rightMouseActionHappening){
-      if (!rightMouseActionHappening){
-        rightMouseActionHappening = true;
-      }
-      //200 is pretty badass
+       if (descendAttack || rightMouseActionHappening){
+       if (!rightMouseActionHappening){
+       rightMouseActionHappening = true;
+       }
+    //200 is pretty badass
     }
     if (descendAttack) {
-      ctx.save();
-      ctx.translate(drawAtX+60, this.getDrawAtY()-40 + 90);
-      ctx.rotate(Math.PI);
-      ctx.drawImage(silverSword, 0, -10);
-      ctx.restore();
+    ctx.save();
+    ctx.translate(drawAtX+60, this.getDrawAtY()-40 + 90);
+    ctx.rotate(Math.PI);
+    ctx.drawImage(silverSword, 0, -10);
+    ctx.restore();
     } else {
-      ctx.drawImage(silverSword, drawAtX+ 60, this.getDrawAtY()-40);
+    ctx.drawImage(silverSword, drawAtX+ 60, this.getDrawAtY()-40);
     }
     ctx.restore(); */
 
   };
 
   /*
-        if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
-          if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
+     if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
+     if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
 
-            remotePlayers[i].hitme = Date.now();
-*/
-  // Update player position
-  skeleton.update = function(keys) {
+     remotePlayers[i].hitme = Date.now();
+   */
+// Update player position
+skeleton.update = function(keys) {
 
-    localX = this.getX();
-    return;
-  };
+  localX = this.getX();
+  return;
+};
 
-  var f_cd = 1000;
-  var f_t = Date.now();
-  skeleton.getCharacterType = function(){
-    return "Fly";
-  };
+var f_cd = 1000;
+var f_t = Date.now();
+skeleton.getCharacterType = function(){
+  return "Fly";
+};
 
-  return skeleton;
+return skeleton;
 };
