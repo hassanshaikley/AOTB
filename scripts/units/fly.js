@@ -13,7 +13,12 @@ var Fly = function(name, x, y, hp){
        socket.emit("descend attack change", { descendAttack: boolean_thing });
        }*/
   };
-
+    skeleton.getWidth = function(){
+        return 80;
+    };
+        skeleton.getHeight = function(){
+        return 80;
+};
 
   skeleton.getDescendAttack = function(){
 
