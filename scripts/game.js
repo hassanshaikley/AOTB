@@ -99,7 +99,7 @@ localPlayer.imageContainer.zIndex =5;
   loadChat();
   localPlayer.setUpActionbar();
 
-
+    setInterval(helpers.highlightPlayerHitboxes, 200);
 
 }
 
@@ -491,14 +491,27 @@ function update() {
     background.updateX(localPlayer.getDrawAtX() );
   /* Updates the spells locations :D */
   for (i = 0; i < Spells.spellsarray.length; i++){
-    Spells.spellsarray[i].update();
+      //checks for collisions
+      //updates spell locations
+      var allPlayers = remotePlayers.slice();
+      allPlayers.push(localPlayer);
+      for (var j = 0; j < allPlayers.length; j++){
+          if (helpers.collision(allPlayers[j], Spells.spellsarray[i].getCollisionBox())){
+              //let the server know the attack landed
+      //        socket.emit("meelee hits", { "meelee hits": allPlayers[i].id, "hit_by":that.id, "attack_id" : attack_id});
+      //        console.log("Meelee Hits");
+          }
+       }
+      Spells.spellsarray[i].update();
+
   };
   for (i = 0; i < remotePlayers.length; i++) {
     /* Inefficient implementation, lazy yolo*/
     remotePlayers[i].updateVariables();
   };
 
-  localPlayer.update(keys);
+    localPlayer.update(keys);
+
 };
 
 

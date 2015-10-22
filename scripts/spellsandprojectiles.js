@@ -4,21 +4,51 @@
 m_cd = 1000;
 h_cd = 1000;
 var Spells = {
-  spellsarray: [],
+    spellsarray: [],
 
-  healingSpike: function(clientX, clientY) {
-    if (!localPlayer.healingcross || Date.now()-localPlayer.healingcross > h_cd){
-      var m = new HealingSpike(clientX);
-      socket.emit("healing spike cast", { _x : m.getX()});
-      localPlayer.healingcross = Date.now();
-    }
-  },
+    healingSpike: function(clientX, clientY) {
+        if (!localPlayer.healingcross || Date.now()-localPlayer.healingcross > h_cd){
+            var m = new HealingSpike(clientX);
+            socket.emit("healing spike cast", { _x : m.getX()});
+            localPlayer.healingcross = Date.now();
+        }
+    },
     arrow: function(clientX, clientY){
 	//var a = new Arrow(clientX, clientY);
 	socket.emit("arrow created", {x : clientX, y: clientY });
-  },
-  yoloswag: function() {
-  }
+    },
+    yoloswag: function() {
+    }
+
+};
+
+/* Constructor for anything that flies and moves and can hit*/
+var Projectile = function(startX, startY, caster){
+    this.x = startX;
+    this.y = startY;
+
+    this.getX = function(){
+        return this.x;
+    };
+    this.getY = function(){
+        return this.y;
+    };
+    this.getWidth = function(){
+        return 40;
+    };
+    this.getHeight = function(){
+        return 40;
+    };
+
+    this.getCollisionBox = function(){
+        return {
+            getX : this.getX,
+            getY : this.getY,
+            getWidth : this.getWidth,
+            getHeight : this.getHeight
+        };
+
+    };
 
 };
 
@@ -29,30 +59,30 @@ var BowmanArrow = function(startX, startY, _caster){
 	x = x + 2;
     };
     var draw = function(){
-	 //ctx.drawImage(arrow, x, y);
-	};
+	//ctx.drawImage(arrow, x, y);
+    };
     var getX = function(){
 	return x;
-	};
+    };
     var setX = function(newX){
 	var x = newX;
-	};
+    };
     var getY = function(){
-	   return 400;
-	 };
+	return 400;
+    };
     var setY = function(newY){
 
-	};
+    };
     return {
 	update : update,
 	draw:  draw,
 	getX: getX,
 	setX: setX
-}
+    }
 };
 var HealingSpike = function(startX, caster){
-  var x  = startX, active = true, y = -100;
-  y_t = 1;
+    var x  = startX, active = true, y = -100;
+    y_t = 1;
   var caster = caster;
   var draw = function(ctx){
     var trueX = x  - localPlayer.getX() + 50;
@@ -94,13 +124,15 @@ var HealingSpike = function(startX, caster){
     getDamage : getDamage
   }
 };
+
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
+    Projectile.call(this, meteorX, -70, mCaster);
+    var _this = this;
     this.caster = mCaster;
-  var x =meteorX,
-      y = -70;
     console.log("New meteor " + meteorX);
-      this.active = true; //active spells can hurt this specific client
+    this.active = true; //active spells can hurt this specific client
+
 
     var team;
     this.setTeam = function(_team){
@@ -109,26 +141,18 @@ var Meteor = function(meteorX, mCaster){
       if (team == 1){
 
         teamOneFilter(meteorClip);
-        }
-}
+      }
+    };
   this.update = function(){
-    y += 10;
+      this.y += 10;
     //  y+=1;
     //x += 2;
     var index = Spells.spellsarray.indexOf(this);
 
-    if (y >= 500){
+      if (this.y >= 500){
       Spells.spellsarray.splice(index, 1);
       MAIN.stage.removeChild(meteorClip);
     };
-  };
-
-  this.getX = function(){
-    return x;
-  };
-
-  this.getY = function(){
-    return y;
   };
 
   var meteorClip =new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("meteor_v5.fw.png")]);
@@ -139,7 +163,7 @@ var Meteor = function(meteorX, mCaster){
      meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-25;
 
    // meteorClip.x = fireballX;
-    meteorClip.y = y-20;
+      meteorClip.y = _this.y-20;
 
   };
 
