@@ -3,10 +3,11 @@ var Redhatter = function(name, x, y){
   var facing_left;
 
     var CC = new CollisionComponent(skeleton, 50, 50);
-  skeleton.rightClick = function(clientX, clientY){
+
+    /*skeleton.rightClick = function(clientX, clientY){
     var t_x = clientX ;
     socket.emit("spell one", { x: t_x });
-  };
+  };*/
 
   /* Lolswagz */
   skeleton.getCharacterType = function(){

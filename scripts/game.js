@@ -41,13 +41,15 @@ function init() {
   canvas1.oncontextmenu = function(e){ return false; };
   var clientRect;
   var adjustedX, adjustedY;
-  canvas1.onmousedown = function(e){
-    switch (e.which) {
+    canvas1.onmousedown = function(e){
+        console.log("OKE" + e.which);
+      switch (e.which) {
       case 1:
         clientRect = canvas1.getBoundingClientRect();
         adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2;
         adjustedX += (e.clientX - clientRect.left);
         adjustedY += e.clientY - clientRect.topy;
+
         localPlayer.leftClick(adjustedX, adjustedY);
         break;
       case 2:
@@ -55,7 +57,8 @@ function init() {
         break;
       case 3:
         clientRect = canvas1.getBoundingClientRect();
-        adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2;
+        console.log("IDIOTS");
+          adjustedX = localPlayer.getDrawAtX() -CONFIG.SCREEN_WIDTH/2;
         adjustedX += (e.clientX - clientRect.left);
         adjustedY += e.clientY - clientRect.topy;
         localPlayer.rightClick(adjustedX, adjustedY);
@@ -496,10 +499,11 @@ function update() {
       var allPlayers = remotePlayers.slice();
       allPlayers.push(localPlayer);
       for (var j = 0; j < allPlayers.length; j++){
-          if (helpers.collision(allPlayers[j], Spells.spellsarray[i].getCollisionBox())){
+
+          if (helpers.collision(allPlayers[j], Spells.spellsarray[i])){
               //let the server know the attack landed
-      //        socket.emit("meelee hits", { "meelee hits": allPlayers[i].id, "hit_by":that.id, "attack_id" : attack_id});
-      //        console.log("Meelee Hits");
+        //      socket.emit("spell hits", { "meelee hits": allPlayers[i].id, "hit_by": that.id, "attack_id" : attack_id});
+              console.log("Spell Hits");
           }
        }
       Spells.spellsarray[i].update();
@@ -511,7 +515,7 @@ function update() {
   };
 
     localPlayer.update(keys);
-
+    helpers.highlightSpellHitboxes();
 };
 
 

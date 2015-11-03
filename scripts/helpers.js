@@ -21,6 +21,28 @@ helpers.collision = function(thing1, thing2){
     return false;
 };
 
+
+helpers.highlightSpellHitboxes = function(){
+
+    for (var _i = 0; _i < Spells.spellsarray.length; _i++){
+        if (!Spells.spellsarray[_i].highlight){
+            Spells.spellsarray[_i].highlight = new PIXI.Graphics();
+            Spells.spellsarray[_i].highlight.beginFill(0x00FF00);
+            Spells.spellsarray[_i].highlight.drawRect(0, 0, Spells.spellsarray[_i].getWidth(),  Spells.spellsarray[_i].getHeight());
+            Spells.spellsarray[_i].highlight.endFill();
+            Spells.spellsarray[_i].highlight.alpha  = .1;
+            MAIN.stage.addChild( Spells.spellsarray[_i].highlight);
+
+        }
+
+        Spells.spellsarray[_i].highlight.x = Spells.spellsarray[_i].getX() + CONFIG.SCREEN_WIDTH/2 - localPlayer.getDrawAtX()-25;
+        Spells.spellsarray[_i].highlight.y = Spells.spellsarray[_i].getY();
+
+
+    }
+};
+
+
 var hitboxes = [];
 helpers.highlightPlayerHitboxes = function(){
     var allPlayers = remotePlayers.slice();

@@ -38,6 +38,14 @@ var Events = function(){
         client.on("init me", initClient);
         client.on("key press", onKeyPress);
         client.on("meelee hits", onMeeleeHits);
+        client.on("spell hits", onSpellHits);
+
+    };
+
+    spell_hits =[];
+    function onSpellHits(data){
+        util.log("HITS>>" + data.attack_id + " -- " + data.hit);
+
     };
 
 
@@ -338,7 +346,8 @@ var Events = function(){
                player.spellTwoCastTime = Date.now();
                Spells.spellsarray.push(v);
                this.emit('spell two', { x : data.x, y: data.y, spell: "rhrange", direction: data.direction, caster: "you" });
-               this.broadcast.emit('spell two', {x : data.x, y: data.y, spell: "rhrange", direction: data.direction});
+                   this.broadcast.emit('spell two', {x : data.x, y: data.y, spell: "rhrange", direction: data.direction});
+                   util.log("SWAGGER");
                }
                break;
             case "Fly":
@@ -365,52 +374,63 @@ var Events = function(){
 
         }
 
-	function onSpellOne(data){
-		var player = playerById(this.id);
+
+    var spell_id = 0;
+
+    function onSpellOne(data){
+	var player = playerById(this.id);
         if (! player.getAlive()){
-        return;
+            return;
         };
+
+        //1000 should be repalced with the spells cooldown!
+        if ( !player.spellOneCastTime + 1000  <=  Date.now()){
+            return;
+        } else {
+            player.spellOneCastTime = Date.now();
+
+        }
+
         util.log("O " + player.getCharacterType() + " - " + player.spellOneCastTime);
 
-        if (player.getCharacterType() === "Grimes" && player.spellOneCastTime + TortStun.getCooldown()  <=  Date.now() ) {
-            player.spellOneCastTime = Date.now();
-		    var v = new TortStun(data.x, data.y, player.getTeam());
+        if (player.getCharacterType() === "Grimes") {
+	    var v = new TortStun(data.x, data.y, player.getTeam());
             Spells.spellsarray.push(v);
-            this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true});
-            this.broadcast.emit('spell one', {x: data.x, spell: "tort stun" });
+            this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true, spell_id: spell_id});
+            this.broadcast.emit('spell one', {x: data.x, spell: "tort stun", spell_id: spell_id });
         }
-        if (player.getCharacterType() === "Fly" && player.spellOneCastTime + DescendAttack.getCooldown() <= Date.now() ){
-        util.log( "descend attacks");
-            player.spellOneCastTime = Date.now();
-        player.setDescendAttack(true);
-        this.emit("descend attack changes", { id: "self", descendAttack: true, casted_by_me: true });
-        this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: true});
-            }
-        if (player.getCharacterType() === "Redhatter" && player.spellOneCastTime + Meteor.getCooldown()  <=  Date.now() ){
-            player.spellOneCastTime = Date.now();
+        if (player.getCharacterType() === "Fly" ){
+            util.log( "descend attacks");
+            player.setDescendAttack(true);
+            this.emit("descend attack changes", { id: "self", descendAttack: true, casted_by_me: true, spell_id: spell_id });
+            this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: true, spell_id: spell_id});
+        }
+        if (player.getCharacterType() === "Redhatter" ){
             util.log("YEP");
-                //var v = new TortStun(data.x, data.y, team);
-                var v = new Meteor(data.x, data.y, player.getTeam());
-                Spells.spellsarray.push(v);
-                this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), casted_by_me: true });
-                this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam() });
+            var v = new Meteor(data.x, data.y, player.getTeam());
+            Spells.spellsarray.push(v);
+            this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), casted_by_me: true, spell_id: spell_id });
+            this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), spell_id: spell_id });
         }
-        if (player.getCharacterType() === "Shanker" && player.spellOneCastTime + Stealth.getCooldown() <= Date.now() ){
-            player.spellOneCastTime = Date.now();
-	        player.invis = true;
+        if (player.getCharacterType() === "Shanker" ){
+	    player.invis = true;
             var that = this;
             player.setSpeed(player.getBaseSpeed()*1.40);
-                setTimeout(function(){
-                    if (player.invis){
-                        becomeVisible(player, that);
-                    }
-                }, 3000);
+            setTimeout(function(){
+                if (player.invis){
+                    becomeVisible(player, that);
+                }
+            }, 3000);
 
-                this.emit('spell one', {id: "you", spell: "windwalk"});
-                this.broadcast.emit('spell one', {id: player.id, spell: "windwalk"});
+            this.emit('spell one', {id: "you", spell: "windwalk", spell_id: spell_id});
+            this.broadcast.emit('spell one', {id: player.id, spell: "windwalk", spell_id: spell_id});
 
         };
 
+        if (spell.projectile){
+
+        }
+        spell_id++;
     };
 
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });

@@ -23,7 +23,7 @@ var Spells = {
 };
 
 /* Constructor for anything that flies and moves and can hit*/
-var Projectile = function(startX, startY, caster){
+var Projectile = function(startX, startY, width, height, caster){
     this.x = startX;
     this.y = startY;
 
@@ -34,20 +34,10 @@ var Projectile = function(startX, startY, caster){
         return this.y;
     };
     this.getWidth = function(){
-        return 40;
+        return width;
     };
     this.getHeight = function(){
-        return 40;
-    };
-
-    this.getCollisionBox = function(){
-        return {
-            getX : this.getX,
-            getY : this.getY,
-            getWidth : this.getWidth,
-            getHeight : this.getHeight
-        };
-
+        return height;
     };
 
 };
@@ -127,7 +117,7 @@ var HealingSpike = function(startX, caster){
 
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster){
-    Projectile.call(this, meteorX, -70, mCaster);
+    Projectile.call(this, meteorX, -70, 40, 110, mCaster);
     var _this = this;
     this.caster = mCaster;
     console.log("New meteor " + meteorX);
@@ -163,10 +153,13 @@ var Meteor = function(meteorX, mCaster){
      meteorClip.x = CONFIG.SCREEN_WIDTH/2 + meteorX - localPlayer.getDrawAtX()-25;
 
    // meteorClip.x = fireballX;
-      meteorClip.y = _this.y-20;
+      meteorClip.y = _this.y-.2;//was  20
 
   };
 
 
   return this ;
 };
+
+Meteor.prototype = Object.create(Projectile.constructor);
+Meteor.prototype.constructor = Meteor;
