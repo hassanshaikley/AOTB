@@ -493,33 +493,34 @@ var newTime = Date.now();
 var updateTime = 50;
 function update() {
 
-  handleCooldownVisuals();
+    handleCooldownVisuals();
     background.updateX(localPlayer.getDrawAtX() );
-  /* Updates the spells locations :D */
-  for (i = 0; i < Spells.spellsarray.length; i++){
-      //checks for collisions
-      //updates spell locations
-      var allPlayers = remotePlayers.slice();
-      allPlayers.push(localPlayer);
-      for (var j = 0; j < allPlayers.length; j++){
+    /* Updates the spells locations :D */
+    for (i = 0; i < Spells.spellsarray.length; i++){
+        //checks for collisions
+        //updates spell locations
+        var allPlayers = remotePlayers.slice();
+        allPlayers.push(localPlayer);
+        for (var j = 0; j < allPlayers.length; j++){
 
           if (helpers.collision(allPlayers[j], Spells.spellsarray[i])){
               //let the server know the attack landed
               //going to only want to do this once!
+
               socket.emit("spell hits", { "hit": allPlayers[i].id,
                                           "hit_by": Spells.spellsarray[i].caster,
                                           "spell_id" : Spells.spellsarray[i].spell_id});
 
-              console.log("Spell Hits");
+              console.log("Spell Hits " +allPlayers[i].id + " -- " +Spells.spellsarray[i].caster );
           }
        }
       Spells.spellsarray[i].update();
 
   };
-  for (i = 0; i < remotePlayers.length; i++) {
-    /* Inefficient implementation, lazy yolo*/
-    remotePlayers[i].updateVariables();
-  };
+    for (i = 0; i < remotePlayers.length; i++) {
+        /* Inefficient implementation, lazy yolo*/
+        remotePlayers[i].updateVariables();
+    };
 
     localPlayer.update(keys);
     helpers.highlightSpellHitboxes();

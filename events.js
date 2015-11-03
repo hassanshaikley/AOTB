@@ -52,7 +52,51 @@ var Events = function(){
         } else {
             hit = playerById(this.id);
         }
-        var hit_by = playerById(data.hit_by);
+
+        util.log("lol"+(data.hit_by == undefined));
+        if (!(data.hit_by == undefined)){
+                        util.log("NEP");
+
+            hit_by = playerById(data.hit_by);
+        } else {
+            util.log("YEP");
+            hit_by = playerById(this.id);
+        }
+        util.log("player that was hit by is " + hit_by);
+
+        var msg = hit.id + "--" +hit_by.id;
+
+        if (spell_hits[data.spell_id]){
+            spell_hits[data.spell_id]++;
+        } else {
+            spell_hits[data.spell_id] = 1;
+        }
+
+        // if attack with this id has happened enough times, then the attack is real
+        if (spell_hits[data.spell_id] >= ( .6 * players.length)){
+            util.log("THE ATTACK MUST BE REAL lol jk");
+            //F FUCK YES
+            //  if enemy
+            util.log(" -- " + hit);
+            util.log("----" + hit_by);
+
+            if (hit.getTeam() != hit_by.getTeam()){
+                //do damage to hit_by according to hits damage
+                setHp(hit, hit_by.getDamage());
+            }
+            util.log(hit.getHp()+ " new hp");
+        }
+        util.log (spell_hits[data.spell_id] + " HMM ");
+
+        // After a second, remove the attack to free up memory
+        if (spell_hits[data.spell_id] == 1){
+            setTimeout(function(){
+                util.log("nmmm splice");
+                spell_hits.splice(0,1);
+            }, 1000);
+        }
+
+
     };
 
 
