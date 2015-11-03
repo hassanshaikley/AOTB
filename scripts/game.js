@@ -207,16 +207,18 @@ function onMeeleeAttack(data){
 function onSpellOne(data){
     console.log('MAKING DAT METEOR BRO');
     var cd;
-  if (data.spell === "tort stun"){ //should be a variable shared between server and client
-	  var m = new TortStun(data.x, data.y, data.caster);
-	  Spells.spellsarray.push(m);
-      cd = 3000;
-  } else if (data.spell === "meteor"){
-    var m = new Meteor(data.x, data.caster);
-    m.setTeam(data.team);
-    Spells.spellsarray.push(m);
-      cd = 6000;
-  }
+    if (data.spell === "tort stun"){ //should be a variable shared between server and client
+	var m = new TortStun(data.x, data.y, data.caster);
+        m.spell_id = data.spell_id;
+	Spells.spellsarray.push(m);
+        cd = 3000;
+    } else if (data.spell === "meteor"){
+        var m = new Meteor(data.x, data.caster);
+        m.spell_id = data.spell_id;
+        m.setTeam(data.team);
+        Spells.spellsarray.push(m);
+        cd = 6000;
+    }
 
 
   if (data.spell === "windwalk"){
@@ -238,6 +240,7 @@ function onSpellOne(data){
   }
     console.log(data.id);
     console.log(data.casted_by_me || data.id ==="you");
+
   //if cast by this player then show the cooldown
   if (data.casted_by_me || data.id =="you"){
     localPlayer.displayCooldown(2, cd);
@@ -502,7 +505,11 @@ function update() {
 
           if (helpers.collision(allPlayers[j], Spells.spellsarray[i])){
               //let the server know the attack landed
-        //      socket.emit("spell hits", { "meelee hits": allPlayers[i].id, "hit_by": that.id, "attack_id" : attack_id});
+              //going to only want to do this once!
+              socket.emit("spell hits", { "hit": allPlayers[i].id,
+                                          "hit_by": Spells.spellsarray[i].caster,
+                                          "spell_id" : Spells.spellsarray[i].spell_id});
+
               console.log("Spell Hits");
           }
        }

@@ -44,8 +44,15 @@ var Events = function(){
 
     spell_hits =[];
     function onSpellHits(data){
-        util.log("HITS>>" + data.attack_id + " -- " + data.hit);
+        util.log("HITS>>" + data.spell_id + " -- " + data.hit);
 
+        var hit;
+        if (data.hit) {
+            hit = playerById(data.hit);
+        } else {
+            hit = playerById(this.id);
+        }
+        var hit_by = playerById(data.hit_by);
     };
 
 
@@ -382,9 +389,10 @@ var Events = function(){
         if (! player.getAlive()){
             return;
         };
-
+        util.log("SPELL ONING");
         //1000 should be repalced with the spells cooldown!
-        if ( !player.spellOneCastTime + 1000  <=  Date.now()){
+        if ( ! (player.spellOneCastTime + 1000  <=  Date.now())){
+            util.log("DONE");
             return;
         } else {
             player.spellOneCastTime = Date.now();
@@ -413,6 +421,7 @@ var Events = function(){
             this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), spell_id: spell_id });
         }
         if (player.getCharacterType() === "Shanker" ){
+            util.log("SHE");
 	    player.invis = true;
             var that = this;
             player.setSpeed(player.getBaseSpeed()*1.40);
@@ -421,15 +430,13 @@ var Events = function(){
                     becomeVisible(player, that);
                 }
             }, 3000);
-
+            util.log("SINDWALK");
             this.emit('spell one', {id: "you", spell: "windwalk", spell_id: spell_id});
             this.broadcast.emit('spell one', {id: player.id, spell: "windwalk", spell_id: spell_id});
 
         };
 
-        if (spell.projectile){
-
-        }
+       //if spell is a projectile do something idk lol
         spell_id++;
     };
 

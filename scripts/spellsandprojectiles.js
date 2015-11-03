@@ -40,6 +40,8 @@ var Projectile = function(startX, startY, width, height, caster){
         return height;
     };
 
+    this.caster = caster;
+
 };
 
 var BowmanArrow = function(startX, startY, _caster){
