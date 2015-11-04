@@ -132,6 +132,7 @@ Server.prototype.updateGameVariables = function(){
         //            util.log(server.Spells.spellsarray.length);
 	//util.log( Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX())+ " < " +(server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) )
         var targetShrine;
+        util.log("LELEL LE LE ");
         if (server.Spells.spellsarray[i].getTeam() == 0){
             targetShrine = game1.shrine_1;
         } else {
@@ -162,6 +163,7 @@ Server.prototype.updateGameVariables = function(){
          server.libs.io.sockets);*/
 
 	for (var j = 0; j < players.length; j++) {
+            util.log("LELELrrrE");
             if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
                 continue;
             }
@@ -188,7 +190,7 @@ Server.prototype.updateGameVariables = function(){
     };
 
 
-    //appears to iterate through every player and submit their info to everyone
+    //appears to iterate through every player and send their info to everyone
     for (var j = 0; j < players.length; j++){
 	server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].getTeam() });
     }

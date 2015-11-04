@@ -42,7 +42,37 @@ var Events = function(){
 
     };
 
+
+    /*
+     * Need to unify attacks and spell ids, and have this be able to do the right thing based
+     * on if an attack has already happened
+     * Requirement: user has already associated an attack_id with a user ID
+     * Need array of player ID and attack ID
+
+     */
+    function userHasRegistered(entity){
+
+    };
+
     spell_hits =[];
+
+    /*
+     * Player is hit
+     * Ignore request from other player
+     * Spell hits is an array of a spell and how many people say it hit them
+     * One design is an array [attack_1, attack_2]
+     * Only increment if this id has not submitted as message about this specific
+     * Attack or spellss
+     * If
+     * Design options : Array of attacks, each attack is an object with an ID associated with it,
+     * Beacause we need to be able to remember
+     * PROS: Look up attack is instant (each has an id. indexed by ID)
+     *   Then iterate through the array member that contains the ID's, if the ID doesn't exist
+     *   add it, otherwise skip
+     * Perhaps make an attack entity object that is a gameobject
+     * That handles this
+     *
+     */
     function onSpellHits(data){
         util.log("HITS>>" + data.spell_id + " -- " + data.hit);
 
@@ -53,15 +83,20 @@ var Events = function(){
             hit = playerById(this.id);
         }
 
-        util.log("lol"+(data.hit_by == undefined));
-        if (!(data.hit_by == undefined)){
-                        util.log("NEP");
+        if (userHasRegistered(data.spell_id)){
+            return;
+        }
 
+        util.log("lol"+(data.hit_by == undefined));
+
+        if (!(data.hit_by == undefined)){
+            util.log("NEP");
             hit_by = playerById(data.hit_by);
         } else {
             util.log("YEP");
             hit_by = playerById(this.id);
         }
+
         util.log("player that was hit by is " + hit_by);
 
         var msg = hit.id + "--" +hit_by.id;
@@ -299,6 +334,7 @@ var Events = function(){
     function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing){
 	var playersHit = [];
         for (i = 0; i< players.length; i++){
+            util.log("LELELE");
             if (players[i].getTeam() === team){
                 continue;
             };

@@ -204,6 +204,11 @@ function onMeeleeAttack(data){
 
 }
 
+/* Yay a function : D
+ * When a user says a spell hit, it should incrememnt the number of users that
+ * said that the hit went through.
+ * gotta make sure one user can only say it once . :D : D :D : D
+ */
 function onSpellOne(data){
     console.log('MAKING DAT METEOR BRO');
     var cd;
@@ -213,6 +218,7 @@ function onSpellOne(data){
 	Spells.spellsarray.push(m);
         cd = 3000;
     } else if (data.spell === "meteor"){
+        console.log("NEW METEOR LOL");
         var m = new Meteor(data.x, data.caster);
         m.spell_id = data.spell_id;
         m.setTeam(data.team);
@@ -227,9 +233,9 @@ function onSpellOne(data){
       var player;
       console.log(" ~ >" +data.id);
       if (data.id === "you" ){
-       player = localPlayer;
+          player = localPlayer;
       } else {
-       player = playerById(data.id);
+          player = playerById(data.id);
       }
 
       if (player.getTeam() == localPlayer.getTeam()){
@@ -241,17 +247,17 @@ function onSpellOne(data){
     console.log(data.id);
     console.log(data.casted_by_me || data.id ==="you");
 
-  //if cast by this player then show the cooldown
-  if (data.casted_by_me || data.id =="you"){
-    localPlayer.displayCooldown(2, cd);
-  }
+    //if cast by this player then show the cooldown
+    if (data.casted_by_me || data.id =="you"){
+        localPlayer.displayCooldown(2, cd);
+    }
 }
 
 /* Updates location of all connected players*/
 function onUpdatePlayer(data){
     var player = playerById(data.id);
     if (!player){
-	 player = localPlayer;
+	player = localPlayer;
     }
     player.setX(data.x);
     player.setY(data.y);
@@ -506,6 +512,7 @@ function update() {
           if (helpers.collision(allPlayers[j], Spells.spellsarray[i])){
               //let the server know the attack landed
               //going to only want to do this once!
+
 
               socket.emit("spell hits", { "hit": allPlayers[i].id,
                                           "hit_by": Spells.spellsarray[i].caster,
