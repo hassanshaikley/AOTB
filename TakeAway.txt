@@ -1,9 +1,0 @@
-Not commenting things is so confusing. 
-
-I have random numbers without knowing the importance when re-reading the code.
-
-Tests are super important.
-
-Use a camera object... :(
-
-
