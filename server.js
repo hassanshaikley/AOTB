@@ -1,6 +1,7 @@
 /**************************************************
- ** SERVER CLASS FOR THE GAME
+ ** SERVER CLASS FOR THE GAME,
  ** Run this file for game to work
+ ** Should enforce singletoness
  **************************************************/
 function Server(){
     this.libs = require("./initialize.js").loadLibraries();
@@ -8,6 +9,8 @@ function Server(){
     this.event_handler = new this.events();
     this.Spells = require("./spellsandprojectiles").Spells;
     require("./initialize.js").initialize();
+
+
 }
 
 //configuration file
@@ -23,21 +26,6 @@ Server.prototype.init = function() {
     server.updateGameVariables();
 };
 
-//I am such a good friend!
-/*
-function helpNarine(){
-
-    var User = require('./app/models/user');
-    User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
-	//	var pass = doc.generateHash("abc123");
-	doc.local.nickname = "sejoody";
-	doc.save(function(err){
-
-	});
-
-    });
-
-};*/
 
 /* Function for performing computations on the server! ..I think. */
 Server.prototype.updateGameVariables = function(){
@@ -72,16 +60,14 @@ Server.prototype.updateGameVariables = function(){
 		    players[_i].setDescendAttack(false);
 		    server.libs.io.sockets.emit('descend attack changes', { id: players[_i].id, descendAttack: false });
 		} else {
-
 		    players[_i].drop();
-
 		    continue;
 		}
 	    };
 	};
 
         players[_i].update();
-    }
+    };
 
     /* Algorithm for determining who's hit by a fly... */
     var i;
@@ -89,24 +75,6 @@ Server.prototype.updateGameVariables = function(){
     for (i = 0; i < players.length; i++) {
 
 	if (players[i].getCharacterType() === "Fly" && players[i].getDescendAttack()){
-	    if  (Math.abs(players[i].getX() - game1.shrine_1.getX())<= 100 &&
-		 players[i].getTeam() != 1 && (game1.shrine_0.hitby[i] == undefined ||
-					       Date.now() -game1.shrine_1.hitby[i] >= 1000)){
-
-		if (Math.abs(game1.shrine_1.getY() - players[i].getY() )<=150 ){
-		    game1.shrine_1.setHp(game1.shrine_1.getHp() -25 );
-		    game1.shrine_1.hitby[i] = Date.now();
-
-		}
-	    }
-	    if  ( Math.abs(players[i].getX() - game1.shrine_0.getX() <= 100 &&
-			   players[i].getTeam() != 0 &&( game1.shrine_0.hitby[i] == undefined ||
-						         (Date.now() -game1.shrine_0.hitby[i]) >= 1000))) {
-		if (Math.abs(game1.shrine_0.getY() - players[i].getY()) <= 150){ // shanker made contact at 114
-		    game1.shrine_0.setHp(game1.shrine_0.getHp() -25 );
-		    game1.shrine_0.hitby[i] = Date.now();
-		}
-	    }
 	    //now see if hits any players
 	    for (j = 0; j < players.length; j++){
 		if (i != j){  //so a player does not attack him/herself
@@ -130,29 +98,6 @@ Server.prototype.updateGameVariables = function(){
         //server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX(), y: server.Spells.spellsarray[i].getY() });
 
         //            util.log(server.Spells.spellsarray.length);
-	//util.log( Math.abs( server.Spells.spellsarray[i].getX() - game1.shrine_1.getX())+ " < " +(server.Spells.spellsarray[i].getHalfWidth() + game1.shrine_1.getHalfWidth() ) )
-        var targetShrine;
-        util.log("LELEL LE LE ");
-        if (server.Spells.spellsarray[i].getTeam() == 0){
-            targetShrine = game1.shrine_1;
-        } else {
-            targetShrine = game1.shrine_0;
-        }
-
-        // 0 - 2500
-        if (  (targetShrine.hitby[i] == undefined) || Date.now() - targetShrine.hitby[i] > 1000){
-	    if  ( Math.abs( server.Spells.spellsarray[i].getX() - targetShrine.getX()) <
-		  server.Spells.spellsarray[i].getHalfWidth() + targetShrine.getHalfWidth() ) {
-		if (Math.abs(targetShrine.getY() - server.Spells.spellsarray[i].getY())<= (targetShrine.getHeight() + server.Spells.spellsarray[i].getHeight() ) ) {
-                    var damage = server.Spells.spellsarray[i].getDamage();
-                    if (server.Spells.spellsarray[i].name =="tortstun"){
-                    	damage +=100;
-                    }
-		    targetShrine.setHp(targetShrine.getHp() -damage );
-		    targetShrine.hitby[i] = Date.now();
-		}
-	    }
-    	}
 
 
 
@@ -196,23 +141,11 @@ Server.prototype.updateGameVariables = function(){
     }
 
     /* Method for telling all the units about the health of the structures and stuff */
-    server.sendUpdatedGame();
     setTimeout(function(){
 	server.updateGameVariables();
     }, 1000 /15);
 };
 
-/* LETS TELL IF SOMEBODY is hit on the server */
-function setHp(hitPlayer, damage){ //where hitplayer is like players[i]
-    hitPlayer.doDamage(damage); //sets the damage
-    //    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-    //server.libs.io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
-
-}
-
-Server.prototype.sendUpdatedGame = function(){
-    server.libs.io.sockets.emit('shrine hp', {zero: game1.shrine_0.getHp(), one : game1.shrine_1.getHp()});
-};
 
 server.init();
 

@@ -1,22 +1,24 @@
 /**************************************************
+ ** events.js
  ** GAME EVENT HANDLERS
  **************************************************/
-var  Fly = require("./units/fly").Fly,
-     Redhatter = require("./units/redhatter").Redhatter,
-     Grimes = require("./units/grimes").Grimes,
-  //   Bowman = require("./units/bowman").Bowman,
-   //  Skelly = require("./units/skelly").Skelly,
-     Shanker = require("./units/shanker").Shanker,
-   //  Crevice = require("./units/crevice").Crevice,
-     Spells = require("./spellsandprojectiles.js").Spells,
-     Meteor = require("./spellsandprojectiles.js").Meteor,
-     Stealth = require("./spells/stealth.js").Stealth,
-     TortStun = require("./spells/tortstun.js").TortStun,
-     RHRange =  require("./spells/rhrange.js").RHRange;
-     BowmanArrow    = require("./spellsandprojectiles.js").BowmanArrow,
-     DescendAttack = require("./spellsandprojectiles.js").DescendAttack;
+var Fly = require("./units/fly").Fly,
+    Redhatter = require("./units/redhatter").Redhatter,
+    Grimes = require("./units/grimes").Grimes,
+    //   Bowman = require("./units/bowman").Bowman,
+    //  Skelly = require("./units/skelly").Skelly,
+    Shanker = require("./units/shanker").Shanker,
+    //  Crevice = require("./units/crevice").Crevice,
+    Spells = require("./spellsandprojectiles.js").Spells,
+    Stealth = require("./spells/stealth.js").Stealth,
+    TortStun = require("./spells/tortstun.js").TortStun,
+    RHRange =  require("./spells/rhrange.js").RHRange,
+    DescendAttack = require("./spells/descendattack.js").DescendAttack,
+    CollidingObject = require("./gameObjects/CollidingObject.js").CollidingObject,
+    Meteor = require("./spells/meteor.js").Meteor;
 
-    var CONFIG = require("./config");
+
+var CONFIG = require("./config");
 
 var util = require("util");
 
@@ -31,7 +33,7 @@ var Events = function(){
         });
         // Listen for new player message
         client.on("new player", onNewPlayer);
-	client.on("spell one", onSpellOne);
+        client.on("spell one", onSpellOne);
         client.on("spell two", onSpellTwo);
         client.on("respawn player", onRespawn);
         client.on("meelee attack", onMeeleeAttack);
@@ -39,18 +41,6 @@ var Events = function(){
         client.on("key press", onKeyPress);
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
-
-    };
-
-
-    /*
-     * Need to unify attacks and spell ids, and have this be able to do the right thing based
-     * on if an attack has already happened
-     * Requirement: user has already associated an attack_id with a user ID
-     * Need array of player ID and attack ID
-
-     */
-    function userHasRegistered(entity){
 
     };
 
@@ -71,11 +61,15 @@ var Events = function(){
      *   add it, otherwise skip
      * Perhaps make an attack entity object that is a gameobject
      * That handles this
+
+     * Or every spell can have a member variable that is an array of
+     * The ID's that say the spell has landed!
      *
      */
     function onSpellHits(data){
         util.log("HITS>>" + data.spell_id + " -- " + data.hit);
 
+        // get the id of the person that hit
         var hit;
         if (data.hit) {
             hit = playerById(data.hit);
@@ -83,11 +77,6 @@ var Events = function(){
             hit = playerById(this.id);
         }
 
-        if (userHasRegistered(data.spell_id)){
-            return;
-        }
-
-        util.log("lol"+(data.hit_by == undefined));
 
         if (!(data.hit_by == undefined)){
             util.log("NEP");
@@ -97,15 +86,9 @@ var Events = function(){
             hit_by = playerById(this.id);
         }
 
-        util.log("player that was hit by is " + hit_by);
+        //get that specific spell by its ID
 
-        var msg = hit.id + "--" +hit_by.id;
-
-        if (spell_hits[data.spell_id]){
-            spell_hits[data.spell_id]++;
-        } else {
-            spell_hits[data.spell_id] = 1;
-        }
+        var spell = Spells.spellsarray[0];
 
         // if attack with this id has happened enough times, then the attack is real
         if (spell_hits[data.spell_id] >= ( .6 * players.length)){
@@ -153,7 +136,6 @@ var Events = function(){
         var hit_by = playerById(data.hit_by);
 
 
-        var msg = hit.id + "--" +hit_by.id;
         if (meelee_hits[data.attack_id]){
             meelee_hits[data.attack_id]++;
         } else {
@@ -318,19 +300,6 @@ var Events = function(){
 
     }
 
-    function didAttackHitTower(attackX, attackY, team, damage){
-        var shrine;
-        if (team == 0){
-            shrine = game1.shrine_1;
-        } else {
-            shrine = game1.shrine_0;
-        }
-        if  (Math.abs(attackX - shrine.getX()) <= shrine.getHalfWidth() ){
-            if (Math.abs(shrine.getY() - attackY) <= shrine.getHeight()/2 ){
-                  shrine.setHp(shrine.getHp() - damage );
-            }
-        }
-    }
     function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing){
 	var playersHit = [];
         for (i = 0; i< players.length; i++){
@@ -431,8 +400,9 @@ var Events = function(){
                var v = new RHRange(data.x, data.y, data.direction, player.getTeam());
                if (!player.spellTwoCastTime || player.spellTwoCastTime + RHRange.getCooldown() <= Date.now()){
                player.spellTwoCastTime = Date.now();
-               Spells.spellsarray.push(v);
-               this.emit('spell two', { x : data.x, y: data.y, spell: "rhrange", direction: data.direction, caster: "you" });
+//               Spells.spellsarray.push(v);
+                   Spells.spellsarray[spell_id] = v;
+                   this.emit('spell two', { x : data.x, y: data.y, spell: "rhrange", direction: data.direction, caster: "you" });
                    this.broadcast.emit('spell two', {x : data.x, y: data.y, spell: "rhrange", direction: data.direction});
                    util.log("SWAGGER");
                }
@@ -483,7 +453,8 @@ var Events = function(){
 
         if (player.getCharacterType() === "Grimes") {
 	    var v = new TortStun(data.x, data.y, player.getTeam());
-            Spells.spellsarray.push(v);
+//            Spells.spellsarray.push(v);
+            Spells.spellsarray[spell_id] = v;
             this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true, spell_id: spell_id});
             this.broadcast.emit('spell one', {x: data.x, spell: "tort stun", spell_id: spell_id });
         }
@@ -496,7 +467,8 @@ var Events = function(){
         if (player.getCharacterType() === "Redhatter" ){
             util.log("YEP");
             var v = new Meteor(data.x, data.y, player.getTeam());
-            Spells.spellsarray.push(v);
+            //commented out that old line lol
+            Spells.spellsarray[spell_id] = v;
             this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), casted_by_me: true, spell_id: spell_id });
             this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), spell_id: spell_id });
         }

@@ -1,9 +1,0 @@
-The types of things
->>GameObject 
-  >>SpellObject
-  >>AttackObject 
->>MeleeAttacks
->>DamageSpells
->>HelperSpells
-
-SpawnedObject

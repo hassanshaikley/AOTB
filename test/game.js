@@ -14,17 +14,14 @@ describe("Test Game", function() {
 
     it ("should have made an empty game", function(){
         assert.equal(game.getPlayers().length, 0);
-        var fly = new Fly("hassanlol", 0);
-        game.addPlayer(fly);
-        assert.equal(game.getPlayers()[0].getName(), "hassanlol"); 
-    });  
+    });
 
     it ("should be able to remove a player", function(){
-        var fly = new Fly("hassanlol", 0);
+        var fly = new Fly(0);
         game.addPlayer(fly);
-        assert.equal(game.getPlayers().length, 1); 
+        assert.equal(game.getPlayers().length, 1);
         game.removePlayer(fly);
-        assert.equal(game.getPlayers().length, 0); 
+        assert.equal(game.getPlayers().length, 0);
     });
 
     it ("shouldn't crash", function(){
@@ -36,7 +33,19 @@ describe("Test Game", function() {
         game.setState(0);
         assert.equal(game.getState(), 0);
     });
-    it ("able to change shrine HP", function(){
-        game.setShrineHp(0);
+
+
+    it ("add a non existent MeeleeAttack shouldnt work", function(){
+        assert.equal(game.addSpell(), 0);
+
     });
+    it("add a non existen spell shouldnt work", function(){
+        assert.equal(game.addMeeleeAttack(), 0);
+    });
+    it("different games should have unique IDs", function(){
+        var game2 = new Game();
+        assert.notEqual(game2.getID(), game.getID());
+
+    });
+
 });

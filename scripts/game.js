@@ -25,8 +25,6 @@ function init() {
   canvas1 = document.getElementsByTagName("canvas")[0];
   ctx =  canvas1.getContext("webgl");
 
-  shrine_0 = new Shrine(0);
-  shrine_1 = new Shrine(1);
   // Declare the canvas and rendering context
 
 
@@ -132,7 +130,6 @@ var setEventHandlers = function() {
   socket.on("port to arena", onPortToArena);
   socket.on("set gold", onSetGold);
   socket.on("set hp", onSetHp);
-  socket.on("shrine hp", onShrineHp);
   socket.on("init me", onInitMe);
   socket.on("win", onWin);
   socket.on("update player", onUpdatePlayer);
@@ -309,10 +306,7 @@ function onWin(data){
   }, 5000);
 };
 
-function onShrineHp(data){
-  shrine_0.setHp(data.zero);
-  shrine_1.setHp(data.one);
-};
+
 function onSetHp(data){
 
   localPlayer.setHp(data.hp);
@@ -540,10 +534,6 @@ function update() {
 function draw() {
   // Wipe the canvas clean
    // drawBackground();
-  //draw shrine here i think
-  shrine_0.draw();
-  shrine_1.draw();
-
   var i;
 
   for (i = 0; i < Spells.spellsarray.length; i++){
