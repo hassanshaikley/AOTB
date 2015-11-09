@@ -35,12 +35,5 @@ Then simply run
     npm test
 
 
-#file structure explanation
-   ROOT
-   		/units -- server unit classes
-   		/spells -- server spell classes
-   		/scripts -- local javascript
-   			/test -- clientside tests
-   		/app -- routes
-   		/views -- html.ejs
-   		/test -- serverside test
+# Some notes about current and future strategies are in the notes folder
+

@@ -13,10 +13,7 @@ var Game = function(){
 
     var active_spells = {};
 
-    this.update = function(){
-        //do stuff related to this game
 
-    };
 
     /* Socket ID, Player Object */
     var active_players = {};
@@ -132,6 +129,13 @@ var Game = function(){
         return gameID;
     };
 
+    this.update = function(){
+        //do stuff related to this game
+        // If a spell is in active remove it from the active spells
+
+    };
+
+    
 };
 
 exports.Game = Game;

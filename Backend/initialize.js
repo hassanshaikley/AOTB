@@ -1,5 +1,6 @@
 /* Defines a bunch of variables and settings */
 var Game = require('./game.js').Game;
+
 module.exports = {
     //loads all the libraries into this object : D
     loadLibraries : function(){
@@ -9,7 +10,7 @@ module.exports = {
         this.express = require("express"); // Express JS
         this.flash    = require('connect-flash'); // Flash Messages
         this.port = 5000; // Locally uses port 5000, else uses port of server
-        this.configDB      = require('./config/database.js');
+        this.configDB      = require('./Config/database.js');
         this.cookieParser  = require('cookie-parser');
         this.bodyParser    = require('body-parser');
         this.session       = require('express-session');
@@ -18,7 +19,7 @@ module.exports = {
         this.io            = require("socket.io").listen(this.server);
         this.MongoStore   = require('connect-mongo')(this.session);
 
-        require('./config/passport')(this.passport); // pass passport for configuration
+        require('./Config/passport')(this.passport); // pass passport for configuration
         return this;
 
     },
@@ -41,12 +42,12 @@ module.exports = {
         this.app.use(this.passport.initialize());
         this.app.use(this.passport.session()); // persistent login sessions
         this.app.set('views', __dirname + '/../Frontend/views');
-        require('./app/routes.js')(this.app, this.passport);
+        require('./App/routes.js')(this.app, this.passport);
         this.app.engine('html', require('ejs').renderFile);
         //    this.app.use(this.logfmt.requestLogger());
         this.app.use("/styles", this.express.static(__dirname + '/../Frontend/styles'));
-        this.app.use("/localAssets", this.express.static(__dirname + '/../Frontend/localAssets'));
-        this.app.use("/scripts", this.express.static(__dirname + '/../Frontend/scripts'));
+        this.app.use("/localAssets", this.express.static(__dirname + '/../Frontend/Images'));
+        this.app.use("/scripts", this.express.static(__dirname + '/../Frontend/JavaScript'));
 
         //at the end get this server to listen up friends : D
         var port = this.port;
