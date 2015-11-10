@@ -35,13 +35,20 @@ describe("Test Game", function() {
     });
 
 
-    it ("add a non existent MeeleeAttack shouldnt work", function(){
+    it ("add a non existent spell shouldnt work", function(){
         assert.equal(game.addSpell(), 0);
 
     });
-    it("add a non existen spell shouldnt work", function(){
+    it("add a non existen meeelee attack shouldnt work", function(){
         assert.equal(game.addMeeleeAttack(), 0);
     });
+
+    it ("add a spell should work", function(){
+        var x = new Meteor();
+        assert.equal(game.addSpell(x), 1);
+
+    });
+
     it("different games should have unique IDs", function(){
         var game2 = new Game();
         assert.notEqual(game2.getID(), game.getID());
