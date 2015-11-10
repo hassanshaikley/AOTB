@@ -9,7 +9,7 @@ var TortStun = function(_x, _y, _team) {
 	var width = 50;
 	var active = true;
 
-	    IDComponent(this);
+	IDComponent(this);
 
 
     spell.getDamage = function(){
