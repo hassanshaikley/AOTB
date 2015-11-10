@@ -41,13 +41,13 @@ module.exports = {
         }));
         this.app.use(this.passport.initialize());
         this.app.use(this.passport.session()); // persistent login sessions
-        this.app.set('views', __dirname + '/../Frontend/views');
+        this.app.set('views', __dirname + '/../Frontend/Views');
         require('./App/routes.js')(this.app, this.passport);
         this.app.engine('html', require('ejs').renderFile);
         //    this.app.use(this.logfmt.requestLogger());
-        this.app.use("/styles", this.express.static(__dirname + '/../Frontend/styles'));
+        this.app.use("/styles", this.express.static(__dirname + '/../Frontend/CSS'));
         this.app.use("/localAssets", this.express.static(__dirname + '/../Frontend/Images'));
-        this.app.use("/scripts", this.express.static(__dirname + '/../Frontend/JavaScript'));
+        this.app.use("/scripts", this.express.static(__dirname + '/../Frontend/JavaScripts'));
 
         //at the end get this server to listen up friends : D
         var port = this.port;

@@ -425,7 +425,7 @@ var Events = function(){
                     }
                 }
 
-              break;
+                break;
 
             }
 
@@ -455,8 +455,6 @@ var Events = function(){
 	    var v = new TortStun(data.x, data.y, player.getTeam());
 //            Spells.spellsarray.push(v);
             Spells.spellsarray[spell_id] = v;
-            game1.addSpell(v);
-
             this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true, spell_id: spell_id});
             this.broadcast.emit('spell one', {x: data.x, spell: "tort stun", spell_id: spell_id });
         }
@@ -469,14 +467,8 @@ var Events = function(){
         if (player.getCharacterType() === "Redhatter" ){
             util.log("YEP");
             var v = new Meteor(data.x, data.y, player.getTeam());
-            
-            v.id = spell_id;
-
             //commented out that old line lol
             Spells.spellsarray[spell_id] = v;
-
-            game1.addSpell(v);
-            
             this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), casted_by_me: true, spell_id: spell_id });
             this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), spell_id: spell_id });
         }

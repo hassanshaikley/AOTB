@@ -8,7 +8,7 @@ If you have any tips please comment! Especially with respect to design patterns 
 
 ##Demo
 
-[Keys are w, a, s, d & right click! ](http://amara-staging.herokuapp.com )
+[Keys are w, a, s, d & right click!](http://aotb.io )
 
 ##Running
 
@@ -18,9 +18,10 @@ If you need to, refer to MongoDB's docs for that one.
 
 Then simply clone and run.
 
-    git clone https://hassanshaikley@bitbucket.org/hassanshaikley/amara-game.git && cd amara-game
-    npm install #requires npm
-    node web.js #nodemon if you are cool tho
+    >> git clone https://hassanshaikley@bitbucket.org/hassanshaikley/amara-game.git && cd amara-game
+    >> npm install #requires npm
+    >> cd Backened
+    >> node server.js
 
 Now head over to to localhost:5000 and enjoy!
 

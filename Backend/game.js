@@ -1,6 +1,9 @@
 var GameID = 0; // Every Game should have a unique ID
 
+var util = require("util");
 var Game = function(){
+
+
     var state  = 1; //game state 0 means a game is won, make these constants
 
     var gameID = GameID++;
@@ -109,11 +112,12 @@ var Game = function(){
 
 
     /* Requires that every spell has an ID*/
-    this.addSpell = function(spell){
+    this.addSpell = function(spell){ 
+        util.log("ADDING SPELL " + spell + " ID " + spell.id);
         if (!spell){
             return 0;
         } else {
-            active_spells[spells.id] = spell;
+            active_spells[spell.id] = spell;
         };
     };
 
@@ -130,8 +134,15 @@ var Game = function(){
     };
 
     this.update = function(){
-        //do stuff related to this game
-        // If a spell is in active remove it from the active spells
+       // util.log("UPDATING OK : D" + JSON.stringify(active_spells));
+        for (spell in active_spells){
+         //   util.log("UPDATING SPELL " + spell);
+            if(active_spells[spell].getActive()){
+                active_spells[spell].update()
+            } else {
+                delete active_spells[spell];
+            }
+        }
 
     };
 
