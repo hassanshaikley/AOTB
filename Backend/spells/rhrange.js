@@ -17,7 +17,6 @@ var RHRange = function(_x, _y, _direction, _team) {
     spell.getDamage = function(){
         return 5;
     };
-
     spell.hit = []
 
     spell.getHalfWidth = function(){

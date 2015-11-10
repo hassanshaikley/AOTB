@@ -1,9 +1,9 @@
 var assert = require("assert");
 var testhelper = require('./testhelper');
 var Game = require('../game.js').Game;
-var TortStun = require('../spells/tortstun.js').TortStun;
-var Meteor = require('../spells/meteor.js').Meteor;
-var Stealth = require('../spells/stealth.js').Stealth;
+var TortStun = require('../Spells/tortstun.js').TortStun;
+var Meteor = require('../Spells/meteor.js').Meteor;
+var Stealth = require('../Spells/stealth.js').Stealth;
 
 describe("Test Spells", function() {
     var game;

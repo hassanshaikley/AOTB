@@ -9,12 +9,12 @@ var Fly = require("./units/fly").Fly,
     //  Skelly = require("./units/skelly").Skelly,
     Shanker = require("./units/shanker").Shanker,
     //  Crevice = require("./units/crevice").Crevice,
-    Stealth = require("./spells/stealth.js").Stealth,
-    TortStun = require("./spells/tortstun.js").TortStun,
-    RHRange =  require("./spells/rhrange.js").RHRange,
-    DescendAttack = require("./spells/descendattack.js").DescendAttack,
+    Stealth = require("./Spells/stealth.js").Stealth,
+    TortStun = require("./Spells/tortstun.js").TortStun,
+    RHRange =  require("./Spells/rhrange.js").RHRange,
+    DescendAttack = require("./Spells/descendattack.js").DescendAttack,
     CollidingObject = require("./gameObjects/CollidingObject.js").CollidingObject,
-    Meteor = require("./spells/meteor.js").Meteor;
+    Meteor = require("./Spells/meteor.js").Meteor;
 
 
 var CONFIG = require("./config");
