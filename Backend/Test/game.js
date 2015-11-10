@@ -4,6 +4,7 @@ var Game = require('../game.js').Game;
 var Fly = require('../units/fly.js').Fly;
 var Redhatter = require('../units/redhatter.js').Redhatter;
 var Shanker = require('../units/shanker.js').Shanker;
+var Meteor = require("../Spells/meteor.js").Meteor;
 
 describe("Test Game", function() {
     var game;

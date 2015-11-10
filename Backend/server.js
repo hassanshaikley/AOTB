@@ -12,7 +12,7 @@ function Server(){
     this.libs = require("./initialize.js").loadLibraries();
     this.events = require("./events").Events;
     this.event_handler = new this.events();
-    this.Spells = require("./spellsandprojectiles").Spells;
+    //this.Spells = require("./spellsandprojectiles").Spells;
     require("./initialize.js").initialize();
 }
 
@@ -99,7 +99,7 @@ Server.prototype.updateGames = function(){
 
     /* Iterate through every spell, if it hits someone then let them take the hit son : D */
 
-    for (i = 0; i < server.Spells.spellsarray.length; i++){
+  //  for (i = 0; i < server.Spells.spellsarray.length; i++){
         /*
 
 	for (var j = 0; j < players.length; j++) {
@@ -129,8 +129,8 @@ Server.prototype.updateGames = function(){
     */
 
 
-	server.Spells.spellsarray[i].update();
-    };
+	   //server.Spells.spellsarray[i].update();
+  //  };
 
 
     //appears to iterate through every player and send their info to everyone

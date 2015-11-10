@@ -1,9 +1,14 @@
 var Spell = require("./spell").Spell; // so it can inherits :D
-var Spells = require("../spellsandprojectiles").Spells;
+//var Spells = require("../spellsandprojectiles").Spells;
+var IDComponent = require("../Components/id-component.js").IDComponent;
 
 var RHRange = function(_x, _y, _direction, _team) {
     var spell = new Spell(_x, _y, _team, 10);
     var speed = 10;
+
+        IDComponent(this);
+
+
     if (_direction == "left"){
         speed = -speed;
     }

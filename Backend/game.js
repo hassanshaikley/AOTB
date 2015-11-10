@@ -3,7 +3,6 @@ var GameID = 0; // Every Game should have a unique ID
 var util = require("util");
 var Game = function(){
 
-
     var state  = 1; //game state 0 means a game is won, make these constants
 
     var gameID = GameID++;
@@ -16,6 +15,7 @@ var Game = function(){
 
     var active_spells = {};
 
+    var spell_id = 0;
 
 
     /* Socket ID, Player Object */
@@ -113,11 +113,12 @@ var Game = function(){
 
     /* Requires that every spell has an ID*/
     this.addSpell = function(spell){ 
-        util.log("ADDING SPELL " + spell + " ID " + spell.id);
         if (!spell){
             return 0;
         } else {
-            active_spells[spell.id] = spell;
+            util.log("ADDING SPELL " + spell + " ID " + spell.getID());
+            active_spells[spell.getID()] = spell;
+            return 1;
         };
     };
 

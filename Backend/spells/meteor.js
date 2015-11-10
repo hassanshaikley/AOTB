@@ -1,12 +1,16 @@
-var Spells = require("../spellsandprojectiles").Spells;
+//var Spells = require("../spellsandprojectiles").Spells;
+var IDComponent = require("../Components/id-component.js").IDComponent;
 
+var util = require("util");
 /* */
 var Meteor = function(meteorX, mCaster, _team){
     var caster = mCaster;
     var caster_team;
     this.hit = [];
     var team = _team;
-
+    
+    IDComponent(this);
+    util.log("OK MAYB");
     /*
      * Array of who this has hit and according to whom
      * Key Value pair is the order of WhoSaid, WhoItHit

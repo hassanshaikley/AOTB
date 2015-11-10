@@ -9,7 +9,6 @@ var Fly = require("./units/fly").Fly,
     //  Skelly = require("./units/skelly").Skelly,
     Shanker = require("./units/shanker").Shanker,
     //  Crevice = require("./units/crevice").Crevice,
-    Spells = require("./spellsandprojectiles.js").Spells,
     Stealth = require("./spells/stealth.js").Stealth,
     TortStun = require("./spells/tortstun.js").TortStun,
     RHRange =  require("./spells/rhrange.js").RHRange,
@@ -87,8 +86,6 @@ var Events = function(){
         }
 
         //get that specific spell by its ID
-
-        var spell = Spells.spellsarray[0];
 
         // if attack with this id has happened enough times, then the attack is real
         if (spell_hits[data.spell_id] >= ( .6 * players.length)){
@@ -401,7 +398,6 @@ var Events = function(){
                if (!player.spellTwoCastTime || player.spellTwoCastTime + RHRange.getCooldown() <= Date.now()){
                player.spellTwoCastTime = Date.now();
 //               Spells.spellsarray.push(v);
-                   Spells.spellsarray[spell_id] = v;
                    this.emit('spell two', { x : data.x, y: data.y, spell: "rhrange", direction: data.direction, caster: "you" });
                    this.broadcast.emit('spell two', {x : data.x, y: data.y, spell: "rhrange", direction: data.direction});
                    util.log("SWAGGER");
@@ -432,7 +428,6 @@ var Events = function(){
         }
 
 
-    var spell_id = 0;
 
     function onSpellOne(data){
 	var player = playerById(this.id);
@@ -454,33 +449,30 @@ var Events = function(){
         if (player.getCharacterType() === "Grimes") {
 	    var v = new TortStun(data.x, data.y, player.getTeam());
 //            Spells.spellsarray.push(v);
-            Spells.spellsarray[spell_id] = v;
             game1.addSpell(v);
 
-            this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true, spell_id: spell_id});
-            this.broadcast.emit('spell one', {x: data.x, spell: "tort stun", spell_id: spell_id });
+            this.emit('spell one', {x: data.x, spell: "tort stun", casted_by_me: true, spell_id: v.getID()});
+            this.broadcast.emit('spell one', {x: data.x, spell: "tort stun", spell_id: v.getID() });
         }
         if (player.getCharacterType() === "Fly" ){
             util.log( "descend attacks");
             player.setDescendAttack(true);
-            this.emit("descend attack changes", { id: "self", descendAttack: true, casted_by_me: true, spell_id: spell_id });
-            this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: true, spell_id: spell_id});
+            this.emit("descend attack changes", { id: "self", descendAttack: true, casted_by_me: true, spell_id: v.getID() });
+            this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: true, spell_id: v.getID()});
         }
         if (player.getCharacterType() === "Redhatter" ){
             util.log("YEP");
             var v = new Meteor(data.x, data.y, player.getTeam());
             
-            v.id = spell_id;
-
             //commented out that old line lol
-            Spells.spellsarray[spell_id] = v;
 
             game1.addSpell(v);
             
-            this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), casted_by_me: true, spell_id: spell_id });
-            this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), spell_id: spell_id });
+            this.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), casted_by_me: true, spell_id: v.getID() });
+            this.broadcast.emit('spell one', {x: data.x, spell: "meteor", team: player.getTeam(), spell_id: v.getID() });
         }
         if (player.getCharacterType() === "Shanker" ){
+            v = new Stealth();
             util.log("SHE");
 	    player.invis = true;
             var that = this;
@@ -491,13 +483,12 @@ var Events = function(){
                 }
             }, 3000);
             util.log("SINDWALK");
-            this.emit('spell one', {id: "you", spell: "windwalk", spell_id: spell_id});
-            this.broadcast.emit('spell one', {id: player.id, spell: "windwalk", spell_id: spell_id});
+            this.emit('spell one', {id: "you", spell: "windwalk", spell_id: v.getID()});
+            this.broadcast.emit('spell one', {id: player.id, spell: "windwalk", spell_id: v.getID()});
 
         };
 
        //if spell is a projectile do something idk lol
-        spell_id++;
     };
 
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
