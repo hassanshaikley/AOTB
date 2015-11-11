@@ -78,8 +78,7 @@ var Events = function(){
 
 
         if (!(data.hit_by == undefined)){
-            util.log("NEP");
-            hit_by = playerById(data.hit_by);
+             hit_by = playerById(data.hit_by);
         } else {
             util.log("YEP");
             hit_by = playerById(this.id);
@@ -130,7 +129,14 @@ var Events = function(){
         } else {
             hit = playerById(this.id);
         }
-        var hit_by = playerById(data.hit_by);
+     //   var hit_by = playerById(data.hit_by);
+
+        if (!(data.hit_by == undefined)){
+             hit_by = playerById(data.hit_by);
+        } else {
+            util.log("YEPPERS");
+            hit_by = playerById(this.id);
+        }
 
 
         if (meelee_hits[data.attack_id]){
