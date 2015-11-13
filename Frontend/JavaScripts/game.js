@@ -6,6 +6,7 @@ var canvas, // Canvas DOM element
     socket,
     _alert, // Socket connection
     localGame;
+
 function Game() {
     this.bloods = [];
 };
@@ -18,14 +19,14 @@ function init() {
     MAIN.stage.addChild(background)
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
-    // Declare the canvas and rendering context
+    /* 
     var line = new PIXI.Graphics();
     line.beginFill(0x000000);
     line.drawRect(CONFIG.SCREEN_WIDTH / 2 - 1, 300, 2, 200);
     line.endFill();
-    //only do if debug mode
-    //MAIN.stage.addChild(line);
-    //disable right click default behavior
+    MAIN.stage.addChild(line);
+    */
+
     canvas1.oncontextmenu = function(e) {
         return false;
     };
@@ -496,12 +497,6 @@ function drawForeground() {
         localGame.bloods[_i].draw();
     }
 }
-// Browser window resize
-function onResize(e) {
-    // Maximise the canvas
-    //canvas.width = 800;
-    //canvas.height = 500;
-};
 // Find player by ID
 function playerById(id) {
     var i;
