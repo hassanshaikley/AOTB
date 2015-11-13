@@ -1,27 +1,21 @@
-var Bowman = function(name, x, y, hp){
-  var skeleton =  Player(x, y, hp, name),
-      facing_left;
-
-  var spritesheet_offset_y = 0;
-
-  skeleton.rightClick = function(clientX, clientY){
-    //Spells.arrow(clientX, clientY);
-  };
-
-  /* 
-  skeleton.leftClick = function(clientX, clientY){
-  };*/
-
-  /* Lolswagz */
-  skeleton.getCharacterType = function(){
-    return "Bowman";
-  };
-
-  skeleton.draw = function() {
+var Bowman = function(name, x, y, hp) {
+    var skeleton = Player(x, y, hp, name),
+        facing_left;
+    var spritesheet_offset_y = 0;
+    skeleton.rightClick = function(clientX, clientY) {
+        //Spells.arrow(clientX, clientY);
+    };
+    /* 
+    skeleton.leftClick = function(clientX, clientY){
+    };*/
+    /* Lolswagz */
+    skeleton.getCharacterType = function() {
+        return "Bowman";
+    };
+    skeleton.draw = function() {
         this.drawText();
-
-    //var drawAtX = skeleton.getX()-50;
-    /*
+        //var drawAtX = skeleton.getX()-50;
+        /*
     this.drawText();
       var canvas_offset_y = 0;
     if (this.getMoveDirection() === "left"){
@@ -50,24 +44,22 @@ var Bowman = function(name, x, y, hp){
      ctx.drawImage(bowman, spritesheet_offset_x, spritesheet_offset_y, 100,100, drawAtX, this.getDrawAtY()-70,100,100);
     }
     */
-
-  };
-  
-  /* Constantly called for the localPlayer, updates the actual 
-   * Position held by the server
-   */
-  skeleton.update = function(keys) {
-    localX = this.getX();
-   /* if (keys.left) {
-      this.setX(this.getX()-moveSpeed);
-      localX -= moveSpeed;
-    }
-    if (keys.right) {
-      this.setX(this.getX()+moveSpeed);
-      localX += moveSpeed;
-    }
-    if (keys.up) { }
-    if (keys.down) { }*/
-  };
-  return skeleton;
+    };
+    /* Constantly called for the localPlayer, updates the actual 
+     * Position held by the server
+     */
+    skeleton.update = function(keys) {
+        localX = this.getX();
+        /* if (keys.left) {
+           this.setX(this.getX()-moveSpeed);
+           localX -= moveSpeed;
+         }
+         if (keys.right) {
+           this.setX(this.getX()+moveSpeed);
+           localX += moveSpeed;
+         }
+         if (keys.up) { }
+         if (keys.down) { }*/
+    };
+    return skeleton;
 };
