@@ -29,7 +29,7 @@ Server.prototype.init = function() {
 
 
 /* 
- * Iterate through every game and update it. Currently broke. lol
+ * Iterate through every game and update it. Currently does too much. lol
  */
 Server.prototype.updateGames = function(){
 
@@ -135,7 +135,7 @@ Server.prototype.updateGames = function(){
 
     //appears to iterate through every player and send their info to everyone
     for (var j = 0; j < players.length; j++){
-	server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].getTeam() });
+		server.libs.io.sockets.emit('update player', { id: players[j].id, x: players[j].getX(), y: players[j].getY(), hp: players[j].getHp(), team: players[j].getTeam() });
     }
 
     /* Method for telling all the units about the health of the structures and stuff */

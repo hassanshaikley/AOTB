@@ -84,9 +84,16 @@ var Events = function(){
             hit_by = playerById(this.id);
         }
 
+        var according_to = playerById(this.id);
+
+        util.log ("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t"+ data.spell_id); 
+        game1.attackHits(data.hit, data.attack_id, according_to.id);
+
+
         //get that specific spell by its ID
 
         // if attack with this id has happened enough times, then the attack is real
+        /*
         if (spell_hits[data.spell_id] >= ( .6 * players.length)){
             util.log("THE ATTACK MUST BE REAL lol jk");
             //F FUCK YES
@@ -109,7 +116,7 @@ var Events = function(){
                 spell_hits.splice(0,1);
             }, 1000);
         }
-
+*/
 
     };
 
@@ -120,8 +127,7 @@ var Events = function(){
      */
     meelee_hits = [];
     function onMeeleeHits(data){
-        util.log("HITS>>" + data.attack_id + " -- " + data.hit);
-
+      //  util.log("HITS----->>" + data.attack_id + " -- " + data.hit);
 
         var hit;
         if (data.hit) {
@@ -134,11 +140,15 @@ var Events = function(){
         if (!(data.hit_by == undefined)){
              hit_by = playerById(data.hit_by);
         } else {
-            util.log("YEPPERS");
+          //  util.log("YEPPERS");
             hit_by = playerById(this.id);
         }
 
+        var according_to = playerById(this.id);
 
+        game1.attackHits(hit, data.attack_id, according_to);
+
+        /*
         if (meelee_hits[data.attack_id]){
             meelee_hits[data.attack_id]++;
         } else {
@@ -165,8 +175,11 @@ var Events = function(){
             setTimeout(function(){
                 meelee_hits.splice(0,1);
             }, 1000);
-        }
+        }*/
     };
+
+
+
     var setEventHandlers = function(io) {
         // Socket.IO
         io.set("transports", ["websocket"]);
@@ -295,7 +308,7 @@ var Events = function(){
 //            attacker.meeleeBonus();
 
         };
-        util.log("meelee attack " + data.direction);
+      //  util.log("meelee attack " + data.direction);
         //Now get all the characters to animate the meelee attack = )
         this.emit('meelee attack', {attacker: this.id, attack_id: attack_id, direction: data.direction  });
         this.broadcast.emit('meelee attack', {attacker: this.id, attack_id : attack_id, direction: data.direction});
@@ -304,19 +317,22 @@ var Events = function(){
     }
 
     function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing){
-	var playersHit = [];
-        for (i = 0; i< players.length; i++){
-            util.log("LELELE");
+	   var playersHit = [];
+        for (i = 0; i < players.length; i++){
+       //     util.log("LELELE");
             if (players[i].getTeam() === team){
                 continue;
             };
+
+
+
             util.log((players[i].getX() - attackX ) + " " + (players[i].getWidth()/2 + 20 ));
             if  (Math.abs(players[i].getX() - attackX) <= players[i].getWidth()/2 +20 ){ // +20 just to make it a little easier lmao
                 util.log("CHECK !");
                 if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight()/2){
                     util.log("CHEEEK");
                     setHp(players[i], damage);
-	  	    playersHit.push(players[i]);
+	  	         playersHit.push(players[i]);
                     if (that != undefined) {
 		        that.broadcast.emit('bleed', { id: players[i].id });
 		        that.emit('bleed', { id: players[i].id });
@@ -393,7 +409,7 @@ var Events = function(){
 
     };
     function onSpellTwo(data){
-        util.log("Spell two");
+        //util.log("Spell two");
         var player =playerById(this.id);
         if (! (player.getAlive)){
         return;
@@ -436,11 +452,15 @@ var Events = function(){
 
 
     function onSpellOne(data){
-	var player = playerById(this.id);
+
+	    var player = playerById(this.id);
+
         if (! player.getAlive()){
             return;
         };
-        util.log("SPELL ONING");
+       // util.log("SPELL ONING");
+
+
         //1000 should be repalced with the spells cooldown!
         if ( ! (player.spellOneCastTime + 1000  <=  Date.now())){
             util.log("DONE");
@@ -450,10 +470,8 @@ var Events = function(){
 
         }
 
-        util.log("O " + player.getCharacterType() + " - " + player.spellOneCastTime);
-
         if (player.getCharacterType() === "Grimes") {
-	    var v = new TortStun(data.x, data.y, player.getTeam());
+	       var v = new TortStun(data.x, data.y, player.getTeam());
 //            Spells.spellsarray.push(v);
             game1.addSpell(v);
 
@@ -467,7 +485,7 @@ var Events = function(){
             this.broadcast.emit("descend attack changes", {id: this.id, descendAttack: true, spell_id: v.getID()});
         }
         if (player.getCharacterType() === "Redhatter" ){
-            util.log("YEP");
+            util.log("Created Meteor");
             var v = new Meteor(data.x, data.y, player.getTeam());
             
             //commented out that old line lol
@@ -480,7 +498,7 @@ var Events = function(){
         if (player.getCharacterType() === "Shanker" ){
             v = new Stealth();
             util.log("SHE");
-	    player.invis = true;
+	       player.invis = true;
             var that = this;
             player.setSpeed(player.getBaseSpeed()*1.40);
             setTimeout(function(){

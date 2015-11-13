@@ -15,6 +15,8 @@ module.exports = function(app, passport) {
     res.render('test-index.ejs', {
       authenticated: false,
       user : "",
+      name: false
+
     });
   });
   app.post('/', function(req, res) {
