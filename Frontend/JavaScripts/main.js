@@ -7,7 +7,7 @@ function Main() {
     });
     var bgcolor = new PIXI.Graphics();
     bgcolor.beginFill(0x394e7f);
-    bgcolor.drawRect(0, 0, 768, 520);
+    bgcolor.drawRect(0, 0, CONFIG.SCREEN_WIDTH, CONFIG.SCREEN_HEIGHT);
     bgcolor.endFill();
     this.stage.addChild(bgcolor);
     this.stage.zIndex = -1;
@@ -15,7 +15,7 @@ function Main() {
     /* Add the action bar*/
     var botactionbar = new PIXI.Graphics();
     botactionbar.beginFill(0x000000);
-    botactionbar.drawRect(0, 0, 768, 50); //470 to 530
+    botactionbar.drawRect(0, 0, CONFIG.SCREEN_WIDTH, 50); //470 to 530
     botactionbar.endFill();
     this.BOTACTIONBAR.y = 470;
     this.BOTACTIONBAR.addChild(botactionbar);

@@ -1,4 +1,3 @@
-var floorHeight = 474;
 var Player = function Player(startX, startY, startHp, _name) { //ignore startX variable
     if (startX == undefined) startX = -1000;
     if (startY == undefined) startY = -1000;

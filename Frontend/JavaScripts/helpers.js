@@ -6,6 +6,7 @@ helpers.addThumbToActionBar = function(image, description) {
     image.position.x = this.xAdd;
     this.xAdd += 50;
 };
+
 helpers.collision = function(thing1, thing2) {
     var xDist = Math.abs(thing1.getX() - thing2.getX());
     var yDist = Math.abs(thing1.getY() - thing2.getY());
@@ -16,6 +17,7 @@ helpers.collision = function(thing1, thing2) {
     };
     return false;
 };
+
 helpers.highlightSpellHitboxes = function() {
     for (var _i = 0; _i < Spells.spellsarray.length; _i++) {
         if (!Spells.spellsarray[_i].highlight) {
@@ -30,6 +32,7 @@ helpers.highlightSpellHitboxes = function() {
         Spells.spellsarray[_i].highlight.y = Spells.spellsarray[_i].getY();
     }
 };
+
 var hitboxes = [];
 helpers.highlightPlayerHitboxes = function() {
     var allPlayers = remotePlayers.slice();
@@ -49,4 +52,12 @@ helpers.highlightPlayerHitboxes = function() {
             MAIN.stage.removeChild(hitbox);
         }, 400);
     }
+};
+    // Find player by ID
+helpers.playerById = function(id) {
+    var i;
+    for (i = 0; i < remotePlayers.length; i++) {
+        if (remotePlayers[i].id == id) return remotePlayers[i];
+    };
+    return false;
 };

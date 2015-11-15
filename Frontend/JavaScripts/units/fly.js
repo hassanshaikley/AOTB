@@ -1,3 +1,5 @@
+
+
 var Fly = function(name, x, y, hp) {
     var descendAttack = false,
         rightMouseActionHappening = false,

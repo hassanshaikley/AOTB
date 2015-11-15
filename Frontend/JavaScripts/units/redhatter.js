@@ -8,8 +8,9 @@ var Redhatter = function(name, x, y) {
   };*/
     /* Lolswagz */
     skeleton.getCharacterType = function() {
-        return "Redhatter";
+        return CONFIG.REDHATTER_NAME;
     };
+    
     var spells_thumb_array = [];
     skeleton.setUpActionbar = function() {
         var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));

@@ -7,15 +7,19 @@ var canvas, // Canvas DOM element
     _alert, // Socket connection
     localGame;
 
+
+
+
+
 function Game() {
     this.bloods = [];
 };
 
-var floorHeight = 474;
 // variable that tracks how much the player has moved, everything is drawn
 function init() {
     localGame = new Game();
     background = new Background();
+    MAIN = new Main();
     MAIN.stage.addChild(background)
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
@@ -58,7 +62,7 @@ function init() {
     // Initialise keyboard controls
     keys = new Keys();
     var startX = 0,
-        startY = floorHeight - 10,
+        startY = CONFIG.FLOOR_HEIGHT - 10,
         startHp = 100;
     // Initialise the local player
     if (characterType === "Redhatter") {
@@ -100,9 +104,10 @@ var setEventHandlers = function() {
     window.addEventListener("keyup", onKeyup, false);
     window.addEventListener('blur', function() {}, false);
     window.addEventListener('focus', function() {
-        //usually when they tab in -- I think
+        //usually when they tab in 
         keys = new Keys();
     }, false);
+
     socket.on("connect", onSocketConnected);
     socket.on("disconnect", onSocketDisconnect);
     socket.on("new player", onNewPlayer);
@@ -114,7 +119,6 @@ var setEventHandlers = function() {
     socket.on("descend attack changes", onDescendAttackChanges);
     socket.on("update hostile", onUpdateHostile);
     socket.on("arena confirmation", onArenaPrompt);
-    socket.on("port to arena", onPortToArena);
     socket.on("set gold", onSetGold);
     socket.on("set hp", onSetHp);
     socket.on("init me", onInitMe);
@@ -145,7 +149,7 @@ function onVisibleAgain(data) {
     if (data.id == "you") {
         player = localPlayer;
     } else {
-        player = playerById(data.id);
+        player = helpers.playerById(data.id);
     }
     if (player.getTeam() === localPlayer.getTeam()) {
         player.imageContainer.alpha = 1;
@@ -169,7 +173,7 @@ function onDrawHitmarker(data) {
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data) {
     var player;
-    player = playerById(data.attacker);
+    player = helpers.playerById(data.attacker);
     console.log(data.attack_id + "~~~<--");
     if (!player) {
         player = localPlayer;
@@ -207,7 +211,7 @@ function onSpellOne(data) {
         if (data.id === "you") {
             player = localPlayer;
         } else {
-            player = playerById(data.id);
+            player = helpers.playerById(data.id);
         }
         if (player.getTeam() == localPlayer.getTeam()) {
             player.imageContainer.alpha = .5;
@@ -224,7 +228,7 @@ function onSpellOne(data) {
 }
 /* Updates location of all connected players*/
 function onUpdatePlayer(data) {
-    var player = playerById(data.id);
+    var player = helpers.playerById(data.id);
     if (!player) {
         player = localPlayer;
     }
@@ -239,7 +243,7 @@ function onUpdatePlayer(data) {
 }
 
 function onBleed(data) {
-    var _player = playerById(data.id);
+    var _player = helpers.playerById(data.id);
     if (_player === false) {
         localPlayer.bleed();
     } else {
@@ -285,9 +289,6 @@ function onSetGold(data) {
     localPlayer.setGold(data.gold);
 };
 
-function onPortToArena(data) {
-    /* Remove all players not in the arena from your thing*/
-};
 
 function onArenaPrompt(data) {
     //make button appear for confirmation to join arena
@@ -315,7 +316,7 @@ function onUpdateHostile(data) {
 };
 
 function onDescendAttackChanges(data) {
-    var _player = playerById(data.id);
+    var _player = helpers.playerById(data.id);
     console.log("AAA");
     if (_player === false) {
         localPlayer.setDescendAttack(data.descendAttack);
@@ -385,7 +386,7 @@ function onNewPlayer(data) {
 };
 
 function onRemovePlayer(data) {
-    var removePlayer = playerById(data.id);
+    var removePlayer = helpers.playerById(data.id);
     // Player not found
     MAIN.stage.removeChild(removePlayer.imageContainer);
     if (!removePlayer) {
@@ -400,12 +401,15 @@ function onRemovePlayer(data) {
 };
 /* Should only be able to do this on yourself */
 function onRespawnPlayer(data) {
-    var respawnPlayer = playerById(data.id);
-    if (respawnPlayer === false) {
+    var respawnPlayer = helpers.playerById(data.id) || localPlayer;
+/*    if (respawnPlayer === false) {
         respawnPlayer = localPlayer;
-    } else {}
+    } else {
+
+    }*/
     respawnPlayer.respawn();
 };
+
 var FPS = 60;
 /**************************************************
  ** GAME ANIMATION LOOP
@@ -488,6 +492,7 @@ function draw() {
     localPlayer.draw();
     drawForeground();
 };
+
 var z = 0;
 var _anim = 0;
 var cloud_x = 0;
@@ -497,6 +502,7 @@ function drawForeground() {
         localGame.bloods[_i].draw();
     }
 }
+
 // Find player by ID
 function playerById(id) {
     var i;
@@ -518,3 +524,5 @@ function hostileById(id) {
     };
     return false;
 };
+
+MAIN = new Main();
