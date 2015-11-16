@@ -1,3 +1,1 @@
-exports.Unit = function(){
-
-};
+exports.Unit = function() {};

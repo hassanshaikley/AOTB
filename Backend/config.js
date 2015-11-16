@@ -1,6 +1,5 @@
 /* Config file, for constants*/
 var CONFIG = {};
-
 CONFIG.Bowman = "Bowman";
 CONFIG.Crevice = "Crevice";
 CONFIG.Fly = "Fly";
@@ -14,6 +13,4 @@ CONFIG.NOBODY = -1;
 CONFIG.FLOOR_HEIGHT = 474;
 CONFIG.ARENA_WIDTH = 1836; //was 1536
 CONFIG.CANVAS_WIDTH = 800;
-
-
 module.exports = CONFIG;
