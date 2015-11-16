@@ -26,7 +26,7 @@ body {
 
 #mocha h1 {
   margin-top: 15px;
-  font-size: 1em;
+  font-size: 10px;
   font-weight: 200;
 }
 
@@ -41,7 +41,7 @@ body {
 
 #mocha .suite .suite h1 {
   margin-top: 0;
-  font-size: .8em;
+  font-size: 8px;
 }
 
 #mocha .hidden {
@@ -49,7 +49,7 @@ body {
 }
 
 #mocha h2 {
-  font-size: 12px;
+  font-size: 8px;
   font-weight: normal;
   cursor: pointer;
 }
@@ -78,7 +78,7 @@ body {
 
 #mocha .test.pass::before {
   content: '✓';
-  font-size: 12px;
+  font-size: 8px;
   display: block;
   float: left;
   margin-right: 5px;
@@ -176,7 +176,7 @@ body {
   line-height: 15px;
   text-align: center;
   background: #eee;
-  font-size: 15px;
+  font-size: 10px;
   -moz-border-radius: 15px;
   border-radius: 15px;
   -webkit-transition: opacity 200ms;
@@ -208,7 +208,7 @@ body {
 
 #mocha-error {
   color: #c00;
-  font-size: 1.5em;
+  font-size: 12px;
   font-weight: 100;
   letter-spacing: 1px;
 }
@@ -217,7 +217,7 @@ body {
   position: fixed;
   top: 15px;
   right: 10px;
-  font-size: 12px;
+  font-size: 8px;
   margin: 0;
   color: #888;
   z-index: 1;
@@ -267,4 +267,9 @@ body {
   #mocha #stats {
     position: absolute;
   }
+}
+
+
+h1, h2, .h2 {
+    font-size: 12px !important;
 }
