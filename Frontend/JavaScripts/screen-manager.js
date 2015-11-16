@@ -40,7 +40,7 @@ var ScreenManager = function() {
 };
 
 ScreenManager.prototype.loadSpriteSheet = function() {
-        console.log("LOADING LE SPRITE SHEET");
+    console.log("LOADING LE SPRITE SHEET");
 
     var loader = new PIXI.loaders.Loader();
     var url;
@@ -56,7 +56,6 @@ ScreenManager.prototype.loadSpriteSheet = function() {
     loader.load();
 };
 
-var _q = 0;
 ScreenManager.prototype.update = function() {
     this.renderer.render(this.stage);
     requestAnimationFrame(this.update.bind(this));

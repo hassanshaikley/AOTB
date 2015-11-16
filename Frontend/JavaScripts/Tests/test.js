@@ -1,16 +1,5 @@
 var expect = chai.expect;
 
-describe("Player (superclass)", function() {
-    describe("constructor", function() {
-        it("should work", function() {
-            var player = new Player(0, 0, 100, "hassan");
-            expect(player.getName()).to.equal("hassan");
-            expect(player.getY()).to.equal(0);
-        });
-    });
-});
-
-
 describe("Redhatter", function() {
     describe("constructor", function() {
         it("should work", function() {

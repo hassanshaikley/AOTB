@@ -24,7 +24,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     var current_action = CONFIG.ACTION.MOVING_RIGHT;
     var meelee_attack_component = new MeeleeAttackComponent(this);
     var that = this;
+ 
     var invis = false;
+
     this.setInvis = function(_invis) {
         invis = _invis;
     };
@@ -221,6 +223,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         }
         drawAtY -= (drawAtY - _y) / 4; //
         drawAtX -= (drawAtX - _x) / 4;
+        _x = null;
+        _y = null;
     };
     /* The X that we want to draw at to give the illusion of smooth movement
      * (if only the server X was used then it would skip to locations)
@@ -275,10 +279,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     
     MAIN.stage.addChild(this.imageContainer);
 
-    var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
-    structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width / 2);
-    structure.y = -116;
-    this.imageContainer.addChild(structure);
+    //why the fuck did I have this code below here
+   // var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
+  //  structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width / 2);
+  
+    //structure.y = -116;
+   // this.imageContainer.addChild(structure);
+
     var text_x;
     this.drawText = function() {
         if (Math.abs(drawAtX - x) > 10) { // idk what this was for
@@ -381,10 +388,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         }, 200);
     };
     this.rightClick = function(clientX, clientY) {
-        console.log("SWAG");
-        var t_x = clientX;
         socket.emit("spell one", {
-            x: t_x,
+            x: clientX,
             y: clientY
         });
     };
