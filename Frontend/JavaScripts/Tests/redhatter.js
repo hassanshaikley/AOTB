@@ -3,13 +3,14 @@ describe("Redhatter", function() {
         var x = 1;
         var y = 1;
         var rh = new Redhatter("hassan", x, y);
-        assert.equal(redhatter.getName(), "hassan");
+        expect(rh.getName()).to.equal("hassan");
     });
 
     it("should get character type", function() {
         var x = 1;
         var y = 1;
         var rh = new Redhatter("name", x, y);
-        assert.equal(redhatter.getCharacterType(), "Redhatter");
+        expect(rh.getCharacterType()).to.equal("Redhatter");
+
     });
 });
