@@ -1,5 +1,4 @@
 
-
 function Background() {
     var texture = PIXI.Texture.fromImage("cobblestone_ground_v2.fw.png");
     PIXI.extras.TilingSprite.call(this, texture, 4000 + Math.abs(768 / 2), 100); //repeats for 400 x

@@ -9,17 +9,27 @@ var canvas, // Canvas DOM element
 
 
 
-
+var MAIN;
 
 function Game() {
     this.bloods = [];
+    //move over to using this screen manager
+    console.log("NEW GAME FAM*");
+    MAIN = new ScreenManager(); //should init after images are loaded
+    console.log("MAIN MADE FAM " + MAIN);
+
 };
 
+
+
+
 // variable that tracks how much the player has moved, everything is drawn
-function init() {
-    localGame = new Game();
+Game.prototype.init = function() {
+    console.log("INIT FAM");
     background = new Background();
-    MAIN = new Main();
+    // MAIN = new ScreenManager();
+    console.log("TRYING FAM");
+    console.log("MAIN");
     MAIN.stage.addChild(background)
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
@@ -525,4 +535,8 @@ function hostileById(id) {
     return false;
 };
 
-MAIN = new Main();
+$(document).ready ( function(){
+    localGame = new Game();
+    console.log("Haebe swags");
+});
+

@@ -1,4 +1,10 @@
-function Main() {
+//try to explain what this class does..
+//it loads the sprite sheet
+//it it creates a game container for pixi, and
+//initializes a lot of pixi stuff
+
+var ScreenManager = function() {
+    console.log("CREATING A SCREEN MANAGER, starts from a game!");
     this.stage = new PIXI.Container();
     this.renderer = new PIXI.autoDetectRenderer(768, 520, {
         antialiasing: false,
@@ -26,14 +32,16 @@ function Main() {
     this.stage.interactive = true;
     /*
     	 filter = new PIXI.filters.DotScreenFilter();
-
-
-    	 this.stage.filters = [filter];*/
+    	 this.stage.filters = [filter];
+    */
     this.loadSpriteSheet();
-    return this;
+    console.log("LOADING SPRITE SHEET SCREEN MANAGER FAM");
+    return this; //not sure this is necessary lmao
 };
 
-Main.prototype.loadSpriteSheet = function() {
+ScreenManager.prototype.loadSpriteSheet = function() {
+        console.log("LOADING LE SPRITE SHEET");
+
     var loader = new PIXI.loaders.Loader();
     var url;
     // if (location.origin === "http://localhost:5000" &&
@@ -49,13 +57,14 @@ Main.prototype.loadSpriteSheet = function() {
 };
 
 var _q = 0;
-Main.prototype.update = function() {
+ScreenManager.prototype.update = function() {
     this.renderer.render(this.stage);
     requestAnimationFrame(this.update.bind(this));
 };
 
-Main.prototype.spriteSheetLoaded = function() {
-    init();
+ScreenManager.prototype.spriteSheetLoaded = function() {
+    console.log("LOADED LE SPRITE SHEET");
+    localGame.init();
     requestAnimationFrame(this.update.bind(this));
 };
 
@@ -69,7 +78,7 @@ function teamOneFilter(imageContainer) {
 };
 
 /* call this function whenever you added a new layer/container */
-Main.prototype.updateLayersOrder = function() {
+ScreenManager.prototype.updateLayersOrder = function() {
     this.stage.children.sort(function(a, b) {
         a.zIndex = a.zIndex || 0;
         b.zIndex = b.zIndex || 0;

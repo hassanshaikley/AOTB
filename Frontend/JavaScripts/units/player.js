@@ -20,6 +20,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         maxHp = startHp,
         team,
         frames; //list of every image used in this guys animation
+        
     var current_action = CONFIG.ACTION.MOVING_RIGHT;
     var meelee_attack_component = new MeeleeAttackComponent(this);
     var that = this;
@@ -271,7 +272,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     chat_text.style.font = "bold 10px arial";
     chat_text.style.align = "center";
     this.imageContainer.addChild(chat_text);
+    
     MAIN.stage.addChild(this.imageContainer);
+
     var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
     structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width / 2);
     structure.y = -116;

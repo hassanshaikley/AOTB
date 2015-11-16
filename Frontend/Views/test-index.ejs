@@ -2,8 +2,9 @@
 <html lang="en">
   <%- include _head.ejs %>
   <body>
+      <div id="canvas_and_chat">
+
     <div id="mocha"><p><a href=".">Index</a></p></div>
-    <%- include _scripts.ejs %>
     <script src="scripts/Libs/chai.js" type="text/javascript"></script>
     <script src="scripts/Libs/mocha.js"></script>
     <script>mocha.setup('bdd')</script>
@@ -11,6 +12,10 @@
     <script src="scripts/Tests/units.js"></script>
     <script src="scripts/Tests/game.js"></script>
     <script src="scripts/Tests/redhatter.js"></script>
+
+    <%- include _canvas.ejs %>
+    <%- include _chat.ejs %>
+    <%- include _scripts.ejs %>
 
     <script>
       mocha.run();
