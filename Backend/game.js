@@ -5,8 +5,6 @@ var Game = function() {
     var state = 1; //game state 0 means a game is won, make these constants
     var gameID = GameID++;
     //should remove this
-    this.team0 = [];
-    this.team1 = [];
     var winner = -1;
     var that = this;
     var active_spells = {};
@@ -21,6 +19,7 @@ var Game = function() {
      * Also in the spells and projectiles array
      */
     this.gameObjects = [];
+
     this.setWinner = function(w) {
         winner = w; //0 or 1 depending on the winning team
         //After winner is ser
@@ -50,28 +49,25 @@ var Game = function() {
     };
     this.addPlayer = function(newPlayer) {
         if (this.team1 > this.team0) {
-            this.team0.push(newPlayer);
-            newPlayer.team = 0
+            newPlayer.setTeam(0);
         } else {
-            this.team1.push(newPlayer);
-            newPlayer.team = 1;
+            newPlayer.setTeam(1);
         }
+        active_players[newPlayer.id] = newPlayer;
     };
     this.removePlayer = function(thePlayer) {
-        for (var _i = 0; _i < this.team1.length; _i++) {
-            if (this.team1[_i].id === thePlayer.id) {
-                this.team1.splice(_i, 1);
-            }
-        }
-        for (var _i = 0; _i < this.team0.length; _i++) {
-            if (this.team0[_i].id === thePlayer.id) {
-                this.team0.splice(_i, 1);
-            }
-        }
+        delete active_players[thePlayer.id];
     };
     this.getPlayers = function() {
-        return this.team1.concat(this.team0);
+        return active_players;
     };
+    this.getNumPlayers = function(){
+        var size = 0, key;
+        for (key in active_players) {
+            if (active_players.hasOwnProperty(key)) size++;
+        }
+        return size;
+    }
     var attacks = {};
     /*
      * This is useful for when the server thinks an attack happened but this was largely
@@ -79,7 +75,7 @@ var Game = function() {
      * One strategy is have an object with spell or attack_id
      * hit, according to
      * attacks = { 1 : [
-     *   {
+     *   {                          attacks[1][0]
      *      hit: "jerry",
      *      according_to : ["hassan", "friend", "melonface" ]  
      *   }], 
@@ -96,39 +92,46 @@ var Game = function() {
     this.attackHits = function(hit, attack_id, according_to) {
         //let attack = {};
         util.log("Attack hits");
-        if (attacks[attack_id]) { //object
-            for (hits in attacks[attack_id]) { //if the hit exists, if not then add it -- iterate through array
-                util.log("Hits is " + hits + " attack is " + JSON.stringify(attacks[attack_id][hits]));
-                if (attacks[attack_id][hits][hit] == hit) {
-                    if (attacks[attack_id][hits]["according_to"].indexof(according_to) == -1) {
-                        //not in array so put it in array
-                        attacks[attack_id][hits]["according_to"].push(according_to);
-                    } else { //already 
-                        console.log("ALREADY IN LE SERVER BRO");
-                    }
-                } else {
-                    util.log("OMG OMG")
-                    attacks[attack_id][hits] = {
-                        "hit": hit,
-                        "according_to": [according_to]
-                    }
-                }
-            }
-        } else { //if empty insert this
-            //afaik dis works
+        if (!(attacks[attack_id])) {
             attacks[attack_id] = [{
                 "hit": hit,
                 "according_to": [according_to]
             }]
-            util.log("adding attack son " + JSON.stringify(attacks[attack_id]));
+            return;
+        };
+        var hits_array = attacks[attack_id];
+        for (hits in hits_array) { //if the hit exists, if not then add it -- iterate through array
+            util.log("Hits is " + hits + " attack is " + JSON.stringify(hits_array[hits]));
+            if (hits_array[hits][hit] == hit) {
+                if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
+                    //not in array so put it in array
+                    hits_array[hits]["according_to"].push(according_to);
+                } else { //already 
+                    console.log("\t\t\t\tALREADY IN LE SERVER BRO");
+                }
+            } else {
+                util.log("OMG OMG");
+                //THIS SHOULD ONLY HAPPEN
+                if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
+                    //not in array so put it in array
+                    hits_array[hits] = {
+                        "hit": hit,
+                        "according_to": [according_to]
+                    }
+                } else { //already 
+                    console.log("\t\t\t\tALREADY IN LE SERVER BRO");
+                }
+            }
+            //if 60% of people say attack happene
+            util.log(hits_array[hits]["according_to"].length +"---++---"+that.getPlayers().length);
+            if (hits_array[hits]["according_to"].length == that.getPlayers().length){
+                console.log(">>>\t\t>>\t\t\t\tenough players say so fam");
+                //how much damage
+                hits_array[hits].doDamage(25);
+            }
         }
-        util.log("Making it happen ok" + JSON.stringify(attacks[attack_id]));
-        //For a hit to be real at least 50% of the players need to recognize it. Lol.
-        // var attacks = {hit_by : hit_by};
-        //After 300 millisec assume he wasn't hit
-        setTimeout(function() {
-            //attack.
-        }, 300);
+        util.log("Making it happen ok" + JSON.stringify(hits_array));
+
     };
     /* Requires that every spell has an ID*/
     this.addSpell = function(spell) {
@@ -158,6 +161,14 @@ var Game = function() {
                 delete active_spells[spell];
             }
         }
+    };
+    this.getPlayer = function(id){
+        for(player in active_players){
+            if (active_players[player].id == id){
+                return active_players[player];
+            }
+        }
+        return -1;
     };
 };
 exports.Game = Game;
