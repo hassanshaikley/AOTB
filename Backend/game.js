@@ -8,12 +8,12 @@ var Game = function() {
     var winner = -1;
     var that = this;
     var active_spells = {};
-    var spell_id = 0;
+
     /* Socket ID, Player Object */
     var active_players = {};
     /* Spell ID, Spell Object */
     var active_spells = {};
-    var GEN_ID = 0;
+    var GEN_ID = 0; //for players
     /*
      * Array of all of the Game Objects
      * Currently a game object is a spell
@@ -48,12 +48,11 @@ var Game = function() {
     this.getState = function() {
         return state;
     };
-
     var stupid_variable = 0;
-    this.addPlayer = function(newPlayer) {      
-        if(! (newPlayer.id)){
+    this.addPlayer = function(newPlayer) {
+        if (!(newPlayer.id)) {
             newPlayer.id = GEN_ID++;
-        }          
+        }
         if (stupid_variable % 2 == 0) {
             newPlayer.setTeam(0);
         } else {
@@ -68,13 +67,11 @@ var Game = function() {
     this.getPlayers = function() {
         return active_players;
     };
-    this.getNumPlayers = function(){
+    this.getNumPlayers = function() {
         var size = 0;
         for (player in active_players) {
-            console.log("players " + active_players[player].id + " is a player(type), so incrementing");
             size++;
         }
-        console.log("num players of game is " + size);
         return size;
     };
     var attacks = {};
@@ -86,11 +83,13 @@ var Game = function() {
      * attacks = { 1 : [
      *   {                          attacks[1][0]
      *      hit: "jerry",
-     *      according_to : ["hassan", "friend", "melonface" ]  
+     *      according_to : ["hassan", "friend", "melonface" ],
+     *      confirmed: false  
      *   }], 
      *   [{
      *       hit : "lime_by",
      *       according_to :["hassan"]
+     *       confirmed: true  
      *   }]
      *  },
      * 2  : 
@@ -100,49 +99,46 @@ var Game = function() {
      */
     this.attackHits = function(hit, attack_id, according_to) {
         //let attack = {};
-        util.log("Attack hits");
+        console.log("\t\tAttack id is " +attack_id);
+        util.log("\t\t\t\tAttack hits : [Previosly Attack Arrab]\t\t " + JSON.stringify(attacks));
         if (!(attacks[attack_id])) {
             attacks[attack_id] = [{
                 "hit": hit,
-                "according_to": [according_to]
+                "according_to": [according_to],
+                "confirmed": false
             }]
             return;
         };
         var hits_array = attacks[attack_id];
         for (hits in hits_array) { //if the hit exists, if not then add it -- iterate through array
-            util.log("Hits is " + hits + " attack is " + JSON.stringify(hits_array[hits]));
             if (hits_array[hits][hit] == hit) {
                 if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
                     //not in array so put it in array
                     hits_array[hits]["according_to"].push(according_to);
                 } else { //already 
-                    console.log("\t\t\t\tALREADY IN LE SERVER BRO");
+
                 }
             } else {
-                util.log("OMG OMG");
+
                 //THIS SHOULD ONLY HAPPEN
                 if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
                     //not in array so put it in array
                     hits_array[hits] = {
                         "hit": hit,
-                        "according_to": [according_to]
+                        "according_to": [according_to],
+                        "confirmed": false
                     }
                 } else { //already 
                     console.log("\t\t\t\tALREADY IN LE SERVER BRO");
                 }
             }
             //if 60% of people say attack happene
-            util.log(hits_array[hits]["according_to"].length +"---++---"+ that.getNumPlayers());
-            if (hits_array[hits]["according_to"].length == that.getNumPlayers()){
-                console.log(">>>\t\t>>\t\t\t\tenough players say so fam");
+            if (hits_array[hits]["according_to"].length == that.getNumPlayers() && !(hits_array[hits]["confirmed"])) {
                 //how much damage
-                console.log("Getting Player " + JSON.stringify(hits_array[hits].hit) + " yay");
                 that.getPlayer(hits_array[hits].hit).doDamage(25);
-                //mark the hit as already done
+                hits_array[hits]["confirmed"] = true;
             }
         }
-        util.log("Making it happen ok" + JSON.stringify(hits_array));
-
     };
     /* Requires that every spell has an ID*/
     this.addSpell = function(spell) {
@@ -173,9 +169,9 @@ var Game = function() {
             }
         }
     };
-    this.getPlayer = function(id){
-        for(player in active_players){
-            if (active_players[player].id == id){
+    this.getPlayer = function(id) {
+        for (player in active_players) {
+            if (active_players[player].id == id) {
                 return active_players[player];
             }
         }

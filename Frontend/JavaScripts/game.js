@@ -195,13 +195,13 @@ function onSpellOne(data) {
     var cd;
     if (data.spell === "tort stun") { //should be a variable shared between server and client
         var m = new TortStun(data.x, data.y, data.caster);
-        m.spell_id = data.spell_id;
+        m.attack_id = data.attack_id;
         Spells.spellsarray.push(m);
         cd = 3000;
     } else if (data.spell === "meteor") {
-        console.log("NEW METEOR LOL");
+        console.log("NEW METEOR LOL" + data.attack_id);
         var m = new Meteor(data.x, data.caster);
-        m.spell_id = data.spell_id;
+        m.attack_id = data.attack_id;
         m.setTeam(data.team);
         Spells.spellsarray.push(m);
         cd = 6000;
@@ -464,7 +464,7 @@ function update() {
                 socket.emit("spell hits", {
                     "hit": allPlayers[j].id,
                     "hit_by": Spells.spellsarray[i].caster,
-                    "spell_id": Spells.spellsarray[i].spell_id
+                    "attack_id": Spells.spellsarray[i].attack_id
                 });
                 console.log("Hits:/t" + allPlayers[j].id + " /t-- caster:\t" + Spells.spellsarray[i].caster);
             }

@@ -14,7 +14,9 @@ var Fly = require("./units/fly").Fly,
     RHRange = require("./Spells/rhrange.js").RHRange,
     DescendAttack = require("./Spells/descendattack.js").DescendAttack,
     CollidingObject = require("./gameObjects/CollidingObject.js").CollidingObject,
-    Meteor = require("./Spells/meteor.js").Meteor;
+    Meteor = require("./Spells/meteor.js").Meteor,
+    IDComponent = require("./Components/id-component").IDComponent;
+
 var CONFIG = require("./config");
 var util = require("util");
 var Events = function() {
@@ -65,7 +67,7 @@ var Events = function() {
      *
      */
     function onSpellHits(data) {
-        util.log("HITS>>" + data.spell_id + " -- " + data.hit);
+        util.log("HITS>>" + data.attack_id + " -- " + data.hit);
         // get the id of the person that hit
         var hit;
         if (data.hit) {
@@ -80,12 +82,12 @@ var Events = function() {
             hit_by = playerById(this.id);
         }
         var according_to = playerById(this.id);
-        util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.spell_id);
+        util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
         game1.attackHits(data.hit, data.attack_id, according_to.id);
         //get that specific spell by its ID
         // if attack with this id has happened enough times, then the attack is real
         /*
-        if (spell_hits[data.spell_id] >= ( .6 * players.length)){
+        if (spell_hits[data.attack_id] >= ( .6 * players.length)){
             util.log("THE ATTACK MUST BE REAL lol jk");
             //F FUCK YES
             //  if enemy
@@ -98,10 +100,10 @@ var Events = function() {
             }
             util.log(hit.getHp()+ " new hp");
         }
-        util.log (spell_hits[data.spell_id] + " HMM ");
+        util.log (spell_hits[data.attack_id] + " HMM ");
 
         // After a second, remove the attack to free up memory
-        if (spell_hits[data.spell_id] == 1){
+        if (spell_hits[data.attack_id] == 1){
             setTimeout(function(){
                 util.log("nmmm splice");
                 spell_hits.splice(0,1);
@@ -195,7 +197,6 @@ var Events = function() {
     /* Every meelee attack has an ID
      *
      */
-    var attack_id = 0;
 
     function onMeeleeAttack(data) { //when a player left clicks
         /*
@@ -281,6 +282,7 @@ var Events = function() {
 
          */
         var attacker = playerById(this.id);
+        var attack_id = IDComponent.generateID();
         if (attacker.invis) {
             becomeVisible(attacker, this);
             //            attacker.meeleeBonus();
@@ -297,7 +299,6 @@ var Events = function() {
             attack_id: attack_id,
             direction: data.direction
         });
-        attack_id++;
     }
 
     function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing) {
@@ -480,12 +481,12 @@ var Events = function() {
                 x: data.x,
                 spell: "tort stun",
                 casted_by_me: true,
-                spell_id: v.getID()
+                attack_id: v.getID()
             });
             this.broadcast.emit('spell one', {
                 x: data.x,
                 spell: "tort stun",
-                spell_id: v.getID()
+                attack_id: v.getID()
             });
         }
         if (player.getCharacterType() === "Fly") {
@@ -495,12 +496,12 @@ var Events = function() {
                 id: "self",
                 descendAttack: true,
                 casted_by_me: true,
-                spell_id: v.getID()
+                attack_id: v.getID()
             });
             this.broadcast.emit("descend attack changes", {
                 id: this.id,
                 descendAttack: true,
-                spell_id: v.getID()
+                attack_id: v.getID()
             });
         }
         if (player.getCharacterType() === "Redhatter") {
@@ -513,13 +514,13 @@ var Events = function() {
                 spell: "meteor",
                 team: player.getTeam(),
                 casted_by_me: true,
-                spell_id: v.getID()
+                attack_id: v.getID()
             });
             this.broadcast.emit('spell one', {
                 x: data.x,
                 spell: "meteor",
                 team: player.getTeam(),
-                spell_id: v.getID()
+                attack_id: v.getID()
             });
         }
         if (player.getCharacterType() === "Shanker") {
@@ -537,12 +538,12 @@ var Events = function() {
             this.emit('spell one', {
                 id: "you",
                 spell: "windwalk",
-                spell_id: v.getID()
+                attack_id: v.getID()
             });
             this.broadcast.emit('spell one', {
                 id: player.id,
                 spell: "windwalk",
-                spell_id: v.getID()
+                attack_id: v.getID()
             });
         };
         //if spell is a projectile do something idk lol
