@@ -71,7 +71,7 @@ var Game = function() {
     this.getNumPlayers = function(){
         var size = 0;
         for (player in active_players) {
-            console.log("players " + active_players[player].getCharacterType() + " is a player(type)");
+            console.log("players " + active_players[player].id + " is a player(type), so incrementing");
             size++;
         }
         console.log("num players of game is " + size);
@@ -132,7 +132,7 @@ var Game = function() {
                 }
             }
             //if 60% of people say attack happene
-            util.log(hits_array[hits]["according_to"].length +"---++---"+that.getNumPlayers());
+            util.log(hits_array[hits]["according_to"].length +"---++---"+ that.getNumPlayers());
             if (hits_array[hits]["according_to"].length == that.getNumPlayers()){
                 console.log(">>>\t\t>>\t\t\t\tenough players say so fam");
                 //how much damage

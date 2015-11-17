@@ -26,13 +26,19 @@ describe("Test Game", function() {
     it("shouldn't crash", function() {
         assert.notEqual(game.getWinner(), "please dont crash");
     });
-        it("different players should have different IDs", function() {
+    it("different players should have different IDs", function() {
         var fly = new Fly(0);
         var fly2 = new Fly(1)
         game.addPlayer(fly);
         game.addPlayer(fly2);
         assert.notEqual(fly.id, undefined);
         assert.notEqual(fly2.id, undefined);
+
+    });
+    it("should be able to get player", function() {
+        var fly = new Fly(0);
+        game.addPlayer(fly);
+        assert.equal(fly, game.getPlayer(fly.id));
 
     });
 
@@ -94,5 +100,8 @@ describe("Test Game", function() {
         var game2 = new Game();
         assert.notEqual(game2.getID(), game.getID());
     });
-    it("meeleee attacks should register once from a unique player", function() {});
+    it("meeleee attacks should register once from a unique player", function() {
+
+        
+    });
 });

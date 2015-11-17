@@ -353,6 +353,7 @@ var Events = function() {
         };
         // Remove player from players array
         players.splice(players.indexOf(removePlayer), 1);
+        game1.removePlayer(removePlayer);
         // Broadcast removed player to connected socket clients
         this.broadcast.emit("remove player", {
             id: this.id
