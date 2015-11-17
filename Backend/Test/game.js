@@ -26,12 +26,54 @@ describe("Test Game", function() {
     it("shouldn't crash", function() {
         assert.notEqual(game.getWinner(), "please dont crash");
     });
+        it("different players should have different IDs", function() {
+        var fly = new Fly(0);
+        var fly2 = new Fly(1)
+        game.addPlayer(fly);
+        game.addPlayer(fly2);
+        assert.notEqual(fly.id, undefined);
+        assert.notEqual(fly2.id, undefined);
+
+    });
+
+
     it("should be able to remove a player", function() {
         var fly = new Fly(0);
         game.addPlayer(fly);
         assert.equal(game.getNumPlayers(), 1);
         game.removePlayer(fly);
         assert.equal(game.getNumPlayers(), 0);
+    });
+    it("should be able to handle removing a player twice", function() {
+        var fly = new Fly(0);
+        game.addPlayer(fly);
+        assert.equal(game.getNumPlayers(), 1);
+        game.removePlayer(fly);
+        assert.equal(game.getNumPlayers(), 0);
+        game.removePlayer(fly);
+        assert.equal(game.getNumPlayers(), 0);
+    });
+    it("should be able to handle adding  multiple players", function() {
+        var fly = new Fly(0);
+        var fly2 = new Fly(1)
+        var fly3 = new Fly(0);
+        game.addPlayer(fly);
+        assert.equal(game.getNumPlayers(), 1);
+        game.addPlayer(fly2);
+        assert.equal(game.getNumPlayers(), 2);
+        game.addPlayer(fly3);
+        assert.equal(game.getNumPlayers(), 3);
+
+    });
+    it("should be able to handle adding and removing multiple times", function() {
+        var fly = new Fly(0);
+        var fly2 = new Fly(1)
+        game.addPlayer(fly);
+        assert.equal(game.getNumPlayers(), 1);
+        game.addPlayer(fly2);
+        assert.equal(game.getNumPlayers(), 2);
+        game.removePlayer(fly);
+        assert.equal(game.getNumPlayers(), 1);
     });
     it("able to change game state to 0", function() {
         assert.equal(game.getState(), 1);

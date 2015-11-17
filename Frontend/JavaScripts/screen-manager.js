@@ -4,7 +4,6 @@
 //initializes a lot of pixi stuff
 
 var ScreenManager = function() {
-    console.log("CREATING A SCREEN MANAGER, starts from a game!");
     this.stage = new PIXI.Container();
     this.renderer = new PIXI.autoDetectRenderer(768, 520, {
         antialiasing: false,
@@ -35,12 +34,10 @@ var ScreenManager = function() {
     	 this.stage.filters = [filter];
     */
     this.loadSpriteSheet();
-    console.log("LOADING SPRITE SHEET SCREEN MANAGER FAM");
     return this; //not sure this is necessary lmao
 };
 
 ScreenManager.prototype.loadSpriteSheet = function() {
-    console.log("LOADING LE SPRITE SHEET");
 
     var loader = new PIXI.loaders.Loader();
     var url;

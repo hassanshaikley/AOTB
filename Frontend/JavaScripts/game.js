@@ -14,10 +14,7 @@ var MAIN;
 function Game() {
     this.bloods = [];
     //move over to using this screen manager
-    console.log("NEW GAME FAM*");
     MAIN = new ScreenManager(); //should init after images are loaded
-    console.log("MAIN MADE FAM " + MAIN);
-
 };
 
 
@@ -25,11 +22,7 @@ function Game() {
 
 // variable that tracks how much the player has moved, everything is drawn
 Game.prototype.init = function() {
-    console.log("INIT FAM");
     background = new Background();
-    // MAIN = new ScreenManager();
-    console.log("TRYING FAM");
-    console.log("MAIN");
     MAIN.stage.addChild(background)
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
@@ -469,11 +462,11 @@ function update() {
                 //let the server know the attack landed
                 //going to only want to do this once!
                 socket.emit("spell hits", {
-                    "hit": allPlayers[i].id,
+                    "hit": allPlayers[j].id,
                     "hit_by": Spells.spellsarray[i].caster,
                     "spell_id": Spells.spellsarray[i].spell_id
                 });
-                console.log("Spell Hits " + allPlayers[i].id + " -- " + Spells.spellsarray[i].caster);
+                console.log("Hits:/t" + allPlayers[j].id + " /t-- caster:\t" + Spells.spellsarray[i].caster);
             }
         }
         Spells.spellsarray[i].update();

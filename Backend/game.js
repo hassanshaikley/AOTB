@@ -13,6 +13,7 @@ var Game = function() {
     var active_players = {};
     /* Spell ID, Spell Object */
     var active_spells = {};
+    var GEN_ID = 0;
     /*
      * Array of all of the Game Objects
      * Currently a game object is a spell
@@ -47,13 +48,19 @@ var Game = function() {
     this.getState = function() {
         return state;
     };
-    this.addPlayer = function(newPlayer) {
-        if (this.team1 > this.team0) {
+
+    var stupid_variable = 0;
+    this.addPlayer = function(newPlayer) {      
+        if(! (newPlayer.id)){
+            newPlayer.id = GEN_ID++;
+        }          
+        if (stupid_variable % 2 == 0) {
             newPlayer.setTeam(0);
         } else {
             newPlayer.setTeam(1);
         }
         active_players[newPlayer.id] = newPlayer;
+        stupid_variable++;
     };
     this.removePlayer = function(thePlayer) {
         delete active_players[thePlayer.id];
@@ -62,12 +69,14 @@ var Game = function() {
         return active_players;
     };
     this.getNumPlayers = function(){
-        var size = 0, key;
-        for (key in active_players) {
-            if (active_players.hasOwnProperty(key)) size++;
+        var size = 0;
+        for (player in active_players) {
+            console.log("players " + active_players[player].getCharacterType() + " is a player(type)");
+            size++;
         }
+        console.log("num players of game is " + size);
         return size;
-    }
+    };
     var attacks = {};
     /*
      * This is useful for when the server thinks an attack happened but this was largely
@@ -123,11 +132,12 @@ var Game = function() {
                 }
             }
             //if 60% of people say attack happene
-            util.log(hits_array[hits]["according_to"].length +"---++---"+that.getPlayers().length);
-            if (hits_array[hits]["according_to"].length == that.getPlayers().length){
+            util.log(hits_array[hits]["according_to"].length +"---++---"+that.getNumPlayers());
+            if (hits_array[hits]["according_to"].length == that.getNumPlayers()){
                 console.log(">>>\t\t>>\t\t\t\tenough players say so fam");
                 //how much damage
-                hits_array[hits].doDamage(25);
+                that.getPlayer(hits_array[hits]).doDamage(25);
+                //mark the hit as already done
             }
         }
         util.log("Making it happen ok" + JSON.stringify(hits_array));
