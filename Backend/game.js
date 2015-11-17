@@ -136,7 +136,8 @@ var Game = function() {
             if (hits_array[hits]["according_to"].length == that.getNumPlayers()){
                 console.log(">>>\t\t>>\t\t\t\tenough players say so fam");
                 //how much damage
-                that.getPlayer(hits_array[hits]).doDamage(25);
+                console.log("Getting Player " + JSON.stringify(hits_array[hits].hit) + " yay");
+                that.getPlayer(hits_array[hits].hit).doDamage(25);
                 //mark the hit as already done
             }
         }
