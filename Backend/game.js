@@ -85,23 +85,23 @@ var Game = function() {
      *      hit: "jerry",
      *      according_to : ["hassan", "friend", "melonface" ],
      *      confirmed: false  
-     *   }], 
-     *   [{
+     *   }, 
+     *   {
      *       hit : "lime_by",
      *       according_to :["hassan"]
      *       confirmed: true  
-     *   }]
-     *  },
+     *   }],
      * 2  : 
-     *  {...}
+     *  [{...}]
      * }
      * created_at: Date.now() # Used to expire this 
      */
     this.attackHits = function(hit, attack_id, according_to) {
         //let attack = {};
-        console.log("\t\tAttack id is " +attack_id);
-        util.log("\t\t\t\tAttack hits : [Previosly Attack Arrab]\t\t " + JSON.stringify(attacks));
+        console.log("\t\tAttack id is " +attack_id + " hit is " + hit + " according to is " + according_to);
+        util.log("\t\t\t\tAttack hits : [Previosly Attack ]\t\t " + JSON.stringify(attacks));
         if (!(attacks[attack_id])) {
+             console.log("Attack being inserted for the first time.");
             attacks[attack_id] = [{
                 "hit": hit,
                 "according_to": [according_to],
@@ -111,7 +111,8 @@ var Game = function() {
         };
         var hits_array = attacks[attack_id];
         for (hits in hits_array) { //if the hit exists, if not then add it -- iterate through array
-            if (hits_array[hits][hit] == hit) {
+            console.log("Does " +hits_array[hits][hit]+ " == " + hit);
+            if (hits_array[hits].hit == hit) {
                 if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
                     //not in array so put it in array
                     hits_array[hits]["according_to"].push(according_to);
@@ -122,6 +123,7 @@ var Game = function() {
 
                 //THIS SHOULD ONLY HAPPEN
                 if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
+                    console.log("According to doesn't exist ok.");
                     //not in array so put it in array
                     hits_array[hits] = {
                         "hit": hit,
@@ -132,11 +134,13 @@ var Game = function() {
                     console.log("\t\t\t\tALREADY IN LE SERVER BRO");
                 }
             }
+                    util.log("\t\t\t\tAttack hits : [Current Attack ]\t\t " + JSON.stringify(attacks));
             //if 60% of people say attack happene
             if (hits_array[hits]["according_to"].length == that.getNumPlayers() && !(hits_array[hits]["confirmed"])) {
                 //how much damage
                 that.getPlayer(hits_array[hits].hit).doDamage(25);
                 hits_array[hits]["confirmed"] = true;
+                console.log("DAMAGE HAS BEEN DONE FRIEND");
             }
         }
     };

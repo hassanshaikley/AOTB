@@ -377,8 +377,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
             for (var i = 0; i < allPlayers.length; i++) {
                 if (helpers.collision(allPlayers[i], that.getMeeleeAttackBoundingBox())) {
                     //let the server know the attack landed
+                    console.log("OK that.id is " + that.id);
                     socket.emit("meelee hits", {
-                        "meelee hits": allPlayers[i].id,
+                        "hit": allPlayers[i].id,
                         "hit_by": that.id,
                         "attack_id": attack_id
                     });

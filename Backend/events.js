@@ -118,22 +118,33 @@ var Events = function() {
     meelee_hits = [];
 
     function onMeeleeHits(data) {
-        //  util.log("HITS----->>" + data.attack_id + " -- " + data.hit);
         var hit;
-        if (data.hit) {
+        var hit_by;
+
+        if (!(data.hit== undefined)) {
+            console.log("hit is not undefined");
             hit = playerById(data.hit);
         } else {
+            console.log("hit is undefined");
             hit = playerById(this.id);
         }
         //   var hit_by = playerById(data.hit_by);
         if (!(data.hit_by == undefined)) {
+            console.log("yep works ");
             hit_by = playerById(data.hit_by);
         } else {
-            //  util.log("YEPPERS");
+            console.log("YEPPERS");
             hit_by = playerById(this.id);
         }
+
         var according_to = playerById(this.id);
-        game1.attackHits(hit, data.attack_id, according_to);
+        util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
+
+        //should only happen if they are on differnt teams
+
+//        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
+
+        game1.attackHits(hit.id, data.attack_id, according_to.id);
         /*
         if (meelee_hits[data.attack_id]){
             meelee_hits[data.attack_id]++;
