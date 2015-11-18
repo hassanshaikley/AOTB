@@ -332,6 +332,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
      * And then checks for Collision
      **/
     this.setMeeleeAttack = function(_atk, attack_id, direction) {
+        console.log("SETTING MEELEE ATTACK");
         if (_atk) {
             if (direction == "left") {
                 current_action = CONFIG.ACTION.ATTACK_LEFT;
@@ -403,8 +404,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     };
     /* */
     this.leftClick = function() {
+        console.log("FUCKER IS LEFT CLICKING");
         if (Date.now() - now >= 1000) {
             // meelee_attack = 0;
+            console.log("EMMITING");
             socket.emit("meelee attack", {
                 direction: localPlayer.getMoveDirection()
             });

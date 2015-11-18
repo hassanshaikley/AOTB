@@ -177,10 +177,11 @@ function onDrawHitmarker(data) {
 function onMeeleeAttack(data) {
     var player;
     player = helpers.playerById(data.attacker);
-    console.log(data.attack_id + "~~~<--");
+    console.log(data.attack_id + "~~~<--" + player);
     if (!player) {
+        console.log("NO NOOO");
         player = localPlayer;
-        localPlayer.displayCooldown(1, 1000);
+        //localPlayer.displayCooldown(1, 1000);
     }
     console.log("player is " + player.getCharacterType());
     player.setMeeleeAttack(true, data.attack_id, data.direction);

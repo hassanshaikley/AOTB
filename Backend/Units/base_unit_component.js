@@ -32,6 +32,10 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
         return 3000;
     };
     that.doDamage = function(damage) {
+        if (currHp <= 0){
+            console.log("\t\t\t yo wtf I am alraedy dead man");
+            return;
+        }
         currHp = currHp - damage;
         if (currHp <= 0) {
             currHp = 0;
