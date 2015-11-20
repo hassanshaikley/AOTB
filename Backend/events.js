@@ -86,7 +86,7 @@ var Events = function() {
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
 
 
-        game1.attackHits(data.hit, data.attack_id, according_to.id);
+        game1.attackHits(hit.id, data.attack_id, according_to.id);
         //get that specific spell by its ID
         // if attack with this id has happened enough times, then the attack is real
         /*

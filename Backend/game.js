@@ -98,13 +98,13 @@ var Game = function() {
      */
     this.attackHits = function(hit, attack_id, according_to) {
         if (hit==undefined){
-            console.log("HIT IS NOT DEFINED");
+            console.log("|||||||||HIT IS NOT DEFINED");
         } 
         if (attack_id == undefined){
-            console.log("ATTACK ID IS NOT DEFINED");
+            console.log("|||||||||ATTACK ID IS NOT DEFINED");
         }
         if (according_to == undefined){
-            console.log("ACCORDING TO IS NOT DEFINED");
+            console.log("|||||||||ACCORDING TO IS NOT DEFINED");
         }
 
 
