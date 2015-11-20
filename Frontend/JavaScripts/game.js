@@ -227,6 +227,7 @@ function onSpellOne(data) {
     console.log(data.casted_by_me || data.id === "you");
     //if cast by this player then show the cooldown
     if (data.casted_by_me || data.id == "you") {
+        console.log("MAN IDK");
         localPlayer.displayCooldown(2, cd);
     }
 }

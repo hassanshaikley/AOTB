@@ -19,6 +19,7 @@ var Fly = require("./units/fly").Fly,
 
 var CONFIG = require("./config");
 var util = require("util");
+var attacks_teams = {};
 var Events = function() {
     function onSocketConnection(client) {
         // Listen for client disconnected
@@ -70,7 +71,7 @@ var Events = function() {
         util.log("HITS>>" + data.attack_id + " -- " + data.hit);
         // get the id of the person that hit
         var hit;
-        if (data.hit) {
+        if (!(data.hit==undefined)) {
             hit = playerById(data.hit);
         } else {
             hit = playerById(this.id);
@@ -83,6 +84,8 @@ var Events = function() {
         }
         var according_to = playerById(this.id);
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
+
+
         game1.attackHits(data.hit, data.attack_id, according_to.id);
         //get that specific spell by its ID
         // if attack with this id has happened enough times, then the attack is real
@@ -135,6 +138,11 @@ var Events = function() {
         } else {
             console.log("YEPPERS");
             hit_by = playerById(this.id);
+        }
+
+        if (attacks_teams[data.attack_id] == hit.getTeam()){
+            console.log("\t\t\tYou on same team tho");
+            return;
         }
 
         var according_to = playerById(this.id);
@@ -294,6 +302,7 @@ var Events = function() {
          */
         var attacker = playerById(this.id);
         var attack_id = IDComponent.generateID();
+        attacks_teams[attack_id] = attacker.getTeam();
         if (attacker.invis) {
             becomeVisible(attacker, this);
             //            attacker.meeleeBonus();
@@ -514,6 +523,7 @@ var Events = function() {
                 descendAttack: true,
                 attack_id: v.getID()
             });
+            attacks_teams[v.getID()] = player.getTeam();
         }
         if (player.getCharacterType() === "Redhatter") {
             util.log("Created Meteor");

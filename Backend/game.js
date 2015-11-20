@@ -97,7 +97,17 @@ var Game = function() {
      * created_at: Date.now() # Used to expire this 
      */
     this.attackHits = function(hit, attack_id, according_to) {
-        //let attack = {};
+        if (hit==undefined){
+            console.log("HIT IS NOT DEFINED");
+        } 
+        if (attack_id == undefined){
+            console.log("ATTACK ID IS NOT DEFINED");
+        }
+        if (according_to == undefined){
+            console.log("ACCORDING TO IS NOT DEFINED");
+        }
+
+
         console.log("\t\tAttack id is " +attack_id + " hit is " + hit + " according to is " + according_to);
         util.log("\t\t\t\tAttack hits : [Previosly Attack ]\t\t " + JSON.stringify(attacks));
         if (!(attacks[attack_id])) {
@@ -111,7 +121,7 @@ var Game = function() {
         };
         var hits_array = attacks[attack_id];
         for (hits in hits_array) { //if the hit exists, if not then add it -- iterate through array
-            console.log("Does " +hits_array[hits][hit]+ " == " + hit);
+            console.log("Does " +hits_array[hits].hit+ " == " + hit);
             if (hits_array[hits].hit == hit) {
                 if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
                     //not in array so put it in array
@@ -143,6 +153,12 @@ var Game = function() {
                 console.log("DAMAGE HAS BEEN DONE FRIEND");
             }
         }
+        setTimeout(function(){  //remove this
+            if (attacks[attack_id]){
+                delete attacks[attack_id];
+                console.log("Deleting");
+            }
+         }, 4000);
     };
     /* Requires that every spell has an ID*/
     this.addSpell = function(spell) {
