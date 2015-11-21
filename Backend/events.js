@@ -475,6 +475,11 @@ var Events = function() {
             case "Fly":
                 //Carry other unit lmfao
                 util.log("Fly carry tigger");
+                if (player.getGrabbed()){
+                    util.log("Fly is grabbed tho");
+
+                    return;
+                }
                 //k do fly carry method
                 for (var _i = 0; _i < players.length; _i++) {
                     if (players[_i].id != player.id) {

@@ -4,6 +4,7 @@
 exports.BaseUnitComponent = function(maxHp, width, height, that) {
     var x = 1500;
     var y = 250;
+    var grabbed;
     var birdStun = {
         active: false,
         bird: false
@@ -57,6 +58,12 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
     that.isStunned = function() {
         return 0;
     };
+    that.getGrabbed = function() {
+        return grabbed;
+    };
+    that.setGrabbed = function(_grabbed) {
+        grabbed = _grabbed
+    };
     that.getX = function() {
         return x;
     };
@@ -76,6 +83,7 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
         name = newName;
     };
     that.birdStun = function(bird) { //locks location to bird and makes it incapable of moving
+        grabbed = true;
         if (birdStun.active) { //spell is already going on
             return;
         }
@@ -83,6 +91,7 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
         birdStun.bird = bird;
         setTimeout(function() {
             birdStun.active = false;
+            grabbed = false;
         }, 3000);
     };
     this.update = function() {
