@@ -34,6 +34,7 @@ describe("Test Spells", function() {
         assert.ok(s.getX());
         assert.ok(s.getY());
         assert.ok(TortStun.getCooldown());
+        assert.ok(s.getDamage());
 
     });
 

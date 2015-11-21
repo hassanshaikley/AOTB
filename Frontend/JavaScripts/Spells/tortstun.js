@@ -26,6 +26,7 @@ var TortStun = function(_x, _y, _team) {
     this.getHeight = function() {
         return 20;
     };
+
     var tortStunClip = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("tort_stun.png")]);
     MAIN.stage.addChild(tortStunClip);
     this.draw = function() {
