@@ -97,7 +97,9 @@ Game.prototype.init = function() {
     animate();
     loadChat();
     localPlayer.setUpActionbar();
+    if (CONFIG.SHOW_HITBOXES){
     setInterval(helpers.highlightPlayerHitboxes, 200);
+    }
 }
 /**************************************************
  ** GAME EVENT HANDLERS
@@ -478,7 +480,9 @@ function update() {
         remotePlayers[i].updateVariables();
     };
     localPlayer.update(keys);
+    if (CONFIG.SHOW_HITBOXES){
     helpers.highlightSpellHitboxes();
+    }
 };
 /**************************************************
  ** GAME DRAW
