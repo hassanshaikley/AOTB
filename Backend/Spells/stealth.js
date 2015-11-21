@@ -5,6 +5,9 @@ var Stealth = function(_x, _y, _team) {
     _y = 510;
     var spell = new Spell(_x, _y, _team, 10);
     IDComponent(this);
+    this.getDamage = function(){
+    	return 10;
+    };
 };
 Stealth.getCooldown = function() {
     return 6000;

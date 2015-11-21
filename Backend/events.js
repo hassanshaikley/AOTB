@@ -20,6 +20,7 @@ var Fly = require("./units/fly").Fly,
 var CONFIG = require("./config");
 var util = require("util");
 var attacks_teams = {};
+var attacks_damages = {};
 var Events = function() {
     function onSocketConnection(client) {
         // Listen for client disconnected
@@ -92,7 +93,7 @@ var Events = function() {
         }
 
 
-        game1.attackHits(hit.id, data.attack_id, according_to.id);
+        game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id]);
         //get that specific spell by its ID
         // if attack with this id has happened enough times, then the attack is real
         /*
@@ -158,7 +159,7 @@ var Events = function() {
 
 //        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
 
-        game1.attackHits(hit.id, data.attack_id, according_to.id);
+        game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id]);
         /*
         if (meelee_hits[data.attack_id]){
             meelee_hits[data.attack_id]++;
@@ -308,7 +309,13 @@ var Events = function() {
          */
         var attacker = playerById(this.id);
         var attack_id = IDComponent.generateID();
+
+        if (!attacker.getAlive()){
+            return;
+        }
+
         attacks_teams[attack_id] = attacker.getTeam();
+        attacks_damages[attack_id] = attacker.getDamage();
         if (attacker.invis) {
             becomeVisible(attacker, this);
             //            attacker.meeleeBonus();
@@ -576,7 +583,9 @@ var Events = function() {
                 attack_id: v.getID()
             });
         };
-         attacks_teams[v.getID()] = player.getTeam();
+        attacks_teams[v.getID()] = player.getTeam();
+        attacks_damages[v.getID()] = v.getDamage();
+
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });

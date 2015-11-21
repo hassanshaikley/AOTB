@@ -96,7 +96,7 @@ var Game = function() {
      * }
      * created_at: Date.now() # Used to expire this 
      */
-    this.attackHits = function(hit, attack_id, according_to) {
+    this.attackHits = function(hit, attack_id, according_to, damage) {
         if (hit==undefined){
             console.log("|||||||||HIT IS NOT DEFINED");
         } 
@@ -148,7 +148,7 @@ var Game = function() {
             //if 60% of people say attack happene
             if (hits_array[hits]["according_to"].length == that.getNumPlayers() && !(hits_array[hits]["confirmed"])) {
                 //how much damage
-                that.getPlayer(hits_array[hits].hit).doDamage(25);
+                that.getPlayer(hits_array[hits].hit).doDamage(damage);
                 hits_array[hits]["confirmed"] = true;
                 console.log("DAMAGE HAS BEEN DONE FRIEND");
             }
