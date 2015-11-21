@@ -2,13 +2,13 @@
  ** events.js
  ** GAME EVENT HANDLERS
  **************************************************/
-var Fly = require("./units/fly").Fly,
-    Redhatter = require("./units/redhatter").Redhatter,
-    Grimes = require("./units/grimes").Grimes,
-    //   Bowman = require("./units/bowman").Bowman,
-    //  Skelly = require("./units/skelly").Skelly,
-    Shanker = require("./units/shanker").Shanker,
-    //  Crevice = require("./units/crevice").Crevice,
+var Fly = require("./Units/fly").Fly,
+    Redhatter = require("./Units/redhatter").Redhatter,
+    Grimes = require("./Units/grimes").Grimes,
+    //   Bowman = require("./Units/bowman").Bowman,
+    //  Skelly = require("./Units/skelly").Skelly,
+    Shanker = require("./Units/shanker").Shanker,
+    //  Crevice = require("./Units/crevice").Crevice,
     Stealth = require("./Spells/stealth.js").Stealth,
     TortStun = require("./Spells/tortstun.js").TortStun,
     RHRange = require("./Spells/rhrange.js").RHRange,
