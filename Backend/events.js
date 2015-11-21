@@ -489,7 +489,9 @@ var Events = function() {
                             if (distance(players[_i].getY(), player.getY()) < 100) {
                                 util.log("Made y");
                                 //so stun the player and lock his location to the flys : D
-                                players[_i].birdStun(player);
+                                if (players[_i].getAlive()){
+                                    players[_i].birdStun(player);
+                                }
                             }
                         }
                     }
