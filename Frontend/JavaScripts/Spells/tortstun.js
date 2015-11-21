@@ -2,11 +2,11 @@ var TortStun = function(_x, _y, _team) {
     this.team = _team;
     var cooldown = 1000;
     var x = _x, //center x
-        y = 370;
+        y = 450;
     var timer = 0;
     this.update = function() {
         timer = timer + 1;
-        if (y >= 360) {
+        if (y >= 440) {
             y = y - 2;
         } else if (timer >= 100) {
             MAIN.stage.removeChild(tortStunClip)
@@ -19,6 +19,12 @@ var TortStun = function(_x, _y, _team) {
     };
     this.getY = function() {
         return y;
+    };
+        this.getWidth = function() {
+        return 100;
+    };
+    this.getHeight = function() {
+        return 20;
     };
     var tortStunClip = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("tort_stun.png")]);
     MAIN.stage.addChild(tortStunClip);

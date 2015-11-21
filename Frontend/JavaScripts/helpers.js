@@ -26,7 +26,13 @@ helpers.highlightSpellHitboxes = function() {
             Spells.spellsarray[_i].highlight.drawRect(0, 0, Spells.spellsarray[_i].getWidth(), Spells.spellsarray[_i].getHeight());
             Spells.spellsarray[_i].highlight.endFill();
             Spells.spellsarray[_i].highlight.alpha = .1;
-            MAIN.stage.addChild(Spells.spellsarray[_i].highlight);
+            MAIN.stage.addChild();
+
+        setTimeout(function() {
+            MAIN.stage.removeChild(Spells.spellsarray[_i].highlight);
+            delete Spells.spellsarray[_i].highlight;
+        }, 1000);
+
         }
         Spells.spellsarray[_i].highlight.x = Spells.spellsarray[_i].getX() + CONFIG.SCREEN_WIDTH / 2 - localPlayer.getDrawAtX() - 25;
         Spells.spellsarray[_i].highlight.y = Spells.spellsarray[_i].getY();
