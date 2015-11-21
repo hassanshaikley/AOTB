@@ -439,8 +439,10 @@ var Events = function() {
         switch (player.getCharacterType()) {
             case "Redhatter":
                 var v = new RHRange(data.x, data.y, data.direction, player.getTeam());
-                if (!player.spellTwoCastTime || player.spellTwoCastTime + RHRange.getCooldown() <= Date.now()) {
-                    player.spellTwoCastTime = Date.now();
+                if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+                }
                     //               Spells.spellsarray.push(v);
                     this.emit('spell two', {
                         x: data.x,
@@ -456,11 +458,14 @@ var Events = function() {
                         direction: data.direction
                     });
                     util.log("SWAGGER");
-                }
                 break;
             case "Fly":
                 //Carry other unit lmfao
-                util.log("Fly carry tigger");
+                util.log("Fly carry tigger" + (player.spellTwoCastTime + DescendAttack.getCooldown()) + " NOW : " +Date.now());
+                if (!(player.spellTwoCastTime + DescendAttack.getCooldown() <= Date.now())) {
+                    util.log("DONE");
+                    return;
+                }
                 if (player.getGrabbed()) {
                     util.log("Fly is grabbed tho");
                     return;
@@ -483,6 +488,7 @@ var Events = function() {
                 }
                 break;
         }
+        player.spellTwoCastTime = Date.now();
     }
 
     function onSpellOne(data) {

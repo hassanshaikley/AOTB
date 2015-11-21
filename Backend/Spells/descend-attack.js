@@ -8,6 +8,6 @@ var DescendAttack = function(){
 
 };
 DescendAttack.getCooldown = function() {
-    return 6000;
+    return 10000;
 };
 exports.DescendAttack = DescendAttack;
