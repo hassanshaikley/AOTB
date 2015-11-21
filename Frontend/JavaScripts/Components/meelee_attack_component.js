@@ -32,9 +32,9 @@ var MeeleeAttackComponent = function(that) {
                 break;
             case "Grimes":
                 if (direction === "right") {
-                    center_x += 45;
+                    center_x += 50;
                 } else {
-                    center_x -= 30;
+                    center_x -= 15;
                 }
                 center_y += 10;
                 break;
