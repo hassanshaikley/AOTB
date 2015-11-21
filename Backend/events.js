@@ -86,6 +86,12 @@ var Events = function() {
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
 
 
+        if (attacks_teams[data.attack_id] == hit.getTeam()){
+            console.log("\t\t\tYou on same team tho");
+            return;
+        }
+
+
         game1.attackHits(hit.id, data.attack_id, according_to.id);
         //get that specific spell by its ID
         // if attack with this id has happened enough times, then the attack is real
@@ -482,6 +488,8 @@ var Events = function() {
 
     function onSpellOne(data) {
         var player = playerById(this.id);
+        var v;
+
         if (!player.getAlive()) {
             return;
         };
@@ -494,7 +502,7 @@ var Events = function() {
             player.spellOneCastTime = Date.now();
         }
         if (player.getCharacterType() === "Grimes") {
-            var v = new TortStun(data.x, data.y, player.getTeam());
+            v = new TortStun(data.x, data.y, player.getTeam());
             //            Spells.spellsarray.push(v);
             game1.addSpell(v);
             this.emit('spell one', {
@@ -511,7 +519,9 @@ var Events = function() {
         }
         if (player.getCharacterType() === "Fly") {
             util.log("descend attacks");
+
             player.setDescendAttack(true);
+            v = new DescendAttack(player.getX(), player.getY());
             this.emit("descend attack changes", {
                 id: "self",
                 descendAttack: true,
@@ -523,11 +533,10 @@ var Events = function() {
                 descendAttack: true,
                 attack_id: v.getID()
             });
-            attacks_teams[v.getID()] = player.getTeam();
         }
         if (player.getCharacterType() === "Redhatter") {
             util.log("Created Meteor");
-            var v = new Meteor(data.x, data.y, player.getTeam());
+            v = new Meteor(data.x, data.y, player.getTeam());
             //commented out that old line lol
             game1.addSpell(v);
             this.emit('spell one', {
@@ -567,6 +576,7 @@ var Events = function() {
                 attack_id: v.getID()
             });
         };
+         attacks_teams[v.getID()] = player.getTeam();
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
