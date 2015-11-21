@@ -30,9 +30,14 @@ describe("Swag", function() {
     });
     describe("shanker", function() {
         it("should make a shanker", function() {
-            var shanker = new Shanker("hassan", 1);
+            var shanker = new Shanker(1);
+            shanker.setName("hassan");
             assert.equal(shanker.getName(), "hassan");
             assert.equal(shanker.getCharacterType(), "Shanker");
+        });
+        it("should be able to do damage", function() {
+            var shanker = new Shanker(1);
+            assert.equal(shanker.doDamage(10), {dies: false});
         });
     });
     describe("redhatter", function() {

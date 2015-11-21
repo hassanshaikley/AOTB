@@ -15,6 +15,28 @@ function Game() {
     this.bloods = [];
     //move over to using this screen manager
     MAIN = new ScreenManager(); //should init after images are loaded
+    var team_one_kills;
+    var team_zero_kills;
+    var team_zero_kills_text = new PIXI.Text("0");
+    var team_one_kills_text = new PIXI.Text("0");
+
+    team_zero_kills_text.style.font = "bold 10px arial";
+    team_zero_kills_text.style.align = "center";
+       team_one_kills_text.style.font = "bold 10px arial";
+    team_one_kills_text.style.align = "center";
+     
+    MAIN.stage.addChild(team_one_kills_text);
+    MAIN.stage.addChild(team_zero_kills_text);
+
+
+    this.setTeamOneKills= function(kills){
+        team_one_kills = kills;
+        team_one_kills_text = kills;
+    }
+   this.setTeamZeroKills = function(kills){
+    team_zero_kills = kills;
+    team_one_kills_text = kills;
+   }
 };
 
 
@@ -524,6 +546,9 @@ function playerById(id) {
 function onInitMe(data) {
     localPlayer.setTeam(data.team);
     localPlayer.setX(data.x);
+    localGame.setTeamOneKills(data.team_one_kills);
+    localGame.setTeamZeroKills(data.team_zero_kills);
+    console.log("TEAM 1 " + data.team_one_kills + " TEAM 2 " + data.team_zero_kills);
 };
 
 function hostileById(id) {

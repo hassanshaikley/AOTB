@@ -17,7 +17,8 @@ exports.BaseTeamComponent = function(that, team) {
         } else {
             respawnX = 1100 + randomOffset;
         }
-        that.x = respawnX;
+        //that.x = respawnX;
+        that.setX(respawnX);
         util.log("setting team to " + newTeam);
         team = newTeam;
     };

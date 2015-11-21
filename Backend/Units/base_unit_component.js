@@ -36,9 +36,10 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
         return 3000;
     };
     that.doDamage = function(damage) {
+        console.log("DOING DAMAGE");
         if (currHp <= 0){
             console.log("\t\t\t yo wtf I am alraedy dead man");
-            return;
+            return {dies: false };
         }
         currHp = currHp - damage;
         if (currHp <= 0) {
@@ -46,7 +47,11 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
             setTimeout(function() {
                 that.respawn();
             }, that.getRespawnTime());
+            return {dies: true };
+
         }
+        return {dies: false };
+
     };
     that.respawn = function() {
         currHp = maxHp;

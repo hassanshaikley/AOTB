@@ -13,6 +13,17 @@ var Game = function() {
     var active_players = {};
     /* Spell ID, Spell Object */
     var active_spells = {};
+
+    var team_zero_kills = 5;
+    var team_one_kills = 5;
+
+
+    this.getTeamZeroKills = function(){
+        return team_zero_kills;
+    };
+    this.getTeamOneKills = function(){
+        return team_one_kills;
+    };
     var GEN_ID = 0; //for players
     /*
      * Array of all of the Game Objects
@@ -149,12 +160,26 @@ var Game = function() {
             if (hits_array[hits]["according_to"].length == that.getNumPlayers() && !(hits_array[hits]["confirmed"])) {
                 //how much damage
                 var hit_player = that.getPlayer(hits_array[hits].hit)
-                hit_player.doDamage(damage);
+                var dies = hit_player.doDamage(damage);
                 hits_array[hits]["confirmed"] = true;
                 console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[id] + " ");
-                if (id){
+                if (id){ // does this trip out when the player is dead?
                     active_spells[id].doEffect(hit_player);
                 }
+                if (dies.dies){
+                    //player is dead increment death counter
+                    if (hit_player.getTeam() == 0){
+                        console.log("Team 1 got a kill");
+                        team_one_kills++;
+                        return true;
+                    } else {
+                        console.log("Team zero got a kill");
+                        team_zero_kills++;
+                        return true;
+                    }
+                    //now notify
+                }
+
             }
         }
         setTimeout(function(){  //remove this

@@ -148,7 +148,13 @@ var Events = function() {
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
         //should only happen if they are on differnt teams
         //        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
-        game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id]);
+        //this function returns true if they die...
+        if (game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id])){
+
+        };
+        //if num of kills changes, then emit to everyone
+
+
         /*
         if (meelee_hits[data.attack_id]){
             meelee_hits[data.attack_id]++;
@@ -409,7 +415,8 @@ var Events = function() {
             x: newPlayer.getX(),
             y: newPlayer.getY(),
             name: newPlayer.getName(),
-            characterType: newPlayer.getCharacterType()
+            characterType: newPlayer.getCharacterType(),
+
         });
         // Send existing players to the new player
         var i, existingPlayer;
@@ -620,7 +627,9 @@ var Events = function() {
         var initPlayer = playerById(this.id);
         this.emit("init me", {
             team: initPlayer.getTeam(),
-            x: initPlayer.getRespawnX()
+            x: initPlayer.getRespawnX(),
+            team_one_kills: game1.getTeamOneKills(),
+            team_zero_kills: game1.getTeamZeroKills()
         });
     };
     /**************************************************
