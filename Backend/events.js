@@ -16,7 +16,6 @@ var Fly = require("./Units/fly").Fly,
     CollidingObject = require("./gameObjects/CollidingObject.js").CollidingObject,
     Meteor = require("./Spells/meteor.js").Meteor,
     IDComponent = require("./Components/id-component").IDComponent;
-
 var CONFIG = require("./config");
 var util = require("util");
 var attacks_teams = {};
@@ -72,7 +71,7 @@ var Events = function() {
         util.log("HITS>>" + data.attack_id + " -- " + data.hit);
         // get the id of the person that hit
         var hit;
-        if (!(data.hit==undefined)) {
+        if (!(data.hit == undefined)) {
             hit = playerById(data.hit);
         } else {
             hit = playerById(this.id);
@@ -85,15 +84,11 @@ var Events = function() {
         }
         var according_to = playerById(this.id);
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
-
-
-        if (attacks_teams[data.attack_id] == hit.getTeam()){
+        if (attacks_teams[data.attack_id] == hit.getTeam()) {
             console.log("\t\t\tYou on same team tho");
             return;
         }
-
-
-        game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id]);
+        game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id], data.attack_id);
         //get that specific spell by its ID
         // if attack with this id has happened enough times, then the attack is real
         /*
@@ -130,8 +125,7 @@ var Events = function() {
     function onMeeleeHits(data) {
         var hit;
         var hit_by;
-
-        if (!(data.hit== undefined)) {
+        if (!(data.hit == undefined)) {
             console.log("hit is not undefined");
             hit = playerById(data.hit);
         } else {
@@ -146,19 +140,14 @@ var Events = function() {
             console.log("YEPPERS");
             hit_by = playerById(this.id);
         }
-
-        if (attacks_teams[data.attack_id] == hit.getTeam()){
+        if (attacks_teams[data.attack_id] == hit.getTeam()) {
             console.log("\t\t\tYou on same team tho");
             return;
         }
-
         var according_to = playerById(this.id);
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
-
         //should only happen if they are on differnt teams
-
-//        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
-
+        //        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
         game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id]);
         /*
         if (meelee_hits[data.attack_id]){
@@ -223,7 +212,6 @@ var Events = function() {
     /* Every meelee attack has an ID
      *
      */
-
     function onMeeleeAttack(data) { //when a player left clicks
         /*
         var attacker = playerById(this.id);
@@ -309,11 +297,9 @@ var Events = function() {
          */
         var attacker = playerById(this.id);
         var attack_id = IDComponent.generateID();
-
-        if (!attacker.getAlive()){
+        if (!attacker.getAlive()) {
             return;
         }
-
         attacks_teams[attack_id] = attacker.getTeam();
         attacks_damages[attack_id] = attacker.getDamage();
         if (attacker.invis) {
@@ -475,9 +461,8 @@ var Events = function() {
             case "Fly":
                 //Carry other unit lmfao
                 util.log("Fly carry tigger");
-                if (player.getGrabbed()){
+                if (player.getGrabbed()) {
                     util.log("Fly is grabbed tho");
-
                     return;
                 }
                 //k do fly carry method
@@ -489,7 +474,7 @@ var Events = function() {
                             if (distance(players[_i].getY(), player.getY()) < 100) {
                                 util.log("Made y");
                                 //so stun the player and lock his location to the flys : D
-                                if (players[_i].getAlive()){
+                                if (players[_i].getAlive()) {
                                     players[_i].birdStun(player);
                                 }
                             }
@@ -503,20 +488,16 @@ var Events = function() {
     function onSpellOne(data) {
         var player = playerById(this.id);
         var v;
-
         if (!player.getAlive()) {
             return;
         };
         // util.log("SPELL ONING");
         //1000 should be repalced with the spells cooldown!
-
-
-        if (player.getCharacterType() === "Grimes" ) {
-
-        if (!(player.spellOneCastTime + TortStun.getCooldown() <= Date.now())) {
-            util.log("DONE");
-            return;
-        } 
+        if (player.getCharacterType() === "Grimes") {
+            if (!(player.spellOneCastTime + TortStun.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+            }
             v = new TortStun(data.x, data.y, player.getTeam());
             //            Spells.spellsarray.push(v);
             game1.addSpell(v);
@@ -533,13 +514,11 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Fly") {
-        if (!(player.spellOneCastTime + DescendAttack.getCooldown() <= Date.now())) {
-            util.log("DONE");
-            return;
-        } 
-
+            if (!(player.spellOneCastTime + DescendAttack.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+            }
             util.log("descend attacks");
-
             player.setDescendAttack(true);
             v = new DescendAttack(player.getX(), player.getY());
             this.emit("descend attack changes", {
@@ -555,10 +534,10 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Redhatter") {
-        if (!(player.spellOneCastTime + Meteor.getCooldown() <= Date.now())) {
-            util.log("DONE");
-            return;
-        } 
+            if (!(player.spellOneCastTime + Meteor.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+            }
             util.log("Created Meteor");
             v = new Meteor(data.x, data.y, player.getTeam());
             //commented out that old line lol
@@ -567,7 +546,7 @@ var Events = function() {
                 x: data.x,
                 spell: "meteor",
                 team: player.getTeam(),
-                casted_by_me: true,
+                casted_by_me: true, 
                 attack_id: v.getID()
             });
             this.broadcast.emit('spell one', {
@@ -578,10 +557,10 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Shanker") {
-        if (!(player.spellOneCastTime + Stealth.getCooldown() <= Date.now())) {
-            util.log("DONE");
-            return;
-        } 
+            if (!(player.spellOneCastTime + Stealth.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+            }
             v = new Stealth();
             util.log("SHE");
             player.invis = true;
@@ -604,12 +583,9 @@ var Events = function() {
                 attack_id: v.getID()
             });
         };
-
         player.spellOneCastTime = Date.now();
-        
         attacks_teams[v.getID()] = player.getTeam();
         attacks_damages[v.getID()] = v.getDamage();
-
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });

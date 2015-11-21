@@ -32,7 +32,7 @@ var Grimes = function(name, x, y, hp) {
         grimes_l.position.y = drawAtY;
         grimes_l.position.x = drawAtX;
         grimes_r.position.x = drawAtX;
-        skeleton.setMeeleeAttack(false);
+        skeleton.setMeeleeAttack(false); //idk y i do this lol
         if (this.getMoveDirection() === "left") {
             skeleton.imageContainer.removeChild(grimes_r);
             skeleton.imageContainer.removeChild(grimes_l);

@@ -96,7 +96,7 @@ var Game = function() {
      * }
      * created_at: Date.now() # Used to expire this 
      */
-    this.attackHits = function(hit, attack_id, according_to, damage) {
+    this.attackHits = function(hit, attack_id, according_to, damage, id) {
         if (hit==undefined){
             console.log("|||||||||HIT IS NOT DEFINED");
         } 
@@ -148,9 +148,13 @@ var Game = function() {
             //if 60% of people say attack happene
             if (hits_array[hits]["according_to"].length == that.getNumPlayers() && !(hits_array[hits]["confirmed"])) {
                 //how much damage
-                that.getPlayer(hits_array[hits].hit).doDamage(damage);
+                var hit_player = that.getPlayer(hits_array[hits].hit)
+                hit_player.doDamage(damage);
                 hits_array[hits]["confirmed"] = true;
-                console.log("DAMAGE HAS BEEN DONE FRIEND");
+                console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[id] + " ");
+                if (id){
+                    active_spells[id].doEffect(hit_player);
+                }
             }
         }
         setTimeout(function(){  //remove this
@@ -170,6 +174,11 @@ var Game = function() {
             return 1;
         };
     };
+    this.getSpell = function(id){
+        if (active_spells[id]){
+            return active_spells[id];
+        }
+    }
     this.addMeeleeAttack = function(attack) {
         if (!attack) {
             return 0;

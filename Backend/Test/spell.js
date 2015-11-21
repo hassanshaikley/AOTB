@@ -27,8 +27,9 @@ describe("Test Spells", function() {
 
     it ("different spells should have unique ids", function(){
         var s = new TortStun(200, 400, 1); //x, y, team are params
-        var x = new Meteor();
+        var x = new Meteor(0,0, 1);
         var y = new Stealth();
+
         assert.notEqual(x.getID(), y.getID());
         assert.notEqual(s.getID(), x.getID());
 

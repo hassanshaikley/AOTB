@@ -43,4 +43,4 @@ var TortStun = function(_x, _y, _team) {
 //static function that returns thumbnail
 TortStun.thumbnail = function() {
     return 1;
-}
+};

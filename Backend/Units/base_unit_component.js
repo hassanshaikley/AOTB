@@ -9,6 +9,9 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
         active: false,
         bird: false
     };
+    
+    var immobilized = false; 
+
     var name = "unknown";
     if (maxHp == null) {
         throw ("Dude come on, you need health to create a base unit");
@@ -81,6 +84,17 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
     };
     that.setName = function(newName) {
         name = newName;
+    };
+    // This will break if immobilized and then immobilized immediately after
+    that.immobilize = function(duration){
+        immobilized = true;
+        setTimeout(function(){
+            immobilized = false;
+        }, 3000)
+        return true;
+    };
+    that.getImmobilize = function(){
+        return immobilized;
     };
     that.birdStun = function(bird) { //locks location to bird and makes it incapable of moving
         grabbed = true;

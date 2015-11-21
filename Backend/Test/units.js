@@ -37,9 +37,15 @@ describe("Swag", function() {
     });
     describe("redhatter", function() {
         it("should make a redhatter", function() {
-            var redhatter = new Redhatter("hassan", 1);
+            var redhatter = new Redhatter(1);
+            redhatter.setName("hassan");
             assert.equal(redhatter.getName(), "hassan");
             assert.equal(redhatter.getCharacterType(), "Redhatter");
+        });
+        it("shanker can be immobilized", function() {
+            var shanker = new Redhatter(1);
+            console.log("shanker IS " + JSON.stringify(shanker));
+            assert.ok(shanker.immobilize(200));
         });
     });
 });

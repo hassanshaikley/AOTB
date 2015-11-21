@@ -332,7 +332,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
      * And then checks for Collision
      **/
     this.setMeeleeAttack = function(_atk, attack_id, direction) {
-        console.log("SETTING MEELEE ATTACK");
         if (_atk) {
             if (direction == "left") {
                 current_action = CONFIG.ACTION.ATTACK_LEFT;
@@ -342,7 +341,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
                 last_move_direction = "right";
             }
         } else { // If meeelee attack is set to false, return
-            console.log("MEELEE ATTACK FALSE NOW");
             meelee_attack = _atk;
             return;
         }

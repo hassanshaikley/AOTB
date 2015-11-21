@@ -5,6 +5,7 @@ var FlyGrab = function(){
     this.getDamage = function(){
     	return 0;
     };
+  
 
 };
 FlyGrab.getCooldown = function() {

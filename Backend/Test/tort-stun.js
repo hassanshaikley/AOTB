@@ -2,6 +2,8 @@ var assert = require("assert");
 var testhelper = require('./testhelper');
 var Game = require('../game.js').Game;
 var TortStun = require('../Spells/tortstun.js').TortStun;
+var Redhatter = require('../units/redhatter.js').Redhatter;
+
 
 describe("Test Spells", function() {
     var game;
@@ -33,6 +35,9 @@ describe("Test Spells", function() {
         assert.ok(s.getDamage());
         assert.ok(s.getX());
         assert.ok(s.getY());
+        var y = new Redhatter(0);
+         assert.ok(s.doEffect(y));
+
         assert.ok(TortStun.getCooldown());
         assert.ok(s.getDamage());
 

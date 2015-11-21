@@ -38,6 +38,7 @@ exports.MovementComponent = function(speed, that, ySpeed) {
             throw new Error("Yo, speed and that need to exist for movement component to update");
         }
         jump(that);
+        if (!that.getImmobilize()){
         if (that.left) {
             that.setX(that.getX() - speed);
         }
@@ -54,6 +55,7 @@ exports.MovementComponent = function(speed, that, ySpeed) {
             that.setX(1000);
         } else if (that.getX() >= Config.ARENA_WIDTH + 1000) {
             that.setX(Config.ARENA_WIDTH + 1000);
+        }
         }
         gravity(that);
     }
