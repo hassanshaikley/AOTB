@@ -509,13 +509,14 @@ var Events = function() {
         };
         // util.log("SPELL ONING");
         //1000 should be repalced with the spells cooldown!
-        if (!(player.spellOneCastTime + 1000 <= Date.now())) {
+
+
+        if (player.getCharacterType() === "Grimes" ) {
+
+        if (!(player.spellOneCastTime + TortStun.getCooldown() <= Date.now())) {
             util.log("DONE");
             return;
-        } else {
-            player.spellOneCastTime = Date.now();
-        }
-        if (player.getCharacterType() === "Grimes") {
+        } 
             v = new TortStun(data.x, data.y, player.getTeam());
             //            Spells.spellsarray.push(v);
             game1.addSpell(v);
@@ -532,6 +533,11 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Fly") {
+        if (!(player.spellOneCastTime + DescendAttack.getCooldown() <= Date.now())) {
+            util.log("DONE");
+            return;
+        } 
+
             util.log("descend attacks");
 
             player.setDescendAttack(true);
@@ -549,6 +555,10 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Redhatter") {
+        if (!(player.spellOneCastTime + Meteor.getCooldown() <= Date.now())) {
+            util.log("DONE");
+            return;
+        } 
             util.log("Created Meteor");
             v = new Meteor(data.x, data.y, player.getTeam());
             //commented out that old line lol
@@ -568,6 +578,10 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Shanker") {
+        if (!(player.spellOneCastTime + Stealth.getCooldown() <= Date.now())) {
+            util.log("DONE");
+            return;
+        } 
             v = new Stealth();
             util.log("SHE");
             player.invis = true;
@@ -590,6 +604,9 @@ var Events = function() {
                 attack_id: v.getID()
             });
         };
+
+        player.spellOneCastTime = Date.now();
+        
         attacks_teams[v.getID()] = player.getTeam();
         attacks_damages[v.getID()] = v.getDamage();
 

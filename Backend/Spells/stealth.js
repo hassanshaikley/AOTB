@@ -10,6 +10,6 @@ var Stealth = function(_x, _y, _team) {
     };
 };
 Stealth.getCooldown = function() {
-    return 6000;
+    return 5000;
 };
 exports.Stealth = Stealth;

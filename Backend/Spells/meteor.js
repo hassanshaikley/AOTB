@@ -67,7 +67,7 @@ var Meteor = function(meteorX, mCaster, _team) {
     return this;
 };
 Meteor.getCooldown = function() {
-    return 6000;
+    return 3000;
 };
 Meteor.getHalfWidth = function() {
     return 18;
