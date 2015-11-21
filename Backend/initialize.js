@@ -42,9 +42,9 @@ module.exports = {
         require('./App/routes.js')(this.app, this.passport);
         this.app.engine('html', require('ejs').renderFile);
         //    this.app.use(this.logfmt.requestLogger());
-        this.app.use("/styles", this.express.static(__dirname + '/../Frontend/CSS'));
-        this.app.use("/localAssets", this.express.static(__dirname + '/../Frontend/Images'));
-        this.app.use("/scripts", this.express.static(__dirname + '/../Frontend/JavaScripts'));
+        this.app.use("/styles", this.express.static('../Frontend/CSS'));
+        this.app.use("/localAssets", this.express.static('/../Frontend/Images'));
+        this.app.use("/scripts", this.express.static('../Frontend/JavaScripts'));
         //at the end get this server to listen up friends : D
         var port = this.port;
         this.server.listen(port, function() {
