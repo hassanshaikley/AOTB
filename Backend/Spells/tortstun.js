@@ -10,13 +10,16 @@ var TortStun = function(_x, _y, _team) {
     //it needs a position (so an x and y, getX and getY)
     //it needs damage
     //it needs a team
+    this.getTeam = function(){
+        return _team;
+    };
 
 
     var speed = 10;
     var width = 50;
     var active = true;
     IDComponent(this);
-    PositionComponent(this);
+    PositionComponent(this, _x, _y);
 
     this.getDamage = function() {
         return 15;

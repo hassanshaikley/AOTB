@@ -11,7 +11,7 @@ describe("Test Spells", function() {
     });
 
     it ("should  be able to construct a tortstun", function(){
-        var s = new TortStun(200, 400, 1); //x, y, team are params
+        var s = new TortStun(200, 400, 1); //x, y, team are params , y should be 490 no matter wat
         assert.equal(s.getTeam(), 1);
         assert.equal(s.getX(), 200);
         assert.equal(s.getY(), 490);
@@ -29,7 +29,7 @@ describe("Test Spells", function() {
 
     });
     it ("Should have all these  qualities ", function(){
-        var s = new TortStun(0,0, 1);
+        var s = new TortStun(20,20, 1);
         assert.ok(s.getDamage());
         assert.ok(s.getX());
         assert.ok(s.getY());
