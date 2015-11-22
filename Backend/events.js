@@ -211,6 +211,28 @@ var Events = function() {
 
     function onKeyPress(data) {
         var player = playerById(this.id);
+
+        if (data.key === "jump" && data.down) { // only when u press down
+            util.log("JUMPINGG AAA " + player.getY() + " -- " + player.getHeight() / 2 + " -- " + CONFIG.FLOOR_HEIGHT);
+            if (!player.jumping && player.getY() + player.getHeight() / 2 === CONFIG.FLOOR_HEIGHT) {
+                player.jumping = true;
+                if (player.left && ! player.right){
+                    player.jump_direction = "left";
+                }
+                if (!player.left && player.right){
+                    player.jump_direction = "right";
+                }
+                if (!player.left && !player.right || player.left && player.right){
+                    player.jump_direction = "none";
+                }
+                setTimeout(function() {
+                    player.jumping = false;
+                    setTimeout(function(){
+                        player.jump_direction = undefined;
+                    }, 300);
+                }, 300);
+            }
+        }
         if (data.key === "left") {
             player.left = data.down;
         }
@@ -222,15 +244,6 @@ var Events = function() {
         }
         if (data.key === "down") {
             player.down = data.down;
-        }
-        if (data.key === "jump" && data.down) { // only when u press down
-            util.log("JUMPINGG AAA " + player.getY() + " -- " + player.getHeight() / 2 + " -- " + CONFIG.FLOOR_HEIGHT);
-            if (!player.jumping && player.getY() + player.getHeight() / 2 === CONFIG.FLOOR_HEIGHT) {
-                player.jumping = true;
-                setTimeout(function() {
-                    player.jumping = false
-                }, 400);
-            }
         }
     }
     /* Every meelee attack has an ID

@@ -11,6 +11,8 @@ exports.MovementComponent = function(speed, that, ySpeed) {
     function gravity(that) {
         if (that.getY() > Config.FLOOR_HEIGHT - that.getHeight() / 2) { //if its greater than the ground (V great)!
             that.setY(Config.FLOOR_HEIGHT - that.getHeight() / 2);
+            console.log("IN HERE THO");
+
         } else if (that.getY() < 0) { //trying to fly way too high rn
             that.setY(0);
         } else if (!that.jumping && !(that.getY() === Config.FLOOR_HEIGHT - that.getHeight() / 2)) {
@@ -30,7 +32,7 @@ exports.MovementComponent = function(speed, that, ySpeed) {
     function jump(that) {
         if (that.jumping) { //jumping
             util.log(that.jumping)
-            that.setY(that.getY() - 25);
+            that.setY(that.getY() - 20);
         }
     }
     this.update = function(that) {
@@ -38,24 +40,36 @@ exports.MovementComponent = function(speed, that, ySpeed) {
             throw new Error("Yo, speed and that need to exist for movement component to update");
         }
         jump(that);
-        if (!that.getImmobilize()){
-        if (that.left) {
-            that.setX(that.getX() - speed);
-        }
-        if (that.right) {
-            that.setX(that.getX() + speed);
-        }
-        if (that.up) {
-            that.setY(that.getY() - ySpeed);
-        }
-        if (that.down) {
-            that.setY(that.getY() + ySpeed);
-        }
-        if (that.getX() <= 1000) {
-            that.setX(1000);
-        } else if (that.getX() >= Config.ARENA_WIDTH + 1000) {
-            that.setX(Config.ARENA_WIDTH + 1000);
-        }
+        if (!that.getImmobilize()) {
+
+            if (that.jump_direction == undefined) {
+                if (that.left) {
+                    that.setX(that.getX() - speed);
+                }
+                if (that.right) {
+                    that.setX(that.getX() + speed);
+                }
+            } else {
+                if (that.jump_direction == "left"){
+                    that.setX(that.getX() - speed);
+
+                } 
+                if (that.jump_direction == "right"){
+                    that.setX(that.getX() + speed);
+
+                }
+            }
+            if (that.up) {
+                that.setY(that.getY() - ySpeed);
+            }
+            if (that.down) {
+                that.setY(that.getY() + ySpeed);
+            }
+            if (that.getX() <= 1000) {
+                that.setX(1000);
+            } else if (that.getX() >= Config.ARENA_WIDTH + 1000) {
+                that.setX(Config.ARENA_WIDTH + 1000);
+            }
         }
         gravity(that);
     }

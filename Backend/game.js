@@ -13,12 +13,13 @@ var Game = function() {
     var active_spells = {};
     var team_zero_kills = 0;
     var team_one_kills = 0;
-    var KILL_CAP = 1;
+    var KILL_CAP = 10;
     
     this.resetGame = function() {
         team_zero_kills = 0;
         team_one_kills = 0
         winner = -1; 
+        //maybe set active_spells to {}??
     };
 
     function incrementTeamZeroKills() {
