@@ -31,6 +31,7 @@ Server.prototype.updateGames = function() {
         server.libs.io.sockets.emit('win', {
             winner: game1.getWinner()
         });
+        game1.setWinner(-1);
         // 0 means the state is over
     }
     // update player positions
