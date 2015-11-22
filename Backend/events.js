@@ -88,7 +88,17 @@ var Events = function() {
             console.log("\t\t\tYou on same team tho");
             return;
         }
-        game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id], data.attack_id);
+        if(game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id], data.attack_id)){
+
+            this.emit('update team killcount', {
+            team_one_kills: game1.getTeamOneKills(),
+            team_zero_kills: game1.getTeamZeroKills()
+        });
+        this.broadcast.emit('update team killcount', {
+            team_one_kills: game1.getTeamOneKills(),
+            team_zero_kills: game1.getTeamZeroKills()
+        });
+        };
         //get that specific spell by its ID
         // if attack with this id has happened enough times, then the attack is real
         /*
@@ -151,6 +161,14 @@ var Events = function() {
         //this function returns true if they die...
         if (game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id])){
 
+            this.emit('update team killcount', {
+            team_one_kills: game1.getTeamOneKills(),
+            team_zero_kills: game1.getTeamZeroKills()
+        });
+        this.broadcast.emit('update team killcount', {
+            team_one_kills: game1.getTeamOneKills(),
+            team_zero_kills: game1.getTeamZeroKills()
+        });
         };
         //if num of kills changes, then emit to everyone
 

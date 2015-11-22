@@ -20,22 +20,24 @@ function Game() {
     var team_zero_kills_text = new PIXI.Text("0");
     var team_one_kills_text = new PIXI.Text("0");
 
-    team_zero_kills_text.style.font = "bold 10px arial";
+    team_zero_kills_text.style.font = "bold 20px arial";
     team_zero_kills_text.style.align = "center";
-       team_one_kills_text.style.font = "bold 10px arial";
+       team_one_kills_text.style.font = "bold 20px arial";
     team_one_kills_text.style.align = "center";
      
+     team_one_kills_text.x = CONFIG.SCREEN_WIDTH - 35;
+     team_zero_kills_text.x = 20;
     MAIN.stage.addChild(team_one_kills_text);
     MAIN.stage.addChild(team_zero_kills_text);
 
 
     this.setTeamOneKills= function(kills){
         team_one_kills = kills;
-        team_one_kills_text = kills;
+        team_one_kills_text.text = kills;
     }
    this.setTeamZeroKills = function(kills){
-    team_zero_kills = kills;
-    team_one_kills_text = kills;
+        team_zero_kills = kills;
+        team_zero_kills_text.text = kills;
    }
 };
 
@@ -156,8 +158,13 @@ var setEventHandlers = function() {
     socket.on("meelee attack", onMeeleeAttack);
     socket.on("visible again", onVisibleAgain);
     socket.on("spell two", onSpellTwo);
+    socket.on("update team killcount", onUpdateTeamKillcount);
 };
+function onUpdateTeamKillcount(data){
+    localGame.setTeamZeroKills(data.team_zero_kills);
+        localGame.setTeamOneKills(data.team_one_kills)
 
+};
 function onSpellTwo(data) {
     console.log("SPELL TWO COMES BAKK");
     switch (data.spell) {

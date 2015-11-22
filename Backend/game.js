@@ -2,26 +2,43 @@ var GameID = 0; // Every Game should have a unique ID
 var util = require("util");
 //TO-DO: each game should probably have its own socket.io room...
 var Game = function() {
-    var state = 1; //game state 0 means a game is won, make these constants
     var gameID = GameID++;
     //should remove this
     var winner = -1;
     var that = this;
     var active_spells = {};
-
     /* Socket ID, Player Object */
     var active_players = {};
     /* Spell ID, Spell Object */
     var active_spells = {};
+    var team_zero_kills = 0;
+    var team_one_kills = 0;
+    var KILL_CAP = 1;
+    
+    this.resetGame = function() {
+        team_zero_kills = 0;
+        team_one_kills = 0
+    };
 
-    var team_zero_kills = 5;
-    var team_one_kills = 5;
+    function incrementTeamZeroKills() {
+        team_zero_kills++;
+        if (team_zero_kills == KILL_CAP) {
+            winner = 0;
+            that.resetGame();
+        }
+    };
 
-
-    this.getTeamZeroKills = function(){
+    function incrementTeamOneKills() {
+        team_one_kills++;
+        if (team_one_kills == KILL_CAP) {
+            winner = 1;
+            that.resetGame();
+        }
+    };
+    this.getTeamZeroKills = function() {
         return team_zero_kills;
     };
-    this.getTeamOneKills = function(){
+    this.getTeamOneKills = function() {
         return team_one_kills;
     };
     var GEN_ID = 0; //for players
@@ -31,7 +48,6 @@ var Game = function() {
      * Also in the spells and projectiles array
      */
     this.gameObjects = [];
-
     this.setWinner = function(w) {
         winner = w; //0 or 1 depending on the winning team
         //After winner is ser
@@ -48,16 +64,6 @@ var Game = function() {
     };
     this.getWinner = function() {
         return winner;
-    };
-    this.setState = function(s) { //0 means game is over
-        if (state === 1 && s === 0) { // game finished
-            state = s;
-            return "GAME OVER";
-        }
-        state = s;
-    };
-    this.getState = function() {
-        return state;
     };
     var stupid_variable = 0;
     this.addPlayer = function(newPlayer) {
@@ -108,21 +114,19 @@ var Game = function() {
      * created_at: Date.now() # Used to expire this 
      */
     this.attackHits = function(hit, attack_id, according_to, damage, id) {
-        if (hit==undefined){
+        if (hit == undefined) {
             console.log("|||||||||HIT IS NOT DEFINED");
-        } 
-        if (attack_id == undefined){
+        }
+        if (attack_id == undefined) {
             console.log("|||||||||ATTACK ID IS NOT DEFINED");
         }
-        if (according_to == undefined){
+        if (according_to == undefined) {
             console.log("|||||||||ACCORDING TO IS NOT DEFINED");
         }
-
-
-        console.log("\t\tAttack id is " +attack_id + " hit is " + hit + " according to is " + according_to);
+        console.log("\t\tAttack id is " + attack_id + " hit is " + hit + " according to is " + according_to);
         util.log("\t\t\t\tAttack hits : [Previosly Attack ]\t\t " + JSON.stringify(attacks));
         if (!(attacks[attack_id])) {
-             console.log("Attack being inserted for the first time.");
+            console.log("Attack being inserted for the first time.");
             attacks[attack_id] = [{
                 "hit": hit,
                 "according_to": [according_to],
@@ -132,16 +136,14 @@ var Game = function() {
         };
         var hits_array = attacks[attack_id];
         for (hits in hits_array) { //if the hit exists, if not then add it -- iterate through array
-            console.log("Does " +hits_array[hits].hit+ " == " + hit);
+            console.log("Does " + hits_array[hits].hit + " == " + hit);
             if (hits_array[hits].hit == hit) {
                 if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
                     //not in array so put it in array
                     hits_array[hits]["according_to"].push(according_to);
                 } else { //already 
-
                 }
             } else {
-
                 //THIS SHOULD ONLY HAPPEN
                 if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
                     console.log("According to doesn't exist ok.");
@@ -155,7 +157,7 @@ var Game = function() {
                     console.log("\t\t\t\tALREADY IN LE SERVER BRO");
                 }
             }
-                    util.log("\t\t\t\tAttack hits : [Current Attack ]\t\t " + JSON.stringify(attacks));
+            util.log("\t\t\t\tAttack hits : [Current Attack ]\t\t " + JSON.stringify(attacks));
             //if 60% of people say attack happene
             if (hits_array[hits]["according_to"].length == that.getNumPlayers() && !(hits_array[hits]["confirmed"])) {
                 //how much damage
@@ -163,31 +165,30 @@ var Game = function() {
                 var dies = hit_player.doDamage(damage);
                 hits_array[hits]["confirmed"] = true;
                 console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[id] + " ");
-                if (id){ // does this trip out when the player is dead?
+                if (id) { // does this trip out when the player is dead?
                     active_spells[id].doEffect(hit_player);
                 }
-                if (dies.dies){
+                if (dies.dies) {
                     //player is dead increment death counter
-                    if (hit_player.getTeam() == 0){
+                    if (hit_player.getTeam() == 0) {
                         console.log("Team 1 got a kill");
-                        team_one_kills++;
+                        incrementTeamOneKills();
                         return true;
                     } else {
                         console.log("Team zero got a kill");
-                        team_zero_kills++;
+                        incrementTeamZeroKills();
                         return true;
                     }
                     //now notify
                 }
-
             }
         }
-        setTimeout(function(){  //remove this
-            if (attacks[attack_id]){
+        setTimeout(function() { //remove this
+            if (attacks[attack_id]) {
                 delete attacks[attack_id];
                 console.log("Deleting");
             }
-         }, 4000);
+        }, 4000);
     };
     /* Requires that every spell has an ID*/
     this.addSpell = function(spell) {
@@ -199,8 +200,8 @@ var Game = function() {
             return 1;
         };
     };
-    this.getSpell = function(id){
-        if (active_spells[id]){
+    this.getSpell = function(id) {
+        if (active_spells[id]) {
             return active_spells[id];
         }
     }

@@ -26,13 +26,12 @@ Server.prototype.init = function() {
 Server.prototype.updateGames = function() {
     game1.update();
     // This is true for a moment, when the game has a winner.
-    if (game1.getWinner() !== -1 && game1.getState() === 1) {
+    if (game1.getWinner() !== -1) {
         /* Tell everyone about it and restart the game */
         server.libs.io.sockets.emit('win', {
             winner: game1.getWinner()
         });
         // 0 means the state is over
-        game1.setState(0);
     }
     // update player positions
     for (var _i = 0; _i < players.length; _i++) {
@@ -87,33 +86,7 @@ Server.prototype.updateGames = function() {
     }
     /* Iterate through every spell, if it hits someone then let them take the hit son : D */
     //  for (i = 0; i < server.Spells.spellsarray.length; i++){
-    /*
 
-    for (var j = 0; j < players.length; j++) {
-            util.log("LELELrrrE");
-            if ( players[j].getTeam() == server.Spells.spellsarray[i].getTeam()){
-                continue;
-            }
-            util.log((Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() ) + " < "
-                      + (players[j].getHeight()/2 + server.Spells.spellsarray[i].getHeight()/2)))
-
-        if (Math.abs( players[j].getX() - server.Spells.spellsarray[i].getX()) <
-        players[j].getWidth()/2 + server.Spells.spellsarray[i].getHalfWidth()
-        && server.Spells.spellsarray[i].hit.indexOf(players[j].id) === -1 &&
-        Math.abs( players[j].getY() - server.Spells.spellsarray[i].getY() + players[j].emptyYSpace) <
-                (players[j].getHeight()/2 -players[j].emptyYSpace + server.Spells.spellsarray[i].getHeight()/2)) {
-        util.log("Se");
-
-            //the - 10 hing is bullshit so fucking confused rn
-         //       server.libs.io.sockets.emit("draw hitmarker",  {x: server.Spells.spellsarray[i].getX()-10, y: server.Spells.spellsarray[i].getY() });
-        server.Spells.spellsarray[i].hit.push(players[j].id);
-        setHp( players[j], server.Spells.spellsarray[i].getDamage());
-        server.Spells.spellsarray[i].doEffect( players[j]); //stuns / freezes / etc
-        //server.libs.io.sockets.emit('bleed', { id: players[j].id });
-
-        }
-    }
-    */
     //server.Spells.spellsarray[i].update();
     //  };
     //appears to iterate through every player and send their info to everyone
