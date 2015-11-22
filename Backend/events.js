@@ -229,8 +229,8 @@ var Events = function() {
                     player.jumping = false;
                     setTimeout(function(){
                         player.jump_direction = undefined;
-                    }, 300);
-                }, 300);
+                    }, 400);
+                }, 400);
             }
         }
         if (data.key === "left") {

@@ -138,6 +138,8 @@ var Meteor = function(meteorX, mCaster) {
     };
     var meteorClip = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("meteor_v5.fw.png")]);
     MAIN.stage.addChild(meteorClip);
+    meteorClip.x = CONFIG.SCREEN_WIDTH / 2 + meteorX - localPlayer.getDrawAtX() - 25;
+    meteorClip.y = -1000;
     this.draw = function(ctx) {
         meteorClip.x = CONFIG.SCREEN_WIDTH / 2 + meteorX - localPlayer.getDrawAtX() - 25;
         // meteorClip.x = fireballX;
