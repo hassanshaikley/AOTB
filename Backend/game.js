@@ -18,21 +18,21 @@ var Game = function() {
     this.resetGame = function() {
         team_zero_kills = 0;
         team_one_kills = 0
+        winner = -1; 
     };
 
     function incrementTeamZeroKills() {
         team_zero_kills++;
         if (team_zero_kills == KILL_CAP) {
             winner = 0;
-            that.resetGame();
+            that.setWinner(0);
         }
     };
 
     function incrementTeamOneKills() {
         team_one_kills++;
         if (team_one_kills == KILL_CAP) {
-            winner = 1;
-            that.resetGame();
+            that.setWinner(1);
         }
     };
     this.getTeamZeroKills = function() {
@@ -50,16 +50,14 @@ var Game = function() {
     this.gameObjects = [];
     this.setWinner = function(w) {
         winner = w; //0 or 1 depending on the winning team
-        //After winner is ser
+
         setTimeout(function() {
             //reset game after a winner is set
-            var players = that.getPlayers();
-            for (var i = 0; i < players.length; i++) {
-                players[i].resetHp();
-                players[i].setX(players[i].getRespawnX());
-                winner = -1; //why the fuck do i do this?
-                game1.setState(1);
+            for (player in active_players) {
+                active_players[player].resetHp();
+                active_players[player].setX(active_players[player].getRespawnX());
             }
+            that.resetGame();
         }, 5000);
     };
     this.getWinner = function() {
