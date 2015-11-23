@@ -113,6 +113,8 @@ var Game = function() {
      * created_at: Date.now() # Used to expire this 
      */
     this.attackHits = function(hit, attack_id, according_to, damage, id) {
+        var ret = []; // array returns who has been hit
+        
         if (hit == undefined) {
             console.log("|||||||||HIT IS NOT DEFINED");
         }
@@ -162,6 +164,7 @@ var Game = function() {
                 //how much damage
                 var hit_player = that.getPlayer(hits_array[hits].hit)
                 var dies = hit_player.doDamage(damage);
+                ret.push(hit_player);
                 hits_array[hits]["confirmed"] = true;
                 console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[id] + " ");
                 if (id) { // does this trip out when the player is dead?
@@ -172,15 +175,13 @@ var Game = function() {
                     if (hit_player.getTeam() == 0) {
                         console.log("Team 1 got a kill");
                         incrementTeamOneKills();
-                        return true;
                     } else {
                         console.log("Team zero got a kill");
                         incrementTeamZeroKills();
-                        return true;
                     }
-                    //now notify
                 }
             }
+            return ret;
         }
         setTimeout(function() { //remove this
             if (attacks[attack_id]) {

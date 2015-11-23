@@ -88,43 +88,20 @@ var Events = function() {
             console.log("\t\t\tYou on same team tho");
             return;
         }
-        if(game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id], data.attack_id)){
-
+        if (!hit.getAlive()) {
+            return;
+        }
+        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id], data.attack_id);
+        if (!hit.getAlive()) {
             this.emit('update team killcount', {
-            team_one_kills: game1.getTeamOneKills(),
-            team_zero_kills: game1.getTeamZeroKills()
-        });
-        this.broadcast.emit('update team killcount', {
-            team_one_kills: game1.getTeamOneKills(),
-            team_zero_kills: game1.getTeamZeroKills()
-        });
+                team_one_kills: game1.getTeamOneKills(),
+                team_zero_kills: game1.getTeamZeroKills()
+            });
+            this.broadcast.emit('update team killcount', {
+                team_one_kills: game1.getTeamOneKills(),
+                team_zero_kills: game1.getTeamZeroKills()
+            });
         };
-        //get that specific spell by its ID
-        // if attack with this id has happened enough times, then the attack is real
-        /*
-        if (spell_hits[data.attack_id] >= ( .6 * players.length)){
-            util.log("THE ATTACK MUST BE REAL lol jk");
-            //F FUCK YES
-            //  if enemy
-            util.log(" -- " + hit);
-            util.log("----" + hit_by);
-
-            if (hit.getTeam() != hit_by.getTeam()){
-                //do damage to hit_by according to hits damage
-                setHp(hit, hit_by.getDamage());
-            }
-            util.log(hit.getHp()+ " new hp");
-        }
-        util.log (spell_hits[data.attack_id] + " HMM ");
-
-        // After a second, remove the attack to free up memory
-        if (spell_hits[data.attack_id] == 1){
-            setTimeout(function(){
-                util.log("nmmm splice");
-                spell_hits.splice(0,1);
-            }, 1000);
-        }
-*/
     };
     /* Function that is called whenever a player is said to be hit
      * If 80% of clients say it happened within .1 seconds of it happening
@@ -154,53 +131,32 @@ var Events = function() {
             console.log("\t\t\tYou on same team tho");
             return;
         }
+        if (!hit.getAlive()) {
+            return;
+        }
         var according_to = playerById(this.id);
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
         //should only happen if they are on differnt teams
         //        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
         //this function returns true if they die...
-        if (game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id])){
-
+        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id]);
+        if (has_been_hit) {
+            for (var i = 0; i < has_been_hit.length; i++) {
+                if (hit_by.getCharacterType() == CONFIG.Redhatter) {
+                    // has_been_hit
+                };
+            };
+        }
+        if (!hit.getAlive()) {
             this.emit('update team killcount', {
-            team_one_kills: game1.getTeamOneKills(),
-            team_zero_kills: game1.getTeamZeroKills()
-        });
-        this.broadcast.emit('update team killcount', {
-            team_one_kills: game1.getTeamOneKills(),
-            team_zero_kills: game1.getTeamZeroKills()
-        });
+                team_one_kills: game1.getTeamOneKills(),
+                team_zero_kills: game1.getTeamZeroKills()
+            });
+            this.broadcast.emit('update team killcount', {
+                team_one_kills: game1.getTeamOneKills(),
+                team_zero_kills: game1.getTeamZeroKills()
+            });
         };
-        //if num of kills changes, then emit to everyone
-
-
-        /*
-        if (meelee_hits[data.attack_id]){
-            meelee_hits[data.attack_id]++;
-        } else {
-            meelee_hits[data.attack_id] = 1;
-        }
-
-        // if attack with this id has happened enough times, then the attack is real
-        if (meelee_hits[data.attack_id] >= ( .6 * players.length)){
-            util.log("THE ATTACK MUST BE REAL");
-            //F FUCK YES
-            //  if enemy
-            util.log(" -- " + hit);
-            util.log("----" + hit_by);
-            if (hit.getTeam() != hit_by.getTeam()){
-                //do damage to hit_by according to hits damage
-                setHp(hit, hit_by.getDamage());
-            }
-            util.log(hit.getHp()+ " new hp");
-        }
-        util.log (meelee_hits[data.attack_id] + " HMM ");
-
-        // After a second, remove the attack to free up memory
-        if (meelee_hits[data.attack_id] == 1){
-            setTimeout(function(){
-                meelee_hits.splice(0,1);
-            }, 1000);
-        }*/
     };
     var setEventHandlers = function(io) {
         // Socket.IO
@@ -211,23 +167,22 @@ var Events = function() {
 
     function onKeyPress(data) {
         var player = playerById(this.id);
-
         if (data.key === "jump" && data.down) { // only when u press down
             util.log("JUMPINGG AAA " + player.getY() + " -- " + player.getHeight() / 2 + " -- " + CONFIG.FLOOR_HEIGHT);
             if (!player.jumping && player.getY() + player.getHeight() / 2 === CONFIG.FLOOR_HEIGHT) {
                 player.jumping = true;
-                if (player.left && ! player.right){
+                if (player.left && !player.right) {
                     player.jump_direction = "left";
                 }
-                if (!player.left && player.right){
+                if (!player.left && player.right) {
                     player.jump_direction = "right";
                 }
-                if (!player.left && !player.right || player.left && player.right){
+                if (!player.left && !player.right || player.left && player.right) {
                     player.jump_direction = "none";
                 }
                 setTimeout(function() {
                     player.jumping = false;
-                    setTimeout(function(){
+                    setTimeout(function() {
                         player.jump_direction = undefined;
                     }, 400);
                 }, 400);
@@ -447,7 +402,6 @@ var Events = function() {
             y: newPlayer.getY(),
             name: newPlayer.getName(),
             characterType: newPlayer.getCharacterType(),
-
         });
         // Send existing players to the new player
         var i, existingPlayer;
@@ -478,28 +432,28 @@ var Events = function() {
             case "Redhatter":
                 var v = new RHRange(data.x, data.y, data.direction, player.getTeam());
                 if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
-                util.log("DONE");
-                return;
+                    util.log("DONE");
+                    return;
                 }
-                    //               Spells.spellsarray.push(v);
-                    this.emit('spell two', {
-                        x: data.x,
-                        y: data.y,
-                        spell: "rhrange",
-                        direction: data.direction,
-                        caster: "you"
-                    });
-                    this.broadcast.emit('spell two', {
-                        x: data.x,
-                        y: data.y,
-                        spell: "rhrange",
-                        direction: data.direction
-                    });
-                    util.log("SWAGGER");
+                //               Spells.spellsarray.push(v);
+                this.emit('spell two', {
+                    x: data.x,
+                    y: data.y,
+                    spell: "rhrange",
+                    direction: data.direction,
+                    caster: "you"
+                });
+                this.broadcast.emit('spell two', {
+                    x: data.x,
+                    y: data.y,
+                    spell: "rhrange",
+                    direction: data.direction
+                });
+                util.log("SWAGGER");
                 break;
             case "Fly":
                 //Carry other unit lmfao
-                util.log("Fly carry tigger" + (player.spellTwoCastTime + DescendAttack.getCooldown()) + " NOW : " +Date.now());
+                util.log("Fly carry tigger" + (player.spellTwoCastTime + DescendAttack.getCooldown()) + " NOW : " + Date.now());
                 if (!(player.spellTwoCastTime + DescendAttack.getCooldown() <= Date.now())) {
                     util.log("DONE");
                     return;
@@ -590,7 +544,7 @@ var Events = function() {
                 x: data.x,
                 spell: "meteor",
                 team: player.getTeam(),
-                casted_by_me: true, 
+                casted_by_me: true,
                 attack_id: v.getID()
             });
             this.broadcast.emit('spell one', {
