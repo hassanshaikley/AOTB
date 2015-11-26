@@ -10,7 +10,7 @@ var MeeleeAttackComponent = function(that) {
                 if (direction === "right") {
                     center_x += 50;
                 } else {
-                    center_x -= 25;
+                    center_x -= 10;
                 }
                 break;
             case "Redhatter":
