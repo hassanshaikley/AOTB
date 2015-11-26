@@ -57,6 +57,8 @@ var Game = function() {
             for (player in active_players) {
                 active_players[player].resetHp();
                 active_players[player].setX(active_players[player].getRespawnX());
+                active_players[player].setY(300);
+
             }
             that.resetGame();
         }, 5000);
@@ -114,7 +116,7 @@ var Game = function() {
      */
     this.attackHits = function(hit, attack_id, according_to, damage, id) {
         var ret = []; // array returns who has been hit
-        
+
         if (hit == undefined) {
             console.log("|||||||||HIT IS NOT DEFINED");
         }
