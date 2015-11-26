@@ -9,8 +9,8 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
         active: false,
         bird: false
     };
-    
-    var immobilized = false; 
+
+    var immobilized = false;
 
     var name = "unknown";
     if (maxHp == null) {
@@ -56,6 +56,7 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
     that.respawn = function() {
         currHp = maxHp;
         that.setX(that.getRespawnX());
+        that.setY(300);
     };
     that.getWidth = function() {
         return width;
