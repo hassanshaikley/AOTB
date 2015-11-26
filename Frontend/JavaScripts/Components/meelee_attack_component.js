@@ -16,7 +16,7 @@ var MeeleeAttackComponent = function(that) {
             case "Redhatter":
                 box_width = 35;
                 if (direction === "right") {
-                    center_x += 60;
+                    center_x += 70;
                 } else {
                     center_x -= 28;
                 }
