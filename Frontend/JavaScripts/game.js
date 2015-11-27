@@ -24,7 +24,7 @@ function Game() {
     team_zero_kills_text.style.align = "center";
        team_one_kills_text.style.font = "bold 20px arial";
     team_one_kills_text.style.align = "center";
-     
+
      team_one_kills_text.x = CONFIG.SCREEN_WIDTH - 35;
      team_zero_kills_text.x = 20;
     MAIN.stage.addChild(team_one_kills_text);
@@ -50,7 +50,7 @@ Game.prototype.init = function() {
     MAIN.stage.addChild(background)
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
-    /* 
+    /*
     var line = new PIXI.Graphics();
     line.beginFill(0x000000);
     line.drawRect(CONFIG.SCREEN_WIDTH / 2 - 1, 300, 2, 200);
@@ -133,7 +133,7 @@ var setEventHandlers = function() {
     window.addEventListener("keyup", onKeyup, false);
     window.addEventListener('blur', function() {}, false);
     window.addEventListener('focus', function() {
-        //usually when they tab in 
+        //usually when they tab in
         keys = new Keys();
     }, false);
 
@@ -510,7 +510,8 @@ function update() {
     };
     localPlayer.update(keys);
     if (CONFIG.SHOW_HITBOXES){
-    helpers.highlightSpellHitboxes();
+        helpers.highlightSpellHitboxes();
+        console.log("HIGLIGHT SPEL");
     }
 };
 /**************************************************
@@ -570,4 +571,3 @@ $(document).ready ( function(){
     localGame = new Game();
     console.log("Haebe swags");
 });
-

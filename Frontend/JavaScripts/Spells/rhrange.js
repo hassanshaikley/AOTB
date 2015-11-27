@@ -8,7 +8,6 @@ var RHRange = function(_x, _y, direction) {
     };
     var startX = _x;
     this.update = function() {
-        console.log("IS DIS CALLED THO");
         if (Math.abs(startX - x) <= 200) {
             x = x += speed;
         } else {
@@ -22,6 +21,12 @@ var RHRange = function(_x, _y, direction) {
     };
     this.getY = function() {
         return y;
+    };
+    this.getWidth = function() {
+        return 20;
+    };
+    this.getHeight = function() {
+        return 20;
     };
     var rhrClip = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("rh_range.png")]);
     MAIN.stage.addChild(rhrClip);

@@ -27,7 +27,6 @@ helpers.highlightSpellHitboxes = function() {
             Spells.spellsarray[_i].highlight.endFill();
             Spells.spellsarray[_i].highlight.alpha = .1;
             MAIN.stage.addChild();
-
         setTimeout(function() {
             MAIN.stage.removeChild(Spells.spellsarray[_i].highlight);
             delete Spells.spellsarray[_i].highlight;
