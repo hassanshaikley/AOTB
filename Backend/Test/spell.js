@@ -18,7 +18,7 @@ describe("Test Spells", function() {
         assert.equal(s.getX(), 200);
         assert.equal(s.getY(), 490);
 
-    });  
+    });
 
     it ("tortstun should have the right qualities", function(){
         var s = new TortStun(200, 400, 1); //x, y, team are params
@@ -34,6 +34,8 @@ describe("Test Spells", function() {
         assert.notEqual(s.getID(), x.getID());
 
     });
+
+    //_x, _y, _direction, _team
 
     /*it ("shouldn't crash", function(){
     });

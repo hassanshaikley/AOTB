@@ -62,7 +62,7 @@ var Events = function() {
      *   add it, otherwise skip
      * Perhaps make an attack entity object that is a gameobject
      * That handles this
-     
+
      * Or every spell can have a member variable that is an array of
      * The ID's that say the spell has landed!
      *
@@ -435,17 +435,20 @@ var Events = function() {
                     util.log("DONE");
                     return;
                 }
+            game1.addSpell(v);
                 //               Spells.spellsarray.push(v);
                 this.emit('spell two', {
                     x: data.x,
                     y: data.y,
                     spell: "rhrange",
                     direction: data.direction,
+                    attack_id: v.getID(),
                     caster: "you"
                 });
                 this.broadcast.emit('spell two', {
                     x: data.x,
                     y: data.y,
+                    attack_id: v.getID(),
                     spell: "rhrange",
                     direction: data.direction
                 });
@@ -614,7 +617,8 @@ var Events = function() {
             team: initPlayer.getTeam(),
             x: initPlayer.getRespawnX(),
             team_one_kills: game1.getTeamOneKills(),
-            team_zero_kills: game1.getTeamZeroKills()
+            team_zero_kills: game1.getTeamZeroKills(),
+            id : initPlayer.id
         });
     };
     /**************************************************

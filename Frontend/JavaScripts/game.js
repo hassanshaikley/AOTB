@@ -13,6 +13,7 @@ var MAIN;
 
 function Game() {
     this.bloods = [];
+    this.attack_collisions = {};
     //move over to using this screen manager
     MAIN = new ScreenManager(); //should init after images are loaded
     var team_one_kills;
@@ -169,12 +170,14 @@ function onSpellTwo(data) {
     console.log("SPELL TWO COMES BAKK");
     switch (data.spell) {
         case "rhrange":
-            console.log("RHRANGE CASTED AT " + data.x + ", " + data.y);
-            var v = new RHRange(data.x, data.y, data.direction);
-            Spells.spellsarray.push(v);
-            if (data.caster === "you") {
-                localPlayer.displayCooldown(3, 700);
-            }
+        console.log("RHRANGE CASTED AT " + data.x + ", " + data.y);
+        var v = new RHRange(data.x, data.y, data.direction);
+        v.attack_id = data.attack_id;
+
+        Spells.spellsarray.push(v);
+        if (data.caster === "you") {
+          //  localPlayer.displayCooldown(3, 700);
+        }
     }
 };
 
@@ -223,7 +226,7 @@ function onMeeleeAttack(data) {
  * gotta make sure one user can only say it once . :D : D :D : D
  */
 function onSpellOne(data) {
-    console.log('MAKING DAT METEOR BRO');
+    console.log('MAKING DAT spell 1 BRO');
     var cd;
     if (data.spell === "tort stun") { //should be a variable shared between server and client
         var m = new TortStun(data.x, data.y, data.caster);
@@ -494,6 +497,18 @@ function update() {
             if (helpers.collision(allPlayers[j], Spells.spellsarray[i])) {
                 //let the server know the attack landed
                 //going to only want to do this once!
+
+                //this is buggy when undefined
+                if (localGame.attack_collisions[Spells.spellsarray[i].attack_id]){ //if the attack_id object exists
+                    if (localGame.attack_collisions[Spells.spellsarray[i].attack_id].indexOf(allPlayers[j].id) != -1 ){ //if the spell already hit
+                        return;
+                    } else { //the object exists but the spell isn't added
+                        localGame.attack_collisions[Spells.spellsarray[i].attack_id].push(allPlayers[j].id);
+                    }
+                } else {
+                    localGame.attack_collisions[Spells.spellsarray[i].attack_id] = [allPlayers[j].id];
+                };
+                console.log(localGame.attack_collisions);
                 socket.emit("spell hits", {
                     "hit": allPlayers[j].id,
                     "hit_by": Spells.spellsarray[i].caster,
@@ -511,7 +526,7 @@ function update() {
     localPlayer.update(keys);
     if (CONFIG.SHOW_HITBOXES){
         helpers.highlightSpellHitboxes();
-        console.log("HIGLIGHT SPEL");
+
     }
 };
 /**************************************************
@@ -554,9 +569,10 @@ function playerById(id) {
 function onInitMe(data) {
     localPlayer.setTeam(data.team);
     localPlayer.setX(data.x);
+    localPlayer.id = data.id;
     localGame.setTeamOneKills(data.team_one_kills);
     localGame.setTeamZeroKills(data.team_zero_kills);
-    console.log("TEAM 1 " + data.team_one_kills + " TEAM 2 " + data.team_zero_kills);
+//    console.log("TEAM 1 " + data.team_one_kills + " TEAM 2 " + data.team_zero_kills + " ID IS " + data.id);
 };
 
 function hostileById(id) {

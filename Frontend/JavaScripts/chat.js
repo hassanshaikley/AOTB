@@ -24,8 +24,10 @@ var loadChat = function() {
         }
     });
     if (localPlayerName === "unknown") {
-        notify("Welcome to Arena of the Bits. A game where your objective is to break into the enemy castle by destroying the door", true);
-        notify("Move with WASD, jump with spacebar, attack by right-clicking and left-clicking and sometimes q.", true);
+        notify("Welcome to Arena of the Bits.", true);
+        notify("Kill the other team 20 times.", true);
+        notify("Move with WASD", true);
+        notify("Jump--spacebar, attack--right-clicking, left-clicking and sometimes q.", true);
         notify("Chat with enter", true);
         notify("Red team and green team are differentiated by the colors of their health bars.", true);
         setTimeout(function() {

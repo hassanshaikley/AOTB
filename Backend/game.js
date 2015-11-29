@@ -14,11 +14,11 @@ var Game = function() {
     var team_zero_kills = 0;
     var team_one_kills = 0;
     var KILL_CAP = 10;
-    
+
     this.resetGame = function() {
         team_zero_kills = 0;
         team_one_kills = 0
-        winner = -1; 
+        winner = -1;
         //maybe set active_spells to {}??
     };
 
@@ -102,17 +102,17 @@ var Game = function() {
      *   {                          attacks[1][0]
      *      hit: "jerry",
      *      according_to : ["hassan", "friend", "melonface" ],
-     *      confirmed: false  
-     *   }, 
+     *      confirmed: false
+     *   },
      *   {
      *       hit : "lime_by",
      *       according_to :["hassan"]
-     *       confirmed: true  
+     *       confirmed: true
      *   }],
-     * 2  : 
+     * 2  :
      *  [{...}]
      * }
-     * created_at: Date.now() # Used to expire this 
+     * created_at: Date.now() # Used to expire this
      */
     this.attackHits = function(hit, attack_id, according_to, damage, id) {
         var ret = []; // array returns who has been hit
@@ -144,7 +144,7 @@ var Game = function() {
                 if (hits_array[hits]["according_to"].indexOf(according_to) == -1) {
                     //not in array so put it in array
                     hits_array[hits]["according_to"].push(according_to);
-                } else { //already 
+                } else { //already
                 }
             } else {
                 //THIS SHOULD ONLY HAPPEN
@@ -156,14 +156,15 @@ var Game = function() {
                         "according_to": [according_to],
                         "confirmed": false
                     }
-                } else { //already 
+                } else { //already
                     console.log("\t\t\t\tALREADY IN LE SERVER BRO");
                 }
             }
             util.log("\t\t\t\tAttack hits : [Current Attack ]\t\t " + JSON.stringify(attacks));
-            //if 60% of people say attack happene
+            //if 100% of people say attack happene
             if (hits_array[hits]["according_to"].length == that.getNumPlayers() && !(hits_array[hits]["confirmed"])) {
                 //how much damage
+                console.log("\nok hes hurt\n\n");
                 var hit_player = that.getPlayer(hits_array[hits].hit)
                 var dies = hit_player.doDamage(damage);
                 ret.push(hit_player);
