@@ -118,7 +118,6 @@ Game.prototype.init = function() {
     });
     remotePlayers = [];
     setEventHandlers();
-    socket.emit("init me");
     animate();
     loadChat();
     localPlayer.setUpActionbar();
@@ -388,6 +387,8 @@ function onSocketConnected() {
         name: localPlayer.getName(),
         characterType: localPlayer.getCharacterType()
     });
+    socket.emit("init me");
+
 };
 // Socket disconnected
 function onSocketDisconnect() {
@@ -421,6 +422,7 @@ function onNewPlayer(data) {
     remotePlayers.push(newPlayer);
     //add mesage to chat
     notify("<strong>" + newPlayer.getName() + "</strong> has joined");
+
     MAIN.updateLayersOrder();
 };
 
