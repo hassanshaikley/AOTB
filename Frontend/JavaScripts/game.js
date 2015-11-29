@@ -383,6 +383,7 @@ function onKeyup(e) {
 // Socket connected
 function onSocketConnected() {
     // Send local player data to the game server
+    remotePlayers = [];
     socket.emit("new player", {
         name: localPlayer.getName(),
         characterType: localPlayer.getCharacterType()
