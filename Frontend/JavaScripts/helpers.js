@@ -27,11 +27,12 @@ helpers.highlightSpellHitboxes = function() {
             Spells.spellsarray[_i].highlight.endFill();
             Spells.spellsarray[_i].highlight.alpha = .1;
             MAIN.stage.addChild(Spells.spellsarray[_i].highlight);
-            setTimeout(function() {
-                console.log("I IS " + _i + " OK " + Spells.spellsarray[_i]);
-                MAIN.stage.removeChild(Spells.spellsarray[_i].highlight);
-                delete Spells.spellsarray[_i].highlight;
-            }, 1000);
+            /*            setTimeout(function() {
+                var save = _i;
+                console.log("I IS " + save + " OK " + Spells.spellsarray[save]);
+                MAIN.stage.removeChild(Spells.spellsarray[save].highlight);
+                delete Spells.spellsarray[save].highlight;
+            }, 1000);*/
 
         }
         Spells.spellsarray[_i].highlight.x = Spells.spellsarray[_i].getX() + CONFIG.SCREEN_WIDTH / 2 - localPlayer.getDrawAtX() - 25;

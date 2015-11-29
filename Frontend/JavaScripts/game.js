@@ -501,19 +501,32 @@ function update() {
                 //this is buggy when undefined
                 if (localGame.attack_collisions[Spells.spellsarray[i].attack_id]){ //if the attack_id object exists
                     if (localGame.attack_collisions[Spells.spellsarray[i].attack_id].indexOf(allPlayers[j].id) != -1 ){ //if the spell already hit
-                        return;
+
+
+
+
                     } else { //the object exists but the spell isn't added
                         localGame.attack_collisions[Spells.spellsarray[i].attack_id].push(allPlayers[j].id);
+                        console.log(localGame.attack_collisions);
+                        console.log("!!1");
+                        socket.emit("spell hits", {
+                            "hit": allPlayers[j].id,
+                            "hit_by": Spells.spellsarray[i].caster,
+                            "attack_id": Spells.spellsarray[i].attack_id
+                        });
+
                     }
                 } else {
+                    console.log("!!2");
                     localGame.attack_collisions[Spells.spellsarray[i].attack_id] = [allPlayers[j].id];
+                    console.log(localGame.attack_collisions);
+                    socket.emit("spell hits", {
+                        "hit": allPlayers[j].id,
+                        "hit_by": Spells.spellsarray[i].caster,
+                        "attack_id": Spells.spellsarray[i].attack_id
+                    });
                 };
-                console.log(localGame.attack_collisions);
-                socket.emit("spell hits", {
-                    "hit": allPlayers[j].id,
-                    "hit_by": Spells.spellsarray[i].caster,
-                    "attack_id": Spells.spellsarray[i].attack_id
-                });
+
                 console.log("Hits:/t" + allPlayers[j].id + " /t-- caster:\t" + Spells.spellsarray[i].caster);
             }
         }

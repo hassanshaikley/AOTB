@@ -428,9 +428,10 @@ var Events = function() {
         if (!(player.getAlive)) {
             return;
         };
+        var v;
         switch (player.getCharacterType()) {
             case "Redhatter":
-                var v = new RHRange(data.x, data.y, data.direction, player.getTeam());
+                v = new RHRange(data.x, data.y, data.direction, player.getTeam());
                 if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
                     util.log("DONE");
                     return;
@@ -484,6 +485,8 @@ var Events = function() {
                 break;
         }
         player.spellTwoCastTime = Date.now();
+        attacks_teams[v.getID()] = player.getTeam();
+        attacks_damages[v.getID()] = v.getDamage();
     }
 
     function onSpellOne(data) {
