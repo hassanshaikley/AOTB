@@ -485,8 +485,12 @@ var Events = function() {
                 break;
         }
         player.spellTwoCastTime = Date.now();
-        attacks_teams[v.getID()] = player.getTeam();
-        attacks_damages[v.getID()] = v.getDamage();
+
+        //ehh this is a patchy / buggy fix should do it for every spell
+        if (player.getCharacterType() == CONFIG.Redhatter){
+            attacks_teams[v.getID()] = player.getTeam();
+            attacks_damages[v.getID()] = v.getDamage();
+        }
     }
 
     function onSpellOne(data) {
