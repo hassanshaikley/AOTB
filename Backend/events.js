@@ -413,7 +413,7 @@ var Events = function() {
     function onSpellTwo(data) {
         //util.log("Spell two");
         var player = playerById(this.id);
-        if (!(player.getAlive)) {
+        if (!(player.getAlive())) {
             return;
         };
         var v;
