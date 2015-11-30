@@ -2,7 +2,7 @@
  ** GAME PLAYER CLASS IN CLIENT
  **************************************************/
 var Blood = function(startX, startY) {
-    this.x = startX;
+     var x = startX;
     var y = startY,
         animate = 0,
         drawAtX = 0;

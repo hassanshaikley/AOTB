@@ -2,7 +2,7 @@ var RHRange = function(_x, _y, direction) {
     var cooldown = 700;
     var x = _x - 10, //center x
         y = _y - 10;
-    var speed = 2.2;
+    var speed = 5.2;
     if (direction === "left") {
         speed = -speed;
     };

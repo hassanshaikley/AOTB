@@ -314,18 +314,6 @@ var Events = function() {
                     util.log("CHEEEK");
                     setHp(players[i], damage);
                     playersHit.push(players[i]);
-                    if (that != undefined) {
-                        that.broadcast.emit('bleed', {
-                            id: players[i].id
-                        });
-                        that.emit('bleed', {
-                            id: players[i].id
-                        });
-                    } else {
-                        socketthing.emit('bleed', {
-                            id: players[i].id
-                        });
-                    }
                 }
             }
         }

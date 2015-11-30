@@ -20,11 +20,11 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         maxHp = startHp,
         team,
         frames; //list of every image used in this guys animation
-        
+
     var current_action = CONFIG.ACTION.MOVING_RIGHT;
     var meelee_attack_component = new MeeleeAttackComponent(this);
     var that = this;
- 
+
     var invis = false;
 
     this.setInvis = function(_invis) {
@@ -106,12 +106,16 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     this.setName = function(newName) {
         name = newName;
     };
-    this.bleed = function() {
-        var v = new Blood(x - 38, y - 30);
-        localGame.bloods.push(v);
-    };
+//    this.bleed = function() {
+
+//    };
     this.setHp = function(newHp) {
         var oldHp = hp;
+        if (newHp < oldHp){
+            console.log("YEP MAKING BLOOD");
+            var v = new Blood(that.getDrawAtX() - 38, that.getDrawAtY() - 30);
+            localGame.bloods.push(v);
+        }
         hp = newHp;
         if (oldHp > 0 && newHp <= 0) {
             notify("<strong>" + that.getName() + "</strong> has died");
@@ -276,13 +280,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     chat_text.style.font = "bold 10px arial";
     chat_text.style.align = "center";
     this.imageContainer.addChild(chat_text);
-    
+
     MAIN.stage.addChild(this.imageContainer);
 
     //why the fuck did I have this code below here
    // var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
   //  structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width / 2);
-  
+
     //structure.y = -116;
    // this.imageContainer.addChild(structure);
 
