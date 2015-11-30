@@ -96,7 +96,7 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
         immobilized = true;
         setTimeout(function(){
             immobilized = false;
-        }, 3000)
+        }, duration);
         return true;
     };
     that.getImmobilize = function(){
