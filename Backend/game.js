@@ -13,7 +13,7 @@ var Game = function() {
     var active_spells = {};
     var team_zero_kills = 0;
     var team_one_kills = 0;
-    var KILL_CAP = 10;
+    var KILL_CAP = 20;
 
     this.resetGame = function() {
         team_zero_kills = 0;

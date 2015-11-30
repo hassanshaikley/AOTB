@@ -41,23 +41,11 @@ exports.MovementComponent = function(speed, that, ySpeed) {
         }
         jump(that);
         if (!that.getImmobilize()) {
-
-            if (that.jump_direction == undefined) {
-                if (that.left) {
-                    that.setX(that.getX() - speed);
-                }
-                if (that.right) {
-                    that.setX(that.getX() + speed);
-                }
-            } else {
-                if (that.jump_direction == "left"){
-                    that.setX(that.getX() - speed);
-
-                } 
-                if (that.jump_direction == "right"){
-                    that.setX(that.getX() + speed);
-
-                }
+            if (that.left) {
+                that.setX(that.getX() - speed);
+            }
+            if (that.right) {
+                that.setX(that.getX() + speed);
             }
             if (that.up) {
                 that.setY(that.getY() - ySpeed);
