@@ -7,17 +7,24 @@ exports.MovementComponent = function(speed, that, ySpeed) {
     var baseSpeed = speed;
     console.log("ys" + ySpeed);
     console.log("fs" + fallSpeed);
+    var landY = Config.FLOOR_HEIGHT;
 
     function gravity(that) {
-        if (that.getY() > Config.FLOOR_HEIGHT - that.getHeight() / 2) { //if its greater than the ground (V great)!
-            that.setY(Config.FLOOR_HEIGHT - that.getHeight() / 2);
+        if (that.getY() > landY - that.getHeight() / 2) { //if its greater than the ground (V great)!
+            that.setY(landY - that.getHeight() / 2); // trying to fly too low
             console.log("IN HERE THO");
 
         } else if (that.getY() < 0) { //trying to fly way too high rn
             that.setY(0);
-        } else if (!that.jumping && !(that.getY() === Config.FLOOR_HEIGHT - that.getHeight() / 2)) {
-            that.setY(that.getY() + fallSpeed);
+        } else if (!that.jumping && !(that.getY() === landY - that.getHeight() / 2)) { // 
+            that.setY(that.getY() + fallSpeed); // falling
         }
+    }
+    that.setLandY = function(_landY){
+        landY = _landY;
+    };
+    that.getLandY = function(){
+        return landY;
     }
     that.getBaseSpeed = function() {
         return baseSpeed;

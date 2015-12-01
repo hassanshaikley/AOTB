@@ -14,6 +14,7 @@ var MAIN;
 function Game() {
     this.bloods = [];
     this.attack_collisions = {};
+    this.platforms = [];
     //move over to using this screen manager
     MAIN = new ScreenManager(); //should init after images are loaded
     var team_one_kills;
@@ -121,6 +122,11 @@ Game.prototype.init = function() {
     animate();
     loadChat();
     localPlayer.setUpActionbar();
+
+    for (var i = 0; i < 5; i++){
+        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/10 + i * (CONFIG.ARENA_WIDTH)/5, 335));
+    }
+
     if (CONFIG.SHOW_HITBOXES){
     setInterval(helpers.highlightPlayerHitboxes, 200);
     }
@@ -488,6 +494,7 @@ var newTime = Date.now();
 var updateTime = 50;
 
 function update() {
+    updatePlatforms();
     handleCooldownVisuals();
     background.updateX(localPlayer.getDrawAtX());
     /* Updates the spells locations :D */
@@ -544,6 +551,20 @@ function update() {
         helpers.highlightSpellHitboxes();
 
     }
+};
+
+function updatePlatforms(){
+    var onAPlatform;
+    for (var i = 0; i < localGame.platforms.length; i++){
+        if (localGame.platforms[i].update() === "grounded"){
+            onAPlatform = true;
+        };
+    }
+    if (!onAPlatform){
+        console.log("We are not on a platform");
+        socket.emit("landed", { y: CONFIG.FLOOR_HEIGHT}); 
+    }
+
 };
 /**************************************************
  ** GAME DRAW

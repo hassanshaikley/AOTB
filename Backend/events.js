@@ -52,6 +52,12 @@ var Events = function() {
         client.on("key press", onKeyPress);
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
+        client.on("landed", onLanded);
+    };
+    function onLanded(data){
+        console.log("\nsettling land y " +data.y);
+        player = playerById(this.id);
+        player.setLandY(data.y);
     };
     spell_hits = [];
     /*
@@ -174,11 +180,11 @@ var Events = function() {
         var player = playerById(this.id);
         if (data.key === "jump" && data.down) { // only when u press down
             util.log("JUMPINGG AAA " + player.getY() + " -- " + player.getHeight() / 2 + " -- " + CONFIG.FLOOR_HEIGHT);
-            if (!player.jumping && player.getY() + player.getHeight() / 2 === CONFIG.FLOOR_HEIGHT) {
+            if (!player.jumping && player.getY() + player.getHeight() / 2 === player.getLandY()) {
                 player.jumping = true;
                 setTimeout(function() {
                     player.jumping = false;
-                }, 400);
+                }, 500);
             }
         }
         if (data.key === "left") {

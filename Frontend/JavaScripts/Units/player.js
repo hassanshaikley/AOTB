@@ -19,7 +19,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         gold = 0,
         maxHp = startHp,
         team,
-        frames; //list of every image used in this guys animation
+        //list of every image used in this guys animation
+        frames,
+        falling; 
 
     var current_action = CONFIG.ACTION.MOVING_RIGHT;
     var meelee_attack_component = new MeeleeAttackComponent(this);
@@ -195,10 +197,12 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     var xDiff;
     var moveTimer = 0;
     this.updateVariables = function() {
+        var oldDrawAtY = drawAtY;
         if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 500) {
             drawAtY = y;
             drawAtX = x;
         }
+
         moveDifferenceX = (drawAtX - postX);
         moveDifferenceY = (drawAtY - postY);
         if (moveDifferenceX) { // USED TO TELL IF GOING LEFT OR RIGHT
@@ -229,7 +233,14 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         drawAtX -= (drawAtX - _x) / 4;
         _x = null;
         _y = null;
+
+        if (oldDrawAtY < drawAtY){
+            falling = true;
+        } else {
+            falling = false;
+        }
     };
+
     /* The X that we want to draw at to give the illusion of smooth movement
      * (if only the server X was used then it would skip to locations)
      */
@@ -390,6 +401,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
                 }
             }
         }, 200);
+    };
+
+    this.isFalling = function(){
+        return falling;
     };
     this.rightClick = function(clientX, clientY) {
         socket.emit("spell one", {
