@@ -6,7 +6,6 @@ var Game = function() {
     //should remove this
     var winner = -1;
     var that = this;
-    var active_spells = {};
     /* Socket ID, Player Object */
     var active_players = {};
     /* Spell ID, Spell Object */
@@ -114,7 +113,7 @@ var Game = function() {
      * }
      * created_at: Date.now() # Used to expire this
      */
-    this.attackHits = function(hit, attack_id, according_to, damage, id) {
+    this.attackHits = function(hit, attack_id, according_to, attack, id) {
         var ret = []; // array returns who has been hit
 
         if (hit == undefined) {
@@ -166,12 +165,15 @@ var Game = function() {
                 //how much damage
                 console.log("\nok hes hurt\n\n");
                 var hit_player = that.getPlayer(hits_array[hits].hit)
-                var dies = hit_player.doDamage(damage);
+                var dies = hit_player.doDamage(attack.getDamage());
                 ret.push(hit_player);
                 hits_array[hits]["confirmed"] = true;
                 console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[id] + " ");
                 if (id) { // does this trip out when the player is dead?
                     active_spells[id].doEffect(hit_player);
+                } else {
+                    console.log("hit player "+hit_player);
+                    attack.doEffect({hits: hit_player, direction: attack.getDirection()});
                 }
                 if (dies.dies) {
                     //player is dead increment death counter

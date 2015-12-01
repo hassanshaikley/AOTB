@@ -32,9 +32,9 @@ var TortStun = function(_x, _y, _team) {
     this.getHeight = function() {
         return 57;
     };
-    this.doEffect = function(player) {
+    this.doEffect = function(obj) {
         console.log("\n\nABOUT TO IMMOBILIZE" + JSON.stringify(player));
-        player.immobilize(400);
+        obj.player.immobilize(400);
     };
     /* Returns the cooldown for this spell*/
     this.update = function() {

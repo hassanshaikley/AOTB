@@ -28,7 +28,7 @@ var RHRange = function(_x, _y, _direction, _team) {
     this.getHeight = function() {
         return 20;
     };
-    this.doEffect = function(player) {};
+    this.doEffect = function(obj) {};
     /* Returns the cooldown for this spell*/
     this.update = function() {
 //        var index = Spells.spellsarray.indexOf(this);

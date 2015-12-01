@@ -42,4 +42,15 @@ describe("Attacks ", function() {
         s.doEffect(shanker);
         assert.equal(shanker.getImmobilize(), true);
     });
+    it("should  be able to construct an attack with an effect", function() {
+    var s = new Attack({
+            team: 0,
+            damage: 5,
+            effect: function(player) {
+                player.immobilize(1000);
+            },
+            direction: "Left"
+        }); //x, y, team are params
+        assert.equal(s.getDirection(), "Left");
+    });
 });

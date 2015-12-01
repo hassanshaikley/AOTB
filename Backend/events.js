@@ -91,14 +91,14 @@ var Events = function() {
         }
         var according_to = playerById(this.id);
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
-        if (attacks_teams[data.attack_id] == hit.getTeam()) {
+        if (attacks[data.attack_id].getTeam() == hit.getTeam()) {
             console.log("\t\t\tYou on same team tho");
             return;
         }
         if (!hit.getAlive()) {
             return;
         }
-        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id], data.attack_id);
+        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id], data.attack_id);
         if (!hit.getAlive()) {
             this.emit('update team killcount', {
                 team_one_kills: game1.getTeamOneKills(),
@@ -146,13 +146,10 @@ var Events = function() {
         //should only happen if they are on differnt teams
         //        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
         //this function returns true if they die...
-        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id].getDamage());
+        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id]);
         if (has_been_hit) {
-            for (var i = 0; i < has_been_hit.length; i++) {
-                if (hit_by.getCharacterType() == CONFIG.Redhatter) {
-                    // has_been_hit
-                };
-            };
+
+
         }
         if (!hit.getAlive()) {
             this.emit('update team killcount', {
@@ -290,7 +287,7 @@ var Events = function() {
      //   attacks_teams[attack_id] = attacker.getTeam();
      //   attacks_damages[attack_id] = attacker.getDamage();
 
-        var atk = new Attack({damage: attacker.getDamage(), team: attacker.getTeam(), effect: attacker.attackEffect});
+        var atk = new Attack({damage: attacker.getDamage(), team: attacker.getTeam(), effect: attacker.attackEffect, direction: data.direction});
         attacks[attack_id] = atk;
 
         if (attacker.invis) {
@@ -475,8 +472,9 @@ var Events = function() {
 
         //ehh this is a patchy / buggy fix should do it for every spell
         if (player.getCharacterType() == CONFIG.Redhatter){
-            attacks_teams[v.getID()] = player.getTeam();
-            attacks_damages[v.getID()] = v.getDamage();
+       //     attacks_teams[v.getID()] = player.getTeam();
+       //     attacks_damages[v.getID()] = v.getDamage();
+            attack[v.getID()] = {damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect};
         }
     }
 
@@ -579,8 +577,12 @@ var Events = function() {
             });
         };
         player.spellOneCastTime = Date.now();
-        attacks_teams[v.getID()] = player.getTeam();
-        attacks_damages[v.getID()] = v.getDamage();
+        //attacks_teams[v.getID()] = player.getTeam();
+        //attacks_damages[v.getID()] = v.getDamage();
+        
+       // attacks[v.getID()] = player.getTeam();
+       // attacks[v.getID()] = v.getDamage();
+        attacks[v.getID()] = {damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect};
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });

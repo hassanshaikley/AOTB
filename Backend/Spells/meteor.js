@@ -52,7 +52,7 @@ var Meteor = function(meteorX, mCaster, _team) {
     this.getActive = function() {
         return active;
     }
-    this.doEffect = function(player) {
+    this.doEffect = function(obj) {
         //do nothing
     };
     this.getX = function() {

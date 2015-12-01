@@ -25,7 +25,7 @@ var Grimes = function(team) {
         myBaseUnitComponent.update();
         myBaseTeamComponent.update();
     };
-    this.attackEffect = function(player) {
+    this.attackEffect = function(obj) {
 
     };
 };

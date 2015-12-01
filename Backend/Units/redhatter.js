@@ -29,11 +29,13 @@ var Redhatter = function(team) {
         myBaseUnitComponent.update();
         myBaseTeamComponent.update();
     };
-    this.attackEffect = function(player, direction) {
-        if (direction == "Right"){
-            player.setX(player.getX()+100)
+    this.attackEffect = function(obj) {
+        console.log("OBJ DIR" + obj.direction);
+        console.log("OBJ THO " + JSON.stringify(obj));
+        if (obj.direction == "right"){
+            obj.hits.setX(obj.hits.getX()+100)
         } else {
-            player.setX(player.getX()-100)
+            obj.hits.setX(obj.hits.getX()-100)
         }
     };
 };

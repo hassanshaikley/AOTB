@@ -38,7 +38,7 @@ var Shanker = function(team) {
     };
 
     //does nothing
-    this.attackEffect = function(player) {
+    this.attackEffect = function(obj) {
 
     };
 };
