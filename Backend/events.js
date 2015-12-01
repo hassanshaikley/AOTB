@@ -583,7 +583,7 @@ var Events = function() {
         
        // attacks[v.getID()] = player.getTeam();
        // attacks[v.getID()] = v.getDamage();
-        attacks[v.getID()] = {damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect};
+        attacks[v.getID()] = v;
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
