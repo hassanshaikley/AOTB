@@ -91,6 +91,7 @@ var Events = function() {
         }
         var according_to = playerById(this.id);
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
+        util.log(JSON.stringify(attacks[data.attack_id]) +" hmm");
         if (attacks[data.attack_id].getTeam() == hit.getTeam()) {
             console.log("\t\t\tYou on same team tho");
             return;
@@ -474,7 +475,7 @@ var Events = function() {
         if (player.getCharacterType() == CONFIG.Redhatter){
        //     attacks_teams[v.getID()] = player.getTeam();
        //     attacks_damages[v.getID()] = v.getDamage();
-            attack[v.getID()] = {damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect};
+            attacks[v.getID()] = v;//new Attack({damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect});
         }
     }
 

@@ -9,6 +9,9 @@ var RHRange = function(_x, _y, _direction, _team) {
     }
     var startX = _x;
     var active = true;
+    this.getTeam = function() {
+        return _team;
+    }
     this.getActive = function(){
         return active;
     };
