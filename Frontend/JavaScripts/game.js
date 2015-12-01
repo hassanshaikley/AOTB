@@ -141,7 +141,7 @@ var setEventHandlers = function() {
     socket.on("disconnect", onSocketDisconnect);
     socket.on("new player", onNewPlayer);
     socket.on("remove player", onRemovePlayer);
-    socket.on("bleed", onBleed);
+//    socket.on("bleed", onBleed);
     socket.on("arrow fired", onArrowFired);
     socket.on("healing spike cast", onHealingSpikeCast);
     socket.on("respawn player", onRespawnPlayer);
@@ -280,14 +280,14 @@ function onUpdatePlayer(data) {
     });
 }
 
-function onBleed(data) {
+/*function onBleed(data) {
     var _player = helpers.playerById(data.id);
     if (_player === false) {
         localPlayer.bleed();
     } else {
         _player.bleed();
     }
-}
+}*/
 /* Takes an arrows x and y position and draws it : D */
 function onArrowFired(data) {
     var m = new BowmanArrow(data.x, data.y, data.caster);
