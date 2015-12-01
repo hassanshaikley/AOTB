@@ -29,5 +29,12 @@ var Redhatter = function(team) {
         myBaseUnitComponent.update();
         myBaseTeamComponent.update();
     };
+    this.attackEffect = function(player, direction) {
+        if (direction == "Right"){
+            player.setX(player.getX()+100)
+        } else {
+            player.setX(player.getX()-100)
+        }
+    };
 };
 exports.Redhatter = Redhatter;

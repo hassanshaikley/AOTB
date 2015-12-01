@@ -15,11 +15,18 @@ var Fly = require("./Units/fly").Fly,
     DescendAttack = require("./Spells/descend-attack.js").DescendAttack,
     CollidingObject = require("./gameObjects/CollidingObject.js").CollidingObject,
     Meteor = require("./Spells/meteor.js").Meteor,
-    IDComponent = require("./Components/id-component").IDComponent;
+    IDComponent = require("./Components/id-component").IDComponent,
+    Attack = require('./units/Attacks/attack.js').Attack;
+
 var CONFIG = require("./config");
 var util = require("util");
 var attacks_teams = {};
 var attacks_damages = {};
+
+/* Used to store attack objects
+ */
+var attacks = {}; 
+
 var Events = function() {
     function onSocketConnection(client) {
         // Listen for client disconnected
@@ -127,7 +134,7 @@ var Events = function() {
             console.log("YEPPERS");
             hit_by = playerById(this.id);
         }
-        if (attacks_teams[data.attack_id] == hit.getTeam()) {
+        if (attacks[data.attack_id].getTeam() == hit.getTeam()) {
             console.log("\t\t\tYou on same team tho");
             return;
         }
@@ -139,7 +146,7 @@ var Events = function() {
         //should only happen if they are on differnt teams
         //        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
         //this function returns true if they die...
-        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks_damages[data.attack_id]);
+        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id].getDamage());
         if (has_been_hit) {
             for (var i = 0; i < has_been_hit.length; i++) {
                 if (hit_by.getCharacterType() == CONFIG.Redhatter) {
@@ -280,8 +287,12 @@ var Events = function() {
         if (!attacker.getAlive()) {
             return;
         }
-        attacks_teams[attack_id] = attacker.getTeam();
-        attacks_damages[attack_id] = attacker.getDamage();
+     //   attacks_teams[attack_id] = attacker.getTeam();
+     //   attacks_damages[attack_id] = attacker.getDamage();
+
+        var atk = new Attack({damage: attacker.getDamage(), team: attacker.getTeam(), effect: attacker.attackEffect});
+        attacks[attack_id] = atk;
+
         if (attacker.invis) {
             becomeVisible(attacker, this);
             //            attacker.meeleeBonus();

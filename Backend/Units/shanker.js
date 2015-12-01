@@ -36,5 +36,10 @@ var Shanker = function(team) {
         myBaseUnitComponent.update();
         myBaseTeamComponent.update();
     };
+
+    //does nothing
+    this.attackEffect = function(player) {
+
+    };
 };
 exports.Shanker = Shanker;

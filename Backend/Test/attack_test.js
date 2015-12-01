@@ -14,7 +14,7 @@ describe("Attacks ", function() {
         var s = new Attack({
             team: 0,
             damage: 5,
-            doEffect: function(player) {
+            effect: function(player) {
                 player.immobilize(1000);
             }
         }); //x, y, team are params
@@ -24,7 +24,7 @@ describe("Attacks ", function() {
         var s = new Attack({
             team: 0,
             damage: 5,
-            doEffect: function(player) {
+            effect: function(player) {
                 player.immobilize(1000);
             }
         }); //x, y, team are params
@@ -34,7 +34,7 @@ describe("Attacks ", function() {
         var s = new Attack({
             team: 0,
             damage: 5,
-            doEffect: function(player) {
+            effect: function(player) {
                 player.immobilize(1000);
             }
         }); //x, y, team are params

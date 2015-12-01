@@ -36,5 +36,8 @@ var Fly = function(team) {
         myBaseUnitComponent.update();
         myBaseTeamComponent.update();
     };
+    this.attackEffect = function(player) {
+
+    };
 };
 exports.Fly = Fly;
