@@ -13,10 +13,10 @@ var Fly = function(name, x, y, hp) {
            }*/
     };
     skeleton.getWidth = function() {
-        return 70;
+        return 60;
     };
     skeleton.getHeight = function() {
-        return 80;
+        return 70;
     };
     skeleton.getDescendAttack = function() {
         return descendAttack;

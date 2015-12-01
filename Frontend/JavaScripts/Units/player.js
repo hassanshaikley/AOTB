@@ -243,10 +243,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         return drawAtY;
     };
     this.getWidth = function() {
-        return 100;
+        return 50;
     };
     this.getHeight = function() {
-        return 100;
+        return 50;
     };
     this.speaks = function(words) {
         chat_text.text = words;

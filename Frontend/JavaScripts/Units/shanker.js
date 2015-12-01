@@ -7,7 +7,7 @@ var Shanker = function(name, x, y) {
         return "Shanker";
     };
     //this, width, height
-    var CC = new CollisionComponent(skeleton, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").width, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").height);
+    var CC = new CollisionComponent(skeleton, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").width-30, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").height-20);
     var spells_thumb_array = [];
     skeleton.setUpActionbar = function() {
         var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
