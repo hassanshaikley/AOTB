@@ -233,8 +233,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         drawAtX -= (drawAtX - _x) / 4;
         _x = null;
         _y = null;
-
-        if (oldDrawAtY < drawAtY){
+        if (Math.ceil(oldDrawAtY) < Math.ceil(drawAtY)){
             falling = true;
         } else {
             falling = false;
