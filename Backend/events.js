@@ -660,7 +660,16 @@ var Events = function() {
         //day
         //time
         //ip
-        exec("echo '"+ initPlayer.getName()+ ", " + data.referrer + ", "+ data.ip + ", "+"'>> Logs/first.log");
+        var date = new Date();
+        var year    = date.getFullYear();
+        var month   = date.getMonth();
+        var day     = date.getDay();
+        var hour    = date.getHours();
+        var minute  = date.getMinutes();
+
+
+        exec("echo '"+ initPlayer.getName()+ ", " + data.referrer + ", "+ data.ip + ", "+ (month+1) + "/" + day+ "/"+year +
+             ", " + hour + ":" +minute +"'>> Logs/first.log");
 
     };
     /**************************************************
