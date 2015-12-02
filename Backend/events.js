@@ -18,6 +18,7 @@ var Fly = require("./Units/fly").Fly,
     IDComponent = require("./Components/id-component").IDComponent,
     Attack = require('./Units/Attacks/attack.js').Attack;
 var exec = require('child_process').exec;
+var DataBlob = require('./app/models/data-blob');
 
 var CONFIG = require("./config");
 var util = require("util");
@@ -667,9 +668,29 @@ var Events = function() {
         var hour    = date.getHours();
         var minute  = date.getMinutes();
 
+       /*    function helpNarine(){
 
-        exec("echo '"+ initPlayer.getName()+ ", " + data.referrer + ", "+ data.ip + ", "+ (month+1) + "/" + day+ "/"+year +
-             ", " + hour + ":" +minute +"'>> Logs/first.log");
+        User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
+                doc.local.nickname = "sejoody";
+                doc.save(function(err){
+
+                });
+
+        });
+
+        };*/
+
+        var data_blob = new DataBlob({
+            name: initPlayer.getName(),
+            referrer: data.referrer,
+            ip: data.ip,
+            date: ((month+1) + "/" + day+ "/"+year),
+            time: ( hour + ":" +minute)
+        });
+        data_blob.save(function(err, dblob) {
+            if (err) return console.error(err);
+            console.dir(dblob);
+        });
 
     };
     /**************************************************
