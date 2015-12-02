@@ -16,7 +16,7 @@ var Fly = require("./Units/fly").Fly,
     CollidingObject = require("./gameObjects/CollidingObject.js").CollidingObject,
     Meteor = require("./Spells/meteor.js").Meteor,
     IDComponent = require("./Components/id-component").IDComponent,
-    Attack = require('./units/Attacks/attack.js').Attack;
+    Attack = require('./Units/Attacks/attack.js').Attack;
 
 var CONFIG = require("./config");
 var util = require("util");
