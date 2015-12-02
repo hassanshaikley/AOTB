@@ -6,9 +6,6 @@ var canvas, // Canvas DOM element
     socket,
     _alert, // Socket connection
     localGame;
-
-
-
 var MAIN;
 
 function Game() {
@@ -21,31 +18,23 @@ function Game() {
     var team_zero_kills;
     var team_zero_kills_text = new PIXI.Text("0");
     var team_one_kills_text = new PIXI.Text("0");
-
     team_zero_kills_text.style.font = "bold 20px arial";
     team_zero_kills_text.style.align = "center";
     team_one_kills_text.style.font = "bold 20px arial";
     team_one_kills_text.style.align = "center";
-
     team_one_kills_text.x = CONFIG.SCREEN_WIDTH - 35;
     team_zero_kills_text.x = 20;
     MAIN.stage.addChild(team_one_kills_text);
     MAIN.stage.addChild(team_zero_kills_text);
-
-
-    this.setTeamOneKills= function(kills){
+    this.setTeamOneKills = function(kills) {
         team_one_kills = kills;
         team_one_kills_text.text = kills;
-    }
-   this.setTeamZeroKills = function(kills){
+    };
+    this.setTeamZeroKills = function(kills) {
         team_zero_kills = kills;
         team_zero_kills_text.text = kills;
-   }
+    };
 };
-
-
-
-
 // variable that tracks how much the player has moved, everything is drawn
 Game.prototype.init = function() {
     background = new Background();
@@ -59,7 +48,6 @@ Game.prototype.init = function() {
     line.endFill();
     MAIN.stage.addChild(line);
     */
-
     canvas1.oncontextmenu = function(e) {
         return false;
     };
@@ -119,27 +107,24 @@ Game.prototype.init = function() {
     });
     remotePlayers = [];
     setEventHandlers();
-    animate();
     loadChat();
     localPlayer.setUpActionbar();
-
-    for (var i = 0; i < 5; i++){
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/10 + i * (CONFIG.ARENA_WIDTH)/5, 335));
+    for (var i = 0; i < 5; i++) {
+        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 10 + i * (CONFIG.ARENA_WIDTH) / 5, 335));
     }
-/*    for (var j = 0; j < 3; j++){
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/6 + j * (CONFIG.ARENA_WIDTH)/3, 235));
-    }*/
-       for (var i = 0; i < 4; i++){
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/8 + i * (CONFIG.ARENA_WIDTH)/4, 235));
+    /*    for (var j = 0; j < 3; j++){
+            localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/6 + j * (CONFIG.ARENA_WIDTH)/3, 235));
+        }*/
+    for (var i = 0; i < 4; i++) {
+        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 8 + i * (CONFIG.ARENA_WIDTH) / 4, 235));
     }
-    for (var i = 0; i < 3; i++){
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/6 + i * (CONFIG.ARENA_WIDTH)/3, 135));
+    for (var i = 0; i < 3; i++) {
+        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 6 + i * (CONFIG.ARENA_WIDTH) / 3, 135));
     }
-
-    if (CONFIG.SHOW_HITBOXES){
-    setInterval(helpers.highlightPlayerHitboxes, 200);
+    if (CONFIG.SHOW_HITBOXES) {
+        setInterval(helpers.highlightPlayerHitboxes, 200);
     }
-}
+};
 /**************************************************
  ** GAME EVENT HANDLERS
  **************************************************/
@@ -151,12 +136,11 @@ var setEventHandlers = function() {
         //usually when they tab in
         keys = new Keys();
     }, false);
-
     socket.on("connect", onSocketConnected);
     socket.on("disconnect", onSocketDisconnect);
     socket.on("new player", onNewPlayer);
     socket.on("remove player", onRemovePlayer);
-//    socket.on("bleed", onBleed);
+    //    socket.on("bleed", onBleed);
     socket.on("arrow fired", onArrowFired);
     socket.on("healing spike cast", onHealingSpikeCast);
     socket.on("respawn player", onRespawnPlayer);
@@ -175,23 +159,23 @@ var setEventHandlers = function() {
     socket.on("spell two", onSpellTwo);
     socket.on("update team killcount", onUpdateTeamKillcount);
 };
-function onUpdateTeamKillcount(data){
-    localGame.setTeamZeroKills(data.team_zero_kills);
-        localGame.setTeamOneKills(data.team_one_kills)
 
+function onUpdateTeamKillcount(data) {
+    localGame.setTeamZeroKills(data.team_zero_kills);
+    localGame.setTeamOneKills(data.team_one_kills)
 };
+
 function onSpellTwo(data) {
     console.log("SPELL TWO COMES BAKK");
     switch (data.spell) {
         case "rhrange":
-        console.log("RHRANGE CASTED AT " + data.x + ", " + data.y);
-        var v = new RHRange(data.x, data.y, data.direction);
-        v.attack_id = data.attack_id;
-
-        Spells.spellsarray.push(v);
-        if (data.caster === "you") {
-          //  localPlayer.displayCooldown(3, 700);
-        }
+            console.log("RHRANGE CASTED AT " + data.x + ", " + data.y);
+            var v = new RHRange(data.x, data.y, data.direction);
+            v.attack_id = data.attack_id;
+            Spells.spellsarray.push(v);
+            if (data.caster === "you") {
+                //  localPlayer.displayCooldown(3, 700);
+            }
     }
 };
 
@@ -294,7 +278,6 @@ function onUpdatePlayer(data) {
         y: data.y
     });
 }
-
 /*function onBleed(data) {
     var _player = helpers.playerById(data.id);
     if (_player === false) {
@@ -341,7 +324,6 @@ function onSetHp(data) {
 function onSetGold(data) {
     localPlayer.setGold(data.gold);
 };
-
 
 function onArenaPrompt(data) {
     //make button appear for confirmation to join arena
@@ -404,7 +386,6 @@ function onSocketConnected() {
         characterType: localPlayer.getCharacterType()
     });
     socket.emit("init me");
-
 };
 // Socket disconnected
 function onSocketDisconnect() {
@@ -438,7 +419,6 @@ function onNewPlayer(data) {
     remotePlayers.push(newPlayer);
     //add mesage to chat
     notify("<strong>" + newPlayer.getName() + "</strong> has joined");
-
     MAIN.updateLayersOrder();
 };
 
@@ -462,16 +442,6 @@ function onRespawnPlayer(data) {
     respawnPlayer.respawn();
 };
 
-var FPS = 60;
-/**************************************************
- ** GAME ANIMATION LOOP
- **************************************************/
-function animate() {
-    requestAnimationFrame(animate); //this.update.bind(this));
-    update();
-    draw();
-};
-
 function handleCooldownVisuals() {
     var i;
     for (i = 0; i < CONFIG.COOLDOWNS.length; i++) {
@@ -493,10 +463,6 @@ function handleCooldownVisuals() {
 /**************************************************
  ** GAME UPDATE
  **************************************************/
-var oldTime = Date.now();
-var newTime = Date.now();
-var updateTime = 50;
-
 function update() {
     updatePlatforms();
     handleCooldownVisuals();
@@ -511,10 +477,9 @@ function update() {
             if (helpers.collision(allPlayers[j], Spells.spellsarray[i])) {
                 //let the server know the attack landed
                 //going to only want to do this once!
-
                 //this is buggy when undefined
-                if (localGame.attack_collisions[Spells.spellsarray[i].attack_id]){ //if the attack_id object exists
-                    if (localGame.attack_collisions[Spells.spellsarray[i].attack_id].indexOf(allPlayers[j].id) != -1 ){ //if the spell already hit
+                if (localGame.attack_collisions[Spells.spellsarray[i].attack_id]) { //if the attack_id object exists
+                    if (localGame.attack_collisions[Spells.spellsarray[i].attack_id].indexOf(allPlayers[j].id) != -1) { //if the spell already hit
                     } else { //the object exists but the spell isn't added
                         localGame.attack_collisions[Spells.spellsarray[i].attack_id].push(allPlayers[j].id);
                         console.log(localGame.attack_collisions);
@@ -524,7 +489,6 @@ function update() {
                             "hit_by": Spells.spellsarray[i].caster,
                             "attack_id": Spells.spellsarray[i].attack_id
                         });
-
                     }
                 } else {
                     console.log("!!2");
@@ -536,7 +500,6 @@ function update() {
                         "attack_id": Spells.spellsarray[i].attack_id
                     });
                 };
-
                 console.log("Hits:/t" + allPlayers[j].id + " /t-- caster:\t" + Spells.spellsarray[i].caster);
             }
         }
@@ -547,31 +510,30 @@ function update() {
         remotePlayers[i].updateVariables();
     };
     localPlayer.update(keys);
-    if (CONFIG.SHOW_HITBOXES){
+    if (CONFIG.SHOW_HITBOXES) {
         helpers.highlightSpellHitboxes();
-
     }
 };
-
 var reset_this = true;
-
 var wasOnAPlatform = false;
-function updatePlatforms(){
+
+function updatePlatforms() {
     var onAPlatform;
-    for (var i = 0; i < localGame.platforms.length; i++){
-        if (localGame.platforms[i].update() === "grounded"){
+    for (var i = 0; i < localGame.platforms.length; i++) {
+        if (localGame.platforms[i].update() === "grounded") {
             onAPlatform = true;
         };
-
     }
-    if (onAPlatform == undefined && wasOnAPlatform){
+    if (onAPlatform == undefined && wasOnAPlatform) {
         reset_this = true;
     };
     //whem you hit the floor emit this once
-    if (!onAPlatform && reset_this){
-       //  the floor is the land
-       console.log("SPAM");
-        socket.emit("landed", { y: CONFIG.FLOOR_HEIGHT});
+    if (!onAPlatform && reset_this) {
+        //  the floor is the land
+        console.log("SPAM");
+        socket.emit("landed", {
+            y: CONFIG.FLOOR_HEIGHT
+        });
         reset_this = false;
     }
     wasOnAPlatform = onAPlatform;
@@ -593,7 +555,6 @@ function draw() {
     localPlayer.draw();
     drawForeground();
 };
-
 var z = 0;
 var _anim = 0;
 var cloud_x = 0;
@@ -603,7 +564,6 @@ function drawForeground() {
         localGame.bloods[_i].draw();
     }
 }
-
 // Find player by ID
 function playerById(id) {
     var i;
@@ -619,7 +579,6 @@ function onInitMe(data) {
     localPlayer.id = data.id;
     localGame.setTeamOneKills(data.team_one_kills);
     localGame.setTeamZeroKills(data.team_zero_kills);
-//    console.log("TEAM 1 " + data.team_one_kills + " TEAM 2 " + data.team_zero_kills + " ID IS " + data.id);
 };
 
 function hostileById(id) {
@@ -629,8 +588,6 @@ function hostileById(id) {
     };
     return false;
 };
-
-$(document).ready ( function(){
+$(document).ready(function() {
     localGame = new Game();
-    console.log("Haebe swags");
 });

@@ -30,7 +30,6 @@ var ScreenManager = function() {
     node.appendChild(this.renderer.view);
     this.stage.interactive = true;
     this.loadSpriteSheet();
-    return this; //not sure this is necessary lmao
 };
 
 ScreenManager.prototype.loadSpriteSheet = function() {
