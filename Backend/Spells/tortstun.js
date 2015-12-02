@@ -33,8 +33,8 @@ var TortStun = function(_x, _y, _team) {
         return 57;
     };
     this.doEffect = function(obj) {
-        console.log("\n\nABOUT TO IMMOBILIZE" + JSON.stringify(player));
-        obj.player.immobilize(400);
+        console.log("\n\nABOUT TO IMMOBILIZE" + JSON.stringify(obj) + " -- " + obj.hits);
+        obj.hits.immobilize(400);
     };
     /* Returns the cooldown for this spell*/
     this.update = function() {

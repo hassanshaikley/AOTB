@@ -7,7 +7,7 @@ var Shanker = function(name, x, y) {
         return "Shanker";
     };
     //this, width, height
-    var CC = new CollisionComponent(skeleton, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").width-30, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").height-20);
+    var CC = new CollisionComponent(skeleton, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").width - 30, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").height - 20);
     var spells_thumb_array = [];
     skeleton.setUpActionbar = function() {
         var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
@@ -57,12 +57,10 @@ var Shanker = function(name, x, y) {
     shanker_r_attack.animationSpeed = .30;
     shanker_l_attack.animationSpeed = .30;
     skeleton.shanker_l = shanker_l;
-
     skeleton.imageContainer.addChild(shanker_r);
     skeleton.imageContainer.addChild(shanker_l);
     skeleton.imageContainer.addChild(shanker_l_attack);
     skeleton.imageContainer.addChild(shanker_r_attack);
-
     var first = false,
         loop = false;
     skeleton.draw = function() {
@@ -83,14 +81,10 @@ var Shanker = function(name, x, y) {
         shanker_r.position.x = drawAtX;
         shanker_r_attack.position.x = drawAtX;
         shanker_l_attack.position.x = drawAtX;
-
-
         shanker_r.visible = false;
         shanker_l.visible = false;
         shanker_r_attack.visible = false;
         shanker_l_attack.visible = false;
-
-
         this.drawText();
         if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT) {
             if (first === false) {
@@ -98,7 +92,6 @@ var Shanker = function(name, x, y) {
                 first = true; //at the very end set first to true
             }
             shanker_r_attack.visible = true;
-
             if (shanker_r_attack.currentFrame === 1) {
                 loop = true;
             }
@@ -128,8 +121,7 @@ var Shanker = function(name, x, y) {
             shanker_r.visible = true;
         } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_LEFT) {
             //skeleton.imageContainer.addChild(shanker_l);
-                        shanker_l.visible = true;
-
+            shanker_l.visible = true;
         } else { //is idling
             if (this.getMoveDirection() === "left") {
                 //skeleton.imageContainer.addChild(shanker_l);
@@ -137,7 +129,6 @@ var Shanker = function(name, x, y) {
             } else {
                 //skeleton.imageContainer.addChild(shanker_r);
                 shanker_r.visible = true;
-
             }
         }
         shanker_r.animationSpeed = .2;
@@ -153,7 +144,6 @@ var Shanker = function(name, x, y) {
     skeleton.setInvis = function(_invis) {
         if (_invis) {
             MAIN.stage.removeChild(skeleton.imageContainer);
-
         } else {
             MAIN.stage.addChild(skeleton.imageContainer);
         }

@@ -175,7 +175,8 @@ var Game = function() {
                 hits_array[hits]["confirmed"] = true;
                 console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[id] + " ");
                 if (id) { // does this trip out when the player is dead?
-                    active_spells[id].doEffect(hit_player);
+                    console.log("HIT PLAYER : " + hit_player);
+                    active_spells[id].doEffect({hits: hit_player});
                 } else {
                     console.log("hit player "+hit_player);
                     attack.doEffect({hits: hit_player, direction: attack.getDirection()});

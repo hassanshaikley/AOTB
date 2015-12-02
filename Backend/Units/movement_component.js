@@ -16,29 +16,28 @@ exports.MovementComponent = function(speed, that, ySpeed) {
 
         } else if (that.getY() < 0) { //trying to fly way too high rn
             that.setY(0);
-        } else if (!that.jumping && !(that.getY() === landY - that.getHeight() / 2)) { // 
+        } else if (!that.jumping && !(that.getY() === landY - that.getHeight() / 2)) { //
             that.setY(that.getY() + fallSpeed); // falling
         }
-    }
+    };
     that.setLandY = function(_landY){
         landY = _landY;
     };
     that.getLandY = function(){
         return landY;
-    }
+    };
     that.getBaseSpeed = function() {
         return baseSpeed;
     };
     that.getSpeed = function() {
         return speed;
-    }
+    };
     that.setSpeed = function(newSpeed) {
         speed = newSpeed;
-    }
+    };
 
     function jump(that) {
         if (that.jumping) { //jumping
-            util.log(that.jumping)
             that.setY(that.getY() - 20);
         }
     }
@@ -67,5 +66,5 @@ exports.MovementComponent = function(speed, that, ySpeed) {
             }
         }
         gravity(that);
-    }
+    };
 };
