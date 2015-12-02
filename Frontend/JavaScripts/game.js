@@ -24,11 +24,11 @@ function Game() {
 
     team_zero_kills_text.style.font = "bold 20px arial";
     team_zero_kills_text.style.align = "center";
-       team_one_kills_text.style.font = "bold 20px arial";
+    team_one_kills_text.style.font = "bold 20px arial";
     team_one_kills_text.style.align = "center";
 
-     team_one_kills_text.x = CONFIG.SCREEN_WIDTH - 35;
-     team_zero_kills_text.x = 20;
+    team_one_kills_text.x = CONFIG.SCREEN_WIDTH - 35;
+    team_zero_kills_text.x = 20;
     MAIN.stage.addChild(team_one_kills_text);
     MAIN.stage.addChild(team_zero_kills_text);
 
@@ -562,18 +562,28 @@ function update() {
     }
 };
 
+var reset_this = true;
+
+var wasOnAPlatform = false;
 function updatePlatforms(){
     var onAPlatform;
     for (var i = 0; i < localGame.platforms.length; i++){
         if (localGame.platforms[i].update() === "grounded"){
             onAPlatform = true;
         };
-    }
-    if (!onAPlatform){
-       // console.log("We are not on a platform");
-        socket.emit("landed", { y: CONFIG.FLOOR_HEIGHT}); 
-    }
 
+    }
+    if (onAPlatform == undefined && wasOnAPlatform){
+        reset_this = true;
+    };
+    //whem you hit the floor emit this once
+    if (!onAPlatform && reset_this){
+       //  the floor is the land
+       console.log("SPAM");
+        socket.emit("landed", { y: CONFIG.FLOOR_HEIGHT}); 
+        reset_this = false;
+    }
+    wasOnAPlatform = onAPlatform;
 };
 /**************************************************
  ** GAME DRAW

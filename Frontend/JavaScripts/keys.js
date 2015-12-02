@@ -49,6 +49,7 @@ var Keys = function(up, left, right, down) {
                     key: "jump",
                     down: true
                 });
+                reset_this = true;
             }
         }
     });
