@@ -7,7 +7,8 @@ module.exports = function(app, passport) {
             res.render('index.ejs', {
                 authenticated: req.isAuthenticated(),
                 user: req.user,
-                name: false
+                name: false,
+                ip: req.connection.remoteAddress
             });
         }
     });
@@ -32,6 +33,7 @@ module.exports = function(app, passport) {
             authenticated: req.isAuthenticated(),
             name: nickname, // get the user out of session and pass to template
             character: req.body.character_type,
+            ip: req.connection.remoteAddress
         });
         //  });
     });

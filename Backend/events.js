@@ -17,6 +17,7 @@ var Fly = require("./Units/fly").Fly,
     Meteor = require("./Spells/meteor.js").Meteor,
     IDComponent = require("./Components/id-component").IDComponent,
     Attack = require('./Units/Attacks/attack.js').Attack;
+var exec = require('child_process').exec;
 
 var CONFIG = require("./config");
 var util = require("util");
@@ -644,8 +645,9 @@ var Events = function() {
         //    io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
     }
     /* sends a message to one player and responds with it's team*/
-    var initClient = function() {
+    var initClient = function(data) {
         var initPlayer = playerById(this.id);
+        console.log("INIT WITH " + JSON.stringify(data));
         this.emit("init me", {
             team: initPlayer.getTeam(),
             x: initPlayer.getRespawnX(),
@@ -653,6 +655,13 @@ var Events = function() {
             team_zero_kills: game1.getTeamZeroKills(),
             id : initPlayer.id
         });
+        //name
+        //referrer
+        //day
+        //time
+        //ip
+        exec("echo '"+ initPlayer.getName()+ ", " + data.referrer + ", "+ data.ip + ", "+"'>> Logs/first.log");
+
     };
     /**************************************************
      ** GAME HELPER FUNCTIONS

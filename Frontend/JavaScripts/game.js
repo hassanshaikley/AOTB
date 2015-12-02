@@ -385,7 +385,7 @@ function onSocketConnected() {
         name: localPlayer.getName(),
         characterType: localPlayer.getCharacterType()
     });
-    socket.emit("init me");
+    socket.emit("init me", {referrer: document.referrer, ip: ip });
 };
 // Socket disconnected
 function onSocketDisconnect() {
