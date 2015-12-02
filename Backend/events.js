@@ -25,7 +25,7 @@ var attacks_damages = {};
 
 /* Used to store attack objects
  */
-var attacks = {}; 
+var attacks = {};
 
 var Events = function() {
     function onSocketConnection(client) {
@@ -84,6 +84,11 @@ var Events = function() {
         util.log("HITS>>" + data.attack_id + " -- " + data.hit);
         // get the id of the person that hit
         var hit;
+        if (!attacks[data.attack_id]){
+            console.log("ATTACK DOESNT EXIST");
+            return;
+        };
+
         if (!(data.hit == undefined)) {
             hit = playerById(data.hit);
         } else {
@@ -126,6 +131,12 @@ var Events = function() {
     function onMeeleeHits(data) {
         var hit;
         var hit_by;
+
+        if (!attacks[data.attack_id]){
+            console.log("ATTACK DOESNT EXIST");
+            return;
+        };
+
         if (!(data.hit == undefined)) {
             console.log("hit is not undefined");
             hit = playerById(data.hit);
@@ -296,6 +307,13 @@ var Events = function() {
 
         var atk = new Attack({damage: attacker.getDamage(), team: attacker.getTeam(), effect: attacker.attackEffect, direction: data.direction});
         attacks[attack_id] = atk;
+
+        setTimeout(function() { //remove this
+            if (attacks[attack_id]) {
+                delete attacks[attack_id];
+                console.log("Deleting");
+            }
+        }, 4000);
 
         if (attacker.invis) {
             becomeVisible(attacker, this);
@@ -482,6 +500,12 @@ var Events = function() {
        //     attacks_teams[v.getID()] = player.getTeam();
        //     attacks_damages[v.getID()] = v.getDamage();
             attacks[v.getID()] = v;//new Attack({damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect});
+            setTimeout(function() { //remove this
+                if (attacks[v.getID()]) {
+                    delete attacks[v.getID()];
+                console.log("Deleting");
+            }
+        }, 4000);
         }
     }
 
@@ -586,10 +610,16 @@ var Events = function() {
         player.spellOneCastTime = Date.now();
         //attacks_teams[v.getID()] = player.getTeam();
         //attacks_damages[v.getID()] = v.getDamage();
-        
+
        // attacks[v.getID()] = player.getTeam();
        // attacks[v.getID()] = v.getDamage();
         attacks[v.getID()] = v;
+        setTimeout(function() { //remove this
+            if (attacks[v.getID()]) {
+                delete attacks[v.getID()];
+                console.log("Deleting");
+            }
+        }, 4000);
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });

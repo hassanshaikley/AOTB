@@ -134,6 +134,11 @@ var Game = function() {
                 "according_to": [according_to],
                 "confirmed": false
             }]
+            setInterval(function(){
+                if (attacks[attack_id]){
+                    delete attacks[attack_id];
+                }
+            }, 6000);
             return;
         };
         var hits_array = attacks[attack_id];
@@ -188,12 +193,6 @@ var Game = function() {
             }
             return ret;
         }
-        setTimeout(function() { //remove this
-            if (attacks[attack_id]) {
-                delete attacks[attack_id];
-                console.log("Deleting");
-            }
-        }, 4000);
     };
     /* Requires that every spell has an ID*/
     this.addSpell = function(spell) {
@@ -202,6 +201,11 @@ var Game = function() {
         } else {
             util.log("ADDING SPELL " + spell + " ID " + spell.getID());
             active_spells[spell.getID()] = spell;
+
+            setInterval(function(){
+                delete active_spells[spell.getID()];
+            }, 5000);
+
             return 1;
         };
     };

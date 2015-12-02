@@ -1,25 +1,23 @@
-
-
 var Fly = function(name, x, y, hp) {
     var descendAttack = false,
         rightMouseActionHappening = false,
         descendAttack = false,
         descendAttackSpeed = 10;
     var skeleton = new Player(x, y, 50, name);
+
+    var CC = new CollisionComponent(skeleton, 60, 70);
+
+
     skeleton.setDescendAttack = function(boolean_thing, local) {
         descendAttack = boolean_thing;
-        /* if (local) {
-           socket.emit("descend attack change", { descendAttack: boolean_thing });
-           }*/
+
     };
-    skeleton.getWidth = function() {
-        return 60;
-    };
-    skeleton.getHeight = function() {
-        return 70;
-    };
+
     skeleton.getDescendAttack = function() {
         return descendAttack;
+    };
+    skeleton.isFalling = function(){
+        return false;
     };
     var spells_thumb_array = [];
     skeleton.setUpActionbar = function() {
@@ -38,7 +36,7 @@ var Fly = function(name, x, y, hp) {
            sword_thumb.mouseover = function(mouseData){
            console.log("MOUSE OVER!");
            }*/
-    }
+    };
     var clipnames = [];
     for (var _i = 1; _i <= 12; _i++) {
         clipnames.push(PIXI.Texture.fromImage("r_flysheet_walk_v2_state" + _i + ".png"));

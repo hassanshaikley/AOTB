@@ -520,10 +520,6 @@ function update() {
                 //this is buggy when undefined
                 if (localGame.attack_collisions[Spells.spellsarray[i].attack_id]){ //if the attack_id object exists
                     if (localGame.attack_collisions[Spells.spellsarray[i].attack_id].indexOf(allPlayers[j].id) != -1 ){ //if the spell already hit
-
-
-
-
                     } else { //the object exists but the spell isn't added
                         localGame.attack_collisions[Spells.spellsarray[i].attack_id].push(allPlayers[j].id);
                         console.log(localGame.attack_collisions);
@@ -580,7 +576,7 @@ function updatePlatforms(){
     if (!onAPlatform && reset_this){
        //  the floor is the land
        console.log("SPAM");
-        socket.emit("landed", { y: CONFIG.FLOOR_HEIGHT}); 
+        socket.emit("landed", { y: CONFIG.FLOOR_HEIGHT});
         reset_this = false;
     }
     wasOnAPlatform = onAPlatform;

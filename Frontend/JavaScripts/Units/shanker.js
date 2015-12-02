@@ -57,7 +57,12 @@ var Shanker = function(name, x, y) {
     shanker_r_attack.animationSpeed = .30;
     shanker_l_attack.animationSpeed = .30;
     skeleton.shanker_l = shanker_l;
+
     skeleton.imageContainer.addChild(shanker_r);
+    skeleton.imageContainer.addChild(shanker_l);
+    skeleton.imageContainer.addChild(shanker_l_attack);
+    skeleton.imageContainer.addChild(shanker_r_attack);
+
     var first = false,
         loop = false;
     skeleton.draw = function() {
@@ -78,17 +83,22 @@ var Shanker = function(name, x, y) {
         shanker_r.position.x = drawAtX;
         shanker_r_attack.position.x = drawAtX;
         shanker_l_attack.position.x = drawAtX;
-        skeleton.imageContainer.removeChild(shanker_r);
-        skeleton.imageContainer.removeChild(shanker_l);
-        skeleton.imageContainer.removeChild(shanker_l_attack);
-        skeleton.imageContainer.removeChild(shanker_r_attack);
+
+
+        shanker_r.visible = false;
+        shanker_l.visible = false;
+        shanker_r_attack.visible = false;
+        shanker_l_attack.visible = false;
+
+
         this.drawText();
         if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT) {
             if (first === false) {
                 shanker_r_attack.gotoAndPlay(0);
                 first = true; //at the very end set first to true
             }
-            skeleton.imageContainer.addChild(shanker_r_attack);
+            shanker_r_attack.visible = true;
+
             if (shanker_r_attack.currentFrame === 1) {
                 loop = true;
             }
@@ -103,7 +113,7 @@ var Shanker = function(name, x, y) {
                 shanker_l_attack.gotoAndPlay(0);
                 first = true; //at the very end set first to true
             }
-            skeleton.imageContainer.addChild(shanker_l_attack);
+            shanker_l_attack.visible = true;
             if (shanker_l_attack.currentFrame === 1) {
                 loop = true;
             }
@@ -114,14 +124,20 @@ var Shanker = function(name, x, y) {
                 loop = false;
             }
         } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_RIGHT) {
-            skeleton.imageContainer.addChild(shanker_r);
+            //skeleton.imageContainer.addChild(shanker_r);
+            shanker_r.visible = true;
         } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_LEFT) {
-            skeleton.imageContainer.addChild(shanker_l);
+            //skeleton.imageContainer.addChild(shanker_l);
+                        shanker_l.visible = true;
+
         } else { //is idling
             if (this.getMoveDirection() === "left") {
-                skeleton.imageContainer.addChild(shanker_l);
+                //skeleton.imageContainer.addChild(shanker_l);
+                visible = true;
             } else {
-                skeleton.imageContainer.addChild(shanker_r);
+                //skeleton.imageContainer.addChild(shanker_r);
+                visible = true;
+
             }
         }
         shanker_r.animationSpeed = .2;
@@ -137,6 +153,7 @@ var Shanker = function(name, x, y) {
     skeleton.setInvis = function(_invis) {
         if (_invis) {
             MAIN.stage.removeChild(skeleton.imageContainer);
+
         } else {
             MAIN.stage.addChild(skeleton.imageContainer);
         }
