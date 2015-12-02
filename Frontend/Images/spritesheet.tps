@@ -320,6 +320,8 @@
             <filename>invisibility_icon_v2.fw.png</filename>
             <filename>meteor_v5.fw.png</filename>
             <filename>rh_range.png</filename>
+            <filename>mini_platform.png</filename>
+            <filename>tortpull.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

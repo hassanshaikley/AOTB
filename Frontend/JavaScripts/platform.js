@@ -1,12 +1,14 @@
 var Platform = function(x, y){
 
     var img = new PIXI.Sprite(PIXI.Texture.fromFrame("mini_platform.png"));
-    img.x = x - PIXI.Texture.fromFrame("mini_platform.png").width/2;
-    img.y = y + PIXI.Texture.fromFrame("mini_platform.png").height/2;
 
     MAIN.stage.addChild(img);
 
+    img.y = y;
+    
+    this.img = img;
     var that = this;
+
     this.getX = function(){
     	return x;
     }
@@ -31,6 +33,7 @@ var Platform = function(x, y){
     		return "grounded";
 		}else {
 		//	console.log("Not really on this s")
+
 		};
 	}
 };
