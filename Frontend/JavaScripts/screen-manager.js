@@ -26,13 +26,9 @@ var ScreenManager = function() {
     this.BOTACTIONBAR.addChild(botactionbar);
     this.stage.addChild(this.BOTACTIONBAR);
     this.BOTACTIONBAR.zIndex = 100;
-    var node = document.getElementById("canvas_and_chat")
+    var node = document.getElementById("canvas_and_chat");
     node.appendChild(this.renderer.view);
     this.stage.interactive = true;
-    /*
-    	 filter = new PIXI.filters.DotScreenFilter();
-    	 this.stage.filters = [filter];
-    */
     this.loadSpriteSheet();
     return this; //not sure this is necessary lmao
 };
@@ -55,7 +51,10 @@ ScreenManager.prototype.loadSpriteSheet = function() {
 
 ScreenManager.prototype.update = function() {
     this.renderer.render(this.stage);
+    console.log("REQUESTING : D ");
     requestAnimationFrame(this.update.bind(this));
+    update();
+    draw();
 };
 
 ScreenManager.prototype.spriteSheetLoaded = function() {

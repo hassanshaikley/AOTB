@@ -25,7 +25,7 @@ var Shanker = function(name, x, y) {
          sword_thumb.mouseover = function(mouseData){
            console.log("MOUSE OVER!");
          }*/
-    }
+    };
     skeleton.windWalk = function() {
         console.log("WIND WALKIN K ");
         skeleton.setInvis(true);

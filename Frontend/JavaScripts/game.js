@@ -459,11 +459,6 @@ function onRemovePlayer(data) {
 /* Should only be able to do this on yourself */
 function onRespawnPlayer(data) {
     var respawnPlayer = helpers.playerById(data.id) || localPlayer;
-/*    if (respawnPlayer === false) {
-        respawnPlayer = localPlayer;
-    } else {
-
-    }*/
     respawnPlayer.respawn();
 };
 
