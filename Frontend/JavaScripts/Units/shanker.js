@@ -133,10 +133,10 @@ var Shanker = function(name, x, y) {
         } else { //is idling
             if (this.getMoveDirection() === "left") {
                 //skeleton.imageContainer.addChild(shanker_l);
-                visible = true;
+                shanker_l.visible = true;
             } else {
                 //skeleton.imageContainer.addChild(shanker_r);
-                visible = true;
+                shanker_r.visible = true;
 
             }
         }
