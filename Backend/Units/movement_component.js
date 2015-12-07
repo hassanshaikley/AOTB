@@ -35,11 +35,17 @@ exports.MovementComponent = function(speed, that, ySpeed) {
     that.setSpeed = function(newSpeed) {
         speed = newSpeed;
     };
-
+    var jump_speed;
     function jump(that) {
         if (that.jumping) { //jumping
-            that.setY(that.getY() - 20);
-        }
+            util.log("JUMP SPEED" + jump_speed);
+            if (jump_speed > 0){
+                that.setY(that.getY() - jump_speed);
+            }
+            jump_speed = jump_speed - 2;
+        } else if (jump_speed != 25){
+            jump_speed = 25;
+        };
     }
     this.update = function(that) {
         if (that == null || speed == null) {
