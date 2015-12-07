@@ -21,7 +21,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         team,
         //list of every image used in this guys animation
         frames,
-        falling; 
+        falling;
 
     var current_action = CONFIG.ACTION.MOVING_RIGHT;
     var meelee_attack_component = new MeeleeAttackComponent(this);
@@ -197,6 +197,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     var xDiff;
     var moveTimer = 0;
     this.updateVariables = function() {
+
         var oldDrawAtY = drawAtY;
         if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 500) {
             drawAtY = y;

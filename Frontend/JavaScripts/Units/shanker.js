@@ -2,7 +2,6 @@ var Shanker = function(name, x, y) {
     var skeleton = new Player(x, y, 80, name),
         facing_left;
     var meelee_attack = 50;
-    var spritesheet_offset_y = 0;
     skeleton.getCharacterType = function() {
         return "Shanker";
     };

@@ -50,7 +50,6 @@ ScreenManager.prototype.loadSpriteSheet = function() {
 
 ScreenManager.prototype.update = function() {
     this.renderer.render(this.stage);
-    console.log("REQUESTING : D ");
     requestAnimationFrame(this.update.bind(this));
     update();
     draw();

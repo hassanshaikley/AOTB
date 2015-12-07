@@ -412,6 +412,7 @@ function onNewPlayer(data) {
     } else if (data.characterType === "Grimes") {
         newPlayer = new Grimes(data.name, data.x, data.y, data.hp);
     }
+    newPlayer.setX(0); // ehh this is 2 fix a bug..sry
     console.log("ID " + data.id);
     newPlayer.id = data.id;
     newPlayer.imageContainer.zIndex = 5;
@@ -550,14 +551,12 @@ function draw() {
     };
     for (i = 0; i < remotePlayers.length; i++) {
         remotePlayers[i].draw();
+
     };
     localPlayer.updateVariables();
     localPlayer.draw();
     drawForeground();
 };
-var z = 0;
-var _anim = 0;
-var cloud_x = 0;
 
 function drawForeground() {
     for (var _i = 0; _i < localGame.bloods.length; _i++) {
