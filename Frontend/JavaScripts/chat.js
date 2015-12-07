@@ -25,20 +25,25 @@ var loadChat = function() {
     });
     if (localPlayerName === "unknown") {
         notify("Welcome to Arena of the Bits.", true);
-        notify("The first team to 20 kills wins", true);
         setTimeout(function() {
-            notify("This game is in Alpha. Code is pushed to it daily. With that said a lot of bugs emerge, so bare with us and let us know what bugs you run into! Please post feedback and bugs to the FaceBook page or tweet it to @millenialpride.", true);
-        }, 15000);
+            notify("The first team to 20 kills wins", true);
+        }, 2000);
+
         setTimeout(function() {
-            notify("Refresh to randomly pick another character, or sign in to pick the character you want to play as!", true);
-        }, 1000);
+            notify("Refresh to randomly pick another character, or sign in to choose the character you want to play as!", true);
+        }, 4000);
         setTimeout(function() {
             if (remotePlayers.length == 0) {
-                notify("It looks like nobody else is connected right now. Send the link to a friend and play with them..or stop by later. Your choice. : )", true);
+                notify("It looks like nobody else is connected right now. Send the link to a friend and play with them...or stop by later. Your choice. : ) If you tweet @ me I'll make an effort to play with you. ", true);
             } else {
                 notify("Somebody else is connected. The hunt is on.", true);
             }
-        }, 3000);
+        }, 6000);
+
+
+        setTimeout(function() {
+            notify("BTW this game is in Alpha. Come back later for updates! And please give us feedback. :D ", true);
+        }, 20000);
     }
     var chat_scroll = document.getElementById("chat");
     chat_scroll.scrollTop = chat_scroll.scrollHeight;
