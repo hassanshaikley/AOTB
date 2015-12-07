@@ -12,8 +12,6 @@ exports.MovementComponent = function(speed, that, ySpeed) {
     var landY = Config.FLOOR_HEIGHT;
 
     function gravity(that) {
-            util.log(that.getCharacterType() + fallSpeed);
-
         if (that.getY() > landY - that.getHeight() / 2) { //if its greater than the ground (V great)!
             that.setY(landY - that.getHeight() / 2); // trying to fly too low
             fallSpeed = ySpeed;
