@@ -69,14 +69,3 @@ function teamOneFilter(imageContainer) {
     filter.invert = .3;
     imageContainer.filters = [filter, filter2];
 };
-
-/* call this function whenever you added a new layer/container */
-ScreenManager.prototype.updateLayersOrder = function() {
-    this.stage.children.sort(function(a, b) {
-/*
-        a.zIndex = a.zIndex || 0;
-        b.zIndex = b.zIndex || 0;
-        return a.zIndex - b.zIndex;
-*/
-    });
-};

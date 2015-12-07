@@ -425,7 +425,6 @@ function onNewPlayer(data) {
     remotePlayers.push(newPlayer);
     //add mesage to chat
     notify("<strong>" + newPlayer.getName() + "</strong> has joined");
-    MAIN.updateLayersOrder();
 };
 
 function onRemovePlayer(data) {
