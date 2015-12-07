@@ -50,15 +50,19 @@ ScreenManager.prototype.loadSpriteSheet = function() {
 
 ScreenManager.prototype.update = function() {
     this.renderer.render(this.stage);
-    requestAnimationFrame(this.update.bind(this));
+    //requestAnimationFrame(this.update.bind(this));
     update();
     draw();
+    setTimeout(this.update.bind(this), 1000/60)
 };
 
 ScreenManager.prototype.spriteSheetLoaded = function() {
     console.log("LOADED LE SPRITE SHEET");
     localGame.init();
-    requestAnimationFrame(this.update.bind(this));
+    //requestAnimationFrame(this.update.bind(this));
+
+    setTimeout(this.update.bind(this), 1000/60)
+
 };
 
 // helper
