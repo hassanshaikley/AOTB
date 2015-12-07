@@ -42,6 +42,20 @@ Game.prototype.init = function() {
     MAIN.stage.addChild(background)
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
+
+  for (var i = 0; i < 5; i++) {
+        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 10 + i * (CONFIG.ARENA_WIDTH) / 5, 335));
+    }
+    /*    for (var j = 0; j < 3; j++){
+            localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/6 + j * (CONFIG.ARENA_WIDTH)/3, 235));
+        }*/
+    for (i = 0; i < 4; i++) {
+        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 8 + i * (CONFIG.ARENA_WIDTH) / 4, 235));
+    }
+    for (i = 0; i < 3; i++) {
+        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 6 + i * (CONFIG.ARENA_WIDTH) / 3, 135));
+    }
+
     /*
     var line = new PIXI.Graphics();
     line.beginFill(0x000000);
@@ -112,18 +126,7 @@ Game.prototype.init = function() {
     setEventHandlers();
     loadChat();
     localPlayer.setUpActionbar();
-    for (var i = 0; i < 5; i++) {
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 10 + i * (CONFIG.ARENA_WIDTH) / 5, 335));
-    }
-    /*    for (var j = 0; j < 3; j++){
-            localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/6 + j * (CONFIG.ARENA_WIDTH)/3, 235));
-        }*/
-    for (i = 0; i < 4; i++) {
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 8 + i * (CONFIG.ARENA_WIDTH) / 4, 235));
-    }
-    for (i = 0; i < 3; i++) {
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 6 + i * (CONFIG.ARENA_WIDTH) / 3, 135));
-    }
+
     if (CONFIG.SHOW_HITBOXES) {
         setInterval(helpers.highlightPlayerHitboxes, 200);
     }
