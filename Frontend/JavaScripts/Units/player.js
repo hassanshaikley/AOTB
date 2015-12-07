@@ -420,8 +420,14 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         });
     };
     /* */
-    this.leftClick = function() {
-        console.log("FUCKER IS LEFT CLICKING");
+    this.leftClick = function(_x, _y) {
+        console.log("FUCKER IS LEFT CLICKING" + _x + " -- " + _y);
+        //if out of screen return
+        if (_y > CONFIG.SCREEN_HEIGHT - 55){
+            console.log("RETURNS");
+            return;
+        };
+
         if (Date.now() - now >= 1000) {
             // meelee_attack = 0;
             console.log("EMMITING");

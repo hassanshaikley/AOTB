@@ -34,6 +34,7 @@ function Game() {
         team_zero_kills = kills;
         team_zero_kills_text.text = kills;
     };
+
 };
 // variable that tracks how much the player has moved, everything is drawn
 Game.prototype.init = function() {
@@ -52,15 +53,17 @@ Game.prototype.init = function() {
         return false;
     };
     var clientRect;
-    var adjustedX, adjustedY;
+    var adjustedX=0, adjustedY=0;
     canvas1.onmousedown = function(e) {
         console.log("OKE" + e.which);
+        adjustedY = 0, adjustedX = 0;
         switch (e.which) {
             case 1:
                 clientRect = canvas1.getBoundingClientRect();
                 adjustedX = localPlayer.getDrawAtX() - CONFIG.SCREEN_WIDTH / 2;
-                adjustedX += (e.clientX - clientRect.left);
-                adjustedY += e.clientY - clientRect.topy;
+            adjustedX += e.clientY - parseInt(clientRect.left);
+            adjustedY += e.clientY - parseInt(clientRect.top);
+            console.log(e.clientY + " - " + parseInt(clientRect.top) + " " + adjustedY);
                 localPlayer.leftClick(adjustedX, adjustedY);
                 break;
             case 2:
@@ -70,8 +73,8 @@ Game.prototype.init = function() {
                 clientRect = canvas1.getBoundingClientRect();
                 console.log("IDIOTS");
                 adjustedX = localPlayer.getDrawAtX() - CONFIG.SCREEN_WIDTH / 2;
-                adjustedX += (e.clientX - clientRect.left);
-                adjustedY += e.clientY - clientRect.topy;
+            adjustedX += (e.clientX - parseInt(clientRect.left));
+            adjustedY += e.clientY - parseInt(clientRect.top);
                 localPlayer.rightClick(adjustedX, adjustedY);
                 break;
         }
@@ -124,6 +127,8 @@ Game.prototype.init = function() {
     if (CONFIG.SHOW_HITBOXES) {
         setInterval(helpers.highlightPlayerHitboxes, 200);
     }
+        option_menu = new OptionMenu();
+
 };
 /**************************************************
  ** GAME EVENT HANDLERS
