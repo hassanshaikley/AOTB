@@ -18,7 +18,7 @@ var Fly = require("./Units/fly").Fly,
     IDComponent = require("./Components/id-component").IDComponent,
     Attack = require('./Units/Attacks/attack.js').Attack;
 var exec = require('child_process').exec;
-var DataBlob = require('./app/models/data-blob');
+var DataBlob = require('./App/models/data-blob');
 
 var CONFIG = require("./config");
 var util = require("util");
