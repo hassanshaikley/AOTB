@@ -425,6 +425,7 @@ function onNewPlayer(data) {
     remotePlayers.push(newPlayer);
     //add mesage to chat
     notify("<strong>" + newPlayer.getName() + "</strong> has joined");
+    newPlayer.setX(-1000);
 };
 
 function onRemovePlayer(data) {
