@@ -20,7 +20,6 @@ var Shanker = function(team) {
     };
     this.getDamage = function() {
         if (that.getInvis()){
-
             console.log("BANANAS");
             return 30;
         };
@@ -28,7 +27,9 @@ var Shanker = function(team) {
         return 20;
     };
 
-
+    this.getDefaultSpeed = function(){
+        return 14;
+    };
     this.windWalk = function(length, socket) {
         that.setInvis(true);
         var util = require("util");

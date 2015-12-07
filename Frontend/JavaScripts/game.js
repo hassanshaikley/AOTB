@@ -391,6 +391,7 @@ function onSocketConnected() {
         characterType: localPlayer.getCharacterType()
     });
     socket.emit("init me", {referrer: document.referrer, ip: ip });
+    console.log("I CONNECTEDD YESSASS");
 };
 // Socket disconnected
 function onSocketDisconnect() {

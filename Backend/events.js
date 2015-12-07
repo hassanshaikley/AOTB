@@ -318,7 +318,9 @@ var Events = function() {
         attacks[attack_id] = atk;
 
                 if (attacker.getInvis()){
-            attacker.setInvis(false, this);
+                    attacker.setInvis(false, this);
+                    attacker.setSpeed(attacker.getDefaultSpeed());
+
                 };
 
         setTimeout(function() { //remove this

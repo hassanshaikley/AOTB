@@ -25,16 +25,13 @@ var loadChat = function() {
     });
     if (localPlayerName === "unknown") {
         notify("Welcome to Arena of the Bits.", true);
-        notify("Kill the other team 20 times.", true);
-        notify("Move with WASD", true);
-        notify("Jump--spacebar, attack--right-clicking, left-clicking and sometimes q.", true);
-        notify("Chat with enter", true);
+        notify("The first team to 20 kills wins", true);
         notify("Red team and green team are differentiated by the colors of their health bars.", true);
         setTimeout(function() {
             notify("This game is in Alpha. Code is pushed to it daily. With that said a lot of bugs emerge, so bare with us and let us know what bugs you run into! Please post feedback and bugs to the FaceBook page or tweet it to @millenialpride.", true);
         }, 15000);
         setTimeout(function() {
-            notify("Refresh to randomly pick another character, (refreshing is also a hack to switch teams in the meantime) or sign up to actually be able to pick the character you want to play as!", true);
+            notify("Refresh to randomly pick another character, or sign in to pick the character you want to play as!", true);
         }, 1000);
         setTimeout(function() {
             if (remotePlayers.length == 0) {
