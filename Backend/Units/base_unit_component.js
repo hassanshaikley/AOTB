@@ -121,4 +121,22 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
             that.setY(birdStun.bird.getY() + 50);
         }
     };
+
+    var invis = false;
+ that.getInvis = function(){
+        return invis;
+    };
+    that.setInvis = function(_invis, socket){
+        console.log(_invis + " " + invis );
+        if (!_invis && invis){
+            socket.emit("visible again", {
+             id: "you"
+         });
+            socket.broadcast.emit("visible again", {
+            id: player.id
+        });
+        }
+        invis = _invis;
+
+    };
 };

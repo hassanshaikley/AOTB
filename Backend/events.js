@@ -310,11 +310,16 @@ var Events = function() {
         if (!attacker.getAlive()) {
             return;
         }
+
      //   attacks_teams[attack_id] = attacker.getTeam();
      //   attacks_damages[attack_id] = attacker.getDamage();
 
         var atk = new Attack({damage: attacker.getDamage(), team: attacker.getTeam(), effect: attacker.attackEffect, direction: data.direction});
         attacks[attack_id] = atk;
+
+                if (attacker.getInvis()){
+            attacker.setInvis(false, this);
+                };
 
         setTimeout(function() { //remove this
             if (attacks[attack_id]) {
@@ -594,15 +599,17 @@ var Events = function() {
                 return;
             }
             v = new Stealth();
-            util.log("SHE");
-            player.invis = true;
+
+            player.windWalk(3000, this);
             var that = this;
-            player.setSpeed(player.getBaseSpeed() * 1.40);
-            setTimeout(function() {
+
+          //  player.setSpeed(player.getBaseSpeed() * 1.40);
+
+            /*  setTimeout(function() {
                 if (player.invis) {
                     becomeVisible(player, that);
                 }
-            }, 3000);
+             }, 3000);*/
             util.log("SINDWALK");
             this.emit('spell one', {
                 id: "you",
@@ -632,14 +639,9 @@ var Events = function() {
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
     function becomeVisible(player, that) {
-        player.invis = false;
-        player.setSpeed(player.getBaseSpeed());
-        that.emit("visible again", {
-            id: "you"
-        });
-        that.broadcast.emit("visible again", {
-            id: player.id
-        });
+ //       player.invis = false;
+//        player.setSpeed(player.getBaseSpeed());
+
     };
     //hitBy.setGold(hitBy.getGold()+1);
     function setHp(hitPlayer, damage) { //where hitplayer is like players[i]

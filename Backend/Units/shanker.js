@@ -12,22 +12,40 @@ var Shanker = function(team) {
     var myMovementComponent = new MovementComponent(speed, this); // handles key input
     var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this);
     var myBaseTeamComponent = new BaseTeamComponent(this);
+
+
     this.setTeam();
     this.getCharacterType = function() {
         return "Shanker";
     };
     this.getDamage = function() {
+        if (that.getInvis()){
+
+            console.log("BANANAS");
+            return 30;
+        };
+        console.log("NOT INVIS");
         return 20;
     };
-    this.windWalk = function(length) {
-        skeleton.invis = true;
+
+
+    this.windWalk = function(length, socket) {
+        that.setInvis(true);
         var util = require("util");
         util.log("GONE");
         var oldSpeed = that.getSpeed()
-        this.setSpeed(oldSpeed * 1.20)
+        this.setSpeed(oldSpeed * 1.40)
         setTimeout(function() {
-            that.invis = false;
-            that.setSpeed(oldSpeed);
+            if (that.getInvis()){
+                that.setInvis(false, socket)
+                that.setSpeed(oldSpeed);
+                socket.emit("visible again", {
+                    id: "you"
+                });
+                socket.broadcast.emit("visible again", {
+                    id: player.id
+                });
+            }
         }, length);
     };
     var that = this;
