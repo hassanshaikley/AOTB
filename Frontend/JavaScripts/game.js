@@ -587,6 +587,10 @@ function hostileById(id) {
     };
     return false;
 };
+function switchTeams(){
+
+    socket.emit("switch team");
+};
 $(document).ready(function() {
     localGame = new Game();
 });

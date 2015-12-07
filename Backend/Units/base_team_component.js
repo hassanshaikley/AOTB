@@ -29,4 +29,11 @@ exports.BaseTeamComponent = function(that, team) {
         //update which team a player is on?
     };
     num_connections++;
+    that.switchTeam = function(){
+        if (team == 0){
+            that.setTeam(1);
+        } else {
+            that.setTeam(0);
+        };
+    };
 };

@@ -55,6 +55,12 @@ var Events = function() {
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
         client.on("landed", onLanded);
+        client.on("switch team", onSwitchTeam);
+    };
+    function onSwitchTeam(){
+        player = playerById(this.id);
+        player.switchTeam();
+
     };
     function onLanded(data){
         console.log("\nsettling land y " +data.y);
