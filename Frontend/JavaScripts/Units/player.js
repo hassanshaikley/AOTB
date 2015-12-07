@@ -5,7 +5,7 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     var x = startX,
         y = startY,
         name = _name,
-        hp = startHp,
+        hp = 0,
         id,
         alive = true,
         drawAtX = x,
