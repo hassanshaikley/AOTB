@@ -26,7 +26,6 @@ var loadChat = function() {
     if (localPlayerName === "unknown") {
         notify("Welcome to Arena of the Bits.", true);
         notify("The first team to 20 kills wins", true);
-        notify("Red team and green team are differentiated by the colors of their health bars.", true);
         setTimeout(function() {
             notify("This game is in Alpha. Code is pushed to it daily. With that said a lot of bugs emerge, so bare with us and let us know what bugs you run into! Please post feedback and bugs to the FaceBook page or tweet it to @millenialpride.", true);
         }, 15000);
@@ -90,7 +89,7 @@ var loadChat = function() {
 
 function notify(text, admin) {
     if (admin) {
-        text = "<strong>ADMIN: </strong>" + text;
+        text = "<a style='color: yellow;'><strong>ADMIN: </strong>" + text + "</a>";
     }
     $('#chat').append(text + "</br>");
     var chat_scroll = document.getElementById("chat");
