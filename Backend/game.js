@@ -1,9 +1,8 @@
 var GameID = 0; // Every Game should have a unique ID
 var util = require("util");
-//TO-DO: each game should probably have its own socket.io room...
+
 var Game = function() {
     var gameID = GameID++;
-    //should remove this
     var winner = -1;
     var that = this;
     /* Socket ID, Player Object */
@@ -13,12 +12,11 @@ var Game = function() {
     var team_zero_kills = 0;
     var team_one_kills = 0;
     var KILL_CAP = 20;
-
+    var GEN_ID = 0; //for players
     this.resetGame = function() {
         team_zero_kills = 0;
         team_one_kills = 0;
         winner = -1;
-        //maybe set active_spells to {}??
     };
 
     function incrementTeamZeroKills() {
@@ -35,13 +33,13 @@ var Game = function() {
             that.setWinner(1);
         }
     };
+
     this.getTeamZeroKills = function() {
         return team_zero_kills;
     };
     this.getTeamOneKills = function() {
         return team_one_kills;
     };
-    var GEN_ID = 0; //for players
     /*
      * Array of all of the Game Objects
      * Currently a game object is a spell
@@ -214,11 +212,11 @@ var Game = function() {
         if (active_spells[id]) {
             return active_spells[id];
         }
-    }
+    };
     this.addMeeleeAttack = function(attack) {
         if (!attack) {
             return 0;
-        } else {};
+        }
     };
     this.getID = function() {
         return gameID;

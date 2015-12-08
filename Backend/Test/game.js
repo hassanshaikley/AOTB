@@ -81,11 +81,7 @@ describe("Test Game", function() {
         game.removePlayer(fly);
         assert.equal(game.getNumPlayers(), 1);
     });
-    it("able to change game state to 0", function() {
-        assert.equal(game.getState(), 1);
-        game.setState(0);
-        assert.equal(game.getState(), 0);
-    });
+
     it("add a non existent spell shouldnt work", function() {
         assert.equal(game.addSpell(), 0);
     });
@@ -100,8 +96,10 @@ describe("Test Game", function() {
         var game2 = new Game();
         assert.notEqual(game2.getID(), game.getID());
     });
-    it("meeleee attacks should register once from a unique player", function() {
+    it("should set winner", function() {
+        var game2 = new Game();
+        game2.setWinner(0);
+        assert.equal(game2.getWinner(), 0);
 
-        
     });
 });

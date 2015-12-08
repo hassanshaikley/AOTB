@@ -597,7 +597,7 @@ function hostileById(id) {
 function switchTeams(){
 
     socket.emit("switch team");
-    $('#switch_teams').blur()
+    $('#switch_teams').blur();
 };
 $(document).ready(function() {
     localGame = new Game();
