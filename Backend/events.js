@@ -57,6 +57,7 @@ var Events = function() {
         client.on("landed", onLanded);
         client.on("switch team", onSwitchTeam);
     };
+
     function onSwitchTeam(){
         player = playerById(this.id);
         player.switchTeam();
@@ -223,88 +224,6 @@ var Events = function() {
      *
      */
     function onMeeleeAttack(data) { //when a player left clicks
-        /*
-        var attacker = playerById(this.id);
-        var damageBonus = 0;
-        if (! attacker.getAlive()){
-           return;
-        };
-
-       // Make sure Meelee Attack isn't on CoolDown
-        if (attacker.meeleeAttackTime == null || attacker.meeleeAttackTime + 1000 <= Date.now()){
-            attacker.meeleeAttackTime = Date.now();
-        } else {    //meelee attack is on CD
-            return;
-        }
-
-        if (attacker.invis){
-            becomeVisible(attacker, this);
-            damageBonus = 20;
-        };
-
-        var i;
-       var that = this;
-       setTimeout( function(){
-           var _x = attacker.getX() - 20;
-           var _y = attacker.getY()-15;
-               switch (attacker.getCharacterType()) {
-               case "Shanker":
-            if (data.direction === "right"){
-        _x += 50;
-        } else {
-        _x -=25;
-         }
-              break;
-              case "Redhatter":
-                if (data.direction === "right"){
-                    _x +=50;
-                    } else {
-                     _x -=28;
-                }
-                _y +=10;
-                break;
-              case "Fly":
-                if (data.direction === "right"){
-                    _x+=63;
-                    } else {
-                        _x-= 28;
-                        }
-                  _y+=55;
-                break;
-              case "Grimes":
-              if (data.direction === "right"){
-                  _x+=45;
-                  } else {
-                      _x-=30;
-                      }
-              _y+=10;
-              break;
-          }
-            //now iterate through all players see if it hits!
-
-
-        var playersHit = didAttackHitPlayer(_x, _y, attacker.getTeam(), attacker.getDamage() +damageBonus, that);
-        didAttackHitTower(_x, _y, attacker.getTeam(), attacker.getDamage() + damageBonus);
-        if (attacker.getCharacterType() === "Redhatter"){
-          //knockback
-        var distance = 0;
-        if (data.direction == "right"){
-            distance = 300;
-        } else {
-            distance = -300;
-        }
-          for (var i = 0; i < playersHit.length ; i++){
-        playersHit[i].setX(playersHit[i].getX() + distance);
-        }
-      }
-      that.broadcast.emit("draw hitmarker",  {x: _x, y: _y });
-      that.emit("draw hitmarker",  {x: _x, y: _y });
-    }, 250);
-
-        //hitbox should depend on direction, so should create a hitbox then tell if the two hitboxes overlap!
-        //a helped function would ideally take two rectangles and tell you if overlaps
-
-         */
         var attacker = playerById(this.id);
         var attack_id = IDComponent.generateID();
         if (!attacker.getAlive()) {

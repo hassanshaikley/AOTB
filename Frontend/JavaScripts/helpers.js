@@ -83,5 +83,8 @@ helpers.playerById = function(id) {
     for (i = 0; i < remotePlayers.length; i++) {
         if (remotePlayers[i].id == id) return remotePlayers[i];
     };
+    if (id = localPlayer.id ){
+        return localPlayer;
+    };
     return false;
 };

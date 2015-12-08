@@ -13,6 +13,7 @@ var Shanker = function(team) {
     var myBaseUnitComponent = new BaseUnitComponent(health, width, height, this);
     var myBaseTeamComponent = new BaseTeamComponent(this);
 
+  var that = this;
 
     this.setTeam();
     this.getCharacterType = function() {
@@ -41,10 +42,10 @@ var Shanker = function(team) {
                 that.setInvis(false, socket)
                 that.setSpeed(oldSpeed);
                 socket.emit("visible again", {
-                    id: "you"
+                    id: that.id
                 });
                 socket.broadcast.emit("visible again", {
-                    id: player.id
+                    id: that.id
                 });
             }
         }, length);

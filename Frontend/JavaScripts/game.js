@@ -196,11 +196,14 @@ function onSpellTwo(data) {
 
 function onVisibleAgain(data) {
     var player;
-    if (data.id == "you") {
-        player = localPlayer;
-    } else {
-        player = helpers.playerById(data.id);
-    }
+    player = helpers.playerById(data.id);
+    console.log("PLAYER IS VISIBLE AGAIN");
+
+//    if (data.id == "you") {
+ //       player = localPlayer;
+
+    //    }
+    console.log(player +"< < <" + data.id);
     if (player.getTeam() === localPlayer.getTeam()) {
         player.imageContainer.alpha = 1;
     } else {
