@@ -323,6 +323,7 @@
             <filename>mini_platform.png</filename>
             <filename>tortpull.png</filename>
             <filename>options.png</filename>
+            <filename>../../../Downloads/desert_v1.fw.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
