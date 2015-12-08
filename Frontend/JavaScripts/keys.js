@@ -12,7 +12,7 @@ var Keys = function(up, left, right, down) {
     $(window).keydown(function(e) {
         //console.log(e.keyCode);
 
-        if (e.keyCode == 32) {
+        if (e.keyCode == 32 && !($("#text").is(':focus'))) {
             if (e.stopPropagation) {
                 e.stopPropagation();
                 e.preventDefault();
