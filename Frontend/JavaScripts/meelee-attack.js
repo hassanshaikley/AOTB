@@ -33,13 +33,12 @@ function MeeleeAttack(x, y, width, height, attack_id, belongs_to){
         var box = new PIXI.Graphics();
 
     if (CONFIG.SHOW_HITBOXES) {
-        var bb = this;
         box.beginFill(0x00FF00);
-        box.drawRect(0, 0, bb.getWidth(), bb.getHeight());
+        box.drawRect(0, 0, width, height);
         box.endFill();
         box.alpha = .4;
-        box.x = bb.getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - bb.getWidth() / 2;
-        box.y = bb.getY() - bb.getWidth() / 2;
+        box.x = x - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - width / 2;
+        box.y = y - width / 2;
         MAIN.stage.addChild(box);
     }
 
@@ -53,7 +52,7 @@ function MeeleeAttack(x, y, width, height, attack_id, belongs_to){
 
         x = startX +xDiff;
         y = startY +yDiff;
-        box.x = x - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - bb.getWidth() / 2;
+        box.x = x - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - width / 2;
         box.y = y;
 
 
