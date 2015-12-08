@@ -1,6 +1,6 @@
 var MeeleeAttackComponent = function(that) {
     /* Returns a box with an x, y, width and height */
-    that.getMeeleeAttackBoundingBox = function() {
+    that.addNewMeeleeAttack = function(attack_id, belongs_to) {
         var direction = that.getMoveDirection();
         var center_x = that.getX() - 20;
         var center_y = that.getY() - 15;
@@ -37,22 +37,10 @@ var MeeleeAttackComponent = function(that) {
                     center_x -= 15;
                 }
                 center_y += 10;
-                break;
+               break;
         }
-        var ret = {
-            getX: function() {
-                return center_x;
-            },
-            getY: function() {
-                return center_y;
-            },
-            getWidth: function() {
-                return box_width;
-            },
-            getHeight: function() {
-                return box_width;
-            }
-        };
-        return ret;
+
+        var box_height = box_width;
+        var mt = new MeeleeAttack(center_x, center_y, box_width, box_height, attack_id, belongs_to);
     };
 };

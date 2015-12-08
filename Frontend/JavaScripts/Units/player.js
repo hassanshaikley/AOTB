@@ -114,7 +114,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     this.setHp = function(newHp) {
         var oldHp = hp;
         if (newHp < oldHp){
-            console.log("YEP MAKING BLOOD");
             var v = new Blood(that.getDrawAtX() - 38, that.getDrawAtY() - 30);
             localGame.bloods.push(v);
         }
@@ -362,7 +361,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         meelee_attack = _atk; //alwayst true
         //only hapens if meelee attack ist rue
         //Anonymous function for determining if someone is hit
-        setTimeout(function() {
+        that.addNewMeeleeAttack(attack_id, that.id);
+
+       /* setTimeout(function() {
             // build an array of every player in the game
             var allPlayers = remotePlayers.slice();
             allPlayers.push(localPlayer);
@@ -387,8 +388,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
                 setTimeout(function() {
                     MAIN.stage.removeChild(box);
                 }, 400);
-            }
-            for (var i = 0; i < allPlayers.length; i++) {
+            }*/
+            /*for (var i = 0; i < allPlayers.length; i++) {
                 if (helpers.collision(allPlayers[i], that.getMeeleeAttackBoundingBox())) {
                     //let the server know the attack landed
                     console.log("OK that.id is " + that.id);
@@ -399,8 +400,8 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
                     });
                     console.log("Meelee Hits");
                 }
-            }
-        }, 200);
+            }*/
+     //   }, 200);
     };
 
     this.isFalling = function(){
@@ -421,16 +422,13 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     };
     /* */
     this.leftClick = function(_x, _y) {
-        console.log("FUCKER IS LEFT CLICKING" + _x + " -- " + _y);
         //if out of screen return
         if (_y > CONFIG.SCREEN_HEIGHT - 55){
-            console.log("RETURNS");
             return;
         };
 
         if (Date.now() - now >= 1000) {
             // meelee_attack = 0;
-            console.log("EMMITING");
             socket.emit("meelee attack", {
                 direction: localPlayer.getMoveDirection()
             });

@@ -8,8 +8,25 @@ helpers.addThumbToActionBar = function(image, description) {
 };
 
 helpers.collision = function(thing1, thing2) {
-    var xDist = Math.abs(thing1.getX() - thing2.getX());
-    var yDist = Math.abs(thing1.getY() - thing2.getY());
+
+    /* var x1 = (thing1.x == undefined) ? thing1.getX() : thing1.x;
+    var x2 = (thing2.x == undefined) ? thing2.getX() : thing2.x;
+
+    var y1 = (thing1.y == undefined) ? thing1.getY() : thing1.y;
+    var y2 = (thing2.y == undefined) ? thing2.getY() : thing2.y;
+
+    var t1w = (thing1. == undefined) ? thing1.getY() : thing1.y;
+        var t2w =
+     */
+    var x1 = thing1.getX();
+    var x2 = thing2.getX();
+    var y1 = thing1.getY();
+    var y2 = thing2.getY();
+
+
+//    console.log(y1 + " " + y2 + " " + x1 + " " + x2);
+    var xDist = Math.abs(x1 - x2);
+    var yDist = Math.abs(y1 - y2);
     if (xDist <= thing1.getWidth() / 2 + thing2.getWidth() / 2) {
         if (yDist <= thing1.getHeight() / 2 + thing2.getHeight() / 2) {
             return true;

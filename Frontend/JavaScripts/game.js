@@ -69,7 +69,6 @@ Game.prototype.init = function() {
     var clientRect;
     var adjustedX=0, adjustedY=0;
     canvas1.onmousedown = function(e) {
-        console.log("OKE" + e.which);
         adjustedY = 0, adjustedX = 0;
         switch (e.which) {
             case 1:
@@ -77,15 +76,12 @@ Game.prototype.init = function() {
                 adjustedX = localPlayer.getDrawAtX() - CONFIG.SCREEN_WIDTH / 2;
             adjustedX += e.clientY - parseInt(clientRect.left);
             adjustedY += e.clientY - parseInt(clientRect.top);
-            console.log(e.clientY + " - " + parseInt(clientRect.top) + " " + adjustedY);
                 localPlayer.leftClick(adjustedX, adjustedY);
                 break;
             case 2:
-                console.log('middle click');
                 break;
             case 3:
                 clientRect = canvas1.getBoundingClientRect();
-                console.log("IDIOTS");
                 adjustedX = localPlayer.getDrawAtX() - CONFIG.SCREEN_WIDTH / 2;
             adjustedX += (e.clientX - parseInt(clientRect.left));
             adjustedY += e.clientY - parseInt(clientRect.top);
@@ -174,10 +170,8 @@ function onUpdateTeamKillcount(data) {
 };
 
 function onSpellTwo(data) {
-    console.log("SPELL TWO COMES BAKK");
     switch (data.spell) {
         case "rhrange":
-            console.log("RHRANGE CASTED AT " + data.x + ", " + data.y);
             var v = new RHRange(data.x, data.y, data.direction);
             v.attack_id = data.attack_id;
             Spells.spellsarray.push(v);
@@ -203,7 +197,6 @@ function onVisibleAgain(data) {
 //receives an _x and _y var of where to draw
 function onDrawHitmarker(data) {
     /*
-            console.log("DRAING AT " +data.x);
       var sprite = new PIXI.Sprite.fromFrame("hitmarker.fw.png");
       sprite.x = data.x - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
       sprite.y = data.y-10;
@@ -217,13 +210,9 @@ function onDrawHitmarker(data) {
 function onMeeleeAttack(data) {
     var player;
     player = helpers.playerById(data.attacker);
-    console.log(data.attack_id + "~~~<--" + player);
     if (!player) {
-        console.log("NO NOOO");
         player = localPlayer;
-        //localPlayer.displayCooldown(1, 1000);
     }
-    console.log("player is " + player.getCharacterType());
     player.setMeeleeAttack(true, data.attack_id, data.direction);
 }
 /* Yay a function : D
@@ -232,7 +221,6 @@ function onMeeleeAttack(data) {
  * gotta make sure one user can only say it once . :D : D :D : D
  */
 function onSpellOne(data) {
-    console.log('MAKING DAT spell 1 BRO');
     var cd;
     if (data.spell === "tort stun") { //should be a variable shared between server and client
         var m = new TortStun(data.x, data.y, data.caster);
@@ -240,7 +228,6 @@ function onSpellOne(data) {
         Spells.spellsarray.push(m);
         cd = 3000;
     } else if (data.spell === "meteor") {
-        console.log("NEW METEOR LOL" + data.attack_id);
         var m = new Meteor(data.x, data.caster);
         m.attack_id = data.attack_id;
         m.setTeam(data.team);
@@ -249,9 +236,7 @@ function onSpellOne(data) {
     }
     if (data.spell === "windwalk") {
         cd = 6000;
-        console.log("windwalking");
         var player;
-        console.log(" ~ >" + data.id);
         if (data.id === "you") {
             player = localPlayer;
         } else {
@@ -263,11 +248,8 @@ function onSpellOne(data) {
             player.windWalk();
         };
     }
-    console.log(data.id);
-    console.log(data.casted_by_me || data.id === "you");
     //if cast by this player then show the cooldown
     if (data.casted_by_me || data.id == "you") {
-        console.log("MAN IDK");
         localPlayer.displayCooldown(2, cd);
     }
 }
@@ -301,7 +283,6 @@ function onArrowFired(data) {
 };
 
 function onWin(data) {
-    console.log("local player team " + localPlayer.getTeam());
     var filter = new PIXI.filters.DotScreenFilter();
     MAIN.stage.filters = [filter];
     if (data.winner === localPlayer.getTeam()) {
@@ -360,7 +341,6 @@ function onUpdateHostile(data) {
 
 function onDescendAttackChanges(data) {
     var _player = helpers.playerById(data.id);
-    console.log("AAA");
     if (_player === false) {
         localPlayer.setDescendAttack(data.descendAttack);
         localPlayer.displayCooldown(2, 6000);
@@ -394,12 +374,10 @@ function onSocketConnected() {
         characterType: localPlayer.getCharacterType()
     });
     socket.emit("init me", {referrer: document.referrer, ip: ip });
-    console.log("I CONNECTEDD YESSASS");
 };
 // Socket disconnected
 function onSocketDisconnect() {
     //Player disconnected from socket server
-    console.log("AAA");
     for (var i = 0; i < remotePlayers.length; i++) {
         MAIN.stage.removeChild(remotePlayers[i].imageContainer);
     };
@@ -422,7 +400,6 @@ function onNewPlayer(data) {
         newPlayer = new Grimes(data.name, data.x, data.y, data.hp);
     }
     newPlayer.setX(0); // ehh this is 2 fix a bug..sry
-    console.log("ID " + data.id);
     newPlayer.id = data.id;
     newPlayer.imageContainer.zIndex = 5;
     // Add new player to the remote players array
@@ -492,8 +469,6 @@ function update() {
                     if (localGame.attack_collisions[Spells.spellsarray[i].attack_id].indexOf(allPlayers[j].id) != -1) { //if the spell already hit
                     } else { //the object exists but the spell isn't added
                         localGame.attack_collisions[Spells.spellsarray[i].attack_id].push(allPlayers[j].id);
-                        console.log(localGame.attack_collisions);
-                        console.log("!!1");
                         socket.emit("spell hits", {
                             "hit": allPlayers[j].id,
                             "hit_by": Spells.spellsarray[i].caster,
@@ -501,20 +476,22 @@ function update() {
                         });
                     }
                 } else {
-                    console.log("!!2");
                     localGame.attack_collisions[Spells.spellsarray[i].attack_id] = [allPlayers[j].id];
-                    console.log(localGame.attack_collisions);
                     socket.emit("spell hits", {
                         "hit": allPlayers[j].id,
                         "hit_by": Spells.spellsarray[i].caster,
                         "attack_id": Spells.spellsarray[i].attack_id
                     });
                 };
-                console.log("Hits:/t" + allPlayers[j].id + " /t-- caster:\t" + Spells.spellsarray[i].caster);
             }
         }
         Spells.spellsarray[i].update();
     };
+
+    for (var m in meelee_attacks){
+        meelee_attacks[m].update();
+    };
+
     for (i = 0; i < remotePlayers.length; i++) {
         /* Inefficient implementation, lazy yolo*/
         remotePlayers[i].updateVariables();
@@ -540,7 +517,6 @@ function updatePlatforms() {
     //whem you hit the floor emit this once
     if (!onAPlatform && reset_this) {
         //  the floor is the land
-        console.log("SPAM");
         socket.emit("landed", {
             y: CONFIG.FLOOR_HEIGHT
         });
@@ -577,6 +553,9 @@ function playerById(id) {
     var i;
     for (i = 0; i < remotePlayers.length; i++) {
         if (remotePlayers[i].id == id) return remotePlayers[i];
+    };
+    if (id == localPlayer.id){
+        return localPlayer;
     };
     return false;
 };

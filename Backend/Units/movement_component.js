@@ -2,7 +2,7 @@ var util = require("util");
 var Config = require("../config.js");
 // On update moves a player : D
 exports.MovementComponent = function(speed, that, ySpeed) {
-    var fallSpeed = 10;
+    var fallSpeed = 14;
     ySpeed = typeof ySpeed !== 'undefined' ? ySpeed : 0;
     if (ySpeed > 4){
         fallSpeed = 1;
@@ -24,7 +24,7 @@ exports.MovementComponent = function(speed, that, ySpeed) {
             that.setY(that.getY() + fallSpeed); // falling
             if (that.getCharacterType() != "Fly"){
 
-                fallSpeed+=2;
+                fallSpeed+=3;
             }
         }
     };
@@ -51,7 +51,7 @@ exports.MovementComponent = function(speed, that, ySpeed) {
             }
             jump_speed = jump_speed - 2;
         } else if (jump_speed != 25){
-            jump_speed = 25;
+            jump_speed = 32;
         };
     }
     this.update = function(that) {

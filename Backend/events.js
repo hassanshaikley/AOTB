@@ -203,7 +203,7 @@ var Events = function() {
                 player.jumping = true;
                 setTimeout(function() {
                     player.jumping = false;
-                }, 500);
+                }, 400);
             }
         }
         if (data.key === "left") {

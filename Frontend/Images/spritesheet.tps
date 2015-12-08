@@ -322,6 +322,7 @@
             <filename>rh_range.png</filename>
             <filename>mini_platform.png</filename>
             <filename>tortpull.png</filename>
+            <filename>options.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
