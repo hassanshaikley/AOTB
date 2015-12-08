@@ -45,7 +45,10 @@ Game.prototype.init = function() {
 
     scene = new PIXI.Sprite(PIXI.Texture.fromImage("desert_v1.fw.png"));
 
+    var filter = new PIXI.filters.BloomFilter()
+
     MAIN.stage.addChildAt(scene, 1);
+    scene.filters = [filter];
 
 
     background = new Background();
@@ -462,7 +465,7 @@ function handleCooldownVisuals() {
  **************************************************/
 function update() {
 
-    scene.x  =10 -localPlayer.getX() / 50;
+    scene.x  =20 -localPlayer.getX() / 60;
 
     updatePlatforms();
     handleCooldownVisuals();

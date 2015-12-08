@@ -26,6 +26,7 @@ function Background() {
     left_blackwall.endFill();
     left_blackwall.x = 480;
     left_blackwall.y = -400;
+    left_blackwall.alpha = .5;
     this.addChild(left_blackwall);
     right_blackwall = new PIXI.Graphics();
     right_blackwall.beginFill(0x000000);
@@ -33,7 +34,9 @@ function Background() {
     right_blackwall.endFill();
     right_blackwall.x = 2856;
     right_blackwall.y = -400;
+    right_blackwall.alpha=.5;
     this.addChild(right_blackwall)
+
 
 
 
