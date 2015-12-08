@@ -5,6 +5,7 @@ var MeeleeAttackComponent = function(that) {
         var center_x = that.getX() - 20;
         var center_y = that.getY() - 15;
         var box_width = 20;
+        var duration = 300;
         switch (that.getCharacterType()) {
             case "Shanker":
                 if (direction === "right") {
@@ -12,15 +13,16 @@ var MeeleeAttackComponent = function(that) {
                 } else {
                     center_x -= 10;
                 }
+            duration = 500;
                 break;
             case "Redhatter":
-                box_width = 35;
+                box_width = 30;
                 if (direction === "right") {
-                    center_x += 70;
+                    center_x += 68;
                 } else {
-                    center_x -= 28;
+                    center_x -= 27;
                 }
-                center_y += 10;
+                center_y -= 1;
                 break;
             case "Fly":
                 if (direction === "right") {
@@ -28,7 +30,9 @@ var MeeleeAttackComponent = function(that) {
                 } else {
                     center_x -= 28;
                 }
-                center_y += 75;
+            center_y += 75;
+                        duration = 500;
+
                 break;
             case "Grimes":
                 if (direction === "right") {
@@ -41,6 +45,6 @@ var MeeleeAttackComponent = function(that) {
         }
 
         var box_height = box_width;
-        var mt = new MeeleeAttack(center_x, center_y, box_width, box_height, attack_id, belongs_to);
+        var mt = new MeeleeAttack(center_x, center_y, box_width, box_height, attack_id, belongs_to, duration);
     };
 };

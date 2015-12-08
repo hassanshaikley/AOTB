@@ -1,6 +1,6 @@
 var meelee_attacks = {};
 /* Meelee Attack object*/
-function MeeleeAttack(x, y, width, height, attack_id, belongs_to){
+function MeeleeAttack(x, y, width, height, attack_id, belongs_to, duration){
     addMeeleeAttack(this);
     var startX = x, startY = y;
     var that = this;
@@ -77,9 +77,12 @@ function MeeleeAttack(x, y, width, height, attack_id, belongs_to){
         meelee_attacks[attack_id] = m;
         console.log("jsus");
 
+
         setTimeout(function(){
             console.log("m id " + attack_id);
             delete meelee_attacks[attack_id];
-        }, 300);
+            MAIN.stage.removeChild(box);
+
+        }, duration);
     };
 };
