@@ -1,10 +1,15 @@
 function Background() {
+
     var texture = PIXI.Texture.fromImage("cobblestone_ground_v2.fw.png");
     PIXI.extras.TilingSprite.call(this, texture, 4000 + Math.abs(768 / 2), 100); //repeats for 400 x
     this.position.x = 1000 - Math.abs(768 / 2);
     this.position.y = 370;
     this.tilePosition.x = 50;
     this.tilePosition.y = 0;
+
+
+
+
     /*
       var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
       structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2);
@@ -29,9 +34,15 @@ function Background() {
     right_blackwall.x = 2856;
     right_blackwall.y = -400;
     this.addChild(right_blackwall)
+
+
+
 };
 Background.constructor = Background;
 Background.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
+
+
+
 Background.prototype.updateX = function() {
     //  var distanceTravelled = newViewportX - this.viewportX;
     //  var displacement = -localPlayer.getDrawAtX() + Math.abs(768/2);

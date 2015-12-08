@@ -14,6 +14,10 @@ function Game() {
     this.platforms = [];
     //move over to using this screen manager
     MAIN = new ScreenManager(); //should init after images are loaded
+
+
+
+
     var team_one_kills;
     var team_zero_kills;
     var team_zero_kills_text = new PIXI.Text("0");
@@ -38,8 +42,14 @@ function Game() {
 };
 // variable that tracks how much the player has moved, everything is drawn
 Game.prototype.init = function() {
+
+    scene = new PIXI.Sprite(PIXI.Texture.fromImage("desert_v1.fw.png"));
+
+    MAIN.stage.addChildAt(scene, 1);
+
+
     background = new Background();
-    MAIN.stage.addChild(background)
+    MAIN.stage.addChild(background);
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
 
@@ -451,6 +461,9 @@ function handleCooldownVisuals() {
  ** GAME UPDATE
  **************************************************/
 function update() {
+
+    scene.x  =10 -localPlayer.getX() / 50;
+
     updatePlatforms();
     handleCooldownVisuals();
     background.updateX(localPlayer.getDrawAtX());
