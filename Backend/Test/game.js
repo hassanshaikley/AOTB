@@ -73,7 +73,7 @@ describe("Test Game", function() {
     });
     it("should be able to handle adding and removing multiple times", function() {
         var fly = new Fly(0);
-        var fly2 = new Fly(1)
+        var fly2 = new Fly(1);
         game.addPlayer(fly);
         assert.equal(game.getNumPlayers(), 1);
         game.addPlayer(fly2);

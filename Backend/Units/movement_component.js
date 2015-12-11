@@ -24,7 +24,7 @@ exports.MovementComponent = function(speed, that, ySpeed) {
             that.setY(that.getY() + fallSpeed); // falling
             if (that.getCharacterType() != "Fly"){
                 if (!that.getGrabbed()){
-                    fallSpeed+=3;
+                    fallSpeed+=2.7;
                 }
             }
         }

@@ -5,6 +5,7 @@
 var Fly = require("./Units/fly").Fly,
     Redhatter = require("./Units/redhatter").Redhatter,
     Grimes = require("./Units/grimes").Grimes,
+    Dino = require("./Units/dino").Dino,
     //   Bowman = require("./Units/bowman").Bowman,
     //  Skelly = require("./Units/skelly").Skelly,
     Shanker = require("./Units/shanker").Shanker,
@@ -17,6 +18,7 @@ var Fly = require("./Units/fly").Fly,
     Meteor = require("./Spells/meteor.js").Meteor,
     IDComponent = require("./Components/id-component").IDComponent,
     Attack = require('./Units/Attacks/attack.js').Attack;
+
 var exec = require('child_process').exec;
 var DataBlob = require('./App/models/data-blob');
 
@@ -30,6 +32,9 @@ var attacks_damages = {};
 var attacks = {};
 
 var Events = function() {
+
+    var that = this;
+
     function onSocketConnection(client) {
         // Listen for client disconnected
         client.on("disconnect", onClientDisconnect);
@@ -54,19 +59,22 @@ var Events = function() {
         client.on("key press", onKeyPress);
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
-        client.on("landed", onLanded);
-        client.on("switch team", onSwitchTeam);
+        client.on("landed", that.onLanded);
+        client.on("switch team", that.onSwitchTeam);
     };
 
-    function onSwitchTeam(){
+    this.onSwitchTeam = function(){
         player = playerById(this.id);
-        player.switchTeam();
+        if (player){
+            player.switchTeam();
+        }
 
     };
-    function onLanded(data){
+    this.onLanded = function(data){
         console.log("\nsettling land y " +data.y);
         player = playerById(this.id);
         player.setLandY(data.y);
+//        player.setY(data.y-player.getHeight()/2);
     };
     spell_hits = [];
     /*
@@ -189,7 +197,7 @@ var Events = function() {
             });
         };
     };
-    var setEventHandlers = function(io) {
+    this.setEventHandlers = function(io) {
         // Socket.IO
         io.set("transports", ["websocket"]);
         io.set("polling duration", 10);
@@ -324,6 +332,8 @@ var Events = function() {
             var newPlayer = new Redhatter();
         } else if (data.characterType === CONFIG.Grimes) {
             var newPlayer = new Grimes();
+        } else if (data.characterType === CONFIG.Dino) {
+            var newPlayer = new Dino();
         } else if (data.characterType === CONFIG.Bowman) {
             var newPlayer = new Bowman();
         } else if (data.characterType === CONFIG.Shanker) {
@@ -626,7 +636,8 @@ var Events = function() {
      **************************************************/
     function playerById(id) {
         var i;
-        for (i = 0; i < players.length; i++) {
+        var players = game1.getPlayers();
+        for (i in players) {
             if (players[i].id == id) return players[i];
         };
         return false;
@@ -637,9 +648,10 @@ var Events = function() {
         util.log("dst is " + distance);
         return distance;
     }
+    /*
     return {
         didAttackHitPlayer: didAttackHitPlayer,
         setEventHandlers: setEventHandlers,
-    };
+    };*/
 };
 exports.Events = Events;

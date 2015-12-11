@@ -48,7 +48,7 @@ Game.prototype.init = function() {
     var filter = new PIXI.filters.BloomFilter()
 
     MAIN.stage.addChildAt(scene, 1);
-    scene.filters = [filter];
+//    scene.filters = [filter];
 
 
     background = new Background();
@@ -120,6 +120,8 @@ Game.prototype.init = function() {
         localPlayer = new Crevice(localPlayerName);
     } else if (characterType === "Grimes") {
         localPlayer = new Grimes(localPlayerName);
+    } else if (characterType === "Dino") {
+        localPlayer = new Dino(localPlayerName);
     } else {
         //something has went wrong
         window.location.assign('/profile');
@@ -179,7 +181,7 @@ var setEventHandlers = function() {
 
 function onUpdateTeamKillcount(data) {
     localGame.setTeamZeroKills(data.team_zero_kills);
-    localGame.setTeamOneKills(data.team_one_kills)
+    localGame.setTeamOneKills(data.team_one_kills);
 };
 
 function onSpellTwo(data) {
@@ -414,7 +416,10 @@ function onNewPlayer(data) {
         newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
     } else if (data.characterType === "Grimes") {
         newPlayer = new Grimes(data.name, data.x, data.y, data.hp);
+    } else if (data.characterType === "Dino") {
+        newPlayer = new Dino(data.name, data.x, data.y, data.hp);
     }
+
     newPlayer.setX(0); // ehh this is 2 fix a bug..sry
     newPlayer.id = data.id;
     newPlayer.imageContainer.zIndex = 5;

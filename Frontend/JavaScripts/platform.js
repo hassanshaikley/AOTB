@@ -22,6 +22,8 @@ var Platform = function(x, y){
     	return PIXI.Texture.fromFrame("mini_platform.png").height;
     };
     //if collide notify server
+
+    //lol ths means it's not callable again for ALL players HAHA
     var callable_again = true;
     this.update = function(){
         var drawAtX = CONFIG.SCREEN_WIDTH / 2 + x - PIXI.Texture.fromFrame("mini_platform.png").width/2 - localPlayer.getDrawAtX();
@@ -30,8 +32,8 @@ var Platform = function(x, y){
 		if ( helpers.collision(localPlayer, that)){
 			if (localPlayer.isFalling()){
 				if (callable_again){
-					console.log("OK WE LANDED IN HERE Y TO " + (img.y+ 30));
-    				socket.emit("landed", { y: (img.y +30)}); 
+				    console.log("OK WE LANDED IN HERE Y TO " + (img.y+ 30));
+    				socket.emit("landed", { y: (img.y +30)});
     				callable_again = false;
     				setTimeout(function(){
     					callable_again = true;
