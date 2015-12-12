@@ -26,11 +26,17 @@ var Dino = function(name, x, y, hp) {
                                               PIXI.Texture.fromFrame("Walk_F2_r.png"),
                                               PIXI.Texture.fromFrame("Walk_F3_r.png"),
                                               PIXI.Texture.fromFrame("Walk_F4_r.png")]);
+
+
+//    skeleton.setAnimations(grimes_l, grims_r);
+
     grimes_l.gotoAndPlay(0);
     grimes_r.gotoAndPlay(0);
     grimes_l.animationSpeed = .15;
     grimes_r.animationSpeed = .15;
     skeleton.imageContainer.addChild(grimes_l);
+
+
     skeleton.getCharacterType = function() {
         return "Dino";
     };

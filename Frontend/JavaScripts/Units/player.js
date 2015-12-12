@@ -278,7 +278,9 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     this.imageContainer = new PIXI.Container();
     var noFilter = function() {
         that.imageContainer.filters = null;
-    }
+    };
+
+
     this.imageContainer.addChild(health_shadow);
     this.imageContainer.addChild(health);
     // name = "i";
@@ -293,6 +295,17 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
     MAIN.stage.addChild(this.imageContainer);
 
+    var walk_left;
+    var walk_right;
+    var attack_left;
+    var attack_right;
+    this.setAnimations = function(_walk_left, _walk_right, _attack_left, _attack_right){
+        walk_left = _walk_left;
+        walk_right = _walk_right;
+        attack_left = _attack_left;
+        attack_right = _attack_right;
+
+    };
     //why the fuck did I have this code below here
    // var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
   //  structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width / 2);
@@ -339,6 +352,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
            }
            ctx.restore();
          */
+    };
+    this.draw_char = function(){
+
+
     };
     var now = Date.now() - 1000;
     var that = this;
