@@ -1,30 +1,23 @@
-var Player = function Player(startX, startY, startHp, _name) { //ignore startX variable
-    if (startX == undefined) startX = -1000;
-    if (startY == undefined) startY = -1000;
+var Player = function(startX, startY, startHp, _name) { //ignore startX variable
+//    if (startX == undefined) startX = -1000;
+//    if (startY == undefined) startY = -1000;
     this.coordinateList = []; //array of all the positions the server says the unit is at
-    var x = startX,
-        y = startY,
-        name = _name,
+
+
+    var name = _name,
         hp = 0,
         id,
         alive = true,
-        drawAtX = x,
-        drawAtY = y,
-        postX = x,
-        postY = y,
-        moveDifferenceX = 0,
-        moveDifferenceY = 0,
+
         animate = 0,
         lastsaid = {},
         gold = 0,
         maxHp = startHp,
-        team,
-        //list of every image used in this guys animation
-        frames,
-        falling;
+        team;
 
-    var current_action = CONFIG.ACTION.MOVING_RIGHT;
     var meelee_attack_component = new MeeleeAttackComponent(this);
+    var m_c = new MovementComponent(this);
+
     var that = this;
 
     var invis = false;
@@ -33,24 +26,10 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         invis = _invis;
     };
     var meelee_attack = false;
-    this.id;
+    this.id = undefined;
     this.getMeeleeAttack = function() {
         return meelee_attack;
     };
-    /* This should draw the player and not the method that they inherit
-  this.update_player = function(){
-    //console.log(meelee_attack+" <-- ");
-
-    if (meelee_attack){
-      (this.imageContainer)
-    if (this.getMoveDirection() === "left"){
-        this.imageContainer.addChild(redhatter_r_attack);
-    }
-    } else if (this.getMoveDirection() === "right" ){
-        this.imageContainer.addChild(redhatter_r_attack);
-    }
-  }
-  */
     this.setUpActionbar = function() {
         console.log("IMPLEMENT THIS");
     };
@@ -123,135 +102,16 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
         }
         oldHp = null; //fuck closures
     };
-    /* Used to determine the direction that a character is facing */
-    this.getCurrentAction = function() {
-        return current_action;
-    };
-    this.setCurrentAction = function(action) {
-        current_action = action;
-    };
-    var last_move_direction;
-    this.getMoveDirection = function() {
-        if (this.getMeeleeAttack()) {
-            if (last_move_direction === "left") {
-                current_action = CONFIG.ACTION.ATTACK_LEFT;
-                return "left";
-            } else {
-                current_action = CONFIG.ACTION.ATTACK_RIGHT;
-                return "right";
-            }
-        }
-        //have keys override move direction for local player
-        //console.log(this.id);
-        if (that.id === localPlayer.id) {
-            if (keys["68"]) {
-                last_move_direction = "right";
-                current_action = CONFIG.ACTION.MOVING_RIGHT;
-                return "right";
-            }
-            if (keys["65"]) {
-                last_move_direction = "left";
-                current_action = CONFIG.ACTION.MOVING_LEFT;
-                return "left";
-            }
-        }
-        if (moveDifferenceX < 0) {
-            last_move_direction = "left";
-            current_action = CONFIG.ACTION.MOVING_LEFT;
-            return "left";
-        } else if (moveDifferenceX > 0) {
-            last_move_direction = "right";
-            current_action = CONFIG.ACTION.MOVING_RIGHT;
-            return "right";
-        } else {
-            current_action = CONFIG.ACTION.IDLE;
-            return last_move_direction;
-        }
-    };
-    /* Gets the X specified by server - as opposed to X to be drawed at, since this X
-     * jumps around a lot! (server refreshes few times a second)
-     */
-    this.getY = function() {
-        return y;
-    };
-    /* Gets the Y specified by server - as opposed to X to be drawed at, since this X
-     * jumps around a lot! (server refreshes few times a second)
-     */
-    this.getX = function() {
-        return x;
-    };
-    /* Mutator for server x variable! */
-    this.setX = function(newX) {
-        x = newX;
-    };
-    /* Mutator for server y variable! */
-    this.setY = function(newY) {
-        y = newY;
-    };
+
+
     /* UpdateVariables function is only called when the window is focused - at rate
      * of FPS
      */
-    var xSpeed;
-    var ySpeed;
-    var xDiff;
-    var moveTimer = 0;
+
     this.updateVariables = function() {
-
-        var oldDrawAtY = drawAtY;
-        if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 500) {
-            drawAtY = y;
-            drawAtX = x;
-        }
-
-        moveDifferenceX = (drawAtX - postX);
-        moveDifferenceY = (drawAtY - postY);
-        if (moveDifferenceX) { // USED TO TELL IF GOING LEFT OR RIGHT
-            postX = drawAtX;
-        }
-        if (moveDifferenceY) {
-            postY = drawAtY;
-        }
-        var _y;
-        var _x;
-        if (that.coordinateList.length > 10) {
-            var temp = that.coordinateList[that.coordinateList.length - 1];
-            var _x = temp.x;
-            var _y = temp.y;
-            that.coordinateList = [];
-        }
-        if (that.coordinateList.length > 1) {
-            //_x = that.coordinateList[that.coordinateList.length - 1].x;
-            // _y = that.coordinateList[that.coordinateList.length - 1].y;
-            var coords = that.coordinateList.shift();
-            _x = coords.x;
-            _y = coords.y;
-        } else {
-            _x = x;
-            _y = y;
-        }
-        drawAtY -= (drawAtY - _y) / 4; //
-        drawAtX -= (drawAtX - _x) / 4;
-        _x = null;
-        _y = null;
-        if (Math.ceil(oldDrawAtY) < Math.ceil(drawAtY)){
-            falling = true;
-        } else {
-            falling = false;
-        }
+        m_c.update();
     };
 
-    /* The X that we want to draw at to give the illusion of smooth movement
-     * (if only the server X was used then it would skip to locations)
-     */
-    this.getDrawAtX = function() {
-        return drawAtX;
-    };
-    /* The Y that we want to draw at to give the illusion of smooth movement
-     * (if only the server Y was used then it would skip to locations)
-     */
-    this.getDrawAtY = function() {
-        return drawAtY;
-    };
     this.getWidth = function() {
         return 50;
     };
@@ -315,20 +175,20 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
 
     var text_x;
     this.drawText = function() {
-        if (Math.abs(drawAtX - x) > 10) { // idk what this was for
+        if (Math.abs(that.getDrawAtX() - that.getX()) > 10) { // idk what this was for
             //console.log( Math.abs(x - drawAtX));
         }
-        text_x = CONFIG.SCREEN_WIDTH / 2 - localPlayer.localX() + drawAtX;
+        text_x = CONFIG.SCREEN_WIDTH / 2 - localPlayer.localX() + that.getDrawAtX();
         name_text.x = text_x - name_text.width / 2;
-        name_text.y = drawAtY - 80;
-        chat_text.y = drawAtY - 90;
+        name_text.y = that.getDrawAtY() - 80;
+        chat_text.y = that.getDrawAtY() - 90;
         chat_text.x = text_x - chat_text.width / 2;
         chat_text.y -= 10;
         //  \le.log(" x - . "+text_x);
         health_shadow.position.x = text_x - 20;
-        health_shadow.position.y = drawAtY - 60;
+        health_shadow.position.y = that.getDrawAtY() - 60;
         health.position.x = text_x - 20;
-        health.position.y = drawAtY - 60;
+        health.position.y = that.getDrawAtY() - 60;
         health.scale.x = Math.ceil((hp / maxHp) * 40);
 
     };
@@ -343,13 +203,14 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
     /* Sets the current action to meeleee attack(For animation)
      * And then checks for Collision
      **/
+    this.current_action;
     this.setMeeleeAttack = function(_atk, attack_id, direction) {
         if (_atk) {
             if (direction == "left") {
-                current_action = CONFIG.ACTION.ATTACK_LEFT;
+                that.current_action = CONFIG.ACTION.ATTACK_LEFT;
                 last_move_direction = "left";
             } else {
-                current_action = CONFIG.ACTION.ATTACK_RIGHT;
+                that.current_action = CONFIG.ACTION.ATTACK_RIGHT;
                 last_move_direction = "right";
             }
         } else { // If meeelee attack is set to false, return
@@ -402,9 +263,6 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
      //   }, 200);
     };
 
-    this.isFalling = function(){
-        return falling;
-    };
     this.rightClick = function(clientX, clientY) {
         socket.emit("spell one", {
             x: clientX,
@@ -446,4 +304,82 @@ var Player = function Player(startX, startY, startHp, _name) { //ignore startX v
             duration: cooldownTime
         });
     };
+    /*
+    this.draw = function() {
+        // this.update_player();
+        var drawAtX = CONFIG.SCREEN_WIDTH / 2 + that.getDrawAtX() - that.localX() - 50;
+        var drawAtY = skeleton.getDrawAtY() - 50;
+        walk_left.position.y = drawAtY;
+        walk_right.position.y = drawAtY;
+        attack_left.position.y = drawAtY;
+            attack_right.position.y = drawAtY;
+        //use to make drawing shanker mroe accurate lol maybe I need to remove this oh noee
+        if (this.getMoveDirection() === "right") {
+            drawAtX += 20;
+        } else {
+            drawAtX += 5;
+        }
+       walk_left.position.x = drawAtX;
+        walk_right.position.x = drawAtX;
+        attack_right.position.x = drawAtX;
+        attack_left.position.x = drawAtX;
+        walk_right.visible = false;
+        walk_left.visible = false;
+        attack_right.visible = false;
+        attack_left.visible = false;
+        this.drawText();
+        if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_RIGHT) {
+            if (first === false) {
+                attack_right.gotoAndPlay(0);
+                first = true; //at the very end set first to true
+            }
+            attack_right.visible = true;
+            if (attack_right.currentFrame === 1) {
+                loop = true;
+            }
+            if (attack_right.currentFrame === 0 && loop) {
+                first = false;
+                //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
+                this.setMeeleeAttack(false);
+                loop = false;
+            }
+        } else if (this.getCurrentAction() === CONFIG.ACTION.ATTACK_LEFT) {
+            if (first === false) {
+                attack_left.gotoAndPlay(0);
+                first = true; //at the very end set first to true
+            }
+            attack_left.visible = true;
+            if (attack_left.currentFrame === 1) {
+                loop = true;
+            }
+            if (attack_left.currentFrame === 0 && loop) {
+                first = false;
+                //this.setCurrentAction(CONFIG.ACTION.MOVING_RIGHT);
+                this.setMeeleeAttack(false);
+                loop = false;
+            }
+        } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_RIGHT) {
+            //skeleton.imageContainer.addChild(walk_right);
+            walk_right.visible = true;
+        } else if (this.getCurrentAction() === CONFIG.ACTION.MOVING_LEFT) {
+            //skeleton.imageContainer.addChild(walk_left);
+            walk_left.visible = true;
+        } else { //is idling
+            if (this.getMoveDirection() === "left") {
+                //skeleton.imageContainer.addChild(walk_left);
+                walk_left.visible = true;
+            } else {
+                //skeleton.imageContainer.addChild(walk_right);
+                walk_right.visible = true;
+            }
+        }
+        walk_right.animationSpeed = .2;
+        walk_left.animationSpeed = .2;
+        if (this.getCurrentAction() === CONFIG.ACTION.IDLE) {
+            walk_left.animationSpeed = 0;
+            walk_right.animationSpeed = 0;
+            walk_left.gotoAndPlay(0);
+            walk_right.gotoAndPlay(0);
+        }
+    };*/
 };

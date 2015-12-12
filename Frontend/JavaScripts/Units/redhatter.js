@@ -10,14 +10,14 @@ var Redhatter = function(name, x, y) {
     skeleton.getCharacterType = function() {
         return CONFIG.REDHATTER_NAME;
     };
-    
+
     var spells_thumb_array = [];
     skeleton.setUpActionbar = function() {
         var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
         MAIN.BOTACTIONBAR.addChild(sword_thumb);
         var tort_stun = new PIXI.Sprite(PIXI.Texture.fromFrame("fireball.png"));
         MAIN.BOTACTIONBAR.addChild(tort_stun);
-        spells_thumb_array.push(sword_thumb)
+        spells_thumb_array.push(sword_thumb);
         spells_thumb_array.push(tort_stun);
         var rhrangethumb = new PIXI.Sprite(PIXI.Texture.fromFrame("rh_range.png"));
         spells_thumb_array.push(rhrangethumb);

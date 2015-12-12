@@ -7,7 +7,7 @@ describe("Redhatter", function() {
             expect(player.getName()).to.equal("hassan");
             expect(player.getY()).to.equal(0);
             expect(player.getX()).to.equal(0);
-            expect(player.getHp()).to.equal(70);
+            expect(player.getHp()).to.equal(0); //enters game with 0 hp
 
         });
     });
