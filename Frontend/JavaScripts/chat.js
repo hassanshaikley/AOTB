@@ -26,15 +26,12 @@ var loadChat = function() {
     if (localPlayerName === "unknown") {
         notify("Welcome to Arena of the Bits.", true);
         setTimeout(function() {
-            notify("The first team to 20 kills wins", true);
+            notify("The rules are at the bottom of the page", true);
         }, 2000);
 
         setTimeout(function() {
-            notify("Refresh to randomly pick another character, or sign in to choose the character you want to play as!", true);
-        }, 4000);
-        setTimeout(function() {
             if (remotePlayers.length == 0) {
-                notify("It looks like nobody else is connected right now. Send the link to a friend and play with them...or stop by later. Your choice. : ) If you tweet @ me I'll make an effort to play with you. ", true);
+                notify("Nobody else is connected right now. Send the link to a friend and play with them...or stop by later. Your choice!", true);
             } else {
                 notify("Somebody else is connected. The hunt is on.", true);
             }
