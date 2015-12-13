@@ -7,8 +7,6 @@ var MovementComponent = function(that){
         postY = y,
         moveDifferenceX = 0,
         moveDifferenceY = 0;
-///    var current_action = CONFIG.ACTION.MOVING_RIGHT;
-
     var xSpeed;
     var ySpeed;
     var xDiff;
