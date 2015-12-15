@@ -6,6 +6,10 @@ var Fly = function(name, x, y, hp) {
     var skeleton = new Player(x, y, 50, name);
 
     var CC = new CollisionComponent(skeleton, 60, 70);
+    skeleton.getCharacterType = function() {
+        return "Fly";
+    };
+        var actionbar_component = new ActionbarComponent(skeleton);
 
 
     skeleton.setDescendAttack = function(boolean_thing, local) {
@@ -19,24 +23,7 @@ var Fly = function(name, x, y, hp) {
     skeleton.isFalling = function(){
         return false;
     };
-    var spells_thumb_array = [];
-    skeleton.setUpActionbar = function() {
-        var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
-        MAIN.BOTACTIONBAR.addChild(sword_thumb);
-        var tort_stun = new PIXI.Sprite(PIXI.Texture.fromFrame("descend_thumb.png"));
-        MAIN.BOTACTIONBAR.addChild(tort_stun);
-        spells_thumb_array.push(sword_thumb);
-        spells_thumb_array.push(tort_stun);
-        for (var _i = 0; _i < spells_thumb_array.length; _i++) {
-            console.log("HI teee");
-            helpers.addThumbToActionBar(spells_thumb_array[_i], "description");
-        }
-        /* sword_thumb.interactive = true;
 
-           sword_thumb.mouseover = function(mouseData){
-           console.log("MOUSE OVER!");
-           }*/
-    };
     var clipnames = [];
     for (var _i = 1; _i <= 12; _i++) {
         clipnames.push(PIXI.Texture.fromImage("r_flysheet_walk_v2_state" + _i + ".png"));
@@ -57,7 +44,10 @@ var Fly = function(name, x, y, hp) {
         clipnames.push(PIXI.Texture.fromImage("l_flysheet_attack_v1_state" + _i + ".png"));
     }
     var fly_l_attack = new PIXI.extras.MovieClip(clipnames);
-    fly_l.gotoAndPlay(0);
+    skeleton.setAnimations(fly_l, fly_r, fly_l_attack, fly_r_attack);
+
+
+    /*fly_l.gotoAndPlay(0);
     fly_r.gotoAndPlay(0);
     fly_r.animationSpeed = .15;
     fly_l.animationSpeed = .15;
@@ -173,8 +163,8 @@ var Fly = function(name, x, y, hp) {
         } else {
         ctx.drawImage(silverSword, drawAtX+ 60, this.getDrawAtY()-40);
         }
-        ctx.restore(); */
-    };
+        ctx.restore();
+};*/
     /*
        if (!remotePlayers[i].hitme  || (Math.abs(Date.now() - remotePlayers[i].hitme) ) > 500){
        if (remotePlayers[i].id && Math.abs(remotePlayers[i].getX() - localPlayer.getX()) <= 40 && Math.ceil(remotePlayers[i].getY()-localPlayer.getY()) <=  25 && remotePlayers[i].getDescendAttack()){
@@ -188,8 +178,6 @@ var Fly = function(name, x, y, hp) {
     };
     var f_cd = 1000;
     var f_t = Date.now();
-    skeleton.getCharacterType = function() {
-        return "Fly";
-    };
+
     return skeleton;
 };

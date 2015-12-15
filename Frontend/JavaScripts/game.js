@@ -562,11 +562,12 @@ function draw() {
         Spells.spellsarray[i].draw();
     };
     for (i = 0; i < remotePlayers.length; i++) {
-        remotePlayers[i].draw();
+        remotePlayers[i].draw_();
+
 
     };
     localPlayer.updateVariables();
-    localPlayer.draw();
+    localPlayer.draw_();
     drawForeground();
 };
 

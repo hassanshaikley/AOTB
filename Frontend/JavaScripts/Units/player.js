@@ -16,7 +16,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         team;
 
     var meelee_attack_component = new MeeleeAttackComponent(this);
-    var m_c = new MovementComponent(this);
+    var movement_component = new MovementComponent(this);
 
     var that = this;
 
@@ -109,7 +109,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
      */
 
     this.updateVariables = function() {
-        m_c.update();
+        movement_component.update();
     };
 
     this.getWidth = function() {
@@ -165,6 +165,19 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         attack_left = _attack_left;
         attack_right = _attack_right;
 
+        walk_left.gotoAndPlay(0);
+        walk_right.gotoAndPlay(0);
+        walk_left.animationSpeed = .15;
+        walk_right.animationSpeed = .15;
+    attack_right.animationSpeed = .30;
+         attack_left.animationSpeed = .30;
+
+        that.imageContainer.addChild(walk_left);
+                that.imageContainer.addChild(walk_right);
+        that.imageContainer.addChild(attack_left);
+        that.imageContainer.addChild(attack_right);
+
+
     };
     //why the fuck did I have this code below here
    // var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
@@ -194,10 +207,6 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     };
 
 
-    this.draw_char = function(){
-
-
-    };
     var now = Date.now() - 1000;
     var that = this;
     /* Sets the current action to meeleee attack(For animation)
@@ -222,45 +231,6 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         //Anonymous function for determining if someone is hit
         that.addNewMeeleeAttack(attack_id, that.id);
 
-       /* setTimeout(function() {
-            // build an array of every player in the game
-            var allPlayers = remotePlayers.slice();
-            allPlayers.push(localPlayer);
-            //remove this player from the array because a player obv cant attack itself lol
-            var index = allPlayers.indexOf(that);
-            if (index > -1) {
-                console.log("SPLICING " + index);
-                allPlayers.splice(index, 1);
-            } else {}
-            //draws hit box
-            if (CONFIG.SHOW_HITBOXES) {
-                var bb = that.getMeeleeAttackBoundingBox();
-                var box = new PIXI.Graphics();
-                box.beginFill(0x00FF00);
-                box.drawRect(0, 0, bb.getWidth(), bb.getHeight());
-                box.endFill();
-                box.alpha = .4;
-                box.x = bb.getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - bb.getWidth() / 2;
-                box.y = bb.getY() - bb.getWidth() / 2;
-                MAIN.stage.addChild(box);
-                helpers.highlightPlayerHitboxes();
-                setTimeout(function() {
-                    MAIN.stage.removeChild(box);
-                }, 400);
-            }*/
-            /*for (var i = 0; i < allPlayers.length; i++) {
-                if (helpers.collision(allPlayers[i], that.getMeeleeAttackBoundingBox())) {
-                    //let the server know the attack landed
-                    console.log("OK that.id is " + that.id);
-                    socket.emit("meelee hits", {
-                        "hit": allPlayers[i].id,
-                        "hit_by": that.id,
-                        "attack_id": attack_id
-                    });
-                    console.log("Meelee Hits");
-                }
-            }*/
-     //   }, 200);
     };
 
     this.rightClick = function(clientX, clientY) {
@@ -278,7 +248,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     };
     /* */
     this.leftClick = function(_x, _y) {
-        //if out of screen return
+        //if out of screen return - so if you click on the actionbar it doesn't go
         if (_y > CONFIG.SCREEN_HEIGHT - 55){
             return;
         };
@@ -304,11 +274,14 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
             duration: cooldownTime
         });
     };
-    /*
-    this.draw = function() {
+
+       var first = false,
+           loop = false;
+
+    this.draw_ = function() {
         // this.update_player();
         var drawAtX = CONFIG.SCREEN_WIDTH / 2 + that.getDrawAtX() - that.localX() - 50;
-        var drawAtY = skeleton.getDrawAtY() - 50;
+        var drawAtY = that.getDrawAtY() - 50;
         walk_left.position.y = drawAtY;
         walk_right.position.y = drawAtY;
         attack_left.position.y = drawAtY;
@@ -381,5 +354,5 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
             walk_left.gotoAndPlay(0);
             walk_right.gotoAndPlay(0);
         }
-    };*/
+    };
 };

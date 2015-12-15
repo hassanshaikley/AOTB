@@ -331,6 +331,7 @@
             <filename>Walk_F3_r.png</filename>
             <filename>Walk_F4_l.png</filename>
             <filename>Walk_F4_r.png</filename>
+            <filename>tooltip_background.v1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
