@@ -141,7 +141,8 @@ Game.prototype.init = function() {
     if (CONFIG.SHOW_HITBOXES) {
         setInterval(helpers.highlightPlayerHitboxes, 200);
     }
-        option_menu = new OptionMenu();
+
+    var actionbar_component = new ActionbarComponent(localPlayer);
 
 };
 /**************************************************
@@ -185,14 +186,18 @@ function onUpdateTeamKillcount(data) {
 };
 
 function onSpellTwo(data) {
+    console.log("SPELL TWO OKKK" + data);
     switch (data.spell) {
-        case "rhrange":
-            var v = new RHRange(data.x, data.y, data.direction);
-            v.attack_id = data.attack_id;
-            Spells.spellsarray.push(v);
-            if (data.caster === "you") {
-                //  localPlayer.displayCooldown(3, 700);
-            }
+    case "rhrange":
+        var v = new RHRange(data.x, data.y, data.direction);
+        v.attack_id = data.attack_id;
+        Spells.spellsarray.push(v);
+        break;
+    case "fly grab":
+        localPlayer.spellCD(2);
+    }
+    if (data.caster === "you") {
+        localPlayer.spellCD(2);
     }
 };
 
@@ -232,6 +237,9 @@ function onMeeleeAttack(data) {
         player = localPlayer;
     }
     player.setMeeleeAttack(true, data.attack_id, data.direction);
+    if (player == localPlayer){
+        localPlayer.spellCD(0);
+    }
 }
 /* Yay a function : D
  * When a user says a spell hit, it should incrememnt the number of users that
@@ -244,16 +252,13 @@ function onSpellOne(data) {
         var m = new TortStun(data.x, data.y, data.caster);
         m.attack_id = data.attack_id;
         Spells.spellsarray.push(m);
-        cd = 3000;
     } else if (data.spell === "meteor") {
         var m = new Meteor(data.x, data.caster);
         m.attack_id = data.attack_id;
         m.setTeam(data.team);
         Spells.spellsarray.push(m);
-        cd = 6000;
     }
     if (data.spell === "windwalk") {
-        cd = 6000;
         var player;
         if (data.id === "you") {
             player = localPlayer;
@@ -268,7 +273,7 @@ function onSpellOne(data) {
     }
     //if cast by this player then show the cooldown
     if (data.casted_by_me || data.id == "you") {
-        localPlayer.displayCooldown(2, cd);
+        localPlayer.spellCD(1);
     }
 }
 /* Updates location of all connected players*/
@@ -361,9 +366,14 @@ function onDescendAttackChanges(data) {
     var _player = helpers.playerById(data.id);
     if (_player === false) {
         localPlayer.setDescendAttack(data.descendAttack);
-        localPlayer.displayCooldown(2, 6000);
+
     } else {
         _player.setDescendAttack(data.descendAttack);
+    }
+    if (_player == localPlayer){
+        if (data.descendAttack){
+            localPlayer.spellCD(1);
+        }
     }
 };
 

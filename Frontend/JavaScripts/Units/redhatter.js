@@ -12,7 +12,7 @@ var Redhatter = function(name, x, y) {
     };
 
     var spells_thumb_array = [];
-    var actionbar_component = new ActionbarComponent(skeleton);
+//    var actionbar_component = new ActionbarComponent(skeleton);
 
     var redhatter_l = new PIXI.extras.MovieClip([PIXI.Texture.fromImage("l_redhatter1.png"), PIXI.Texture.fromImage("l_redhatter2.png"), PIXI.Texture.fromImage("l_redhatter3.png"), PIXI.Texture.fromImage("l_redhatter4.png")]);
     var redhatter_r = new PIXI.extras.MovieClip([PIXI.Texture.fromImage("r_redhatter1.png"), PIXI.Texture.fromImage("r_redhatter2.png"), PIXI.Texture.fromImage("r_redhatter3.png"), PIXI.Texture.fromImage("r_redhatter4.png")]);

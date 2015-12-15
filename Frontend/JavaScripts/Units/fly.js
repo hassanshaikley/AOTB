@@ -9,7 +9,7 @@ var Fly = function(name, x, y, hp) {
     skeleton.getCharacterType = function() {
         return "Fly";
     };
-        var actionbar_component = new ActionbarComponent(skeleton);
+
 
 
     skeleton.setDescendAttack = function(boolean_thing, local) {

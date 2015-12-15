@@ -9,7 +9,9 @@ var Fly = require("./Units/fly").Fly,
     //   Bowman = require("./Units/bowman").Bowman,
     //  Skelly = require("./Units/skelly").Skelly,
     Shanker = require("./Units/shanker").Shanker,
+
     //  Crevice = require("./Units/crevice").Crevice,
+    FlyGrab = require("./Spells/fly-grab").FlyGrab;
     Stealth = require("./Spells/stealth.js").Stealth,
     TortStun = require("./Spells/tortstun.js").TortStun,
     RHRange = require("./Spells/rhrange.js").RHRange,
@@ -345,7 +347,7 @@ var Events = function() {
         } else {
             util.log("GOT SOME PROBLEMS ");
         }
-        newPlayer.setName(data.name)
+        newPlayer.setName(data.name);
         newPlayer.id = this.id;
         newPlayer.setX(newPlayer.getRespawnX());
         game1.addPlayer(newPlayer);
@@ -377,14 +379,15 @@ var Events = function() {
 
     function onSpellTwo(data) {
         //util.log("Spell two");
+
         var player = playerById(this.id);
         if (!(player.getAlive())) {
             return;
         };
         var v;
         switch (player.getCharacterType()) {
-            case "Redhatter":
-                v = new RHRange(data.x, data.y, data.direction, player.getTeam());
+        case "Redhatter":
+            v = new RHRange(data.x, data.y, data.direction, player.getTeam());
                 if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
                     util.log("DONE");
                     return;
@@ -410,15 +413,17 @@ var Events = function() {
                 break;
             case "Fly":
                 //Carry other unit lmfao
-                util.log("Fly carry tigger" + (player.spellTwoCastTime + DescendAttack.getCooldown()) + " NOW : " + Date.now());
-                if (!(player.spellTwoCastTime + DescendAttack.getCooldown() <= Date.now())) {
-                    util.log("DONE");
+                util.log("Fly carry tigger" + (player.spellTwoCastTime + FlyGrab.getCooldown()) + " NOW : " + Date.now());
+                if (!(player.spellTwoCastTime + FlyGrab.getCooldown() <= Date.now())) {
+                    util.log("DONE CUS COOLDOWN");
                     return;
                 }
+
                 if (player.getGrabbed()) {
                     util.log("Fly is grabbed tho");
                     return;
                 }
+            this.emit("spell two", { spell : "fly grab"});
                 //k do fly carry method
                 for (var _i = 0; _i < players.length; _i++) {
                     if (players[_i].id != player.id) {

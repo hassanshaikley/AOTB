@@ -7,9 +7,9 @@ var Grimes = function(name, x, y, hp) {
     skeleton.getCharacterType = function() {
         return "Grimes";
     };
-            var actionbar_component = new ActionbarComponent(skeleton);
+//    var actionbar_component = new ActionbarComponent(skeleton);
 
-        skeleton.setAnimations(grimes_l, grimes_r, grimes_l, grimes_r);
+    skeleton.setAnimations(grimes_l, grimes_r, grimes_l, grimes_r);
 
     skeleton.draw = function(ctx) {
         skeleton.drawText();
