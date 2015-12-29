@@ -1,8 +1,7 @@
 var Player = function(startX, startY, startHp, _name) { //ignore startX variable
-//    if (startX == undefined) startX = -1000;
-//    if (startY == undefined) startY = -1000;
+    //    if (startX == undefined) startX = -1000;
+    //if (startY == undefined) startY = -1000;
     this.coordinateList = []; //array of all the positions the server says the unit is at
-
 
     var name = _name,
         hp = 0,
@@ -152,8 +151,10 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     chat_text.style.font = "bold 10px arial";
     chat_text.style.align = "center";
     this.imageContainer.addChild(chat_text);
+    this.imageContainer.y = -100;
 
     MAIN.stage.addChild(this.imageContainer);
+
 
     var walk_left;
     var walk_right;

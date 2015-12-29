@@ -79,7 +79,8 @@ var ActionbarComponent = function(that){
             name: "Grab",
             key: "q ",
             description: "Stand above a unit and then \ncarry them off!",
-            cooldown: "6s"
+            cooldown: "6s",
+            duration: 3000
         }));
 
         spells_thumb_array.push(descend_thumb);
@@ -94,7 +95,8 @@ var ActionbarComponent = function(that){
         spells_description_array.push (generateDescription({
             name: "Tort Stun",
             key: "Left Click",
-            description: "Create a small earthquake. \nImmobilizing units for 400\nmilliseconds.",
+            description: "Create a small earthquake. \nImmobilizing units for a\nshort amount of time.",
+            duration: "400ms",
             cooldown: "3s"
         }));
         spells_thumb_array.push(tort_stun);

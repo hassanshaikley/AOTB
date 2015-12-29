@@ -45,10 +45,11 @@ Game.prototype.init = function() {
 
     scene = new PIXI.Sprite(PIXI.Texture.fromImage("desert_v1.fw.png"));
 
-    var filter = new PIXI.filters.BloomFilter()
+    var filter = new PIXI.filters.BloomFilter();
 
     MAIN.stage.addChildAt(scene, 1);
-//    scene.filters = [filter];
+    //    scene.filters = [filter];
+    scene.y = -1000;
 
 
     background = new Background();
@@ -57,7 +58,7 @@ Game.prototype.init = function() {
     ctx = canvas1.getContext("webgl");
 
   for (var i = 0; i < 5; i++) {
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 10 + i * (CONFIG.ARENA_WIDTH) / 5, 335));
+      localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 10 + i * (CONFIG.ARENA_WIDTH) / 5, 335));
     }
     /*    for (var j = 0; j < 3; j++){
             localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/6 + j * (CONFIG.ARENA_WIDTH)/3, 235));
