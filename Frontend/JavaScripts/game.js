@@ -187,7 +187,6 @@ function onUpdateTeamKillcount(data) {
 };
 
 function onSpellTwo(data) {
-    console.log("SPELL TWO OKKK" + data);
     switch (data.spell) {
     case "rhrange":
         var v = new RHRange(data.x, data.y, data.direction);
@@ -205,15 +204,11 @@ function onSpellTwo(data) {
 function onVisibleAgain(data) {
     var player;
     player = helpers.playerById(data.id);
-    console.log("PLAYER IS VISIBLE AGAIN");
+    console.log("PLAYER IS VISIBLE AGAIN\n" + localPlayer.getTeam() + " =? " + player.getTeam());
 
-//    if (data.id == "you") {
- //       player = localPlayer;
-
-    //    }
-    console.log(player +"< < <" + data.id);
     if (player.getTeam() === localPlayer.getTeam()) {
         player.imageContainer.alpha = 1;
+        player.setInvis(false);
     } else {
         player.setInvis(false);
     }
@@ -241,6 +236,7 @@ function onMeeleeAttack(data) {
     if (player == localPlayer){
         localPlayer.spellCD(0);
     }
+
 }
 /* Yay a function : D
  * When a user says a spell hit, it should incrememnt the number of users that

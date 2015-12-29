@@ -20,9 +20,17 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     var that = this;
 
     var invis = false;
-
     this.setInvis = function(_invis) {
+        console.log("Setting INVIS");
         invis = _invis;
+        if (_invis) {
+            MAIN.stage.removeChild(skeleton.imageContainer);
+        } else {
+            MAIN.stage.addChild(skeleton.imageContainer);
+        }
+    };
+    this.getInvis = function(){
+        return invis;
     };
     var meelee_attack = false;
     this.id = undefined;
@@ -169,8 +177,8 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         walk_right.gotoAndPlay(0);
         walk_left.animationSpeed = .15;
         walk_right.animationSpeed = .15;
-    attack_right.animationSpeed = .30;
-         attack_left.animationSpeed = .30;
+        attack_right.animationSpeed = .30;
+        attack_left.animationSpeed = .30;
 
         that.imageContainer.addChild(walk_left);
                 that.imageContainer.addChild(walk_right);

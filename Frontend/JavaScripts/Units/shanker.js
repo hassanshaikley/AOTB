@@ -38,6 +38,7 @@ var Shanker = function(name, x, y) {
     skeleton.setAnimations(shanker_l, shanker_r, shanker_l_attack, shanker_r_attack);
     var now = Date.now();
     skeleton.setInvis = function(_invis) {
+        console.log("CALLING INVIS");
         if (_invis) {
             MAIN.stage.removeChild(skeleton.imageContainer);
         } else {
