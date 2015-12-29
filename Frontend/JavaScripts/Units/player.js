@@ -151,10 +151,9 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     chat_text.style.font = "bold 10px arial";
     chat_text.style.align = "center";
     this.imageContainer.addChild(chat_text);
-    this.imageContainer.y = -100;
 
     MAIN.stage.addChild(this.imageContainer);
-
+    this.imageContainer.visible = false;
 
     var walk_left;
     var walk_right;
@@ -280,6 +279,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
            loop = false;
 
     this.draw_ = function() {
+        this.imageContainer.visible = true;
         // this.update_player();
         var drawAtX = CONFIG.SCREEN_WIDTH / 2 + that.getDrawAtX() - that.localX() - 50;
         var drawAtY = that.getDrawAtY() - 50;

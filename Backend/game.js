@@ -136,7 +136,7 @@ var Game = function() {
                 if (attacks[attack_id]){
                     delete attacks[attack_id];
                 }
-            }, 6000);
+            }, 20000);
             return;
         };
         var hits_array = attacks[attack_id];
@@ -203,7 +203,7 @@ var Game = function() {
 
             setInterval(function(){
                 delete active_spells[spell.getID()];
-            }, 5000);
+            }, 20000);
 
             return 1;
         };

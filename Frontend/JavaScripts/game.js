@@ -309,16 +309,17 @@ function onArrowFired(data) {
 function onWin(data) {
     var filter = new PIXI.filters.DotScreenFilter();
     MAIN.stage.filters = [filter];
+    var message;
     if (data.winner === localPlayer.getTeam()) {
-        var message = new PIXI.Text("YOU WIN!", {
-            font: "32px sans-serif",
-            fill: "white",
+        message = new PIXI.Text("YOU WIN!", {
+            font: "bold 40px sans-serif",
+            fill: "yellow",
             align: "center"
         });
     } else {
-        var message = new PIXI.Text("YOU LOSE!", {
-            font: "32px sans-serif",
-            fill: "white",
+        message = new PIXI.Text("YOU LOSE!", {
+            font: "bold 40px sans-serif",
+            fill: "yellow",
             align: "center"
         });
     }
