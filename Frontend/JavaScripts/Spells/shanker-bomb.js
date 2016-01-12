@@ -43,11 +43,20 @@ var ShankerBomb = function(_x, _y, direction) {
             }
         } else {
             if (direction == "right"){
-                x+= 5;
+                x+= 8;
             } else {
-                x-=5;
+                x-=8;
             }
+            
+            if (Math.abs(_x - x) > 100){
+                y+=2;
+            } else {
+                y-=2;
+            }
+
         }   
+        
+
         var newX = Math.floor(x) - localPlayer.getDrawAtX() + CONFIG.SCREEN_WIDTH / 2;
         rhrClip.position.x = newX-15;
         rhrClip.position.y = y;

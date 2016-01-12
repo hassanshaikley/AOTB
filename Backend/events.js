@@ -27,9 +27,6 @@ var DataBlob = require('./App/models/data-blob');
 
 var CONFIG = require("./config");
 var util = require("util");
-var attacks_teams = {};
-var attacks_damages = {};
-
 /* Used to store attack objects
  */
 var attacks = {};
@@ -240,9 +237,6 @@ var Events = function() {
         if (!attacker.getAlive()) {
             return;
         }
-
-     //   attacks_teams[attack_id] = attacker.getTeam();
-     //   attacks_damages[attack_id] = attacker.getDamage();
 
         var atk = new Attack({damage: attacker.getDamage(), team: attacker.getTeam(), effect: attacker.attackEffect, direction: data.direction});
         attacks[attack_id] = atk;
@@ -473,8 +467,6 @@ var Events = function() {
 
         //ehh this is a patchy / buggy fix should do it for every spell
         if (player.getCharacterType() == CONFIG.Redhatter || CONFIG.Shanker){
-       //     attacks_teams[v.getID()] = player.getTeam();
-       //     attacks_damages[v.getID()] = v.getDamage();
             attacks[v.getID()] = v;//new Attack({damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect});
             setTimeout(function() { //remove this
                 if (attacks[v.getID()]) {
@@ -586,11 +578,7 @@ var Events = function() {
             });
         };
         player.spellOneCastTime = Date.now();
-        //attacks_teams[v.getID()] = player.getTeam();
-        //attacks_damages[v.getID()] = v.getDamage();
 
-       // attacks[v.getID()] = player.getTeam();
-       // attacks[v.getID()] = v.getDamage();
         attacks[v.getID()] = v;
         setTimeout(function() { //remove this
             if (attacks[v.getID()]) {
@@ -635,7 +623,7 @@ var Events = function() {
         var date = new Date();
         var year    = date.getFullYear();
         var month   = date.getMonth();
-        var day     = date.getDay();
+        var day     = date.getDate();
         var hour    = date.getHours();
         var minute  = date.getMinutes();
 
