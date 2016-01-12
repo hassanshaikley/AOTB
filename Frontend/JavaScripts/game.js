@@ -194,7 +194,16 @@ function onSpellTwo(data) {
         Spells.spellsarray.push(v);
         break;
     case "fly grab":
+        //what... lol, why local player? so confusing hassan so shit code
         localPlayer.spellCD(2);
+        break;
+    case "shanker bomb":
+        console.log("SHANKER BOMB " + JSON.stringify(data));
+        var v = new ShankerBomb(data.x, data.y, data.direction);
+        v.attack_id = data.attack_id;
+        Spells.spellsarray.push(v);
+        break;
+
     }
     if (data.caster === "you") {
         localPlayer.spellCD(2);
@@ -497,6 +506,11 @@ function update() {
         allPlayers.push(localPlayer);
         for (var j = 0; j < allPlayers.length; j++) {
             if (helpers.collision(allPlayers[j], Spells.spellsarray[i])) {
+                if (Spells.spellsarray[i].inactive){
+                    console.log("SPELL IS NOT ACITVE :(");
+                    continue;   
+                }
+                console.log("WE HAVE A COLLISION");
                 //let the server know the attack landed
                 //going to only want to do this once!
                 //this is buggy when undefined

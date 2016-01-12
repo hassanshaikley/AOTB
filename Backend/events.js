@@ -11,7 +11,8 @@ var Fly = require("./Units/fly").Fly,
     Shanker = require("./Units/shanker").Shanker,
 
     //  Crevice = require("./Units/crevice").Crevice,
-    FlyGrab = require("./Spells/fly-grab").FlyGrab;
+    FlyGrab = require("./Spells/fly-grab").FlyGrab,
+    ShankerBomb = require("./Spells/shanker-bomb").ShankerBomb;
     Stealth = require("./Spells/stealth.js").Stealth,
     TortStun = require("./Spells/tortstun.js").TortStun,
     RHRange = require("./Spells/rhrange.js").RHRange,
@@ -379,6 +380,7 @@ var Events = function() {
 
     function onSpellTwo(data) {
         //util.log("Spell two");
+        //should handle cooldowns up here
 
         var player = playerById(this.id);
         if (!(player.getAlive())) {
@@ -386,6 +388,31 @@ var Events = function() {
         };
         var v;
         switch (player.getCharacterType()) {
+        case "Shanker":
+            util.log("I AM SO SEXY");
+            v = new ShankerBomb(data.x, data.y, data.direction, player.getTeam());
+            if (!(player.spellTwoCastTime + ShankerBomb.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+            }
+            var y = player.getY() - 10;
+            game1.addSpell(v);
+            this.emit('spell two', {
+                x: data.x,
+                y: y,
+                spell: "shanker bomb",
+                direction: data.direction,
+                attack_id: v.getID(),
+                caster: "you"
+            });
+            this.broadcast.emit('spell two', {
+                x: data.x,
+                y: y,
+                attack_id: v.getID(),
+                spell: "shanker bomb",
+                direction: data.direction
+            });
+            break;
         case "Redhatter":
             v = new RHRange(data.x, data.y, data.direction, player.getTeam());
                 if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
@@ -445,7 +472,7 @@ var Events = function() {
         player.spellTwoCastTime = Date.now();
 
         //ehh this is a patchy / buggy fix should do it for every spell
-        if (player.getCharacterType() == CONFIG.Redhatter){
+        if (player.getCharacterType() == CONFIG.Redhatter || CONFIG.Shanker){
        //     attacks_teams[v.getID()] = player.getTeam();
        //     attacks_damages[v.getID()] = v.getDamage();
             attacks[v.getID()] = v;//new Attack({damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect});
@@ -454,7 +481,7 @@ var Events = function() {
                     delete attacks[v.getID()];
                 console.log("Deleting");
             }
-        }, 4000);
+        }, 9000);
         }
     }
 
@@ -570,7 +597,7 @@ var Events = function() {
                 delete attacks[v.getID()];
                 console.log("Deleting");
             }
-        }, 4000);
+        }, 9000);
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });

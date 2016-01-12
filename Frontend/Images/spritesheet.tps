@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.0</string>
+        <string>4.0.1</string>
         <key>fileName</key>
         <string>/Users/hydraboy/aotb/Frontend/Images/spritesheet.tps</string>
         <key>autoSDSettings</key>
@@ -332,6 +332,8 @@
             <filename>Walk_F4_l.png</filename>
             <filename>Walk_F4_r.png</filename>
             <filename>tooltip_background.v1.png</filename>
+            <filename>Rock3.png</filename>
+            <filename>rock_thumb.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
