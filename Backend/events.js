@@ -9,10 +9,9 @@ var Fly = require("./Units/fly").Fly,
     //   Bowman = require("./Units/bowman").Bowman,
     //  Skelly = require("./Units/skelly").Skelly,
     Shanker = require("./Units/shanker").Shanker,
-
     //  Crevice = require("./Units/crevice").Crevice,
     FlyGrab = require("./Spells/fly-grab").FlyGrab,
-    ShankerBomb = require("./Spells/shanker-bomb").ShankerBomb;
+    ShankerBomb = require("./Spells/shanker-bomb").ShankerBomb,
     Stealth = require("./Spells/stealth.js").Stealth,
     TortStun = require("./Spells/tortstun.js").TortStun,
     RHRange = require("./Spells/rhrange.js").RHRange,
@@ -22,10 +21,10 @@ var Fly = require("./Units/fly").Fly,
     IDComponent = require("./Components/id-component").IDComponent,
     Attack = require('./Units/Attacks/attack.js').Attack;
 
-var exec = require('child_process').exec;
 var DataBlob = require('./App/models/data-blob');
 
 var CONFIG = require("./config");
+
 var util = require("util");
 /* Used to store attack objects
  */
@@ -60,10 +59,10 @@ var Events = function() {
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
         client.on("landed", that.onLanded);
-        client.on("switch team", that.onSwitchTeam);
+        client.on("switch team", onSwitchTeam);
     };
 
-    this.onSwitchTeam = function(){
+    function onSwitchTeam(){
         player = playerById(this.id);
         if (player){
             player.switchTeam();
@@ -254,10 +253,6 @@ var Events = function() {
             }
         }, 4000);
 
-        if (attacker.invis) {
-            becomeVisible(attacker, this);
-            //            attacker.meeleeBonus();
-        };
         //  util.log("meelee attack " + data.direction);
         //Now get all the characters to animate the meelee attack = )
         this.emit('meelee attack', {
@@ -270,26 +265,6 @@ var Events = function() {
             attack_id: attack_id,
             direction: data.direction
         });
-    }
-
-    function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing) {
-        var playersHit = [];
-        for (i = 0; i < players.length; i++) {
-            //     util.log("LELELE");
-            if (players[i].getTeam() === team) {
-                continue;
-            };
-            util.log((players[i].getX() - attackX) + " " + (players[i].getWidth() / 2 + 20));
-            if (Math.abs(players[i].getX() - attackX) <= players[i].getWidth() / 2 + 20) { // +20 just to make it a little easier lmao
-                util.log("CHECK !");
-                if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight() / 2) {
-                    util.log("CHEEEK");
-                    setHp(players[i], damage);
-                    playersHit.push(players[i]);
-                }
-            }
-        }
-        return playersHit;
     }
 
     function onRespawn() {
@@ -557,15 +532,7 @@ var Events = function() {
 
             player.windWalk(3000, this);
             var that = this;
-
-          //  player.setSpeed(player.getBaseSpeed() * 1.40);
-
-            /*  setTimeout(function() {
-                if (player.invis) {
-                    becomeVisible(player, that);
-                }
-             }, 3000);*/
-            util.log("SINDWALK");
+            util.log("WINDWALK");
             this.emit('spell one', {
                 id: "you",
                 spell: "windwalk",
@@ -589,11 +556,6 @@ var Events = function() {
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-    function becomeVisible(player, that) {
- //       player.invis = false;
-//        player.setSpeed(player.getBaseSpeed());
-
-    };
     //hitBy.setGold(hitBy.getGold()+1);
     function setHp(hitPlayer, damage) { //where hitplayer is like players[i]
         var wasAlive = hitPlayer.getAlive();
@@ -615,11 +577,7 @@ var Events = function() {
             team_zero_kills: game1.getTeamZeroKills(),
             id : initPlayer.id
         });
-        //name
-        //referrer
-        //day
-        //time
-        //ip
+
         var date = new Date();
         var year    = date.getFullYear();
         var month   = date.getMonth();
@@ -668,10 +626,6 @@ var Events = function() {
         util.log("dst is " + distance);
         return distance;
     }
-    /*
-    return {
-        didAttackHitPlayer: didAttackHitPlayer,
-        setEventHandlers: setEventHandlers,
-    };*/
+
 };
 exports.Events = Events;

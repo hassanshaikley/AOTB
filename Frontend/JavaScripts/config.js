@@ -28,4 +28,9 @@ CONFIG.SHANKER_NAME = "Shanker";
 CONFIG.FLY_NAME = "Fly";
 
 
-CONFIG.SHOW_HITBOXES = true;
+if (location.origin === "http://localhost:5000"){
+
+	CONFIG.SHOW_HITBOXES = true;
+} else {
+	CONFIG.SHOW_HITBOXES = false;
+}

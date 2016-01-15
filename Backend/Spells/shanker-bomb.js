@@ -7,7 +7,7 @@ var ShankerBomb = function(meteorX, mCaster, _team) {
     this.hit = [];
     var team = _team;
     var x = meteorX,
-        y = -100,
+        y = -1000,
         active = true; //active spells can hurt this specific client  - this makes absolutely no sense. lol
     IDComponent(this);
     /*

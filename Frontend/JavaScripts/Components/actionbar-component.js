@@ -36,8 +36,18 @@ var ActionbarComponent = function(that){
             description: "Go invisible for 4 seconds. \nAttack does extra damage\nand breaks invisibility",
             cooldown: "5s"
         }));
+        spells_description_array.push (generateDescription({
+            name: "Bomb",
+            key: "q ",
+            description: "Throw a bomb! Damages the \nunits it hits.",
+            cooldown: "3s"
+        }));
+
+        var bomb_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("bomb.png"));
         spells_thumb_array.push(invis_thumb);
+        spells_thumb_array.push(bomb_thumb);
         cd_two = 5000;
+        cd_three = 3000;
 
 
     };
