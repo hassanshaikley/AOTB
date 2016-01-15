@@ -4,7 +4,6 @@ var Spell = function(startX, startY, _team, _damage, id) {
         y = startY,
         team = _team,
         damage = _damage || 25; // damage is default 25
-    this.hit = [];
     /*
      * NOTE: Is id modifyible by the outside bc its returning it and not a copy?
      */

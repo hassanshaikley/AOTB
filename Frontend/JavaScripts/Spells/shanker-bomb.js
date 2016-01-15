@@ -25,7 +25,7 @@ var ShankerBomb = function(_x, _y, direction) {
     };
     var rhrClip = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("bomb.png")]);
     MAIN.stage.addChild(rhrClip);
-    rhrClip.y = y;
+    rhrClip.y = -600;
     var already_set_off = false;
     this.draw = function() {
         if (Math.abs(_x - x) > 200){

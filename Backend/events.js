@@ -59,10 +59,13 @@ var Events = function() {
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
         client.on("landed", that.onLanded);
-        client.on("switch team", onSwitchTeam);
+        client.on("switch team", that.onSwitchTeam);
     };
 
-    function onSwitchTeam(){
+    /* Function for switching team event
+     * Reason it uses this. is to be testable
+     */
+   this.onSwitchTeam = function(){
         player = playerById(this.id);
         if (player){
             player.switchTeam();
@@ -614,7 +617,7 @@ var Events = function() {
      **************************************************/
     function playerById(id) {
         var i;
-        var players = game1.getPlayers();
+        //var players = game1.getPlayers();
         for (i in players) {
             if (players[i].id == id) return players[i];
         };

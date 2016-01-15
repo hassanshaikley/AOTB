@@ -102,4 +102,27 @@ describe("Test Game", function() {
         assert.equal(game2.getWinner(), 0);
 
     });
+    it ("test increment and reset kills", function() {
+        var game2 = new Game();
+        assert.equal(game2.getTeamZeroKills(), 0);
+        game2.incrementTeamZeroKills();
+        assert.equal(game2.getTeamZeroKills(), 1);
+        game2.resetGame();
+        assert.equal(game2.getTeamZeroKills(), 0);
+    });
+    it ("test increment and reset kills", function() {
+        var game2 = new Game();
+        assert.equal(game2.getTeamOneKills(), 0);
+        game2.incrementTeamOneKills();
+        assert.equal(game2.getTeamOneKills(), 1);
+        game2.resetGame();
+        assert.equal(game2.getTeamOneKills(), 0);
+    });
+    it ("should be able to remove non-existant players", function() {
+        var fly = new Fly(0);
+        assert.equal(game.getNumPlayers(), 0);
+        game.removePlayer(fly);
+        assert.equal(game.getNumPlayers(), 0);
+    });
+
 });

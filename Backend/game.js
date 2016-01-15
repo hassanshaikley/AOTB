@@ -19,7 +19,7 @@ var Game = function() {
         winner = -1;
     };
 
-    function incrementTeamZeroKills() {
+    this.incrementTeamZeroKills = function() {
         team_zero_kills++;
         if (team_zero_kills == KILL_CAP) {
             winner = 0;
@@ -27,7 +27,7 @@ var Game = function() {
         }
     };
 
-    function incrementTeamOneKills() {
+    this.incrementTeamOneKills = function() {
         team_one_kills++;
         if (team_one_kills == KILL_CAP) {
             that.setWinner(1);
@@ -183,10 +183,10 @@ var Game = function() {
                     //player is dead increment death counter
                     if (hit_player.getTeam() == 0) {
                         console.log("Team 1 got a kill");
-                        incrementTeamOneKills();
+                        that.incrementTeamOneKills();
                     } else {
                         console.log("Team zero got a kill");
-                        incrementTeamZeroKills();
+                        that.incrementTeamZeroKills();
                     }
                 }
             }

@@ -1,22 +1,24 @@
 var IDComponent = require("../Components/id-component.js").IDComponent;
+    var PositionComponent = require("./Components/position-component.js").PositionComponent;
+
 var util = require("util");
 /* */
 var ShankerBomb = function(meteorX, mCaster, _team) {
     var caster = mCaster;
     var caster_team;
-    this.hit = [];
     var team = _team;
     var x = meteorX,
         y = -1000,
         active = true; //active spells can hurt this specific client  - this makes absolutely no sense. lol
     IDComponent(this);
+    PositionComponent(this, x, y);
+
     /*
      * Array of who this has hit and according to whom
      * Key Value pair is the order of WhoSaid, WhoItHit
      */
     var collisions = [];
     this.hasHit = function(id) {
-        "ok lol";
         // If Array already contains this ID, ignore
         for (var i = 0; i < collisions.length; i++) {
             if (collisions[i] == id) {
@@ -50,12 +52,7 @@ var ShankerBomb = function(meteorX, mCaster, _team) {
     this.doEffect = function(obj) {
         //do nothing
     };
-    this.getX = function() {
-        return x;
-    };
-    this.getY = function() {
-        return y;
-    };
+
     this.getDamage = function() {
         return 25;
     };

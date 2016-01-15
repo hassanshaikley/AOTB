@@ -1,15 +1,10 @@
 var Spell = require("./spell").Spell; // so it can inherits :D
-//var Spells = require("../spellsandprojectiles").Spells;
 var IDComponent = require("../Components/id-component.js").IDComponent;
 var PositionComponent = require("./Components/position-component.js").PositionComponent;
 
 var TortStun = function(_x, _y, _team) {
     _y = 490;
-   // var spell = new Spell(_x, _y, _team, 10);
 
-    //it needs a position (so an x and y, getX and getY)
-    //it needs damage
-    //it needs a team
     this.getTeam = function(){
         return _team;
     };
@@ -25,7 +20,7 @@ var TortStun = function(_x, _y, _team) {
         return 15;
     }
     var age = 0; //timer for damage
-    this.hit = []
+
     this.getHalfWidth = function() {
         return 40;
     };
@@ -36,10 +31,9 @@ var TortStun = function(_x, _y, _team) {
         console.log("\n\nABOUT TO IMMOBILIZE" + JSON.stringify(obj) + " -- " + obj.hits);
         obj.hits.immobilize(400);
     };
-    /* Returns the cooldown for this spell*/
+
     this.update = function() {
         age++;
-    //    var index = Spells.spellsarray.indexOf(this);
         if (age == 15) { //do damage and disappear
             //look for everyone in range and do damage to them + stun them
             active = false;
