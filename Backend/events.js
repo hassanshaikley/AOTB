@@ -70,13 +70,11 @@ var Events = function() {
         if (player){
             player.switchTeam();
         }
-
     };
     this.onLanded = function(data){
         console.log("\nsettling land y " +data.y);
         player = playerById(this.id);
         player.setLandY(data.y);
-//        player.setY(data.y-player.getHeight()/2);
     };
     spell_hits = [];
     /*
@@ -145,7 +143,6 @@ var Events = function() {
      * If 80% of clients say it happened within .1 seconds of it happening
      * Then we will say that it has really happened.
      */
-    meelee_hits = [];
 
     function onMeeleeHits(data) {
         var hit;
@@ -427,7 +424,7 @@ var Events = function() {
                 for (var _i = 0; _i < players.length; _i++) {
                     if (players[_i].id != player.id) {
                         util.log("AN EMENY");
-                        if (distance(players[_i].getX(), player.getX()) < 100) {
+                        if (distance(players[_i].getX(), player.getX()) < 60) {
                             util.log("Made x");
                             if (distance(players[_i].getY(), player.getY()) < 100) {
                                 util.log("Made y");

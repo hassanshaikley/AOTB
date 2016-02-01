@@ -334,6 +334,9 @@
             <filename>tooltip_background.v1.png</filename>
             <filename>Rock3.png</filename>
             <filename>rock_thumb.png</filename>
+            <filename>invisibility_icon_v4.fw.png</filename>
+            <filename>bomb.png</filename>
+            <filename>fly_carry_thumbnail.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

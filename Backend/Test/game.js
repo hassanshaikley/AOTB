@@ -15,7 +15,6 @@ describe("Test Game", function() {
     it("should have made an empty game", function() {
         assert.equal(game.getNumPlayers(), 0);
     });
-
     it("should be able to get number of players", function() {
         var fly = new Fly(0);
         assert.equal(game.getNumPlayers(), 0);

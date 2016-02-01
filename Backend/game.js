@@ -12,7 +12,7 @@ var Game = function() {
     var team_zero_kills = 0;
     var team_one_kills = 0;
     var KILL_CAP = 20;
-    var GEN_ID = 0; //for players
+    var GEN_ID = 0; // genertates id for players that don't have one--used for testing
     this.resetGame = function() {
         team_zero_kills = 0;
         team_one_kills = 0;
@@ -213,11 +213,11 @@ var Game = function() {
             return active_spells[id];
         }
     };
-    this.addMeeleeAttack = function(attack) {
+/*    this.addMeeleeAttack = function(attack) {
         if (!attack) {
             return 0;
         }
-    };
+    };*/
     this.getID = function() {
         return gameID;
     };
