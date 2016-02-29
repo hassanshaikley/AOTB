@@ -30,13 +30,12 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
         currHp = maxHp;
     };
     that.getAlive = function() {
-        return (that.getHp() > 0)
+        return (that.getHp() > 0);
     };
     that.getRespawnTime = function() {
         return 3000;
     };
     that.doDamage = function(damage) {
-        console.log("DOING DAMAGE");
         if (currHp <= 0){
             console.log("\t\t\t yo wtf I am alraedy dead man");
             return {dies: false };
@@ -129,12 +128,12 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
     that.setInvis = function(_invis, socket){
         console.log(_invis + " " + invis );
         if (!_invis && invis){
-                        socket.emit("visible again", {
+            socket.emit("visible again", {
                 id: player.id
             });
             socket.broadcast.emit("visible again", {
-            id: player.id
-        });
+                id: player.id
+            });
         }
         invis = _invis;
 

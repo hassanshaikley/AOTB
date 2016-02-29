@@ -1,5 +1,4 @@
-var Config = require("../config.js")
-var util = require("util");
+var Config = require("../config.js");
 var num_connections = 0;
 exports.BaseTeamComponent = function(that, team) {
     that.getTeam = function() {
@@ -7,9 +6,8 @@ exports.BaseTeamComponent = function(that, team) {
     };
     var respawnX;
     that.setTeam = function(newTeam) {
-        var util = require("util");
         if (newTeam == null) {
-            var newTeam = num_connections % 2;
+            newTeam = num_connections % 2;
         }
         var randomOffset = Math.floor(Math.random() * (200)) - 100;
         if (newTeam == 1) {
@@ -19,7 +17,6 @@ exports.BaseTeamComponent = function(that, team) {
         }
         //that.x = respawnX;
         that.setX(respawnX);
-        util.log("setting team to " + newTeam);
         team = newTeam;
     };
     that.getRespawnX = function() {

@@ -60,7 +60,7 @@ describe("Test Game", function() {
     });
     it("should be able to handle adding  multiple players", function() {
         var fly = new Fly(0);
-        var fly2 = new Fly(1)
+        var fly2 = new Fly(1);
         var fly3 = new Fly(0);
         game.addPlayer(fly);
         assert.equal(game.getNumPlayers(), 1);
@@ -84,9 +84,8 @@ describe("Test Game", function() {
     it("add a non existent spell shouldnt work", function() {
         assert.equal(game.addSpell(), 0);
     });
-    it("add a non existen meeelee attack shouldnt work", function() {
-        assert.equal(game.addMeeleeAttack(), 0);
-    });
+
+
     it("add a spell should work", function() {
         var x = new Meteor();
         assert.equal(game.addSpell(x), 1);

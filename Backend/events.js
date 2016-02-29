@@ -23,6 +23,8 @@ var Fly = require("./Units/fly").Fly,
 
 var DataBlob = require('./App/models/data-blob');
 
+//var colors = require("colors");
+
 var CONFIG = require("./config");
 
 var util = require("util");
@@ -42,7 +44,7 @@ var Events = function() {
                 text: data.text,
                 id: this.id
             });
-            util.log(playerById(this.id).getName() + ": \t" + data.text);
+            // util.log(colors.teal(playerById(this.id).getName() + ": \t" + data.text));
             this.emit('message', {
                 text: data.text,
                 id: this.id
