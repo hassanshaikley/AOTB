@@ -136,6 +136,5 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
             });
         }
         invis = _invis;
-
     };
 };

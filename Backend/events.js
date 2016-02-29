@@ -16,7 +16,6 @@ var Fly = require("./Units/fly").Fly,
     TortStun = require("./Spells/tortstun.js").TortStun,
     RHRange = require("./Spells/rhrange.js").RHRange,
     DescendAttack = require("./Spells/descend-attack.js").DescendAttack,
-    CollidingObject = require("./gameObjects/CollidingObject.js").CollidingObject,
     Meteor = require("./Spells/meteor.js").Meteor,
     IDComponent = require("./Components/id-component").IDComponent,
     Attack = require('./Units/Attacks/attack.js').Attack;
@@ -67,7 +66,7 @@ var Events = function() {
     /* Function for switching team event
      * Reason it uses this. is to be testable
      */
-   this.onSwitchTeam = function(){
+    this.onSwitchTeam = function(){
         player = playerById(this.id);
         if (player){
             player.switchTeam();
@@ -242,11 +241,11 @@ var Events = function() {
         var atk = new Attack({damage: attacker.getDamage(), team: attacker.getTeam(), effect: attacker.attackEffect, direction: data.direction});
         attacks[attack_id] = atk;
 
-                if (attacker.getInvis()){
-                    attacker.setInvis(false, this);
-                    attacker.setSpeed(attacker.getDefaultSpeed());
+        if (attacker.getInvis()){
+            attacker.setInvis(false, this);
+            attacker.setSpeed(attacker.getDefaultSpeed());
 
-                };
+        };
 
         setTimeout(function() { //remove this
             if (attacks[attack_id]) {
@@ -300,22 +299,23 @@ var Events = function() {
     function onNewPlayer(data) {
         // Create a new player
         util.log("A " + (data.characterType || "unknown") + " has joined the game.");
+        var newPlayer;
         if (data.characterType === CONFIG.Fly) {
-            var newPlayer = new Fly();
+            newPlayer = new Fly();
         } else if (data.characterType === CONFIG.Redhatter) {
-            var newPlayer = new Redhatter();
+            newPlayer = new Redhatter();
         } else if (data.characterType === CONFIG.Grimes) {
-            var newPlayer = new Grimes();
+            newPlayer = new Grimes();
         } else if (data.characterType === CONFIG.Dino) {
-            var newPlayer = new Dino();
+            newPlayer = new Dino();
         } else if (data.characterType === CONFIG.Bowman) {
-            var newPlayer = new Bowman();
+            newPlayer = new Bowman();
         } else if (data.characterType === CONFIG.Shanker) {
             util.log("MAKING ASHANKARR");
-            var newPlayer = new Shanker();
+            newPlayer = new Shanker();
         } else if (data.characterType === "Crevice") {
             util.log("made ac revice broo");
-            var newPlayer = new Crevice();
+            newPlayer = new Crevice();
         } else {
             util.log("GOT SOME PROBLEMS ");
         }
@@ -386,59 +386,59 @@ var Events = function() {
             break;
         case "Redhatter":
             v = new RHRange(data.x, data.y, data.direction, player.getTeam());
-                if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
-                    util.log("DONE");
-                    return;
-                }
+            if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+            }
             game1.addSpell(v);
-                //               Spells.spellsarray.push(v);
-                this.emit('spell two', {
-                    x: data.x,
-                    y: data.y,
-                    spell: "rhrange",
-                    direction: data.direction,
-                    attack_id: v.getID(),
-                    caster: "you"
-                });
-                this.broadcast.emit('spell two', {
-                    x: data.x,
-                    y: data.y,
-                    attack_id: v.getID(),
-                    spell: "rhrange",
-                    direction: data.direction
-                });
-                util.log("SWAGGER");
-                break;
-            case "Fly":
-                //Carry other unit lmfao
-                util.log("Fly carry tigger" + (player.spellTwoCastTime + FlyGrab.getCooldown()) + " NOW : " + Date.now());
-                if (!(player.spellTwoCastTime + FlyGrab.getCooldown() <= Date.now())) {
-                    util.log("DONE CUS COOLDOWN");
-                    return;
-                }
+            //               Spells.spellsarray.push(v);
+            this.emit('spell two', {
+                x: data.x,
+                y: data.y,
+                spell: "rhrange",
+                direction: data.direction,
+                attack_id: v.getID(),
+                caster: "you"
+            });
+            this.broadcast.emit('spell two', {
+                x: data.x,
+                y: data.y,
+                attack_id: v.getID(),
+                spell: "rhrange",
+                direction: data.direction
+            });
+            util.log("SWAGGER");
+            break;
+        case "Fly":
+            //Carry other unit lmfao
+            util.log("Fly carry tigger" + (player.spellTwoCastTime + FlyGrab.getCooldown()) + " NOW : " + Date.now());
+            if (!(player.spellTwoCastTime + FlyGrab.getCooldown() <= Date.now())) {
+                util.log("DONE CUS COOLDOWN");
+                return;
+            }
 
-                if (player.getGrabbed()) {
-                    util.log("Fly is grabbed tho");
-                    return;
-                }
+            if (player.getGrabbed()) {
+                util.log("Fly is grabbed tho");
+                return;
+            }
             this.emit("spell two", { spell : "fly grab"});
-                //k do fly carry method
-                for (var _i = 0; _i < players.length; _i++) {
-                    if (players[_i].id != player.id) {
-                        util.log("AN EMENY");
-                        if (distance(players[_i].getX(), player.getX()) < 60) {
-                            util.log("Made x");
-                            if (distance(players[_i].getY(), player.getY()) < 100) {
-                                util.log("Made y");
-                                //so stun the player and lock his location to the flys : D
-                                if (players[_i].getAlive()) {
-                                    players[_i].birdStun(player);
-                                }
+            //k do fly carry method
+            for (var _i = 0; _i < players.length; _i++) {
+                if (players[_i].id != player.id) {
+                    util.log("AN EMENY");
+                    if (distance(players[_i].getX(), player.getX()) < 60) {
+                        util.log("Made x");
+                        if (distance(players[_i].getY(), player.getY()) < 100) {
+                            util.log("Made y");
+                            //so stun the player and lock his location to the flys : D
+                            if (players[_i].getAlive()) {
+                                players[_i].birdStun(player);
                             }
                         }
                     }
                 }
-                break;
+            }
+            break;
         }
         player.spellTwoCastTime = Date.now();
 
@@ -448,9 +448,9 @@ var Events = function() {
             setTimeout(function() { //remove this
                 if (attacks[v.getID()]) {
                     delete attacks[v.getID()];
-                console.log("Deleting");
-            }
-        }, 9000);
+                    console.log("Deleting");
+                }
+            }, 9000);
         }
     }
 
@@ -587,17 +587,17 @@ var Events = function() {
         var hour    = date.getHours();
         var minute  = date.getMinutes();
 
-       /*    function helpNarine(){
+        /*    function helpNarine(){
 
-        User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
-                doc.local.nickname = "sejoody";
-                doc.save(function(err){
+         User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
+         doc.local.nickname = "sejoody";
+         doc.save(function(err){
 
-                });
+         });
 
-        });
+         });
 
-        };*/
+         };*/
 
         var data_blob = new DataBlob({
             name: initPlayer.getName(),
