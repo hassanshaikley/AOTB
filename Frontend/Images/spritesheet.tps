@@ -337,6 +337,12 @@
             <filename>invisibility_icon_v4.fw.png</filename>
             <filename>bomb.png</filename>
             <filename>fly_carry_thumbnail.png</filename>
+            <filename>huntress_walk_frame1.fw.png</filename>
+            <filename>huntress_walk_frame2.fw.png</filename>
+            <filename>huntress_walk_frame3.fw.png</filename>
+            <filename>huntress_walk_frame4.fw.png</filename>
+            <filename>huntress_walk_frame5.fw.png</filename>
+            <filename>huntress_walk_frame6.fw.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

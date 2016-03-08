@@ -1,8 +1,8 @@
 var Grimes = function(name, x, y, hp) {
     var skeleton = new Player(x, y, 100, name),
         facing_left;
-    var grimes_l = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_l.png")]);
-    var grimes_r = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("grimes_r.png")]);
+    var grimes_l = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("Walk_F1_l.png"),PIXI.Texture.fromFrame("Walk_F2_l.png"),PIXI.Texture.fromFrame("Walk_F3_l.png"),PIXI.Texture.fromFrame("Walk_F4_l.png")]);
+    var grimes_r = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("Walk_F1_r.png"),PIXI.Texture.fromFrame("Walk_F2_r.png"),PIXI.Texture.fromFrame("Walk_F3_r.png"),PIXI.Texture.fromFrame("Walk_F4_r.png")]);
     skeleton.imageContainer.addChild(grimes_l);
     skeleton.getCharacterType = function() {
         return "Grimes";
