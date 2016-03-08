@@ -12,14 +12,14 @@ var Game = function() {
     var team_zero_kills = 0;
     var team_one_kills = 0;
     var KILL_CAP = 20;
-    var GEN_ID = 0; //for players
+    var GEN_ID = 0; // genertates id for players that don't have one--used for testing
     this.resetGame = function() {
         team_zero_kills = 0;
         team_one_kills = 0;
         winner = -1;
     };
 
-    function incrementTeamZeroKills() {
+    this.incrementTeamZeroKills = function() {
         team_zero_kills++;
         if (team_zero_kills == KILL_CAP) {
             winner = 0;
@@ -27,7 +27,7 @@ var Game = function() {
         }
     };
 
-    function incrementTeamOneKills() {
+    this.incrementTeamOneKills = function() {
         team_one_kills++;
         if (team_one_kills == KILL_CAP) {
             that.setWinner(1);
@@ -131,13 +131,13 @@ var Game = function() {
                 "hit": hit,
                 "according_to": [according_to],
                 "confirmed": false
-            }]
+            }];
             setInterval(function(){
                 if (attacks[attack_id]){
                     delete attacks[attack_id];
                 }
-            }, 6000);
-            return;
+            }, 20000);
+            return ret;
         };
         var hits_array = attacks[attack_id];
         for (hits in hits_array) { //if the hit exists, if not then add it -- iterate through array
@@ -157,7 +157,7 @@ var Game = function() {
                         "hit": hit,
                         "according_to": [according_to],
                         "confirmed": false
-                    }
+                    };
                 } else { //already
                     console.log("\t\t\t\tALREADY IN LE SERVER BRO");
                 }
@@ -167,7 +167,7 @@ var Game = function() {
             if (hits_array[hits]["according_to"].length >= (that.getNumPlayers()*.49) && !(hits_array[hits]["confirmed"])) {
                 //how much damage
                 console.log("\nok hes hurt\n\n");
-                var hit_player = that.getPlayer(hits_array[hits].hit)
+                var hit_player = that.getPlayer(hits_array[hits].hit);
                 var dies = hit_player.doDamage(attack.getDamage());
                 ret.push(hit_player);
                 hits_array[hits]["confirmed"] = true;
@@ -182,28 +182,27 @@ var Game = function() {
                 if (dies.dies) {
                     //player is dead increment death counter
                     if (hit_player.getTeam() == 0) {
-                        console.log("Team 1 got a kill");
-                        incrementTeamOneKills();
+                        that.incrementTeamOneKills();
                     } else {
-                        console.log("Team zero got a kill");
-                        incrementTeamZeroKills();
+                        that.incrementTeamZeroKills();
                     }
                 }
             }
-            return ret;
+//            return ret;
         }
+        return ret;
     };
     /* Requires that every spell has an ID*/
     this.addSpell = function(spell) {
         if (!spell) {
             return 0;
         } else {
-            util.log("ADDING SPELL " + spell + " ID " + spell.getID());
+//            util.log("ADDING SPELL " + spell + " ID " + spell.getID());
             active_spells[spell.getID()] = spell;
 
             setInterval(function(){
                 delete active_spells[spell.getID()];
-            }, 5000);
+            }, 20000);
 
             return 1;
         };
@@ -212,12 +211,9 @@ var Game = function() {
         if (active_spells[id]) {
             return active_spells[id];
         }
+        return -1;
     };
-    this.addMeeleeAttack = function(attack) {
-        if (!attack) {
-            return 0;
-        }
-    };
+
     this.getID = function() {
         return gameID;
     };
@@ -226,7 +222,7 @@ var Game = function() {
         for (spell in active_spells) {
             //   util.log("UPDATING SPELL " + spell);
             if (active_spells[spell].getActive()) {
-                active_spells[spell].update()
+                active_spells[spell].update();
             } else {
                 delete active_spells[spell];
             }

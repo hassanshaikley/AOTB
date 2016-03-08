@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.0</string>
+        <string>4.0.1</string>
         <key>fileName</key>
         <string>/Users/hydraboy/aotb/Frontend/Images/spritesheet.tps</string>
         <key>autoSDSettings</key>
@@ -282,7 +282,6 @@
             <filename>r_flysheet_walk_v2_state10.png</filename>
             <filename>r_flysheet_walk_v2_state11.png</filename>
             <filename>r_flysheet_walk_v2_state12.png</filename>
-            <filename>castleofone2.png</filename>
             <filename>blood0.png</filename>
             <filename>blood1.png</filename>
             <filename>blood2.png</filename>
@@ -305,10 +304,8 @@
             <filename>r_flysheet_attack_v1_state8.png</filename>
             <filename>r_flysheet_walk_v2_state1.png</filename>
             <filename>healz.png</filename>
-            <filename>_CastleOfOne_v2.fw.png</filename>
             <filename>cobblestone_ground_v2.fw.png</filename>
             <filename>hitmarker.fw.png</filename>
-            <filename>r_CastleOfOne_v2.fw.png</filename>
             <filename>redHatter_v2.png</filename>
             <filename>spire_FW.png</filename>
             <filename>hydra.png</filename>
@@ -324,6 +321,22 @@
             <filename>tortpull.png</filename>
             <filename>options.png</filename>
             <filename>../../../Downloads/desert_v1.fw.png</filename>
+            <filename>cloud.png</filename>
+            <filename>favicon.ico</filename>
+            <filename>Walk_F1_l.png</filename>
+            <filename>Walk_F1_r.png</filename>
+            <filename>Walk_F2_l.png</filename>
+            <filename>Walk_F2_r.png</filename>
+            <filename>Walk_F3_l.png</filename>
+            <filename>Walk_F3_r.png</filename>
+            <filename>Walk_F4_l.png</filename>
+            <filename>Walk_F4_r.png</filename>
+            <filename>tooltip_background.v1.png</filename>
+            <filename>Rock3.png</filename>
+            <filename>rock_thumb.png</filename>
+            <filename>invisibility_icon_v4.fw.png</filename>
+            <filename>bomb.png</filename>
+            <filename>fly_carry_thumbnail.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

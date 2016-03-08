@@ -13,13 +13,13 @@ describe("Descend Attack", function() {
     it ("should  be able to construct a DescendAttack", function(){
         var s = new DescendAttack(); //x, y, team are params
         assert.ok(s.getID());
-    });  
+    });
 
     it ("should have a cooldown of 6000", function(){
         var s = new DescendAttack(); //x, y, team are params
-        assert.equal(DescendAttack.getCooldown(), 6000);
+        assert.equal(DescendAttack.getCooldown(), 10000);
 
 
-    });  
+    });
 
 });

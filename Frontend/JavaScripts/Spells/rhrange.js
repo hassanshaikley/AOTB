@@ -30,6 +30,7 @@ var RHRange = function(_x, _y, direction) {
     };
     var rhrClip = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("rh_range.png")]);
     MAIN.stage.addChild(rhrClip);
+    rhrClip.y = -100;
     this.draw = function() {
         var newX = Math.floor(x) - localPlayer.getDrawAtX() + CONFIG.SCREEN_WIDTH / 2;
         rhrClip.position.x = newX;

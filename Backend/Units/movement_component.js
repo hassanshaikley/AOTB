@@ -24,17 +24,25 @@ exports.MovementComponent = function(speed, that, ySpeed) {
             that.setY(that.getY() + fallSpeed); // falling
             if (that.getCharacterType() != "Fly"){
                 if (!that.getGrabbed()){
-                    fallSpeed+=3;
+                    if (fallSpeed >= ySpeed + 50){
+                        fallSpeed = ySpeed + 10;
+                        console.log("SWAG");
+                    } else {
+                        fallSpeed+=2.7;
+                    }
+
                 }
             }
         }
     };
+
     that.setLandY = function(_landY){
         landY = _landY;
     };
     that.getLandY = function(){
         return landY;
     };
+
     that.getBaseSpeed = function() {
         return baseSpeed;
     };

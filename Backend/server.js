@@ -89,10 +89,6 @@ Server.prototype.updateGames = function() {
             }
         }
     }
-    /* Iterate through every spell, if it hits someone then let them take the hit son : D */
-    //  for (i = 0; i < server.Spells.spellsarray.length; i++){
-    //server.Spells.spellsarray[i].update();
-    //  };
     //appears to iterate through every player and send their info to everyone
     for (var j = 0; j < players.length; j++) {
         server.libs.io.sockets.emit('update player', {

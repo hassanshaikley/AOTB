@@ -16,8 +16,9 @@ describe("User model", function() {
         });
     });
 });
+
 describe("Users have characters model", function() {
-    //add some test data    
+    //add some test data
     var newUser;
     beforeEach(function(done) {
         newUser = testhelper.createTestUser('j@j.com', 'abcd1234');

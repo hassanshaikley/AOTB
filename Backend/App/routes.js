@@ -84,7 +84,7 @@ module.exports = function(app, passport) {
     });
     app.get('/logout', function(req, res) {
         req.logout();
-        res.redirect('/login');
+        res.redirect('/');
     });
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect: '/profile', // redirect to the secure profile section

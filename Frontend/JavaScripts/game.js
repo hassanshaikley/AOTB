@@ -45,29 +45,29 @@ Game.prototype.init = function() {
 
     scene = new PIXI.Sprite(PIXI.Texture.fromImage("desert_v1.fw.png"));
 
-    var filter = new PIXI.filters.BloomFilter()
+    var filter = new PIXI.filters.BloomFilter();
 
     MAIN.stage.addChildAt(scene, 1);
-    scene.filters = [filter];
+    //    scene.filters = [filter];
+    scene.y = -1000;
 
 
     background = new Background();
     MAIN.stage.addChild(background);
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
-
+    /*
   for (var i = 0; i < 5; i++) {
-        localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 10 + i * (CONFIG.ARENA_WIDTH) / 5, 335));
+      localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 10 + i * (CONFIG.ARENA_WIDTH) / 5, 335));
     }
-    /*    for (var j = 0; j < 3; j++){
-            localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/6 + j * (CONFIG.ARENA_WIDTH)/3, 235));
-        }*/
+
     for (i = 0; i < 4; i++) {
         localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 8 + i * (CONFIG.ARENA_WIDTH) / 4, 235));
     }
     for (i = 0; i < 3; i++) {
         localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 6 + i * (CONFIG.ARENA_WIDTH) / 3, 135));
     }
+*/
 
     /*
     var line = new PIXI.Graphics();
@@ -120,6 +120,8 @@ Game.prototype.init = function() {
         localPlayer = new Crevice(localPlayerName);
     } else if (characterType === "Grimes") {
         localPlayer = new Grimes(localPlayerName);
+    } else if (characterType === "Dino") {
+        localPlayer = new Dino(localPlayerName);
     } else {
         //something has went wrong
         window.location.assign('/profile');
@@ -139,7 +141,8 @@ Game.prototype.init = function() {
     if (CONFIG.SHOW_HITBOXES) {
         setInterval(helpers.highlightPlayerHitboxes, 200);
     }
-        option_menu = new OptionMenu();
+
+    var actionbar_component = new ActionbarComponent(localPlayer);
 
 };
 /**************************************************
@@ -179,33 +182,41 @@ var setEventHandlers = function() {
 
 function onUpdateTeamKillcount(data) {
     localGame.setTeamZeroKills(data.team_zero_kills);
-    localGame.setTeamOneKills(data.team_one_kills)
+    localGame.setTeamOneKills(data.team_one_kills);
 };
 
 function onSpellTwo(data) {
     switch (data.spell) {
-        case "rhrange":
-            var v = new RHRange(data.x, data.y, data.direction);
-            v.attack_id = data.attack_id;
-            Spells.spellsarray.push(v);
-            if (data.caster === "you") {
-                //  localPlayer.displayCooldown(3, 700);
-            }
+    case "rhrange":
+        var v = new RHRange(data.x, data.y, data.direction);
+        v.attack_id = data.attack_id;
+        Spells.spellsarray.push(v);
+        break;
+    case "fly grab":
+        //what... lol, why local player? so confusing hassan so shit code
+        localPlayer.spellCD(2);
+        break;
+    case "shanker bomb":
+        console.log("SHANKER BOMB " + JSON.stringify(data));
+        var v = new ShankerBomb(data.x, data.y, data.direction);
+        v.attack_id = data.attack_id;
+        Spells.spellsarray.push(v);
+        break;
+
+    }
+    if (data.caster === "you") {
+        localPlayer.spellCD(2);
     }
 };
 
 function onVisibleAgain(data) {
     var player;
     player = helpers.playerById(data.id);
-    console.log("PLAYER IS VISIBLE AGAIN");
+    console.log("PLAYER IS VISIBLE AGAIN\n" + localPlayer.getTeam() + " =? " + player.getTeam());
 
-//    if (data.id == "you") {
- //       player = localPlayer;
-
-    //    }
-    console.log(player +"< < <" + data.id);
     if (player.getTeam() === localPlayer.getTeam()) {
         player.imageContainer.alpha = 1;
+        player.setInvis(false);
     } else {
         player.setInvis(false);
     }
@@ -230,6 +241,10 @@ function onMeeleeAttack(data) {
         player = localPlayer;
     }
     player.setMeeleeAttack(true, data.attack_id, data.direction);
+    if (player == localPlayer){
+        localPlayer.spellCD(0);
+    }
+
 }
 /* Yay a function : D
  * When a user says a spell hit, it should incrememnt the number of users that
@@ -242,16 +257,13 @@ function onSpellOne(data) {
         var m = new TortStun(data.x, data.y, data.caster);
         m.attack_id = data.attack_id;
         Spells.spellsarray.push(m);
-        cd = 3000;
     } else if (data.spell === "meteor") {
         var m = new Meteor(data.x, data.caster);
         m.attack_id = data.attack_id;
         m.setTeam(data.team);
         Spells.spellsarray.push(m);
-        cd = 6000;
     }
     if (data.spell === "windwalk") {
-        cd = 6000;
         var player;
         if (data.id === "you") {
             player = localPlayer;
@@ -266,7 +278,7 @@ function onSpellOne(data) {
     }
     //if cast by this player then show the cooldown
     if (data.casted_by_me || data.id == "you") {
-        localPlayer.displayCooldown(2, cd);
+        localPlayer.spellCD(1);
     }
 }
 /* Updates location of all connected players*/
@@ -301,16 +313,17 @@ function onArrowFired(data) {
 function onWin(data) {
     var filter = new PIXI.filters.DotScreenFilter();
     MAIN.stage.filters = [filter];
+    var message;
     if (data.winner === localPlayer.getTeam()) {
-        var message = new PIXI.Text("YOU WIN!", {
-            font: "32px sans-serif",
-            fill: "white",
+        message = new PIXI.Text("YOU WIN!", {
+            font: "bold 40px sans-serif",
+            fill: "yellow",
             align: "center"
         });
     } else {
-        var message = new PIXI.Text("YOU LOSE!", {
-            font: "32px sans-serif",
-            fill: "white",
+        message = new PIXI.Text("YOU LOSE!", {
+            font: "bold 40px sans-serif",
+            fill: "yellow",
             align: "center"
         });
     }
@@ -359,9 +372,14 @@ function onDescendAttackChanges(data) {
     var _player = helpers.playerById(data.id);
     if (_player === false) {
         localPlayer.setDescendAttack(data.descendAttack);
-        localPlayer.displayCooldown(2, 6000);
+
     } else {
         _player.setDescendAttack(data.descendAttack);
+    }
+    if (_player == localPlayer){
+        if (data.descendAttack){
+            localPlayer.spellCD(1);
+        }
     }
 };
 
@@ -414,7 +432,10 @@ function onNewPlayer(data) {
         newPlayer = new Crevice(data.name, data.x, data.y, data.hp);
     } else if (data.characterType === "Grimes") {
         newPlayer = new Grimes(data.name, data.x, data.y, data.hp);
+    } else if (data.characterType === "Dino") {
+        newPlayer = new Dino(data.name, data.x, data.y, data.hp);
     }
+
     newPlayer.setX(0); // ehh this is 2 fix a bug..sry
     newPlayer.id = data.id;
     newPlayer.imageContainer.zIndex = 5;
@@ -473,7 +494,7 @@ function update() {
 
     scene.x  =20 -localPlayer.getX() / 60;
 
-    updatePlatforms();
+//    updatePlatforms();
     handleCooldownVisuals();
     background.updateX(localPlayer.getDrawAtX());
     /* Updates the spells locations :D */
@@ -484,6 +505,11 @@ function update() {
         allPlayers.push(localPlayer);
         for (var j = 0; j < allPlayers.length; j++) {
             if (helpers.collision(allPlayers[j], Spells.spellsarray[i])) {
+                if (Spells.spellsarray[i].inactive){
+                    console.log("SPELL IS NOT ACITVE :(");
+                    continue;
+                }
+                console.log("WE HAVE A COLLISION");
                 //let the server know the attack landed
                 //going to only want to do this once!
                 //this is buggy when undefined
@@ -526,7 +552,7 @@ function update() {
 var reset_this = true;
 var wasOnAPlatform = false;
 
-function updatePlatforms() {
+/*function updatePlatforms() {
     var onAPlatform;
     for (var i = 0; i < localGame.platforms.length; i++) {
         if (localGame.platforms[i].update() === "grounded") {
@@ -545,7 +571,7 @@ function updatePlatforms() {
         reset_this = false;
     }
     wasOnAPlatform = onAPlatform;
-};
+};*/
 /**************************************************
  ** GAME DRAW
  **************************************************/
@@ -557,11 +583,12 @@ function draw() {
         Spells.spellsarray[i].draw();
     };
     for (i = 0; i < remotePlayers.length; i++) {
-        remotePlayers[i].draw();
+        remotePlayers[i].draw_();
+
 
     };
     localPlayer.updateVariables();
-    localPlayer.draw();
+    localPlayer.draw_();
     drawForeground();
 };
 

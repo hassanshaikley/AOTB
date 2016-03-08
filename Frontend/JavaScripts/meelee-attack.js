@@ -48,7 +48,7 @@ function MeeleeAttack(x, y, width, height, attack_id, belongs_to, duration){
         allPlayers.push(localPlayer);
 
         var xDiff = attacker.getX() - loc.x;
-        var yDiff = attacker.getY() - loc.y;
+        var yDiff = attacker.getDrawAtY() - loc.y;
 
         x = startX +xDiff;
         y = startY +yDiff;

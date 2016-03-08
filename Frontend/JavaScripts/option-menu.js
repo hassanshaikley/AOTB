@@ -3,7 +3,6 @@ function OptionMenu(){
 
     options_img = new PIXI.Sprite(PIXI.Texture.fromFrame("options.png"));
     MAIN.stage.addChild(options_img);
-  //  options_img.x =
     options_img.y = CONFIG.SCREEN_HEIGHT-55;
     options_img.x = CONFIG.SCREEN_WIDTH-55;
     options_img.interactive = true;
@@ -24,7 +23,7 @@ function OptionMenu(){
     options_background.x = CONFIG.SCREEN_WIDTH - options_background.width -5;
     options_background.y = CONFIG.SCREEN_HEIGHT - options_background.height - 57;
     options_background.alpha = .3;
-        function toggle (){
+    function toggle (){
         if (state == 0){
             state = 1;
             OpenMenu();

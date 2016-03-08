@@ -15,7 +15,6 @@ describe("Test Game", function() {
     it("should have made an empty game", function() {
         assert.equal(game.getNumPlayers(), 0);
     });
-
     it("should be able to get number of players", function() {
         var fly = new Fly(0);
         assert.equal(game.getNumPlayers(), 0);
@@ -61,7 +60,7 @@ describe("Test Game", function() {
     });
     it("should be able to handle adding  multiple players", function() {
         var fly = new Fly(0);
-        var fly2 = new Fly(1)
+        var fly2 = new Fly(1);
         var fly3 = new Fly(0);
         game.addPlayer(fly);
         assert.equal(game.getNumPlayers(), 1);
@@ -73,7 +72,7 @@ describe("Test Game", function() {
     });
     it("should be able to handle adding and removing multiple times", function() {
         var fly = new Fly(0);
-        var fly2 = new Fly(1)
+        var fly2 = new Fly(1);
         game.addPlayer(fly);
         assert.equal(game.getNumPlayers(), 1);
         game.addPlayer(fly2);
@@ -85,9 +84,8 @@ describe("Test Game", function() {
     it("add a non existent spell shouldnt work", function() {
         assert.equal(game.addSpell(), 0);
     });
-    it("add a non existen meeelee attack shouldnt work", function() {
-        assert.equal(game.addMeeleeAttack(), 0);
-    });
+
+
     it("add a spell should work", function() {
         var x = new Meteor();
         assert.equal(game.addSpell(x), 1);
@@ -102,4 +100,27 @@ describe("Test Game", function() {
         assert.equal(game2.getWinner(), 0);
 
     });
+    it ("test increment and reset kills", function() {
+        var game2 = new Game();
+        assert.equal(game2.getTeamZeroKills(), 0);
+        game2.incrementTeamZeroKills();
+        assert.equal(game2.getTeamZeroKills(), 1);
+        game2.resetGame();
+        assert.equal(game2.getTeamZeroKills(), 0);
+    });
+    it ("test increment and reset kills", function() {
+        var game2 = new Game();
+        assert.equal(game2.getTeamOneKills(), 0);
+        game2.incrementTeamOneKills();
+        assert.equal(game2.getTeamOneKills(), 1);
+        game2.resetGame();
+        assert.equal(game2.getTeamOneKills(), 0);
+    });
+    it ("should be able to remove non-existant players", function() {
+        var fly = new Fly(0);
+        assert.equal(game.getNumPlayers(), 0);
+        game.removePlayer(fly);
+        assert.equal(game.getNumPlayers(), 0);
+    });
+
 });

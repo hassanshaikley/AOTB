@@ -5,31 +5,36 @@
 var Fly = require("./Units/fly").Fly,
     Redhatter = require("./Units/redhatter").Redhatter,
     Grimes = require("./Units/grimes").Grimes,
+    Dino = require("./Units/dino").Dino,
     //   Bowman = require("./Units/bowman").Bowman,
     //  Skelly = require("./Units/skelly").Skelly,
     Shanker = require("./Units/shanker").Shanker,
     //  Crevice = require("./Units/crevice").Crevice,
+    FlyGrab = require("./Spells/fly-grab").FlyGrab,
+    ShankerBomb = require("./Spells/shanker-bomb").ShankerBomb,
     Stealth = require("./Spells/stealth.js").Stealth,
     TortStun = require("./Spells/tortstun.js").TortStun,
     RHRange = require("./Spells/rhrange.js").RHRange,
     DescendAttack = require("./Spells/descend-attack.js").DescendAttack,
-    CollidingObject = require("./gameObjects/CollidingObject.js").CollidingObject,
     Meteor = require("./Spells/meteor.js").Meteor,
     IDComponent = require("./Components/id-component").IDComponent,
     Attack = require('./Units/Attacks/attack.js').Attack;
-var exec = require('child_process').exec;
+
 var DataBlob = require('./App/models/data-blob');
 
-var CONFIG = require("./config");
-var util = require("util");
-var attacks_teams = {};
-var attacks_damages = {};
+//var colors = require("colors");
 
+var CONFIG = require("./config");
+
+var util = require("util");
 /* Used to store attack objects
  */
 var attacks = {};
 
 var Events = function() {
+
+    var that = this;
+
     function onSocketConnection(client) {
         // Listen for client disconnected
         client.on("disconnect", onClientDisconnect);
@@ -38,7 +43,7 @@ var Events = function() {
                 text: data.text,
                 id: this.id
             });
-            util.log(playerById(this.id).getName() + ": \t" + data.text);
+            // util.log(colors.teal(playerById(this.id).getName() + ": \t" + data.text));
             this.emit('message', {
                 text: data.text,
                 id: this.id
@@ -54,20 +59,25 @@ var Events = function() {
         client.on("key press", onKeyPress);
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
-        client.on("landed", onLanded);
-        client.on("switch team", onSwitchTeam);
+//        client.on("landed", that.onLanded);
+        client.on("switch team", that.onSwitchTeam);
     };
 
-    function onSwitchTeam(){
+    /* Function for switching team event
+     * Reason it uses this. is to be testable
+     */
+    this.onSwitchTeam = function(){
         player = playerById(this.id);
-        player.switchTeam();
-
+        if (player){
+            player.switchTeam();
+        }
     };
-    function onLanded(data){
+    /*
+    this.onLanded = function(data){
         console.log("\nsettling land y " +data.y);
         player = playerById(this.id);
         player.setLandY(data.y);
-    };
+    };*/
     spell_hits = [];
     /*
      * Player is hit
@@ -135,7 +145,6 @@ var Events = function() {
      * If 80% of clients say it happened within .1 seconds of it happening
      * Then we will say that it has really happened.
      */
-    meelee_hits = [];
 
     function onMeeleeHits(data) {
         var hit;
@@ -189,7 +198,7 @@ var Events = function() {
             });
         };
     };
-    var setEventHandlers = function(io) {
+    this.setEventHandlers = function(io) {
         // Socket.IO
         io.set("transports", ["websocket"]);
         io.set("polling duration", 10);
@@ -204,7 +213,7 @@ var Events = function() {
                 player.jumping = true;
                 setTimeout(function() {
                     player.jumping = false;
-                }, 400);
+                }, 1000);
             }
         }
         if (data.key === "left") {
@@ -230,17 +239,14 @@ var Events = function() {
             return;
         }
 
-     //   attacks_teams[attack_id] = attacker.getTeam();
-     //   attacks_damages[attack_id] = attacker.getDamage();
-
         var atk = new Attack({damage: attacker.getDamage(), team: attacker.getTeam(), effect: attacker.attackEffect, direction: data.direction});
         attacks[attack_id] = atk;
 
-                if (attacker.getInvis()){
-                    attacker.setInvis(false, this);
-                    attacker.setSpeed(attacker.getDefaultSpeed());
+        if (attacker.getInvis()){
+            attacker.setInvis(false, this);
+            attacker.setSpeed(attacker.getDefaultSpeed());
 
-                };
+        };
 
         setTimeout(function() { //remove this
             if (attacks[attack_id]) {
@@ -249,10 +255,6 @@ var Events = function() {
             }
         }, 4000);
 
-        if (attacker.invis) {
-            becomeVisible(attacker, this);
-            //            attacker.meeleeBonus();
-        };
         //  util.log("meelee attack " + data.direction);
         //Now get all the characters to animate the meelee attack = )
         this.emit('meelee attack', {
@@ -265,26 +267,6 @@ var Events = function() {
             attack_id: attack_id,
             direction: data.direction
         });
-    }
-
-    function didAttackHitPlayer(attackX, attackY, team, damage, that, socketthing) {
-        var playersHit = [];
-        for (i = 0; i < players.length; i++) {
-            //     util.log("LELELE");
-            if (players[i].getTeam() === team) {
-                continue;
-            };
-            util.log((players[i].getX() - attackX) + " " + (players[i].getWidth() / 2 + 20));
-            if (Math.abs(players[i].getX() - attackX) <= players[i].getWidth() / 2 + 20) { // +20 just to make it a little easier lmao
-                util.log("CHECK !");
-                if (Math.abs(players[i].getY() - attackY) <= players[i].getHeight() / 2) {
-                    util.log("CHEEEK");
-                    setHp(players[i], damage);
-                    playersHit.push(players[i]);
-                }
-            }
-        }
-        return playersHit;
     }
 
     function onRespawn() {
@@ -318,24 +300,27 @@ var Events = function() {
     function onNewPlayer(data) {
         // Create a new player
         util.log("A " + (data.characterType || "unknown") + " has joined the game.");
+        var newPlayer;
         if (data.characterType === CONFIG.Fly) {
-            var newPlayer = new Fly();
+            newPlayer = new Fly();
         } else if (data.characterType === CONFIG.Redhatter) {
-            var newPlayer = new Redhatter();
+            newPlayer = new Redhatter();
         } else if (data.characterType === CONFIG.Grimes) {
-            var newPlayer = new Grimes();
+            newPlayer = new Grimes();
+        } else if (data.characterType === CONFIG.Dino) {
+            newPlayer = new Dino();
         } else if (data.characterType === CONFIG.Bowman) {
-            var newPlayer = new Bowman();
+            newPlayer = new Bowman();
         } else if (data.characterType === CONFIG.Shanker) {
             util.log("MAKING ASHANKARR");
-            var newPlayer = new Shanker();
+            newPlayer = new Shanker();
         } else if (data.characterType === "Crevice") {
             util.log("made ac revice broo");
-            var newPlayer = new Crevice();
+            newPlayer = new Crevice();
         } else {
             util.log("GOT SOME PROBLEMS ");
         }
-        newPlayer.setName(data.name)
+        newPlayer.setName(data.name);
         newPlayer.id = this.id;
         newPlayer.setX(newPlayer.getRespawnX());
         game1.addPlayer(newPlayer);
@@ -367,79 +352,106 @@ var Events = function() {
 
     function onSpellTwo(data) {
         //util.log("Spell two");
+        //should handle cooldowns up here
+
         var player = playerById(this.id);
         if (!(player.getAlive())) {
             return;
         };
         var v;
         switch (player.getCharacterType()) {
-            case "Redhatter":
-                v = new RHRange(data.x, data.y, data.direction, player.getTeam());
-                if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
-                    util.log("DONE");
-                    return;
-                }
+        case "Shanker":
+            util.log("I AM SO SEXY");
+            v = new ShankerBomb(data.x, data.y, data.direction, player.getTeam());
+            if (!(player.spellTwoCastTime + ShankerBomb.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+            }
+            var y = player.getY() - 10;
             game1.addSpell(v);
-                //               Spells.spellsarray.push(v);
-                this.emit('spell two', {
-                    x: data.x,
-                    y: data.y,
-                    spell: "rhrange",
-                    direction: data.direction,
-                    attack_id: v.getID(),
-                    caster: "you"
-                });
-                this.broadcast.emit('spell two', {
-                    x: data.x,
-                    y: data.y,
-                    attack_id: v.getID(),
-                    spell: "rhrange",
-                    direction: data.direction
-                });
-                util.log("SWAGGER");
-                break;
-            case "Fly":
-                //Carry other unit lmfao
-                util.log("Fly carry tigger" + (player.spellTwoCastTime + DescendAttack.getCooldown()) + " NOW : " + Date.now());
-                if (!(player.spellTwoCastTime + DescendAttack.getCooldown() <= Date.now())) {
-                    util.log("DONE");
-                    return;
-                }
-                if (player.getGrabbed()) {
-                    util.log("Fly is grabbed tho");
-                    return;
-                }
-                //k do fly carry method
-                for (var _i = 0; _i < players.length; _i++) {
-                    if (players[_i].id != player.id) {
-                        util.log("AN EMENY");
-                        if (distance(players[_i].getX(), player.getX()) < 100) {
-                            util.log("Made x");
-                            if (distance(players[_i].getY(), player.getY()) < 100) {
-                                util.log("Made y");
-                                //so stun the player and lock his location to the flys : D
-                                if (players[_i].getAlive()) {
-                                    players[_i].birdStun(player);
-                                }
+            this.emit('spell two', {
+                x: data.x,
+                y: y,
+                spell: "shanker bomb",
+                direction: data.direction,
+                attack_id: v.getID(),
+                caster: "you"
+            });
+            this.broadcast.emit('spell two', {
+                x: data.x,
+                y: y,
+                attack_id: v.getID(),
+                spell: "shanker bomb",
+                direction: data.direction
+            });
+            break;
+        case "Redhatter":
+            v = new RHRange(data.x, data.y, data.direction, player.getTeam());
+            if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
+                util.log("DONE");
+                return;
+            }
+            game1.addSpell(v);
+            //               Spells.spellsarray.push(v);
+            this.emit('spell two', {
+                x: data.x,
+                y: data.y,
+                spell: "rhrange",
+                direction: data.direction,
+                attack_id: v.getID(),
+                caster: "you"
+            });
+            this.broadcast.emit('spell two', {
+                x: data.x,
+                y: data.y,
+                attack_id: v.getID(),
+                spell: "rhrange",
+                direction: data.direction
+            });
+            util.log("SWAGGER");
+            break;
+        case "Fly":
+            //Carry other unit lmfao
+            util.log("Fly carry tigger" + (player.spellTwoCastTime + FlyGrab.getCooldown()) + " NOW : " + Date.now());
+            if (!(player.spellTwoCastTime + FlyGrab.getCooldown() <= Date.now())) {
+                util.log("DONE CUS COOLDOWN");
+                return;
+            }
+
+            if (player.getGrabbed()) {
+                util.log("Fly is grabbed tho");
+                return;
+            }
+            this.emit("spell two", { spell : "fly grab"});
+            //k do fly carry method
+            for (var _i = 0; _i < players.length; _i++) {
+                if (players[_i].id != player.id) {
+                    util.log("AN EMENY");
+                    if (distance(players[_i].getX(), player.getX()) < 60) {
+                        util.log("Made x");
+                        if (distance(players[_i].getY(), player.getY()) < 100) {
+                            util.log("Made y");
+                            //so stun the player and lock his location to the flys : D
+                            if (players[_i].getAlive()) {
+                                players[_i].birdStun(player);
                             }
                         }
                     }
                 }
-                break;
+            }
+            break;
         }
         player.spellTwoCastTime = Date.now();
 
         //ehh this is a patchy / buggy fix should do it for every spell
-        if (player.getCharacterType() == CONFIG.Redhatter){
-       //     attacks_teams[v.getID()] = player.getTeam();
-       //     attacks_damages[v.getID()] = v.getDamage();
+        if (player.getCharacterType() == CONFIG.Redhatter || CONFIG.Shanker){
             attacks[v.getID()] = v;//new Attack({damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect});
             setTimeout(function() { //remove this
                 if (attacks[v.getID()]) {
                     delete attacks[v.getID()];
-                console.log("Deleting");
-            }
-        }, 4000);
+                    console.log("Deleting");
+                }
+            }, 9000);
         }
     }
 
@@ -523,15 +535,7 @@ var Events = function() {
 
             player.windWalk(3000, this);
             var that = this;
-
-          //  player.setSpeed(player.getBaseSpeed() * 1.40);
-
-            /*  setTimeout(function() {
-                if (player.invis) {
-                    becomeVisible(player, that);
-                }
-             }, 3000);*/
-            util.log("SINDWALK");
+            util.log("WINDWALK");
             this.emit('spell one', {
                 id: "you",
                 spell: "windwalk",
@@ -544,26 +548,17 @@ var Events = function() {
             });
         };
         player.spellOneCastTime = Date.now();
-        //attacks_teams[v.getID()] = player.getTeam();
-        //attacks_damages[v.getID()] = v.getDamage();
 
-       // attacks[v.getID()] = player.getTeam();
-       // attacks[v.getID()] = v.getDamage();
         attacks[v.getID()] = v;
         setTimeout(function() { //remove this
             if (attacks[v.getID()]) {
                 delete attacks[v.getID()];
                 console.log("Deleting");
             }
-        }, 4000);
+        }, 9000);
         //if spell is a projectile do something idk lol
     };
     //io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
-    function becomeVisible(player, that) {
- //       player.invis = false;
-//        player.setSpeed(player.getBaseSpeed());
-
-    };
     //hitBy.setGold(hitBy.getGold()+1);
     function setHp(hitPlayer, damage) { //where hitplayer is like players[i]
         var wasAlive = hitPlayer.getAlive();
@@ -585,29 +580,25 @@ var Events = function() {
             team_zero_kills: game1.getTeamZeroKills(),
             id : initPlayer.id
         });
-        //name
-        //referrer
-        //day
-        //time
-        //ip
+
         var date = new Date();
         var year    = date.getFullYear();
         var month   = date.getMonth();
-        var day     = date.getDay();
+        var day     = date.getDate();
         var hour    = date.getHours();
         var minute  = date.getMinutes();
 
-       /*    function helpNarine(){
+        /*    function helpNarine(){
 
-        User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
-                doc.local.nickname = "sejoody";
-                doc.save(function(err){
+         User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
+         doc.local.nickname = "sejoody";
+         doc.save(function(err){
 
-                });
+         });
 
-        });
+         });
 
-        };*/
+         };*/
 
         var data_blob = new DataBlob({
             name: initPlayer.getName(),
@@ -618,6 +609,7 @@ var Events = function() {
         });
         data_blob.save(function(err, dblob) {
             if (err) return console.error(err);
+            else return 1;
         });
 
     };
@@ -626,7 +618,8 @@ var Events = function() {
      **************************************************/
     function playerById(id) {
         var i;
-        for (i = 0; i < players.length; i++) {
+        //var players = game1.getPlayers();
+        for (i in players) {
             if (players[i].id == id) return players[i];
         };
         return false;
@@ -637,9 +630,6 @@ var Events = function() {
         util.log("dst is " + distance);
         return distance;
     }
-    return {
-        didAttackHitPlayer: didAttackHitPlayer,
-        setEventHandlers: setEventHandlers,
-    };
+
 };
 exports.Events = Events;

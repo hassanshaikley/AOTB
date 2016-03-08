@@ -35,18 +35,18 @@ var Shanker = function(team) {
         that.setInvis(true);
         var util = require("util");
         util.log("GONE");
-        var oldSpeed = that.getSpeed()
-        this.setSpeed(oldSpeed * 1.40)
+        var oldSpeed = that.getSpeed();
+        this.setSpeed(oldSpeed * 1.40);
         setTimeout(function() {
             if (that.getInvis()){
-                that.setInvis(false, socket)
+                that.setInvis(false, socket);
                 that.setSpeed(oldSpeed);
-                socket.emit("visible again", {
+                /* socket.emit("visible again", {
                     id: that.id
                 });
                 socket.broadcast.emit("visible again", {
                     id: that.id
-                });
+                });*/
             }
         }, length);
     };
