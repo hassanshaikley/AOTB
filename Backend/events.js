@@ -608,6 +608,7 @@ var Events = function() {
         });
         data_blob.save(function(err, dblob) {
             if (err) return console.error(err);
+            else return 1;
         });
 
     };
