@@ -8,7 +8,7 @@ var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
 //var Point = require("../point.js").Point;
 var Redhatter = function(team) {
     var health = 70;
-    var speed = 11;
+    var speed = 15;
     var width = 50;
     var height = 68;
     var myMovementComponent = new MovementComponent(speed, this);
@@ -33,9 +33,9 @@ var Redhatter = function(team) {
         console.log("OBJ DIR" + obj.direction);
         console.log("OBJ THO " + JSON.stringify(obj));
         if (obj.direction == "right"){
-            obj.hits.setX(obj.hits.getX()+100)
+            obj.hits.setX(obj.hits.getX()+400)
         } else {
-            obj.hits.setX(obj.hits.getX()-100)
+            obj.hits.setX(obj.hits.getX()-400)
         }
     };
 };
