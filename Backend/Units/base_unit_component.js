@@ -127,12 +127,13 @@ exports.BaseUnitComponent = function(maxHp, width, height, that) {
     };
     that.setInvis = function(_invis, socket){
         console.log(_invis + " " + invis );
+
         if (!_invis && invis){
             socket.emit("visible again", {
-                id: player.id
+                id: that.id
             });
             socket.broadcast.emit("visible again", {
-                id: player.id
+                id: that.id
             });
         }
         invis = _invis;

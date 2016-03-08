@@ -56,19 +56,18 @@ Game.prototype.init = function() {
     MAIN.stage.addChild(background);
     canvas1 = document.getElementsByTagName("canvas")[0];
     ctx = canvas1.getContext("webgl");
-
+    /*
   for (var i = 0; i < 5; i++) {
       localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 10 + i * (CONFIG.ARENA_WIDTH) / 5, 335));
     }
-    /*    for (var j = 0; j < 3; j++){
-            localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH/6 + j * (CONFIG.ARENA_WIDTH)/3, 235));
-        }*/
+
     for (i = 0; i < 4; i++) {
         localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 8 + i * (CONFIG.ARENA_WIDTH) / 4, 235));
     }
     for (i = 0; i < 3; i++) {
         localGame.platforms.push(new Platform(1000 + CONFIG.ARENA_WIDTH / 6 + i * (CONFIG.ARENA_WIDTH) / 3, 135));
     }
+*/
 
     /*
     var line = new PIXI.Graphics();
@@ -495,7 +494,7 @@ function update() {
 
     scene.x  =20 -localPlayer.getX() / 60;
 
-    updatePlatforms();
+//    updatePlatforms();
     handleCooldownVisuals();
     background.updateX(localPlayer.getDrawAtX());
     /* Updates the spells locations :D */
@@ -508,7 +507,7 @@ function update() {
             if (helpers.collision(allPlayers[j], Spells.spellsarray[i])) {
                 if (Spells.spellsarray[i].inactive){
                     console.log("SPELL IS NOT ACITVE :(");
-                    continue;   
+                    continue;
                 }
                 console.log("WE HAVE A COLLISION");
                 //let the server know the attack landed
@@ -553,7 +552,7 @@ function update() {
 var reset_this = true;
 var wasOnAPlatform = false;
 
-function updatePlatforms() {
+/*function updatePlatforms() {
     var onAPlatform;
     for (var i = 0; i < localGame.platforms.length; i++) {
         if (localGame.platforms[i].update() === "grounded") {
@@ -572,7 +571,7 @@ function updatePlatforms() {
         reset_this = false;
     }
     wasOnAPlatform = onAPlatform;
-};
+};*/
 /**************************************************
  ** GAME DRAW
  **************************************************/

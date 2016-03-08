@@ -59,7 +59,7 @@ var Events = function() {
         client.on("key press", onKeyPress);
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
-        client.on("landed", that.onLanded);
+//        client.on("landed", that.onLanded);
         client.on("switch team", that.onSwitchTeam);
     };
 
@@ -72,11 +72,12 @@ var Events = function() {
             player.switchTeam();
         }
     };
+    /*
     this.onLanded = function(data){
         console.log("\nsettling land y " +data.y);
         player = playerById(this.id);
         player.setLandY(data.y);
-    };
+    };*/
     spell_hits = [];
     /*
      * Player is hit
@@ -212,7 +213,7 @@ var Events = function() {
                 player.jumping = true;
                 setTimeout(function() {
                     player.jumping = false;
-                }, 400);
+                }, 1000);
             }
         }
         if (data.key === "left") {
