@@ -169,7 +169,7 @@ var Game = function() {
                 }];
                 setInterval(function(){
                     if (spell_attacks[attack_id]){
-                        delete spell_attacks[spell_id];
+                        delete spell_attacks[attack_id];
                     }
                 }, 20000);
                 return ret;
