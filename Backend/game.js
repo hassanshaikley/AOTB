@@ -205,7 +205,7 @@ var Game = function() {
             }
 //            util.log("\t\t\t\tAttack hits : [Current Attack ]\t\t " + JSON.stringify(attacks));
             //if 100% of people say attack happene
-            if (hits_array[hits]["according_to"].length >= (that.getNumPlayers()*.49) && !(hits_array[hits]["confirmed"])) {
+            if (hits_array[hits]["according_to"].length >= (that.getNumPlayers()*.45) && !(hits_array[hits]["confirmed"])) {
                 //how much damage
                 console.log("\nok hes hurt\n\n");
                 var hit_player = that.getPlayer(hits_array[hits].hit);

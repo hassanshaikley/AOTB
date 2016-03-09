@@ -17,13 +17,18 @@ function Game() {
 
     var team_one_kills;
     var team_zero_kills;
-    var team_zero_kills_text = new PIXI.Text("Score: 0");
-    var team_one_kills_text = new PIXI.Text("Score: 0");
+    team_zero_kills_text = new PIXI.Text("Score: 0");
+    team_one_kills_text = new PIXI.Text("Score: 0");
+
     team_zero_kills_text.style.font = "bold 20px arial";
     team_zero_kills_text.style.align = "center";
+    team_zero_kills_text.style.fill =  "white";
+
     team_one_kills_text.style.font = "bold 20px arial";
     team_one_kills_text.style.align = "center";
-    team_one_kills_text.x = CONFIG.SCREEN_WIDTH - 110;
+    team_one_kills_text.style.fill =  "white"; //not shoring
+
+    team_one_kills_text.x = 768 - 110;
     team_zero_kills_text.x = 20;
     MAIN.stage.addChild(team_one_kills_text);
     MAIN.stage.addChild(team_zero_kills_text);
