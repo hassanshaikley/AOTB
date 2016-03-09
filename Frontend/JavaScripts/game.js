@@ -623,6 +623,30 @@ function onInitMe(data) {
             console.log( property + " TO " + data.CONFIG[property]);
         }
     }
+
+    switch (localPlayer.getCharacterType()){
+    case CONFIG.Grimes:
+        cd_one = CONFIG.GRIMES_1_CD;
+        cd_two = CONFIG.GRIMES_2_CD;
+        break;
+    case CONFIG.Redhatter:
+        cd_one = CONFIG.REDHATTER_1_CD;
+        cd_two = CONFIG.REDHATTER_2_CD;
+        break;
+    case CONFIG.Shanker:
+        cd_one = CONFIG.SHANKER_1_CD;
+        cd_two = CONFIG.SHANKER_2_CD;
+        break;
+    case CONFIG.Fly:
+        cd_one = CONFIG.FLY_1_CD;
+        cd_two = CONFIG.FLY_2_CD;
+        break;
+    case CONFIG.Huntress:
+        cd_one = CONFIG.HUNTRESS_1_CD;
+        cd_two = CONFIG.HUNTRESS_2_CD;
+        break;
+    }
+
 };
 
 function hostileById(id) {

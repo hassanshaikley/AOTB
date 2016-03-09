@@ -3,23 +3,23 @@ var ActionbarComponent = function(that){
 
     var spells_thumb_array = [];
     var spells_description_array = [];
-   // All cahracters have a sword thumb
-   var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
+    // All cahracters have a sword thumb
+    var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
 
 
     sword_thumb.interactive = true;
 
     spells_thumb_array.push(sword_thumb);
-//    spells_description_array.push("Meelee Attack\nLeft Click\nRange: 50\ Cooldown: 1s");
+    //    spells_description_array.push("Meelee Attack\nLeft Click\nRange: 50\ Cooldown: 1s");
     spells_description_array.push (generateDescription({
         name: "Meelee Attack",
         key: "Left Click",
         description: "Standard Meelee Attack",
         cooldown: "1s"
     }));
-    var cd_zero = 1000;
-    var cd_one = 0;
-    var cd_two = 0;
+    cd_zero = 1000;
+    cd_one = 0;
+    cd_two = 0;
     var add = 50;
 
     /* Array filled with the description of the spells*/
@@ -138,7 +138,7 @@ var ActionbarComponent = function(that){
         tooltip.alpha = .6;
         tooltip.x =  add-33;
         tooltip.visible = false;
-       MAIN.stage.addChild(tooltip);
+        MAIN.stage.addChild(tooltip);
 
         var text = new PIXI.Text(description, {font:"10px Arial", fill:"black"});
         text.x = add-33+5;
@@ -170,31 +170,9 @@ var ActionbarComponent = function(that){
 
         console.log("CASTING " + spell_num);
 
-        switch (localPlayer.getCharacterType()){
-        case CONFIG.Grimes:
-            cd_one = CONFIG.GRIMES_1_CD;
-            cd_two = CONFIG.GRIMES_2_CD;
-            break;
-        case CONFIG.Redhatter:
-            cd_one = CONFIG.REDHATTER_1_CD;
-            cd_two = CONFIG.REDHATTER_2_CD;
-            break;
-        case CONFIG.Shanker:
-            cd_one = CONFIG.SHANKER_1_CD;
-            cd_two = CONFIG.SHANKER_2_CD;
-            break;
-        case CONFIG.Fly:
-            cd_one = CONFIG.FLY_1_CD;
-            cd_two = CONFIG.FLY_2_CD;
-            break;
-        case CONFIG.Huntress:
-            cd_one = CONFIG.HUNTRESS_1_CD;
-            cd_two = CONFIG.HUNTRESS_2_CD;
-            break;
-        }
 
-//            cd_t = CONFIG.SHANKER_1_CD;
-//        cd_three = CONFIG.SHANKER_2_CD;
+        //        cd_t = CONFIG.SHANKER_1_CD;
+        //        cd_three = CONFIG.SHANKER_2_CD;
 
         if (spell_num == 0){
             cd = cd_zero;
