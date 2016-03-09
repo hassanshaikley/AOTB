@@ -8,7 +8,7 @@ var Redhatter = function(name, x, y) {
   };*/
     /* Lolswagz */
     skeleton.getCharacterType = function() {
-        return CONFIG.REDHATTER_NAME;
+        return "Redhatter";
     };
 
     var spells_thumb_array = [];

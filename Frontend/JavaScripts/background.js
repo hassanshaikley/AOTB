@@ -7,21 +7,19 @@ function Background() {
     this.tilePosition.x = 50;
     this.tilePosition.y = 0;
 
-
-
-
     /*
       var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
       structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width/2);
       structure.y = -116;
     */
+
     //  structure2.scale.x = structure.scale.x = structure2.scale.y = structure.scale.y = 1.3;
     /* var castle = new PIXI.Sprite(PIXI.Texture.fromImage("castleofone2.png"));
     castle.x = 0;
     castle.y= 0;
-     this.addChild(castle);*/
+    this.addChild(castle); */
     left_blackwall = new PIXI.Graphics();
-    left_blackwall.beginFill(0x000000);
+    left_blackwall.beginFill(0xAAAAAA);
     left_blackwall.drawRect(0, 0, 500, CONFIG.SCREEN_HEIGHT-22);
     left_blackwall.endFill();
     left_blackwall.x = 480;
@@ -29,22 +27,16 @@ function Background() {
     left_blackwall.alpha = .5;
     this.addChild(left_blackwall);
     right_blackwall = new PIXI.Graphics();
-    right_blackwall.beginFill(0x000000);
+    right_blackwall.beginFill(0xAAAAAA);
     right_blackwall.drawRect(0, 0, 500, CONFIG.SCREEN_HEIGHT-22);
     right_blackwall.endFill();
     right_blackwall.x = 2856;
     right_blackwall.y = -400;
-    right_blackwall.alpha=.5;
-    this.addChild(right_blackwall)
-
-
-
-
+    right_blackwall.alpha = .5;
+    this.addChild(right_blackwall);
 };
 Background.constructor = Background;
 Background.prototype = Object.create(PIXI.extras.TilingSprite.prototype);
-
-
 
 Background.prototype.updateX = function() {
     //  var distanceTravelled = newViewportX - this.viewportX;

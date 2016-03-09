@@ -6,6 +6,7 @@ var Fly = require("./Units/fly").Fly,
     Redhatter = require("./Units/redhatter").Redhatter,
     Grimes = require("./Units/grimes").Grimes,
     Dino = require("./Units/dino").Dino,
+    Huntress = require("./Units/huntress").Huntress,
     //   Bowman = require("./Units/bowman").Bowman,
     //  Skelly = require("./Units/skelly").Skelly,
     Shanker = require("./Units/shanker").Shanker,
@@ -314,6 +315,8 @@ var Events = function() {
         } else if (data.characterType === CONFIG.Shanker) {
             util.log("MAKING ASHANKARR");
             newPlayer = new Shanker();
+        } else if (data.characterType === Config.Huntress) {
+            newPlayer = new Huntress();
         } else if (data.characterType === "Crevice") {
             util.log("made ac revice broo");
             newPlayer = new Crevice();
@@ -426,11 +429,8 @@ var Events = function() {
             //k do fly carry method
             for (var _i = 0; _i < players.length; _i++) {
                 if (players[_i].id != player.id) {
-                    util.log("AN EMENY");
                     if (distance(players[_i].getX(), player.getX()) < 60) {
-                        util.log("Made x");
                         if (distance(players[_i].getY(), player.getY()) < 100) {
-                            util.log("Made y");
                             //so stun the player and lock his location to the flys : D
                             if (players[_i].getAlive()) {
                                 players[_i].birdStun(player);
@@ -440,11 +440,15 @@ var Events = function() {
                 }
             }
             break;
+        case "Grimes":
+            console.log("GRIMES!!");
+            break;
         }
         player.spellTwoCastTime = Date.now();
 
         //ehh this is a patchy / buggy fix should do it for every spell
-        if (player.getCharacterType() == CONFIG.Redhatter || CONFIG.Shanker){
+        if (player.getCharacterType() == CONFIG.Redhatter || player.getCharacterType() == CONFIG.Shanker){
+            console.log("MADE MADE MADE");
             attacks[v.getID()] = v;//new Attack({damage: v.getDamage(), team: player.getTeam(), effect: v.doEffect});
             setTimeout(function() { //remove this
                 if (attacks[v.getID()]) {
@@ -578,7 +582,8 @@ var Events = function() {
             x: initPlayer.getRespawnX(),
             team_one_kills: game1.getTeamOneKills(),
             team_zero_kills: game1.getTeamZeroKills(),
-            id : initPlayer.id
+            id : initPlayer.id,
+            CONFIG : CONFIG
         });
 
         var date = new Date();

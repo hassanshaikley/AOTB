@@ -94,9 +94,9 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     this.setName = function(newName) {
         name = newName;
     };
-//    this.bleed = function() {
+    //    this.bleed = function() {
 
-//    };
+    //    };
     this.setHp = function(newHp) {
         var oldHp = hp;
         if (newHp < oldHp){
@@ -181,18 +181,18 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         attack_left.animationSpeed = .30;
 
         that.imageContainer.addChild(walk_left);
-                that.imageContainer.addChild(walk_right);
+        that.imageContainer.addChild(walk_right);
         that.imageContainer.addChild(attack_left);
         that.imageContainer.addChild(attack_right);
 
 
     };
     //why the fuck did I have this code below here
-   // var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
-  //  structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width / 2);
+    // var structure = new PIXI.Sprite(PIXI.Texture.fromImage("spire.png"));
+    //  structure.x = 1350 - Math.abs(PIXI.Texture.fromImage("spire_0.png").width / 2);
 
     //structure.y = -116;
-   // this.imageContainer.addChild(structure);
+    // this.imageContainer.addChild(structure);
 
     var text_x;
     this.drawText = function() {
@@ -283,8 +283,8 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         });
     };
 
-       var first = false,
-           loop = false;
+    var first = false,
+        loop = false;
 
     this.draw_ = function() {
         this.imageContainer.visible = true;
@@ -294,14 +294,14 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         walk_left.position.y = drawAtY;
         walk_right.position.y = drawAtY;
         attack_left.position.y = drawAtY;
-            attack_right.position.y = drawAtY;
+        attack_right.position.y = drawAtY;
         //use to make drawing shanker mroe accurate lol maybe I need to remove this oh noee
         if (this.getMoveDirection() === "right") {
             drawAtX += 20;
         } else {
             drawAtX += 5;
         }
-       walk_left.position.x = drawAtX;
+        walk_left.position.x = drawAtX;
         walk_right.position.x = drawAtX;
         attack_right.position.x = drawAtX;
         attack_left.position.x = drawAtX;
