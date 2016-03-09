@@ -18,7 +18,7 @@ var TortStun = function(_x, _y, _team) {
 
     this.getDamage = function() {
         return 15;
-    }
+    };
     var age = 0; //timer for damage
 
     this.getHalfWidth = function() {
@@ -45,7 +45,5 @@ var TortStun = function(_x, _y, _team) {
     this.name = "tortstun";
     return this;
 };
-TortStun.getCooldown = function() {
-    return 3000;
-};
+
 exports.TortStun = TortStun;

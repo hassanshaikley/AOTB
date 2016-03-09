@@ -26,6 +26,15 @@ var colors = require("colors");
 //var colors = require("colors");
 
 var CONFIG = require("./config");
+Stealth.cooldown = CONFIG.SHANKER_1_CD;
+ShankerBomb.cooldown = CONFIG.SHANKER_2_CD;
+TortStun.cooldown = CONFIG.GRIMES_1_CD;
+//
+DescendAttack.cooldown = CONFIG.FLY_1_CD;
+FlyGrab.cooldown = CONFIG.FLY_2_CD;
+Meteor.cooldown = CONFIG.REDHATTER_1_CD;
+RHRange.cooldown = CONFIG.REDHATTER_2_CD;
+
 
 var util = require("util");
 /* Used to store attack objects
@@ -366,7 +375,7 @@ var Events = function() {
         case "Shanker":
             util.log("I AM SO SEXY");
             v = new ShankerBomb(data.x, data.y, data.direction, player.getTeam());
-            if (!(player.spellTwoCastTime + ShankerBomb.getCooldown() <= Date.now())) {
+            if (!(player.spellTwoCastTime + ShankerBomb.cooldown <= Date.now())) {
                 util.log("DONE");
                 return;
             }
@@ -390,7 +399,7 @@ var Events = function() {
             break;
         case "Redhatter":
             v = new RHRange(data.x, data.y, data.direction, player.getTeam());
-            if (!(player.spellTwoCastTime + RHRange.getCooldown() <= Date.now())) {
+            if (!(player.spellTwoCastTime + RHRange.cooldown <= Date.now())) {
                 util.log("DONE");
                 return;
             }
@@ -415,8 +424,8 @@ var Events = function() {
             break;
         case "Fly":
             //Carry other unit lmfao
-            util.log("Fly carry tigger" + (player.spellTwoCastTime + FlyGrab.getCooldown()) + " NOW : " + Date.now());
-            if (!(player.spellTwoCastTime + FlyGrab.getCooldown() <= Date.now())) {
+            util.log("Fly carry tigger" + (player.spellTwoCastTime + FlyGrab.cooldown) + " NOW : " + Date.now());
+            if (!(player.spellTwoCastTime + FlyGrab.cooldown <= Date.now())) {
                 util.log("DONE CUS COOLDOWN");
                 return;
             }
@@ -468,7 +477,7 @@ var Events = function() {
         // util.log("SPELL ONING");
         //1000 should be repalced with the spells cooldown!
         if (player.getCharacterType() === "Grimes") {
-            if (!(player.spellOneCastTime + TortStun.getCooldown() <= Date.now())) {
+            if (!(player.spellOneCastTime + TortStun.cooldown <= Date.now())) {
                 util.log("DONE");
                 return;
             }
@@ -488,7 +497,7 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Fly") {
-            if (!(player.spellOneCastTime + DescendAttack.getCooldown() <= Date.now())) {
+            if (!(player.spellOneCastTime + DescendAttack.cooldown <= Date.now())) {
                 util.log("DONE");
                 return;
             }
@@ -508,7 +517,7 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Redhatter") {
-            if (!(player.spellOneCastTime + Meteor.getCooldown() <= Date.now())) {
+            if (!(player.spellOneCastTime + Meteor.cooldown <= Date.now())) {
                 util.log("DONE");
                 return;
             }
@@ -531,7 +540,7 @@ var Events = function() {
             });
         }
         if (player.getCharacterType() === "Shanker") {
-            if (!(player.spellOneCastTime + Stealth.getCooldown() <= Date.now())) {
+            if (!(player.spellOneCastTime + Stealth.cooldown <= Date.now())) {
                 util.log("DONE");
                 return;
             }

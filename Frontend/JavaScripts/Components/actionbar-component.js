@@ -17,9 +17,9 @@ var ActionbarComponent = function(that){
         description: "Standard Meelee Attack",
         cooldown: "1s"
     }));
-    var cd_one = 1000;
+    var cd_zero = 1000;
+    var cd_one = 0;
     var cd_two = 0;
-    var cd_three = 0;
     var add = 50;
 
     /* Array filled with the description of the spells*/
@@ -46,8 +46,7 @@ var ActionbarComponent = function(that){
         var bomb_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("bomb.png"));
         spells_thumb_array.push(invis_thumb);
         spells_thumb_array.push(bomb_thumb);
-        cd_two = 5000;
-        cd_three = 3000;
+
 
 
     };
@@ -71,9 +70,8 @@ var ActionbarComponent = function(that){
         spells_thumb_array.push(fireball);
         spells_thumb_array.push(rhrangethumb);
 
-        cd_two = 3000;
-        cd_three = 700;
-
+        cd_two = CONFIG.REDHATTER_1_CD;
+        cd_three = CONFIG.REDHATTER_2_CD;
     };
     if (that.getCharacterType() == "Fly"){
         var descend_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("descend_thumb.png"));
@@ -96,9 +94,6 @@ var ActionbarComponent = function(that){
         spells_thumb_array.push(descend_thumb);
         spells_thumb_array.push(fly_carry_thumb);
 
-        cd_two = 10000;
-        cd_three = 6000;
-
     }
     if (that.getCharacterType() == "Grimes"){
         var tort_stun = new PIXI.Sprite(PIXI.Texture.fromFrame("tortstunthumb.png"));
@@ -111,7 +106,6 @@ var ActionbarComponent = function(that){
         }));
         spells_thumb_array.push(tort_stun);
 
-        cd_two = 3000;
     };
 
     for (var _i = 0; _i < spells_thumb_array.length; _i++) {
@@ -150,7 +144,7 @@ var ActionbarComponent = function(that){
         text.x = add-33+5;
         text.y = 366 + 5;
         text.alpha = 1;
-//        tooltip.addChild(text);
+
         text.visible=  false;
         MAIN.stage.addChild(text);
 
@@ -171,16 +165,43 @@ var ActionbarComponent = function(that){
         add += 50;
     };
 
+    //meelee = 0, first = 1, second = 2
     that.spellCD = function(spell_num){
 
-        var cd = 0;
+        console.log("CASTING " + spell_num);
+
+        switch (localPlayer.getCharacterType()){
+        case CONFIG.Grimes:
+            cd_one = CONFIG.GRIMES_1_CD;
+            cd_two = CONFIG.GRIMES_2_CD;
+            break;
+        case CONFIG.Redhatter:
+            cd_one = CONFIG.REDHATTER_1_CD;
+            cd_two = CONFIG.REDHATTER_2_CD;
+            break;
+        case CONFIG.Shanker:
+            cd_one = CONFIG.SHANKER_1_CD;
+            cd_two = CONFIG.SHANKER_2_CD;
+            break;
+        case CONFIG.Fly:
+            cd_one = CONFIG.FLY_1_CD;
+            cd_two = CONFIG.FLY_2_CD;
+            break;
+        case CONFIG.Huntress:
+            cd_one = CONFIG.HUNTRESS_1_CD;
+            cd_two = CONFIG.HUNTRESS_2_CD;
+            break;
+        }
+
+//            cd_t = CONFIG.SHANKER_1_CD;
+//        cd_three = CONFIG.SHANKER_2_CD;
 
         if (spell_num == 0){
-            cd = cd_one;
+            cd = cd_zero;
         } else if (spell_num == 1){
-            cd = cd_two;
+            cd = cd_one;
         } else if (spell_num == 2){
-            cd  = cd_three;
+            cd  = cd_two;
         };
         console.log("cd is " + cd);
         var y = new PIXI.filters.GrayFilter();

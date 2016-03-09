@@ -41,7 +41,5 @@ var RHRange = function(_x, _y, _direction, _team) {
     };
     this.name = "rhrange";
 };
-RHRange.getCooldown = function() {
-    return 700;
-};
+
 exports.RHRange = RHRange;

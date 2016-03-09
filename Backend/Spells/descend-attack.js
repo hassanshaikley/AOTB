@@ -7,7 +7,5 @@ var DescendAttack = function(){
     };
 
 };
-DescendAttack.getCooldown = function() {
-    return 10000;
-};
+
 exports.DescendAttack = DescendAttack;

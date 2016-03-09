@@ -138,7 +138,7 @@ var Game = function() {
         if (!is_spell){ //meelee attacks
             console.log (colors.bgCyan("Attack id is : " + attack_id));
             if (!(meelee_attacks[attack_id])) {
-                hits_array = [meelee_attacks[attack_id]];
+                hits_array = meelee_attacks[attack_id];
                 console.log("MeleeAttack being inserted for the first time.");
                 meelee_attacks[attack_id] = [{
                     "hit": hit,
@@ -150,7 +150,7 @@ var Game = function() {
                         delete meelee_attacks[attack_id];
                     }
                 }, 20000);
-                return ret;
+//                return ret;
             } else {
                 hits_array = meelee_attacks[attack_id];
 
@@ -159,7 +159,7 @@ var Game = function() {
             }
         } else {  //spells
             if (!(spell_attacks[attack_id])) {
-                hits_array = [spell_attacks[attack_id]];
+                hits_array = spell_attacks[attack_id];
 
                 console.log("SpellAttack being inserted for the first time.");
                 spell_attacks[attack_id] = [{
@@ -172,7 +172,7 @@ var Game = function() {
                         delete spell_attacks[attack_id];
                     }
                 }, 20000);
-                return ret;
+//                return ret;
             } else {
                 hits_array = spell_attacks[attack_id];                console.log("ELSE H " + hits_array + " " + JSON.stringify(spell_attacks[attack_id]));
 

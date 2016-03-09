@@ -28,7 +28,7 @@ function Game() {
     team_one_kills_text.style.align = "center";
     team_one_kills_text.style.fill =  "white"; //not shoring
 
-    team_one_kills_text.x = 768 - 110;
+    team_one_kills_text.x = CONFIG.SCREEN_WIDTH - 110;
     team_zero_kills_text.x = 20;
     MAIN.stage.addChild(team_one_kills_text);
     MAIN.stage.addChild(team_zero_kills_text);

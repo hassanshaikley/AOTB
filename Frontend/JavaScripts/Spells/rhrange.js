@@ -11,7 +11,7 @@ var RHRange = function(_x, _y, direction) {
         if (Math.abs(startX - x) <= 200) {
             x = x += speed;
         } else {
-            MAIN.stage.removeChild(rhrClip)
+            MAIN.stage.removeChild(rhrClip);
             var index = Spells.spellsarray.indexOf(this);
             Spells.spellsarray.splice(index, 1);
         }

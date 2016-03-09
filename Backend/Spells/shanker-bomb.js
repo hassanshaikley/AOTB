@@ -58,9 +58,7 @@ var ShankerBomb = function(meteorX, mCaster, _team) {
     };
     return this;
 };
-ShankerBomb.getCooldown = function() {
-    return 3000;
-};
+
 ShankerBomb.getHalfWidth = function() {
     return 18;
 };
