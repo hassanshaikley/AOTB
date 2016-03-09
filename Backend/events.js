@@ -22,7 +22,7 @@ var Fly = require("./Units/fly").Fly,
     Attack = require('./Units/Attacks/attack.js').Attack;
 
 var DataBlob = require('./App/models/data-blob');
-
+var colors = require("colors");
 //var colors = require("colors");
 
 var CONFIG = require("./config");
@@ -101,7 +101,7 @@ var Events = function() {
      *
      */
     function onSpellHits(data) {
-        util.log("HITS>>" + data.attack_id + " -- " + data.hit);
+        util.log(colors.magenta("Spell hit: " + data.attack_id + " -- " + data.hit));
         // get the id of the person that hit
         var hit;
         if (!attacks[data.attack_id]){
@@ -121,7 +121,7 @@ var Events = function() {
             hit_by = playerById(this.id);
         }
         var according_to = playerById(this.id);
-        util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
+        util.log(colors.bgCyan("hit \t" + hit.id + " according to \t" + according_to.id + " attack id \t" + data.attack_id));
         util.log(JSON.stringify(attacks[data.attack_id]) +" hmm");
         if (attacks[data.attack_id].getTeam() == hit.getTeam()) {
             console.log("\t\t\tYou on same team tho");
@@ -130,7 +130,7 @@ var Events = function() {
         if (!hit.getAlive()) {
             return;
         }
-        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id]);
+        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id], true);
         if (!hit.getAlive()) {
             this.emit('update team killcount', {
                 team_one_kills: game1.getTeamOneKills(),
@@ -183,7 +183,7 @@ var Events = function() {
         //should only happen if they are on differnt teams
         //        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
         //this function returns true if they die...
-        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id]);
+        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id], false);
         if (has_been_hit) {
 
 

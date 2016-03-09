@@ -39,11 +39,8 @@ function Game() {
 };
 // variable that tracks how much the player has moved, everything is drawn
 Game.prototype.init = function() {
-
     scene = new PIXI.Sprite(PIXI.Texture.fromImage("desert_v1.fw.png"));
-
     var filter = new PIXI.filters.BloomFilter();
-
     MAIN.stage.addChildAt(scene, 1);
     //    scene.filters = [filter];
     scene.y = -1000;
@@ -547,7 +544,7 @@ function update() {
     }
 };
 var reset_this = true;
-var wasOnAPlatform = false;
+//var wasOnAPlatform = false;
 
 /*function updatePlatforms() {
  var onAPlatform;

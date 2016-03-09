@@ -1,9 +1,11 @@
 Now:
+  >>> Ok the spell hits code needs to be tested to oblivion, and also there is the issue with it using the attacks object, there should be a spell and meelee attacks object, otherwise everything gets totally ufcked
+  Grimes spell
   Grimes ulti
-  >>
+  >> (Explode)
+  >> (Shield)
   Implement Huntresss
-  Give Config file from server
-  Make map look cool with random shit lmao
+  Make map look cool with random shit lmao (add clouds!)
 
 Problems:
   Confusing ass lag, sometimes it is just jumpy

@@ -1,6 +1,6 @@
 var GameID = 0; // Every Game should have a unique ID
 var util = require("util");
-
+var colors = require("colors");
 var Game = function() {
     var gameID = GameID++;
     var winner = -1;
@@ -89,7 +89,8 @@ var Game = function() {
         }
         return size;
     };
-    var attacks = {};
+    var meelee_attacks = {};
+    var spell_attacks = {};
     /*
      * This is useful for when the server thinks an attack happened but this was largely
      * moved to the clinet
@@ -111,35 +112,75 @@ var Game = function() {
      * }
      * created_at: Date.now() # Used to expire this
      */
-    this.attackHits = function(hit, attack_id, according_to, attack) {
+    this.attackHits = function(hit, attack_id, according_to, attack, is_spell) {
+        //how to tell if it is a spell or a melee attack?
         var ret = []; // array returns who has been hit
 
-        if (hit == undefined) {
-            console.log("|||||||||HIT IS NOT DEFINED");
+    /*    if (hit == undefined) {
+            console.log(colors.red("HIT IS NOT DEFINED"));
         }
         if (attack_id == undefined) {
-            console.log("|||||||||ATTACK ID IS NOT DEFINED");
+            console.log(colors.red("ATTACK ID IS NOT DEFINED"));
         }
         if (according_to == undefined) {
-            console.log("|||||||||ACCORDING TO IS NOT DEFINED");
+            console.log(colors.red("ACCORDING TO IS NOT DEFINED"));
+        }*/
+
+//        console.log(colors.blue("Attack id is " + attack_id +
+//                                " hit is " + hit +
+//                                " according to is " + according_to));
+        //        util.log(colors.blue("Attack hits : [Previosly Attack ]\t\t//
+        //" + JSON.stringify(attacks)));
+        //this is bad if it uses the same array since it can be
+        //like for a spell or for a
+        var hits_array;
+
+        if (!is_spell){ //meelee attacks
+            console.log (colors.bgCyan("Attack id is : " + attack_id));
+            if (!(meelee_attacks[attack_id])) {
+                hits_array = [meelee_attacks[attack_id]];
+                console.log("MeleeAttack being inserted for the first time.");
+                meelee_attacks[attack_id] = [{
+                    "hit": hit,
+                    "according_to": [according_to],
+                    "confirmed": false
+                }];
+                setInterval(function(){
+                    if (meelee_attacks[attack_id]){
+                        delete meelee_attacks[attack_id];
+                    }
+                }, 20000);
+                return ret;
+            } else {
+                hits_array = meelee_attacks[attack_id];
+
+                console.log("ELSE HITS DUDE " + hits_array + " " + JSON.stringify(meelee_attacks[attack_id]));
+
+            }
+        } else {  //spells
+            if (!(spell_attacks[attack_id])) {
+                hits_array = [spell_attacks[attack_id]];
+
+                console.log("SpellAttack being inserted for the first time.");
+                spell_attacks[attack_id] = [{
+                    "hit": hit,
+                    "according_to": [according_to],
+                    "confirmed": false
+                }];
+                setInterval(function(){
+                    if (spell_attacks[attack_id]){
+                        delete spell_attacks[spell_id];
+                    }
+                }, 20000);
+                return ret;
+            } else {
+                hits_array = spell_attacks[attack_id];                console.log("ELSE H " + hits_array + " " + JSON.stringify(spell_attacks[attack_id]));
+
+            }
         }
-        console.log("\t\tAttack id is " + attack_id + " hit is " + hit + " according to is " + according_to);
-        util.log("\t\t\t\tAttack hits : [Previosly Attack ]\t\t " + JSON.stringify(attacks));
-        if (!(attacks[attack_id])) {
-            console.log("Attack being inserted for the first time.");
-            attacks[attack_id] = [{
-                "hit": hit,
-                "according_to": [according_to],
-                "confirmed": false
-            }];
-            setInterval(function(){
-                if (attacks[attack_id]){
-                    delete attacks[attack_id];
-                }
-            }, 20000);
-            return ret;
-        };
-        var hits_array = attacks[attack_id];
+
+        console.log(colors.yellow("Iterating through: " + hits_array));
+
         for (hits in hits_array) { //if the hit exists, if not then add it -- iterate through array
             console.log("Does " + hits_array[hits].hit + " == " + hit);
             if (hits_array[hits].hit == hit) {
@@ -162,7 +203,7 @@ var Game = function() {
                     console.log("\t\t\t\tALREADY IN LE SERVER BRO");
                 }
             }
-            util.log("\t\t\t\tAttack hits : [Current Attack ]\t\t " + JSON.stringify(attacks));
+//            util.log("\t\t\t\tAttack hits : [Current Attack ]\t\t " + JSON.stringify(attacks));
             //if 100% of people say attack happene
             if (hits_array[hits]["according_to"].length >= (that.getNumPlayers()*.49) && !(hits_array[hits]["confirmed"])) {
                 //how much damage
@@ -171,14 +212,20 @@ var Game = function() {
                 var dies = hit_player.doDamage(attack.getDamage());
                 ret.push(hit_player);
                 hits_array[hits]["confirmed"] = true;
-                console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[attack_id] + " ");
-                if (attack_id) { // does this trip out when the player is dead?
-                    console.log("HIT PLAYER : " + hit_player);
-                    active_spells[attack_id].doEffect({hits: hit_player});
-                } else {
-                    console.log("hit player "+hit_player + " attack " + attack);
-                    attack.doEffect({hits: hit_player, direction: attack.getDirection()});
-                }
+                //                console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[attack_id] + " -  " + attacks[attack_id]);
+//                if (attack_id) { // does this trip out when the player is dead?
+
+                //active_spells[attack_id].doEffect({hits: hit_player});
+                //                } else {
+//                if (is_spell){
+                    if (attack.getDirection){
+                        attack.doEffect({hits: hit_player, direction: attack.getDirection()});
+                    } else {
+                        attack.doEffect({hits: hit_player });
+
+                    }
+  //              }
+  //              }
                 if (dies.dies) {
                     //player is dead increment death counter
                     if (hit_player.getTeam() == 0) {
@@ -188,7 +235,6 @@ var Game = function() {
                     }
                 }
             }
-//            return ret;
         }
         return ret;
     };

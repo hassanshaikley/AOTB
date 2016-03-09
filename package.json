@@ -24,6 +24,7 @@
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.0",
     "chai": "^2.2.0",
+    "colors": "^1.1.2",
     "connect": "latest",
     "connect-flash": "~0.1.1",
     "connect-mongo": "latest",
