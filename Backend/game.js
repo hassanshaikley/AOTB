@@ -111,7 +111,7 @@ var Game = function() {
      * }
      * created_at: Date.now() # Used to expire this
      */
-    this.attackHits = function(hit, attack_id, according_to, attack, id) {
+    this.attackHits = function(hit, attack_id, according_to, attack) {
         var ret = []; // array returns who has been hit
 
         if (hit == undefined) {
@@ -171,12 +171,12 @@ var Game = function() {
                 var dies = hit_player.doDamage(attack.getDamage());
                 ret.push(hit_player);
                 hits_array[hits]["confirmed"] = true;
-                console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[id] + " ");
-                if (id) { // does this trip out when the player is dead?
+                console.log("DAMAGE HAS BEEN DONE FRIEND " + active_spells[attack_id] + " ");
+                if (attack_id) { // does this trip out when the player is dead?
                     console.log("HIT PLAYER : " + hit_player);
-                    active_spells[id].doEffect({hits: hit_player});
+                    active_spells[attack_id].doEffect({hits: hit_player});
                 } else {
-                    console.log("hit player "+hit_player);
+                    console.log("hit player "+hit_player + " attack " + attack);
                     attack.doEffect({hits: hit_player, direction: attack.getDirection()});
                 }
                 if (dies.dies) {

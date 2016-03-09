@@ -130,7 +130,7 @@ var Events = function() {
         if (!hit.getAlive()) {
             return;
         }
-        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id], data.attack_id);
+        var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id]);
         if (!hit.getAlive()) {
             this.emit('update team killcount', {
                 team_one_kills: game1.getTeamOneKills(),
