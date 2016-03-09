@@ -17,8 +17,8 @@ function Game() {
 
     var team_one_kills;
     var team_zero_kills;
-    team_zero_kills_text = new PIXI.Text("Score: 0");
-    team_one_kills_text = new PIXI.Text("Score: 0");
+    var team_zero_kills_text = new PIXI.Text("0/20 kils");
+    var team_one_kills_text = new PIXI.Text("0/20 kills");
 
     team_zero_kills_text.style.font = "bold 20px arial";
     team_zero_kills_text.style.align = "center";
@@ -34,11 +34,11 @@ function Game() {
     MAIN.stage.addChild(team_zero_kills_text);
     this.setTeamOneKills = function(kills) {
         team_one_kills = kills;
-        team_one_kills_text.text = "Score: " +kills;
+        team_one_kills_text.text = kills +"/20 kills";
     };
     this.setTeamZeroKills = function(kills) {
         team_zero_kills = kills;
-        team_zero_kills_text.text = "Score: " +kills;
+        team_zero_kills_text.text = kills +"/20 kills";
     };
 
 };
@@ -583,8 +583,6 @@ function draw() {
     };
     for (i = 0; i < remotePlayers.length; i++) {
         remotePlayers[i].draw_();
-
-
     };
     localPlayer.updateVariables();
     localPlayer.draw_();

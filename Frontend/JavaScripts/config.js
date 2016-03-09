@@ -7,7 +7,7 @@ CONFIG.MEELEE_ATTACK = 0;
 CONFIG.FIRST_SPELL = 1;
 
 if (location.origin === "http://localhost:5000"){
-    CONFIG.SHOW_HITBOXES = true;
+    CONFIG.SHOW_HITBOXES = false;
 } else {
     CONFIG.SHOW_HITBOXES = false;
 }

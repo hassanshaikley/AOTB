@@ -17,7 +17,8 @@ function Background() {
     /* var castle = new PIXI.Sprite(PIXI.Texture.fromImage("castleofone2.png"));
     castle.x = 0;
     castle.y= 0;
-    this.addChild(castle); */
+     this.addChild(castle); */
+
     left_blackwall = new PIXI.Graphics();
     left_blackwall.beginFill(0xAAAAAA);
     left_blackwall.drawRect(0, 0, 500, CONFIG.SCREEN_HEIGHT-22);
@@ -34,6 +35,14 @@ function Background() {
     right_blackwall.y = -400;
     right_blackwall.alpha = .5;
     this.addChild(right_blackwall);
+
+    for (var i = 0; i < 8; i++){
+        var z = new PIXI.Sprite(PIXI.Texture.fromImage("cloud.png"));
+        z.y = -350 + Math.random()*100;
+        z.x = 500 + i*400 + Math.random()*200;
+        this.addChild(z);
+        z = undefined;
+    }
 };
 Background.constructor = Background;
 Background.prototype = Object.create(PIXI.extras.TilingSprite.prototype);

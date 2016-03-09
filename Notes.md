@@ -1,8 +1,9 @@
 Now:
-  Grimes spell
   Grimes ulti
   >> (Explode)
   >> (Shield)
+  >> (Charge) <<
+  Interpolation / smoothness
   Implement Huntresss
   Make map look cool with random shit lmao (add clouds!)
 
@@ -19,3 +20,6 @@ Goals:
   Feel fast paced
   Movement + Gravity + Physics
   Map Design
+
+IDES:
+  Perhapas an FSM for movement states (charging, immobilized, free)
