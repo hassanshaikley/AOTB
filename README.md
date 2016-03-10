@@ -1,12 +1,8 @@
-#HI GUYS
+# AOTB, a multiplayer game written in JavaScript
 
-This is code for AOTB, a multiplayer game written in JS. 
+The server is authoritative and key presses are handled on the server.
 
-The server is authoritative and all key presses are handled on the server.
-
-##Demo
-
-[##Demo](http://aotb.io )
+[Demo](http://aotb.io )
 
 ##Running
 
