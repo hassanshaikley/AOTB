@@ -7,6 +7,23 @@ var canvas, // Canvas DOM element
     _alert, // Socket connection
     localGame;
 var MAIN;
+LATENCY = 100;
+var FPS = 60;
+var fps = {
+    startTime : 0,
+    frameNumber : 0,
+    getFPS : function(){
+	this.frameNumber++;
+	var d = new Date().getTime(),
+	    currentTime = ( d - this.startTime ) / 1000,
+	    result = Math.floor( ( this.frameNumber / currentTime ) );
+	if( currentTime > 1 ){
+	    this.startTime = new Date().getTime();
+            this.frameNumber = 0;
+	}
+	return result;
+    }
+};
 
 function Game() {
     this.bloods = [];
@@ -281,10 +298,14 @@ function onSpellOne(data) {
     }
 }
 /* Updates location of all connected players*/
+var back = Date.now();
 function onUpdatePlayer(data) {
     var player = helpers.playerById(data.id);
-    if (!player) {
+
+    if (data.id == localPlayer.id) {
         player = localPlayer;
+        LATENCY = Date.now() - back;
+        back = Date.now();
     }
     player.setX(data.x);
     player.setY(data.y);
@@ -292,7 +313,8 @@ function onUpdatePlayer(data) {
     player.setTeam(data.team);
     player.coordinateList.push({
         x: data.x,
-        y: data.y
+        y: data.y,
+        latency: LATENCY
     });
 }
 /*function onBleed(data) {
@@ -490,6 +512,7 @@ function handleCooldownVisuals() {
  ** GAME UPDATE
  **************************************************/
 function update() {
+    FPS = fps.getFPS();
 
     scene.x  =20 -localPlayer.getX() / 60;
 

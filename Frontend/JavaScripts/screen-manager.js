@@ -53,7 +53,7 @@ ScreenManager.prototype.update = function() {
     //requestAnimationFrame(this.update.bind(this));
     update();
     draw();
-    setTimeout(this.update.bind(this), 1000/60)
+    setTimeout(this.update.bind(this), 1000/60);
 };
 
 ScreenManager.prototype.spriteSheetLoaded = function() {

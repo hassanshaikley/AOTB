@@ -1,6 +1,6 @@
 Now:
   Make file names consistent, place them in proper folders
-  >> Interpolation / smoothness
+  Grimes ulti
   Fix bug where it animates after you stop moving
   Implement Huntresss
   Make map look cool with random shit lmao (add clouds!)

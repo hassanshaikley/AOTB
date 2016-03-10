@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>4.0.2</string>
         <key>fileName</key>
         <string>/Users/hydraboy/aotb/Frontend/Images/spritesheet.tps</string>
         <key>autoSDSettings</key>
@@ -198,9 +198,7 @@
             <filename>gold.png</filename>
             <filename>silverShield2.png</filename>
             <filename>silverSword2.png</filename>
-            <filename>skelly.png</filename>
             <filename>tort_stun.png</filename>
-            <filename>trees.png</filename>
             <filename>grimes_l.png</filename>
             <filename>grimes_r.png</filename>
             <filename>r_redhatter2.png</filename>
@@ -308,9 +306,6 @@
             <filename>hitmarker.fw.png</filename>
             <filename>redHatter_v2.png</filename>
             <filename>spire_FW.png</filename>
-            <filename>hydra.png</filename>
-            <filename>crevice_l.png</filename>
-            <filename>crevice_r.png</filename>
             <filename>stealth_thumb.png</filename>
             <filename>descend_thumb.png</filename>
             <filename>attack1_icon_v3.fw.png</filename>
@@ -320,7 +315,6 @@
             <filename>mini_platform.png</filename>
             <filename>tortpull.png</filename>
             <filename>options.png</filename>
-            <filename>../../../Downloads/desert_v1.fw.png</filename>
             <filename>cloud.png</filename>
             <filename>favicon.ico</filename>
             <filename>Walk_F1_l.png</filename>
@@ -343,6 +337,19 @@
             <filename>huntress_walk_frame4.fw.png</filename>
             <filename>huntress_walk_frame5.fw.png</filename>
             <filename>huntress_walk_frame6.fw.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Tiles/sandMid.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Tiles/hill_small.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Tiles/hill_large.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Tiles/grassMid.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Tiles/boxAlt.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Enemies/snailWalk2.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Enemies/snailWalk1.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Enemies/snailShell.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Enemies/snailShell_upsidedown.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Enemies/flyFly2.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Enemies/flyFly1.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Enemies/flyDead.png</filename>
+            <filename>../../../Downloads/platformerGraphicsDeluxe_Updated/Items/cloud1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
