@@ -12,7 +12,7 @@ If you need to, refer to MongoDB's docs for that one.
 
 Then simply clone and run.
 
-    >> git clone https://hassanshaikley@bitbucket.org/hassanshaikley/amara-game.git && cd amara-game
+    >> git clone https://github.com/hassanshaikley/AOTB.git && cd AOTB
     >> npm install #requires npm
     >> cd Backened
     >> node server.js
