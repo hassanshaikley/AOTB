@@ -33,7 +33,6 @@ var MovementComponent = function(that){
             }
         }
         //have keys override move direction for local player
-        //console.log(this.id);
         if (that.id === localPlayer.id) {
             if (keys["68"]) {
                 last_move_direction = "right";
@@ -89,18 +88,18 @@ var MovementComponent = function(that){
     };
 
 
-    targetX = null;
-    targetY = null;
-    targetLatency = null; //Moving between points should happen over the duration between updates
+    var targetX = null;
+    var targetY = null;
+    var targetLatency = null; //Moving between points should happen over the duration between updates
     //like Server says user is at 5, then 7, then move 2 blocks over however long it took
     //server to tell u that, ideally like 50 ms or whatever
-    last_update_time = Date.now();
+    var last_update_time = Date.now();
 
         /* Updates the variables for drawing*/
     this.update = function(){
 
         var oldDrawAtY = drawAtY;
-        if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 500) {
+        if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 2000) {
             drawAtY = y;
             drawAtX = x;
         }
@@ -118,18 +117,22 @@ var MovementComponent = function(that){
         var _y;
         var _x;
 
-        console.log(Math.abs( that.getX() - drawAtX));
-        if (Date.now() + 15 > last_update_time + targetLatency){
-//            console.log("(Getting next coords) - Target Latency : " + targetLatency + " , Latency: " + LATENCY);
+        //        console.log(Math.abs( that.getX() - drawAtX));
+//        console.log(Math.abs( targetX - drawAtX) + " --- " + Math.abs(drawAtX - that.getX()));
+        console.log("~~>"+xSpeed);
+        //        if (Date.now() + 15 > last_update_time + targetLatency || ( Math.abs(drawAtX - targetX) < 10)){
+        if (( Math.abs(drawAtX - targetX) < 5 ) || Math.abs(drawAtX - targetX) > 1000){
+            //            console.log("(Getting next coords) - Target Latency : " + targetLatency + " , Latency: " + LATENCY);
             getNextTargetCoords();
             generateSpeedFromCoords();
         }
 
 
-//            var xSpeed = (drawAtX - _x)  * (FPS);
-            //            console.log("xSPEED -> " + xSpeed);
-            //                            drawAtY -= (drawAtY - _y)  * (FPS / LATENCY); //
-            //            drawAtX -= (drawAtX - _x)   * (FPS );
+
+        //            var xSpeed = (drawAtX - _x)  * (FPS);
+        //            console.log("xSPEED -> " + xSpeed);
+        //                            drawAtY -= (drawAtY - _y)  * (FPS / LATENCY); //
+        //            drawAtX -= (drawAtX - _x)   * (FPS );
 
         if (xSpeed){
             drawAtX -= xSpeed;
@@ -154,7 +157,7 @@ var MovementComponent = function(that){
 
     function getNextTargetCoords(){
         if (that.coordinateList.length  == 0){
-            console.log("No target coordinates available");
+//            console.log("No target coordinates available");
             return;
         }
         var coords = that.coordinateList.shift();
@@ -166,8 +169,8 @@ var MovementComponent = function(that){
         last_update_time = Date.now();
     }
     function generateSpeedFromCoords(){
-        xSpeed = (drawAtX - targetX)/(FPS-5);
-        ySpeed = (drawAtY - targetY)/(FPS-5);
+        xSpeed = (drawAtX - targetX)/(FPS/13);
+        ySpeed = (drawAtY - targetY)/(FPS/13);
 
     };
     that.isFalling = function(){
