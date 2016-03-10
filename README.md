@@ -1,14 +1,12 @@
 #HI GUYS
 
-This is code for a multiplayer game written in JS. 
+This is code for AOTB, a multiplayer game written in JS. 
 
 The server is authoritative and all key presses are handled on the server.
 
-If you have any tips please comment! Especially with respect to design patterns or using the database.
-
 ##Demo
 
-[Keys are w, a, s, d & right click!](http://aotb.io )
+[##Demo](http://aotb.io )
 
 ##Running
 
@@ -31,10 +29,8 @@ Tests are written in Mocha
 
     npm install -g mocha.
 
-Then simply run
+For serverside tests simply go to the server directory and run
 
     npm test
 
-
-# Some notes about current and future strategies are in the notes folder
-
+For clientside tests simply go to http://localhost:5000/test
