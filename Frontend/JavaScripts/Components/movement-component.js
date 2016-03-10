@@ -119,9 +119,9 @@ var MovementComponent = function(that){
 
         //        console.log(Math.abs( that.getX() - drawAtX));
 //        console.log(Math.abs( targetX - drawAtX) + " --- " + Math.abs(drawAtX - that.getX()));
-        console.log("~~>"+xSpeed);
+//        console.log("~~>"+xSpeed);
         //        if (Date.now() + 15 > last_update_time + targetLatency || ( Math.abs(drawAtX - targetX) < 10)){
-        if (( Math.abs(drawAtX - targetX) < 5 ) || Math.abs(drawAtX - targetX) > 1000){
+        if (( Math.abs(drawAtX - targetX) < 10  || Math.abs(drawAtY - targetY) < 10 ) || Math.abs(drawAtX - targetX) > 1000){
             //            console.log("(Getting next coords) - Target Latency : " + targetLatency + " , Latency: " + LATENCY);
             getNextTargetCoords();
             generateSpeedFromCoords();
