@@ -4,11 +4,9 @@ node_modules
 *.swp
 *.swn
 .DS_Store
-
 *#
 .#*
 *~
 notes
 nodemon.json
-dbcommands
 *.log
