@@ -125,8 +125,16 @@ var MovementComponent = function(that){
             _x = x;
             _y = y;
         }
-        drawAtY -= (drawAtY - _y) / 4; //
-        drawAtX -= (drawAtX - _x) / 4;
+        if (FPS){
+            var xSpeed = (drawAtX - _x)  * (FPS);
+            console.log("xSPEED -> " + xSpeed);
+            drawAtY -= (drawAtY - _y)  * (FPS / LATENCY); //
+            drawAtX -= (drawAtX - _x)   * (FPS );
+        } else {
+            console.log("IN THIS BITCH");
+            drawAtY -= (drawAtY - _y) / 4; //
+            drawAtX -= (drawAtX - _x)  /4;
+        }
         _x = null;
         _y = null;
         if (Math.ceil(oldDrawAtY) < Math.ceil(drawAtY)){

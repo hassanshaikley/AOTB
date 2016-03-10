@@ -102,7 +102,7 @@ Server.prototype.updateGames = function() {
     /* Method for telling all the units about the health of the structures and stuff */
     setTimeout(function() {
         server.updateGames();
-    }, 1000); //1000/15 is good
+    }, 1000/15); //1000/15 is good
 };
 server.init();
 exports.Server = server;
