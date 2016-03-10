@@ -1,22 +1,17 @@
 {
   "name": "aotb",
   "version": "0.7.0",
-  "description": "GAME",
+  "description": "Multiplayer browser game",
   "main": "views/index.ejs",
   "scripts": {
     "test": "mocha test",
-    "start": "nodewebkit"
-  },
-  "window": {
-    "toolbar": false,
-    "width": 800,
-    "height": 600
+    "start": "node Backend/server.js"
   },
   "keywords": [
-    "GAME",
-    "AMARA",
-    "AMARANTHIST",
-    "BROWSER GAME"
+    "game",
+    "aotb",
+    "browser",
+    "multiplayer"
   ],
   "author": "Hassan Shaikley",
   "license": "ISC",
