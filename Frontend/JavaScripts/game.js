@@ -301,11 +301,10 @@ function onSpellOne(data) {
 var back = Date.now();
 function onUpdatePlayer(data) {
     var player = helpers.playerById(data.id);
+
     if (data.id == localPlayer.id) {
         player = localPlayer;
         LATENCY = Date.now() - back;
-//        console.log("Latency: " + LATENCY);
-        //Get latency here
         back = Date.now();
     }
     player.setX(data.x);
@@ -314,7 +313,8 @@ function onUpdatePlayer(data) {
     player.setTeam(data.team);
     player.coordinateList.push({
         x: data.x,
-        y: data.y
+        y: data.y,
+        latency: LATENCY
     });
 }
 /*function onBleed(data) {

@@ -89,6 +89,12 @@ var MovementComponent = function(that){
     };
 
 
+    targetX = null;
+    targetY = null;
+    targetLatency = null; //Moving between points should happen over the duration between updates
+    //like Server says user is at 5, then 7, then move 2 blocks over however long it took
+    //server to tell u that, ideally like 50 ms or whatever
+    last_update_time = Date.now();
 
         /* Updates the variables for drawing*/
     this.update = function(){
@@ -99,6 +105,7 @@ var MovementComponent = function(that){
             drawAtX = x;
         }
 
+
         moveDifferenceX = (drawAtX - postX);
         moveDifferenceY = (drawAtY - postY);
         if (moveDifferenceX) { // USED TO TELL IF GOING LEFT OR RIGHT
@@ -107,36 +114,35 @@ var MovementComponent = function(that){
         if (moveDifferenceY) {
             postY = drawAtY;
         }
+
         var _y;
         var _x;
-        if (that.coordinateList.length > 10) {
-            var temp = that.coordinateList[that.coordinateList.length - 1];
-            _x = temp.x;
-            _y = temp.y;
-            that.coordinateList = [];
+
+        console.log(Math.abs( that.getX() - drawAtX));
+        if (Date.now() + 15 > last_update_time + targetLatency){
+//            console.log("(Getting next coords) - Target Latency : " + targetLatency + " , Latency: " + LATENCY);
+            getNextTargetCoords();
+            generateSpeedFromCoords();
         }
-        if (that.coordinateList.length > 1) {
-            //_x = that.coordinateList[that.coordinateList.length - 1].x;
-            // _y = that.coordinateList[that.coordinateList.length - 1].y;
-            var coords = that.coordinateList.shift();
-            _x = coords.x;
-            _y = coords.y;
-        } else {
-            _x = x;
-            _y = y;
+
+
+//            var xSpeed = (drawAtX - _x)  * (FPS);
+            //            console.log("xSPEED -> " + xSpeed);
+            //                            drawAtY -= (drawAtY - _y)  * (FPS / LATENCY); //
+            //            drawAtX -= (drawAtX - _x)   * (FPS );
+
+        if (xSpeed){
+            drawAtX -= xSpeed;
         }
-        if (FPS){
-            var xSpeed = (drawAtX - _x)  * (FPS);
-            console.log("xSPEED -> " + xSpeed);
-            drawAtY -= (drawAtY - _y)  * (FPS / LATENCY); //
-            drawAtX -= (drawAtX - _x)   * (FPS );
-        } else {
-            console.log("IN THIS BITCH");
-            drawAtY -= (drawAtY - _y) / 4; //
-            drawAtX -= (drawAtX - _x)  /4;
+
+        if (ySpeed){
+            drawAtY -= ySpeed;
         }
         _x = null;
         _y = null;
+
+
+
         if (Math.ceil(oldDrawAtY) < Math.ceil(drawAtY)){
             falling = true;
         } else {
@@ -144,8 +150,26 @@ var MovementComponent = function(that){
         }
 
 
-        };
+    };
 
+    function getNextTargetCoords(){
+        if (that.coordinateList.length  == 0){
+            console.log("No target coordinates available");
+            return;
+        }
+        var coords = that.coordinateList.shift();
+        targetY = coords.y;
+        targetX = coords.x;
+        targetLatency = coords.latency;
+//        console.log("Target coordinates selected ("+targetX + ", "+targetY+")" );
+
+        last_update_time = Date.now();
+    }
+    function generateSpeedFromCoords(){
+        xSpeed = (drawAtX - targetX)/(FPS-5);
+        ySpeed = (drawAtY - targetY)/(FPS-5);
+
+    };
     that.isFalling = function(){
         return falling;
     };
