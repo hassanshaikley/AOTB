@@ -95,6 +95,12 @@ var MovementComponent = function(that){
     //server to tell u that, ideally like 50 ms or whatever
     var last_update_time = Date.now();
 
+    that.init_position = function(){
+        drawAtX = x;
+        drawAtY = y;
+        targetX = x;
+        targetY = y;
+    };
         /* Updates the variables for drawing*/
     this.update = function(){
 

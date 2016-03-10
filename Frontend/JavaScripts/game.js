@@ -636,6 +636,8 @@ function onInitMe(data) {
     localGame.setTeamOneKills(data.team_one_kills);
     localGame.setTeamZeroKills(data.team_zero_kills);
 
+    localPlayer.initPosition();
+
     //CONFIG = data.CONFIG;
     for (var property in data.CONFIG) {
         if (data.CONFIG.hasOwnProperty(property)) {
