@@ -1,9 +1,9 @@
 function Background() {
 
-    var texture = PIXI.Texture.fromImage("cobblestone_ground_v2.fw.png");
-    PIXI.extras.TilingSprite.call(this, texture, 4000 + Math.abs(768 / 2), 100); //repeats for 400 x
+    var texture = PIXI.Texture.fromImage("grassMid.png");
+    PIXI.extras.TilingSprite.call(this, texture, 4000 + Math.abs(768 / 2), 50); //repeats for 400 x
     this.position.x = 1000 - Math.abs(768 / 2);
-    this.position.y = 370;
+    this.position.y = 420;
     this.tilePosition.x = 50;
     this.tilePosition.y = 0;
 
@@ -24,7 +24,7 @@ function Background() {
     left_blackwall.drawRect(0, 0, 500, CONFIG.SCREEN_HEIGHT-22);
     left_blackwall.endFill();
     left_blackwall.x = 480;
-    left_blackwall.y = -400;
+    left_blackwall.y = -448;
     left_blackwall.alpha = .5;
     this.addChild(left_blackwall);
     right_blackwall = new PIXI.Graphics();
@@ -32,17 +32,22 @@ function Background() {
     right_blackwall.drawRect(0, 0, 500, CONFIG.SCREEN_HEIGHT-22);
     right_blackwall.endFill();
     right_blackwall.x = 2856;
-    right_blackwall.y = -400;
+    right_blackwall.y = -448;
     right_blackwall.alpha = .5;
     this.addChild(right_blackwall);
 
     for (var i = 0; i < 8; i++){
-        var z = new PIXI.Sprite(PIXI.Texture.fromImage("cloud.png"));
+        var z = new PIXI.Sprite(PIXI.Texture.fromImage("cloud1.png"));
         z.y = -350 + Math.random()*100;
         z.x = 500 + i*400 + Math.random()*200;
         this.addChild(z);
         z = undefined;
     }
+
+    var x = new PIXI.Sprite(PIXI.Texture.fromImage("hill_large.png"));
+    x.x = 1200;
+    x.y = -146;
+    this.addChild(x);
 };
 Background.constructor = Background;
 Background.prototype = Object.create(PIXI.extras.TilingSprite.prototype);

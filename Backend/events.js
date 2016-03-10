@@ -450,7 +450,17 @@ var Events = function() {
             }
             break;
         case "Grimes":
+            if (!(player.spellTwoCastTime + 1000 <= Date.now())) {
+                return;
+                        }
             console.log("GRIMES!!");
+            console.log(data.direction);
+            if (data.direction == "right"){
+                player.setX(player.getX()+300);
+            } else {
+                player.setX(player.getX()-300);
+
+            }
             break;
         }
         player.spellTwoCastTime = Date.now();

@@ -216,11 +216,10 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 
 
     var now = Date.now() - 1000;
-    var that = this;
     /* Sets the current action to meeleee attack(For animation)
      * And then checks for Collision
      **/
-    this.current_action;
+    this.current_action = undefined;
     this.setMeeleeAttack = function(_atk, attack_id, direction) {
         if (_atk) {
             if (direction == "left") {

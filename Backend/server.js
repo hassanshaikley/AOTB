@@ -20,7 +20,7 @@ Server.prototype.init = function() {
     server.event_handler.setEventHandlers(server.libs.io);
     server.updateGames();
 };
-/* 
+/*
  * Iterate through every game and update it. Currently does too much. lol
  */
 Server.prototype.updateGames = function() {
@@ -102,7 +102,7 @@ Server.prototype.updateGames = function() {
     /* Method for telling all the units about the health of the structures and stuff */
     setTimeout(function() {
         server.updateGames();
-    }, 1000 / 15);
+    }, 1000); //1000/15 is good
 };
 server.init();
 exports.Server = server;

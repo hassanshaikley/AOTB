@@ -3,7 +3,8 @@ Now:
   >> (Explode)
   >> (Shield)
   >> (Charge) <<
-  Interpolation / smoothness
+  >> Interpolation / smoothness
+  Fix bug where it animates after you stop moving
   Implement Huntresss
   Make map look cool with random shit lmao (add clouds!)
 
