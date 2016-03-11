@@ -1,8 +1,9 @@
 Now:
-  Make file names consistent, place them in proper folders
   When you first connect it displays you off center
   Make attacks work on tabbed out users 
   Render units in the proper location then play test
+  Let config report on cooldown, and turn that into what tooltip used
+  Unclutter global namespace
   
   NEXT:
     Implement Huntresss
@@ -26,3 +27,11 @@ Goals:
 IDES:
   Perhapas an FSM for movement states (charging, immobilized, free)
 
+Hackers
+  Don't ban hackers, put them in a server together
+
+Javascript
+  Use require.js for shared code between client and server
+
+Takeaway:
+  I have random numbers without knowing the importance when re-reading the code.
