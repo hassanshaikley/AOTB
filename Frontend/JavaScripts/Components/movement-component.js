@@ -21,7 +21,9 @@ var MovementComponent = function(that){
         that.current_action = action;
     };
 
-    var last_move_direction;
+    //initial direction character is facing
+    var last_move_direction = "right";
+
     that.getMoveDirection = function() {
         if (that.getMeeleeAttack()) {
             if (last_move_direction === "left") {
@@ -57,6 +59,7 @@ var MovementComponent = function(that){
             that.current_action = CONFIG.ACTION.IDLE;
             return last_move_direction;
         }
+
     };
 
 

@@ -20,6 +20,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     var that = this;
 
     var invis = false;
+
     this.setInvis = function(_invis) {
         invis = _invis;
         if (_invis) {
@@ -285,7 +286,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         loop = false;
 
     this.draw_ = function() {
-        console.log("YEP BIATCH");
+
         this.imageContainer.visible = true;
         // this.update_player();
         var drawAtX = CONFIG.SCREEN_WIDTH / 2 + that.getDrawAtX() - that.localX() - 50;

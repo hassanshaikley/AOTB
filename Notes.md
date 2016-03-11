@@ -1,5 +1,4 @@
 Now:
-  When you first connect it displays you off center
   Make attacks work on tabbed out users 
   Render units in the proper location then play test
   Let config report on cooldown, and turn that into what tooltip used
