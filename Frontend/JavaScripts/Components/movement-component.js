@@ -45,11 +45,11 @@ var MovementComponent = function(that){
                 return "left";
             }
         }
-        if (moveDifferenceX < 0) {
+        if (moveDifferenceX < -.5) {
             last_move_direction = "left";
             that.current_action = CONFIG.ACTION.MOVING_LEFT;
             return "left";
-        } else if (moveDifferenceX > 0) {
+        } else if (moveDifferenceX > .5) {
             last_move_direction = "right";
             that.current_action = CONFIG.ACTION.MOVING_RIGHT;
             return "right";

@@ -1,11 +1,13 @@
 Now:
   Make file names consistent, place them in proper folders
   Fix bug where it animates after you stop moving
-  Make map look cool with random shit lmao (add clouds!)
+  When you first connect it displays you off center
   Make attacks work on tabbed out users 
-  Add tooltip for grimes ulti
   Render units in the proper location then play test
-  Implement Huntresss
+  
+  NEXT:
+    Implement Huntresss
+    Make map look cool with random shit lmao (add clouds!)
 
 GUI:
   >> Splash
