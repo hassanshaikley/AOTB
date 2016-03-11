@@ -21,7 +21,6 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
 
     var invis = false;
     this.setInvis = function(_invis) {
-        console.log("Setting INVIS");
         invis = _invis;
         if (_invis) {
             MAIN.stage.removeChild(skeleton.imageContainer);
@@ -38,7 +37,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         return meelee_attack;
     };
     this.setUpActionbar = function() {
-        console.log("IMPLEMENT THIS");
+
     };
     // Getters and setters
     this.setTeam = function(_team) {
@@ -197,7 +196,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
     var text_x;
     this.drawText = function() {
         if (Math.abs(that.getDrawAtX() - that.getX()) > 10) { // idk what this was for
-            //console.log( Math.abs(x - drawAtX));
+
         }
         text_x = CONFIG.SCREEN_WIDTH / 2 - localPlayer.localX() + that.getDrawAtX();
         name_text.x = text_x - name_text.width / 2;

@@ -100,7 +100,7 @@ var HealingSpike = function(startX, caster) {
     };
     var getDamage = function() {
         return -10;
-    }
+    };
     return {
         draw: draw,
         getX: getX,
@@ -109,19 +109,17 @@ var HealingSpike = function(startX, caster) {
         active: active,
         caster: caster,
         getDamage: getDamage
-    }
+    };
 };
 /* startY isn't necessary, but neither is swag */
 var Meteor = function(meteorX, mCaster) {
     Projectile.call(this, meteorX, -70, 40, 110, mCaster);
     var _this = this;
     this.caster = mCaster;
-    console.log("New meteor " + meteorX);
     this.active = true; //active spells can hurt this specific client
     var team;
     this.setTeam = function(_team) {
         team = _team;
-        console.log("SETTING TEAM ");
         if (team == 1) {
             teamOneFilter(meteorClip);
         }

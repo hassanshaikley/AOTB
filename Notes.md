@@ -1,14 +1,15 @@
 Now:
-  When you tab out, interpolation wigs out...just have it forget about player positions hwen you tab out
   Make file names consistent, place them in proper folders
-  Grimes ulti
   Fix bug where it animates after you stop moving
-  Implement Huntresss
   Make map look cool with random shit lmao (add clouds!)
-  
+  Make attacks work on tabbed out users 
+  Add tooltip for grimes ulti
+  Render units in the proper location then play test
+  Implement Huntresss
 
 GUI:
   >> Splash
+    +Be able to set controls in the splash screen
 
 Problems:
   Confusing ass lag, sometimes it is just jumpy
@@ -23,3 +24,4 @@ Goals:
 
 IDES:
   Perhapas an FSM for movement states (charging, immobilized, free)
+

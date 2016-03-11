@@ -171,6 +171,10 @@ var setEventHandlers = function() {
     window.addEventListener('focus', function() {
         //usually when they tab in
         keys = new Keys();
+        for (var i = 0; i < remotePlayers.length; i++){
+            remotePlayers[i].coordinateList = [];
+        }
+        localPlayer.coordinateList = [];
     }, false);
     socket.on("connect", onSocketConnected);
     socket.on("disconnect", onSocketDisconnect);
@@ -213,13 +217,13 @@ function onSpellTwo(data) {
         localPlayer.spellCD(2);
         break;
     case "shanker bomb":
-        console.log("SHANKER BOMB " + JSON.stringify(data));
         var v = new ShankerBomb(data.x, data.y, data.direction);
         v.attack_id = data.attack_id;
         Spells.spellsarray.push(v);
         break;
 
     }
+    console.log("Yas spell two " + data.caster);
     if (data.caster === "you") {
         localPlayer.spellCD(2);
     }
@@ -228,7 +232,6 @@ function onSpellTwo(data) {
 function onVisibleAgain(data) {
     var player;
     player = helpers.playerById(data.id);
-    console.log("PLAYER IS VISIBLE AGAIN\n" + localPlayer.getTeam() + " =? " + player.getTeam());
 
     if (player.getTeam() === localPlayer.getTeam()) {
         player.imageContainer.alpha = 1;
@@ -308,7 +311,6 @@ function onUpdatePlayer(data) {
         back = Date.now();
     }
     if (!player){
-        console.log("PLAYER IS NON EXISTANT" + player);
         return;
     }
     player.setX(data.x);
@@ -532,10 +534,8 @@ function update() {
         for (var j = 0; j < allPlayers.length; j++) {
             if (helpers.collision(allPlayers[j], Spells.spellsarray[i])) {
                 if (Spells.spellsarray[i].inactive){
-                    console.log("SPELL IS NOT ACITVE :(");
                     continue;
                 }
-                console.log("WE HAVE A COLLISION");
                 //let the server know the attack landed
                 //going to only want to do this once!
                 //this is buggy when undefined
@@ -647,7 +647,6 @@ function onInitMe(data) {
         if (data.CONFIG.hasOwnProperty(property)) {
             // do stuff
             CONFIG[property] = data.CONFIG[property];
-            console.log( property + " TO " + data.CONFIG[property]);
         }
     }
 

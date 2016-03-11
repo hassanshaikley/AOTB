@@ -104,7 +104,18 @@ var ActionbarComponent = function(that){
             duration: "400ms",
             cooldown: "3s"
         }));
+
+        var charge = new PIXI.Sprite(PIXI.Texture.fromFrame("tooltip_doesnt_exist.png"));
+        spells_description_array.push (generateDescription({
+            name: "Charge",
+            key: "q",
+            description: "Charge in the direction your moving!!",
+            cooldown: "2s"
+        }));
+
         spells_thumb_array.push(tort_stun);
+        spells_thumb_array.push(charge);
+
 
     };
 
@@ -113,7 +124,6 @@ var ActionbarComponent = function(that){
     }
 
     function generateDescription(obj){
-        console.log(obj);
         var str = obj.name;
         str += "\n" + obj.description;
         str += "\n\n" + obj.key;
@@ -126,10 +136,9 @@ var ActionbarComponent = function(that){
 
     function addThumbToActionBar(image, description) {
         if (!description){
-            console.log("Description is missing FUCK U");
+
         };
         MAIN.BOTACTIONBAR.addChild(image);
-        console.log("X ADD IS " + add);
         image.position.x = add;
         image.interactive = true;
 
@@ -150,13 +159,13 @@ var ActionbarComponent = function(that){
 
 
         image.mouseover = function(mouseData){
-            console.log("MOUSE OVER");
+
             tooltip.visible = true;
             text.visible = true;
         };
 
         image.mouseout = function(mouseData){
-            console.log("MOUSE OUT!");
+
             text.visible=  false;
             tooltip.visible = false;
         };
@@ -167,9 +176,6 @@ var ActionbarComponent = function(that){
 
     //meelee = 0, first = 1, second = 2
     that.spellCD = function(spell_num){
-
-        console.log("CASTING " + spell_num);
-
 
         //        cd_t = CONFIG.SHANKER_1_CD;
         //        cd_three = CONFIG.SHANKER_2_CD;

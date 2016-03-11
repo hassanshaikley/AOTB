@@ -15,6 +15,7 @@ var Fly = require("./Units/fly").Fly,
     ShankerBomb = require("./Spells/shanker-bomb").ShankerBomb,
     Stealth = require("./Spells/stealth.js").Stealth,
     TortStun = require("./Spells/tortstun.js").TortStun,
+    Charge = require ("./Spells/charge.js").Charge,
     RHRange = require("./Spells/rhrange.js").RHRange,
     DescendAttack = require("./Spells/descend-attack.js").DescendAttack,
     Meteor = require("./Spells/meteor.js").Meteor,
@@ -29,6 +30,7 @@ var CONFIG = require("./config");
 Stealth.cooldown = CONFIG.SHANKER_1_CD;
 ShankerBomb.cooldown = CONFIG.SHANKER_2_CD;
 TortStun.cooldown = CONFIG.GRIMES_1_CD;
+Charge.cooldown = CONFIG.GRIMES_2_CD;
 //
 DescendAttack.cooldown = CONFIG.FLY_1_CD;
 FlyGrab.cooldown = CONFIG.FLY_2_CD;
@@ -223,7 +225,7 @@ var Events = function() {
                 player.jumping = true;
                 setTimeout(function() {
                     player.jumping = false;
-                }, 1000);
+                }, 300);
             }
         }
         if (data.key === "left") {
@@ -261,7 +263,6 @@ var Events = function() {
         setTimeout(function() { //remove this
             if (attacks[attack_id]) {
                 delete attacks[attack_id];
-                console.log("Deleting");
             }
         }, 4000);
 
@@ -450,10 +451,9 @@ var Events = function() {
             }
             break;
         case "Grimes":
-            if (!(player.spellTwoCastTime + 1000 <= Date.now())) {
+            if (!(player.spellTwoCastTime + Charge.cooldown <= Date.now())) {
                 return;
                         }
-            console.log("GRIMES!!");
             console.log(data.direction);
             if (data.direction == "right"){
                 player.setX(player.getX()+300);
@@ -461,6 +461,10 @@ var Events = function() {
                 player.setX(player.getX()-300);
 
             }
+            //to display cd
+            this.emit('spell two', {
+                caster: "you"
+            });
             break;
         }
         player.spellTwoCastTime = Date.now();

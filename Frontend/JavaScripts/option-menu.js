@@ -8,7 +8,6 @@ function OptionMenu(){
     options_img.interactive = true;
 
     options_img.click = function(mouseData){
-        console.log("CLICK!");
         toggle();
     };
 

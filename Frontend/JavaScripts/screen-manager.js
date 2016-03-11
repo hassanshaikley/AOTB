@@ -57,11 +57,10 @@ ScreenManager.prototype.update = function() {
 };
 
 ScreenManager.prototype.spriteSheetLoaded = function() {
-    console.log("LOADED LE SPRITE SHEET");
     localGame.init();
     //requestAnimationFrame(this.update.bind(this));
 
-    setTimeout(this.update.bind(this), 1000/60)
+    setTimeout(this.update.bind(this), 1000/60);
 
 };
 

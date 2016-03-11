@@ -11,7 +11,6 @@ var Shanker = function(name, x, y) {
     //this, width, height
     var CC = new CollisionComponent(skeleton, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").width - 30, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").height - 20);
     skeleton.windWalk = function() {
-        console.log("WIND WALKIN K ");
         skeleton.setInvis(true);
     };
     var clipnames = [];
@@ -38,7 +37,6 @@ var Shanker = function(name, x, y) {
     skeleton.setAnimations(shanker_l, shanker_r, shanker_l_attack, shanker_r_attack);
     var now = Date.now();
     skeleton.setInvis = function(_invis) {
-        console.log("CALLING INVIS");
         if (_invis) {
             MAIN.stage.removeChild(skeleton.imageContainer);
         } else {

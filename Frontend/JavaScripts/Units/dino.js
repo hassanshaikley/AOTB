@@ -15,7 +15,6 @@ var Dino = function(name, x, y, hp) {
         /* sword_thumb.interactive = true;
 
          sword_thumb.mouseover = function(mouseData){
-           console.log("MOUSE OVER!");
          }*/
     }
     var grimes_l = new PIXI.extras.MovieClip([PIXI.Texture.fromFrame("Walk_F1_l.png"),

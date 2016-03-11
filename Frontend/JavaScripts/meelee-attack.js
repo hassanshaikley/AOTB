@@ -61,7 +61,6 @@ function MeeleeAttack(x, y, width, height, attack_id, belongs_to, duration){
             if (helpers.collision(allPlayers[i], that)){
                 if (hits.indexOf(allPlayers[i].id) == -1){
                     hits.push(allPlayers[i].id);
-//                    console.log("A HEIS HIT!");
                     //notify server of hit
                     socket.emit("meelee hits", {
                         "hit": allPlayers[i].id,
@@ -75,11 +74,8 @@ function MeeleeAttack(x, y, width, height, attack_id, belongs_to, duration){
 
     function addMeeleeAttack(m){
         meelee_attacks[attack_id] = m;
-        console.log("jsus");
-
 
         setTimeout(function(){
-            console.log("m id " + attack_id);
             delete meelee_attacks[attack_id];
             MAIN.stage.removeChild(box);
 

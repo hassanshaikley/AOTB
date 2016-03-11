@@ -32,7 +32,6 @@ var Platform = function(x, y){
 	if ( helpers.collision(localPlayer, that)){
 	    if (localPlayer.isFalling()){
 		if (callable_again){
-		    console.log("OK WE LANDED IN HERE Y TO " + (img.y+ 30));
     		    socket.emit("landed", { y: (img.y +30)});
     		    callable_again = false;
     		    setTimeout(function(){
@@ -43,7 +42,7 @@ var Platform = function(x, y){
     	    }
     	    return "grounded";
 	} else {
-	    //	console.log("Not really on this s")
+
 
 	};
     };
