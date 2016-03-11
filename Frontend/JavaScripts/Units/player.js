@@ -334,7 +334,7 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
             walk_right.position.y -= 8;
             attack_right.position.y -=8;
 
-            attack_left.position.x -=5;
+            attack_left.position.x +=5;
             walk_left.position.x +=5;
             walk_right.position.x += 20;
             attack_right.position.x +=20;
