@@ -291,20 +291,79 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         // this.update_player();
         var drawAtX = CONFIG.SCREEN_WIDTH / 2 + that.getDrawAtX() - that.localX() - 50;
         var drawAtY = that.getDrawAtY() - 50;
-        walk_left.position.y = drawAtY;
-        walk_right.position.y = drawAtY;
-        attack_left.position.y = drawAtY;
-        attack_right.position.y = drawAtY;
+        this.getMoveDirection();
+
+        /*
         //use to make drawing shanker mroe accurate lol maybe I need to remove this oh noee
         if (this.getMoveDirection() === "right") {
             drawAtX += 20;
         } else {
             drawAtX += 5;
-        }
+        }*/
+
+        walk_left.position.y = drawAtY;
+        walk_right.position.y = drawAtY;
+        attack_left.position.y = drawAtY;
+        attack_right.position.y = drawAtY;
+
         walk_left.position.x = drawAtX;
         walk_right.position.x = drawAtX;
         attack_right.position.x = drawAtX;
         attack_left.position.x = drawAtX;
+
+
+
+        switch (that.getCharacterType()){
+        case CONFIG.Redhatter:
+
+            attack_right.position.y += 10;
+            attack_left.position.y+=10;
+
+            attack_left.position.x -=30;
+
+            walk_left.position.x +=20;
+
+            walk_right.position.x += 30;
+            attack_right.position.x +=30;
+            break;
+        case CONFIG.Shanker:
+//            attack_right.position.y += 10;
+//            attack_left.position.y+=10;
+            attack_left.position.y -=8;
+            walk_left.position.y -=8;
+            walk_right.position.y -= 8;
+            attack_right.position.y -=8;
+
+            attack_left.position.x -=5;
+            walk_left.position.x +=5;
+            walk_right.position.x += 20;
+            attack_right.position.x +=20;
+            break;
+
+        case CONFIG.Grimes:
+            attack_left.position.x -=5;
+            walk_left.position.x +=5;
+            walk_right.position.x += 10;
+            attack_right.position.x +=10;
+
+            attack_left.position.y -=10;
+            walk_left.position.y -=10;
+            walk_right.position.y -= 10;
+            attack_right.position.y -=10;
+            break;
+        case CONFIG.Fly:
+            walk_right.position.x += 10;
+//            attack_right.position.x +=10;
+            attack_left.position.x -=40;
+            walk_left.position.x -=10;
+
+            attack_right.position.y -=30;
+            attack_left.position.y -=30;
+
+            break;
+        }
+
+
         walk_right.visible = false;
         walk_left.visible = false;
         attack_right.visible = false;
