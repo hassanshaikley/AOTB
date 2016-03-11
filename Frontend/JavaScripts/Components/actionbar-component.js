@@ -43,7 +43,7 @@ var ActionbarComponent = function(that){
             cooldown: "3s"
         }));
 
-        var bomb_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("bomb.png"));
+        var bomb_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("tooltip_doesnt_exist.png"));
         spells_thumb_array.push(invis_thumb);
         spells_thumb_array.push(bomb_thumb);
 
