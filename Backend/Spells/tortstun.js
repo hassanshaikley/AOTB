@@ -1,5 +1,5 @@
 var Spell = require("./spell").Spell; // so it can inherits :D
-var IDComponent = require("../Components/id-component.js").IDComponent;
+var IDComponent = require("./Components/id-component.js").IDComponent;
 var PositionComponent = require("./Components/position-component.js").PositionComponent;
 
 var TortStun = function(_x, _y, _team) {

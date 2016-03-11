@@ -1,4 +1,4 @@
-var IDComponent = require("../Components/id-component.js").IDComponent;
+var IDComponent = require("./Components/id-component.js").IDComponent;
 var RHRange = function(_x, _y, _direction, _team) {
     var speed = 10;
     IDComponent(this);

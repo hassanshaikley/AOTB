@@ -1,6 +1,5 @@
 Now:
   Make file names consistent, place them in proper folders
-  Fix bug where it animates after you stop moving
   When you first connect it displays you off center
   Make attacks work on tabbed out users 
   Render units in the proper location then play test

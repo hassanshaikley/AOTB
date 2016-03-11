@@ -1,5 +1,5 @@
 var util = require("util");
-var Config = require("../config.js");
+var Config = require("../../config.js");
 // On update moves a player : D
 exports.MovementComponent = function(speed, that, ySpeed) {
     var fallSpeed = 14;

@@ -1,4 +1,4 @@
-var Config = require("../config.js");
+var Config = require("../../config.js");
 var num_connections = 0;
 exports.BaseTeamComponent = function(that, team) {
     that.getTeam = function() {

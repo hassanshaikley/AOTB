@@ -1,4 +1,4 @@
-var IDComponent = require("../Components/id-component.js").IDComponent;
+var IDComponent = require("./Components/id-component.js").IDComponent;
     var PositionComponent = require("./Components/position-component.js").PositionComponent;
 
 var util = require("util");

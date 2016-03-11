@@ -19,7 +19,7 @@ var Fly = require("./Units/fly").Fly,
     RHRange = require("./Spells/rhrange.js").RHRange,
     DescendAttack = require("./Spells/descend-attack.js").DescendAttack,
     Meteor = require("./Spells/meteor.js").Meteor,
-    IDComponent = require("./Components/id-component").IDComponent,
+    IDComponent = require("./Spells/Components/id-component").IDComponent,
     Attack = require('./Units/Attacks/attack.js').Attack;
 
 var DataBlob = require('./App/models/data-blob');

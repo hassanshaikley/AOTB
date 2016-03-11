@@ -1,9 +1,10 @@
 /**************************************************
  ** REDHATTER CLASS IN SERVER
  **************************************************/
-var MovementComponent = require("./movement_component.js").MovementComponent;
-var BaseUnitComponent = require("./base_unit_component.js").BaseUnitComponent;
-var BaseTeamComponent = require("./base_team_component.js").BaseTeamComponent;
+
+var MovementComponent = require("./Components/movement-component.js").MovementComponent;
+var BaseUnitComponent = require("./Components/unit-component.js").BaseUnitComponent;
+var BaseTeamComponent = require("./Components/team-component.js").BaseTeamComponent;
 var Grimes = function(team) {
     var speed = 14;
     var health = 100;

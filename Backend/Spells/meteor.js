@@ -1,4 +1,4 @@
-var IDComponent = require("../Components/id-component.js").IDComponent;
+var IDComponent = require("./Components/id-component.js").IDComponent;
 var util = require("util");
 /* */
 var Meteor = function(meteorX, mCaster, _team) {

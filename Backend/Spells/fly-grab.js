@@ -1,4 +1,4 @@
-var IDComponent = require("../Components/id-component.js").IDComponent;
+var IDComponent = require("./Components/id-component.js").IDComponent;
 
 var FlyGrab = function(){
     IDComponent(this);
