@@ -125,19 +125,19 @@ Game.prototype.init = function() {
         startHp = 100;
     // Initialise the local player
     if (characterType === "Redhatter") {
-        localPlayer = new Redhatter(localPlayerName);
+        localPlayer = new Redhatter(localPlayerName, 0, 0);
     } else if (characterType === "Fly") {
-        localPlayer = new Fly(localPlayerName);
+        localPlayer = new Fly(localPlayerName, 0, 0);
     } else if (characterType === "Bowman") {
-        localPlayer = new Bowman(localPlayerName);
+        localPlayer = new Bowman(localPlayerName, 0, 0);
     } else if (characterType === "Shanker") {
-        localPlayer = new Shanker(localPlayerName);
+        localPlayer = new Shanker(localPlayerName, 0, 0);
     } else if (characterType === "Crevice") {
-        localPlayer = new Crevice(localPlayerName);
+        localPlayer = new Crevice(localPlayerName, 0, 0);
     } else if (characterType === "Grimes") {
-        localPlayer = new Grimes(localPlayerName);
+        localPlayer = new Grimes(localPlayerName, 0, 0);
     } else if (characterType === "Dino") {
-        localPlayer = new Dino(localPlayerName);
+        localPlayer = new Dino(localPlayerName, 0, 0);
     } else {
         //something has went wrong
         window.location.assign('/profile');

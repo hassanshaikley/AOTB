@@ -97,7 +97,9 @@ var MovementComponent = function(that){
 
     that.init_position = function(){
         drawAtX = x;
+        postX = drawAtX;
         drawAtY = y;
+        postY = drawAtY;
         targetX = x;
         targetY = y;
     };
