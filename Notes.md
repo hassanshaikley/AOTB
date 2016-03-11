@@ -1,9 +1,11 @@
 Now:
+  When you tab out, interpolation wigs out...just have it forget about player positions hwen you tab out
   Make file names consistent, place them in proper folders
   Grimes ulti
   Fix bug where it animates after you stop moving
   Implement Huntresss
   Make map look cool with random shit lmao (add clouds!)
+  
 
 GUI:
   >> Splash

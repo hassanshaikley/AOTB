@@ -307,6 +307,10 @@ function onUpdatePlayer(data) {
         LATENCY = Date.now() - back;
         back = Date.now();
     }
+    if (!player){
+        console.log("PLAYER IS NON EXISTANT" + player);
+        return;
+    }
     player.setX(data.x);
     player.setY(data.y);
     player.setHp(data.hp);
@@ -636,7 +640,7 @@ function onInitMe(data) {
     localGame.setTeamOneKills(data.team_one_kills);
     localGame.setTeamZeroKills(data.team_zero_kills);
 
-    localPlayer.initPosition();
+    localPlayer.init_position();
 
     //CONFIG = data.CONFIG;
     for (var property in data.CONFIG) {

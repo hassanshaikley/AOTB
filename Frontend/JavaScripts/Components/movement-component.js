@@ -103,8 +103,7 @@ var MovementComponent = function(that){
         targetX = x;
         targetY = y;
     };
-        /* Updates the variables for drawing*/
-    this.update = function(){
+    function calculateMovementData(){
 
         var oldDrawAtY = drawAtY;
         if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 2000) {
@@ -113,6 +112,7 @@ var MovementComponent = function(that){
         }
 
 
+        //move direction
         moveDifferenceX = (drawAtX - postX);
         moveDifferenceY = (drawAtY - postY);
         if (moveDifferenceX) { // USED TO TELL IF GOING LEFT OR RIGHT
@@ -122,12 +122,25 @@ var MovementComponent = function(that){
             postY = drawAtY;
         }
 
-        //        console.log(Math.abs( that.getX() - drawAtX));
-//        console.log(Math.abs( targetX - drawAtX) + " --- " + Math.abs(drawAtX - that.getX()));
-//        console.log("~~>"+xSpeed);
-        //        if (Date.now() + 15 > last_update_time + targetLatency || ( Math.abs(drawAtX - targetX) < 10)){
+
+        //falling
+        if (Math.ceil(oldDrawAtY) < Math.ceil(drawAtY)){
+            falling = true;
+        } else {
+            falling = false;
+        }
+
+
+    }
+        /* Updates the variables for drawing*/
+    this.update = function(){
+        calculateMovementData();
+
+
+
+
+
         if (( Math.abs(drawAtX - targetX) < 10  || Math.abs(drawAtY - targetY) < 10 ) || Math.abs(drawAtX - targetX) > 500){
-            //            console.log("(Getting next coords) - Target Latency : " + targetLatency + " , Latency: " + LATENCY);
             getNextTargetCoords();
             generateSpeedFromCoords();
         }
@@ -140,13 +153,6 @@ var MovementComponent = function(that){
             drawAtY -= ySpeed;
         }
 
-
-
-        if (Math.ceil(oldDrawAtY) < Math.ceil(drawAtY)){
-            falling = true;
-        } else {
-            falling = false;
-        }
 
 
     };
