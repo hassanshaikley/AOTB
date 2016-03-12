@@ -5,7 +5,7 @@ var Fly = function(name, x, y, hp) {
         descendAttackSpeed = 10;
     var skeleton = new Player(x, y, 50, name);
 
-    var CC = new CollisionComponent(skeleton, 60, 70);
+    var CC = new CollisionComponent(skeleton, 60, 70, 0, 0);
     skeleton.getCharacterType = function() {
         return "Fly";
     };

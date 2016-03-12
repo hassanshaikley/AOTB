@@ -22,15 +22,18 @@ helpers.collision = function(thing1, thing2) {
 //    thing1.offset_x;
     //    thing1.offset_y;
     if (thing1.offset_x){
-
+        x1+= thing1.offset_x;
     }
     if (thing1.offset_y){
+        y1+= thing1.offset_y;
 
     }
     if (thing2.offset_x){
+        x2+= thing2.offset_x;
 
     }
     if (thing2.offset_y){
+        y2+= thing2.offset_y;
 
     }
 
@@ -63,7 +66,7 @@ helpers.highlightSpellHitboxes = function() {
 
 var hitboxes = [];
 helpers.highlightPlayerHitboxes = function() {
-//    console.log("YEP HIGHLIGHTING");
+    console.log("YEP HIGHLIGHTING");
     var allPlayers = remotePlayers.slice();
     allPlayers.push(localPlayer);
     for (var _i = 0; _i < allPlayers.length; _i++) {
@@ -78,8 +81,8 @@ helpers.highlightPlayerHitboxes = function() {
 //        hitboxes.push(box);
         }
 
-        allPlayers[_i].box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - allPlayers[_i].getWidth() / 2;
-        allPlayers[_i].box.y = allPlayers[_i].getY() - allPlayers[_i].getHeight() / 2;
+        allPlayers[_i].box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 -allPlayers[_i].getWidth() / 2 + allPlayers[_i].offset_x;
+        allPlayers[_i].box.y = allPlayers[_i].getY() - allPlayers[_i].getHeight() / 2 + allPlayers[_i].offset_y;
 
         /*
         setTimeout(function() {

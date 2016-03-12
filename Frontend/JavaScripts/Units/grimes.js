@@ -7,7 +7,11 @@ var Grimes = function(name, x, y, hp) {
     skeleton.getCharacterType = function() {
         return "Grimes";
     };
+
+        skeleton.offset_x = 0;
+    skeleton.offset_y = 0;
 //    var actionbar_component = new ActionbarComponent(skeleton);
+    var CC = new CollisionComponent(skeleton, 50, 50, 0, -20);
 
     skeleton.setAnimations(grimes_l, grimes_r, grimes_l, grimes_r);
 

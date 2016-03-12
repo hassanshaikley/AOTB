@@ -156,7 +156,7 @@ Game.prototype.init = function() {
 
     if (CONFIG.SHOW_HITBOXES) {
         console.log("YEPPERS BBY");
-        setInterval(helpers.highlightPlayerHitboxes, 200);
+//        setInterval(helpers.highlightPlayerHitboxes, 200);
     }
 
     var actionbar_component = new ActionbarComponent(localPlayer);
@@ -520,6 +520,7 @@ function handleCooldownVisuals() {
  **************************************************/
 function update() {
     FPS = fps.getFPS();
+        helpers.highlightPlayerHitboxes();
 
     scene.x  =20 -localPlayer.getX() / 60;
 
@@ -527,6 +528,8 @@ function update() {
     handleCooldownVisuals();
     background.updateX(localPlayer.getDrawAtX());
     /* Updates the spells locations :D */
+
+    //THERE COULD BE A BUG WHERE THIS METHOD ISNT FULLY EXECUTING
     for (i = 0; i < Spells.spellsarray.length; i++) {
         //checks for collisions
         //updates spell locations
@@ -561,6 +564,9 @@ function update() {
             }
         }
         Spells.spellsarray[i].update();
+        //code here..uhh..doesnt seem to be executing
+
+
     };
 
     for (var m in meelee_attacks){

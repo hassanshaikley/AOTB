@@ -1,7 +1,7 @@
 var Redhatter = function(name, x, y) {
     var skeleton = new Player(x, y, 70, name);
     var facing_left;
-    var CC = new CollisionComponent(skeleton, 50, 50);
+    var CC = new CollisionComponent(skeleton, 50, 50, 0, -20);
     /*skeleton.rightClick = function(clientX, clientY){
     var t_x = clientX ;
     socket.emit("spell one", { x: t_x });

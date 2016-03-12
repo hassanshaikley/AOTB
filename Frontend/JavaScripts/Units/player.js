@@ -14,6 +14,9 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         maxHp = startHp,
         team;
 
+    this.offset_x = 0;
+    this.offset_y = 0;
+
     var meelee_attack_component = new MeeleeAttackComponent(this);
     var movement_component = new MovementComponent(this);
 
