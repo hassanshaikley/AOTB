@@ -520,7 +520,9 @@ function handleCooldownVisuals() {
  **************************************************/
 function update() {
     FPS = fps.getFPS();
-        helpers.highlightPlayerHitboxes();
+        if (CONFIG.SHOW_HITBOXES) {
+            helpers.highlightPlayerHitboxes();
+        }
 
     scene.x  =20 -localPlayer.getX() / 60;
 
