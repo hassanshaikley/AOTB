@@ -1,12 +1,44 @@
+//700, return .7
+function msToSeconds(ms){
+    if (!ms){
+        console.log("Shit, ms is " + ms);
+        return "Fs";
+    }
+    var ret = "";
+    var seconds = (ms / 1000).toString();
+    var position_of_dot = seconds.indexOf(".");
+
+    if (position_of_dot == -1){
+        position_of_dot = seconds.length;
+    }
+
+    for (var i = 0; i < position_of_dot; i++){
+        ret+= seconds[i];
+    }
+
+
+    if (seconds[position_of_dot+1]){ //if its not zero and exists
+        ret += ".";
+        ret+=seconds[position_of_dot+1];
+    }
+    ret += "s";
+    return ret;
+};
 var ActionbarComponent = function(that){
+
+
     option_menu = new OptionMenu();
+
+
 
     var spells_thumb_array = [];
     var spells_description_array = [];
     // All cahracters have a sword thumb
     var sword_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("attack1_icon_v3.fw.png"));
 
-
+    cd_zero = 1000;
+    cd_one = 0;
+    cd_two = 0;
     sword_thumb.interactive = true;
 
     spells_thumb_array.push(sword_thumb);
@@ -15,11 +47,9 @@ var ActionbarComponent = function(that){
         name: "Meelee Attack",
         key: "Left Click",
         description: "Standard Meelee Attack",
-        cooldown: "1s"
+        cooldown: msToSeconds(cd_zero)
     }));
-    cd_zero = 1000;
-    cd_one = 0;
-    cd_two = 0;
+
     var add = 50;
 
     /* Array filled with the description of the spells*/
@@ -34,13 +64,13 @@ var ActionbarComponent = function(that){
             name: "Shadow Walk",
             key: "Right Click",
             description: "Go invisible for 4 seconds. \nAttack does extra damage\nand breaks invisibility",
-            cooldown: "5s"
+            cooldown: msToSeconds(3000)
         }));
         spells_description_array.push (generateDescription({
             name: "Bomb",
             key: "q ",
             description: "Throw a bomb! Damages the \nunits it hits.",
-            cooldown: "3s"
+            cooldown: msToSeconds(5000)
         }));
 
         var bomb_thumb = new PIXI.Sprite(PIXI.Texture.fromFrame("tooltip_doesnt_exist.png"));

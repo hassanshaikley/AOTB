@@ -1,9 +1,11 @@
 Now:
   Make attacks work on tabbed out users 
-  Render units in the proper location then play test
-  Let config report on cooldown, and turn that into what tooltip used
   Unclutter global namespace
+  Swipe animation
+  Sometimes own bomb hurts you sometimes it doesn't
   
+  Let config report on cooldown, and turn that into what tooltip used
+
   NEXT:
     Implement Huntresss
     Make map look cool with random shit lmao (add clouds!)
