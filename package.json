@@ -14,7 +14,7 @@
     "multiplayer"
   ],
   "author": "Hassan Shaikley",
-  "license": "ISC",
+  "license": "GPL",
   "dependencies": {
     "bcrypt-nodejs": "latest",
     "body-parser": "~1.0.0",

@@ -1,6 +1,6 @@
 Now:
   FRONT END UPDATE METHOD FOR GAME DEFINITELY ISNT FINISHING! CODE AT THE BOTTOM WAS NOT EXECUTING FUCK
-  RHRange collisions are screwed up (?? actually idk)
+  Bird hitboxes are mucked
   Make attacks work on tabbed out users 
   Unclutter global namespace
   Swipe animation
@@ -33,3 +33,6 @@ Javascript
 
 Takeaway:
   I have random numbers without knowing the importance when re-reading the code.
+
+Use GPL as a license
+

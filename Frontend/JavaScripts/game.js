@@ -154,11 +154,6 @@ Game.prototype.init = function() {
     loadChat();
     localPlayer.setUpActionbar();
 
-    if (CONFIG.SHOW_HITBOXES) {
-        console.log("YEPPERS BBY");
-        //        setInterval(helpers.highlightPlayerHitboxes, 200);
-    }
-
     var actionbar_component = new ActionbarComponent(localPlayer);
 
 };
@@ -583,6 +578,7 @@ function update() {
     if (CONFIG.SHOW_HITBOXES) {
         helpers.highlightSpellHitboxes();
     }
+
 };
 var reset_this = true;
 //var wasOnAPlatform = false;
