@@ -9,7 +9,7 @@ var RHRange = function(_x, _y, _direction, _team) {
     var active = true;
     this.getTeam = function() {
         return _team;
-    }
+    };
     this.getActive = function(){
         return active;
     };
@@ -17,12 +17,12 @@ var RHRange = function(_x, _y, _direction, _team) {
         return _x;
     };
     this.getY = function(){
-        return y;
+        return _y;
     };
     this.getDamage = function() {
         return 5;
     };
-    this.hit = []
+    this.hit = [];
     this.getHalfWidth = function() {
         return 10;
     };

@@ -408,7 +408,7 @@ var Events = function() {
             //               Spells.spellsarray.push(v);
             this.emit('spell two', {
                 x: data.x,
-                y: data.y,
+                y: data.y-25,
                 spell: "rhrange",
                 direction: data.direction,
                 attack_id: v.getID(),
