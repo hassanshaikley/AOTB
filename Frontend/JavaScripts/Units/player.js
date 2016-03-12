@@ -317,10 +317,10 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         case CONFIG.Redhatter:
 
             walk_left.position.y -=25;
-            walk_right.position.y -=25;
+            walk_right.position.y -=23;
 
-            attack_right.position.y -= 5;
-            attack_left.position.y-=5;
+            attack_right.position.y -= 13;
+            attack_left.position.y-=13;
 
             attack_left.position.x -=30;
 
