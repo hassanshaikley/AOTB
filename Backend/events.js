@@ -416,7 +416,7 @@ var Events = function() {
             });
             this.broadcast.emit('spell two', {
                 x: data.x,
-                y: data.y,
+                y: data.y-25,
                 attack_id: v.getID(),
                 spell: "rhrange",
                 direction: data.direction

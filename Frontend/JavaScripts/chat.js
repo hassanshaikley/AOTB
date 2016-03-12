@@ -91,7 +91,7 @@ var loadChat = function() {
 
 function notify(text, admin) {
     if (admin) {
-        text = "<a style='color: yellow;'><strong>ADMIN: </strong>" + text + "</a>";
+        text = "<a style='color: teal;'><strong>ADMIN: </strong>" + text + "</a>";
     }
     $('#chat').append(text + "</br>");
     var chat_scroll = document.getElementById("chat");

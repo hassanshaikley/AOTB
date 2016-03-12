@@ -66,29 +66,20 @@ helpers.highlightSpellHitboxes = function() {
 
 var hitboxes = [];
 helpers.highlightPlayerHitboxes = function() {
-    console.log("YEP HIGHLIGHTING");
     var allPlayers = remotePlayers.slice();
     allPlayers.push(localPlayer);
     for (var _i = 0; _i < allPlayers.length; _i++) {
         if (!allPlayers[_i].box){
-            console.log("SPOO");
             allPlayers[_i].box = new PIXI.Graphics();
             allPlayers[_i].box.beginFill(0x00FF00);
             allPlayers[_i].box.drawRect(0, 0, allPlayers[_i].getWidth(), allPlayers[_i].getHeight());
             allPlayers[_i].box.endFill();
             allPlayers[_i].box.alpha = .1;
             MAIN.stage.addChild( allPlayers[_i].box);
-//        hitboxes.push(box);
         }
 
         allPlayers[_i].box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 -allPlayers[_i].getWidth() / 2 + allPlayers[_i].offset_x;
         allPlayers[_i].box.y = allPlayers[_i].getY() - allPlayers[_i].getHeight() / 2 + allPlayers[_i].offset_y;
-
-        /*
-        setTimeout(function() {
-            var hitbox = hitboxes.pop();
-            MAIN.stage.removeChild(hitbox);
-        }, 400);*/
     }
 };
     // Find player by ID

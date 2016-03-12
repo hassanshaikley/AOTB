@@ -156,7 +156,7 @@ Game.prototype.init = function() {
 
     if (CONFIG.SHOW_HITBOXES) {
         console.log("YEPPERS BBY");
-//        setInterval(helpers.highlightPlayerHitboxes, 200);
+        //        setInterval(helpers.highlightPlayerHitboxes, 200);
     }
 
     var actionbar_component = new ActionbarComponent(localPlayer);
@@ -224,7 +224,7 @@ function onSpellTwo(data) {
         break;
 
     }
-    console.log("Yas spell two " + data.caster);
+
     if (data.caster === "you") {
         localPlayer.spellCD(2);
     }
@@ -520,9 +520,9 @@ function handleCooldownVisuals() {
  **************************************************/
 function update() {
     FPS = fps.getFPS();
-        if (CONFIG.SHOW_HITBOXES) {
-            helpers.highlightPlayerHitboxes();
-        }
+    if (CONFIG.SHOW_HITBOXES) {
+        helpers.highlightPlayerHitboxes();
+    }
 
     scene.x  =20 -localPlayer.getX() / 60;
 

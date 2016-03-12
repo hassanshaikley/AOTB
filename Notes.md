@@ -1,6 +1,6 @@
 Now:
   FRONT END UPDATE METHOD FOR GAME DEFINITELY ISNT FINISHING! CODE AT THE BOTTOM WAS NOT EXECUTING FUCK
-  RHRange collisions are screwed up
+  RHRange collisions are screwed up (?? actually idk)
   Make attacks work on tabbed out users 
   Unclutter global namespace
   Swipe animation
