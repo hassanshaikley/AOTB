@@ -316,8 +316,11 @@ var Player = function(startX, startY, startHp, _name) { //ignore startX variable
         switch (that.getCharacterType()){
         case CONFIG.Redhatter:
 
-            attack_right.position.y += 10;
-            attack_left.position.y+=10;
+            walk_left.position.y -=25;
+            walk_right.position.y -=25;
+
+            attack_right.position.y -= 5;
+            attack_left.position.y-=5;
 
             attack_left.position.x -=30;
 
