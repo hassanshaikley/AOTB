@@ -1,4 +1,5 @@
 Now:
+  RHRange collisions are screwed up
   Make attacks work on tabbed out users 
   Unclutter global namespace
   Swipe animation
@@ -13,11 +14,6 @@ Now:
 GUI:
   >> Splash
     +Be able to set controls in the splash screen
-
-Problems:
-  Confusing ass lag, sometimes it is just jumpy
-    ++Improve network code (Interpolation)
-    ++Should try to talk to somebody about algorithm for animating where person is, I just average out the difference and move the next x spaces / x
 
 Goals:
   Feel responsive

@@ -8,7 +8,7 @@ var Shanker = function(name, x, y) {
     };
 
     //this, width, height
-    var CC = new CollisionComponent(skeleton, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").width - 30, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").height - 20);
+    var CC = new CollisionComponent(skeleton, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").width - 30, PIXI.Texture.fromImage("r_shanker_walk_v3_state1.png").height - 20,0 , -20);
 
     skeleton.windWalk = function() {
         skeleton.setInvis(true);

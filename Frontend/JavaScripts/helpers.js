@@ -18,9 +18,25 @@ helpers.collision = function(thing1, thing2) {
     var y2 = thing2.getY();
 
 
-//    console.log(y1 + " " + y2 + " " + x1 + " " + x2);
+    //    console.log(y1 + " " + y2 + " " + x1 + " " + x2);
+//    thing1.offset_x;
+    //    thing1.offset_y;
+    if (thing1.offset_x){
+
+    }
+    if (thing1.offset_y){
+
+    }
+    if (thing2.offset_x){
+
+    }
+    if (thing2.offset_y){
+
+    }
+
     var xDist = Math.abs(x1 - x2);
     var yDist = Math.abs(y1 - y2);
+
     if (xDist <= thing1.getWidth() / 2 + thing2.getWidth() / 2) {
         if (yDist <= thing1.getHeight() / 2 + thing2.getHeight() / 2) {
             return true;
@@ -38,37 +54,38 @@ helpers.highlightSpellHitboxes = function() {
             Spells.spellsarray[_i].highlight.endFill();
             Spells.spellsarray[_i].highlight.alpha = .1;
             MAIN.stage.addChild(Spells.spellsarray[_i].highlight);
-            /*            setTimeout(function() {
-                var save = _i;
-                console.log("I IS " + save + " OK " + Spells.spellsarray[save]);
-                MAIN.stage.removeChild(Spells.spellsarray[save].highlight);
-                delete Spells.spellsarray[save].highlight;
-            }, 1000);*/
-
         }
         Spells.spellsarray[_i].highlight.x = Spells.spellsarray[_i].getX() + CONFIG.SCREEN_WIDTH / 2 - localPlayer.getDrawAtX() - 25;
         Spells.spellsarray[_i].highlight.y = Spells.spellsarray[_i].getY();
+
     }
 };
 
 var hitboxes = [];
 helpers.highlightPlayerHitboxes = function() {
+//    console.log("YEP HIGHLIGHTING");
     var allPlayers = remotePlayers.slice();
     allPlayers.push(localPlayer);
     for (var _i = 0; _i < allPlayers.length; _i++) {
-        var box = new PIXI.Graphics();
-        box.beginFill(0x00FF00);
-        box.drawRect(0, 0, allPlayers[_i].getWidth(), allPlayers[_i].getHeight());
-        box.endFill();
-        box.alpha = .1;
-        box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - allPlayers[_i].getWidth() / 2;
-        box.y = allPlayers[_i].getY() - allPlayers[_i].getHeight() / 2;
-        MAIN.stage.addChild(box);
-        hitboxes.push(box);
+        if (!allPlayers[_i].box){
+            console.log("SPOO");
+            allPlayers[_i].box = new PIXI.Graphics();
+            allPlayers[_i].box.beginFill(0x00FF00);
+            allPlayers[_i].box.drawRect(0, 0, allPlayers[_i].getWidth(), allPlayers[_i].getHeight());
+            allPlayers[_i].box.endFill();
+            allPlayers[_i].box.alpha = .1;
+            MAIN.stage.addChild( allPlayers[_i].box);
+//        hitboxes.push(box);
+        }
+
+        allPlayers[_i].box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - allPlayers[_i].getWidth() / 2;
+        allPlayers[_i].box.y = allPlayers[_i].getY() - allPlayers[_i].getHeight() / 2;
+
+        /*
         setTimeout(function() {
             var hitbox = hitboxes.pop();
             MAIN.stage.removeChild(hitbox);
-        }, 400);
+        }, 400);*/
     }
 };
     // Find player by ID
@@ -77,7 +94,7 @@ helpers.playerById = function(id) {
     for (i = 0; i < remotePlayers.length; i++) {
         if (remotePlayers[i].id == id) return remotePlayers[i];
     };
-    if (id = localPlayer.id ){
+    if (id == localPlayer.id ){
         return localPlayer;
     };
     return false;

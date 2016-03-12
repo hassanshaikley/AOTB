@@ -155,6 +155,7 @@ Game.prototype.init = function() {
     localPlayer.setUpActionbar();
 
     if (CONFIG.SHOW_HITBOXES) {
+        console.log("YEPPERS BBY");
         setInterval(helpers.highlightPlayerHitboxes, 200);
     }
 
@@ -644,7 +645,6 @@ function onInitMe(data) {
 
     //CONFIG = data.CONFIG;
     for (var property in data.CONFIG) {
-        console.log(">>>" + property);
         if (data.CONFIG.hasOwnProperty(property)) {
             // do stuff
             CONFIG[property] = data.CONFIG[property];
