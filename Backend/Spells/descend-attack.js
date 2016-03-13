@@ -1,4 +1,5 @@
 var IDComponent = require("./Components/id-component.js").IDComponent;
+var CONFIG = require('../config.js');
 
 var DescendAttack = function(){
     IDComponent(this);
@@ -7,5 +8,9 @@ var DescendAttack = function(){
     };
 
 };
+
+
+DescendAttack.cooldown = CONFIG.FLY_1_CD;
+
 
 exports.DescendAttack = DescendAttack;

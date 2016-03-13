@@ -1,5 +1,7 @@
 var IDComponent = require("./Components/id-component.js").IDComponent;
 
+var CONFIG = require('../config.js');
+
 var FlyGrab = function(){
     IDComponent(this);
     this.getDamage = function(){
@@ -8,4 +10,8 @@ var FlyGrab = function(){
 
 
 };
+
+FlyGrab.cooldown = CONFIG.FLY_2_CD;
+
+
 exports.FlyGrab = FlyGrab;

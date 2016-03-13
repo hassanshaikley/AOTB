@@ -1,9 +1,11 @@
 Now:
-  Display Hitbox on meelee attacks or something like that
-  Make attacks work on tabbed out users 
-  Unclutter global namespace
-  Swipe animation
-  Sometimes own bomb hurts you sometimes it doesnt lol
+  Display Swipe animation on meelee attacks or something like that
+  Refactor + Test
+
+  Next Version:
+    Make attacks work on tabbed out users 
+    Unclutter global namespace
+    Sometimes own bomb hurts you sometimes it doesnt lol
   
   Let config report on cooldown, and turn that into what tooltip used
 
@@ -27,11 +29,6 @@ IDES:
 Hackers
   Dont ban hackers, put them in a server together
 
-Javascript
-  Use require.js for shared code between client and server
-
 Takeaway:
   I have random numbers without knowing the importance when re-reading the code.
-
-Use GPL as a license
 

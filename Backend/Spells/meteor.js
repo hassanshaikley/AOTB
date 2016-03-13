@@ -1,5 +1,7 @@
 var IDComponent = require("./Components/id-component.js").IDComponent;
 var util = require("util");
+var CONFIG = require('../config.js');
+
 /* */
 var Meteor = function(meteorX, mCaster, _team) {
     var caster = mCaster;
@@ -70,4 +72,7 @@ var Meteor = function(meteorX, mCaster, _team) {
 Meteor.getHalfWidth = function() {
     return 18;
 };
+
+
+Meteor.cooldown = CONFIG.REDHATTER_2_CD;
 exports.Meteor = Meteor;

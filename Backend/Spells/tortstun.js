@@ -1,6 +1,7 @@
 var Spell = require("./spell").Spell; // so it can inherits :D
 var IDComponent = require("./Components/id-component.js").IDComponent;
 var PositionComponent = require("./Components/position-component.js").PositionComponent;
+var CONFIG = require('../config.js');
 
 var TortStun = function(_x, _y, _team) {
     _y = 490;
@@ -46,4 +47,6 @@ var TortStun = function(_x, _y, _team) {
     return this;
 };
 
+
+TortStun.cooldown = CONFIG.GRIMES_1_CD;
 exports.TortStun = TortStun;

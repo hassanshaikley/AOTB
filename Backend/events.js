@@ -27,15 +27,6 @@ var colors = require("colors");
 //var colors = require("colors");
 
 var CONFIG = require("./config");
-Stealth.cooldown = CONFIG.SHANKER_1_CD;
-ShankerBomb.cooldown = CONFIG.SHANKER_2_CD;
-TortStun.cooldown = CONFIG.GRIMES_1_CD;
-Charge.cooldown = CONFIG.GRIMES_2_CD;
-//
-DescendAttack.cooldown = CONFIG.FLY_1_CD;
-FlyGrab.cooldown = CONFIG.FLY_2_CD;
-Meteor.cooldown = CONFIG.REDHATTER_1_CD;
-RHRange.cooldown = CONFIG.REDHATTER_2_CD;
 
 
 var util = require("util");

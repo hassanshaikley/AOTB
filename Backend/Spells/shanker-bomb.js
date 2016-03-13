@@ -2,6 +2,8 @@ var IDComponent = require("./Components/id-component.js").IDComponent;
     var PositionComponent = require("./Components/position-component.js").PositionComponent;
 
 var util = require("util");
+var CONFIG = require('../config.js');
+
 /* */
 var ShankerBomb = function(meteorX, mCaster, _team) {
     var caster = mCaster;
@@ -62,4 +64,8 @@ var ShankerBomb = function(meteorX, mCaster, _team) {
 ShankerBomb.getHalfWidth = function() {
     return 18;
 };
+
+ShankerBomb.cooldown = CONFIG.SHANKER_2_CD;
+
+
 exports.ShankerBomb = ShankerBomb;
