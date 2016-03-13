@@ -518,8 +518,9 @@ var Events = function() {
             util.log("descend attacks");
             player.setDescendAttack(true);
             v = new DescendAttack(player.getX(), player.getY());
+
             this.emit("descend attack changes", {
-                id: "self",
+                id: this.id,
                 descendAttack: true,
                 casted_by_me: true,
                 attack_id: v.getID()

@@ -293,7 +293,9 @@ function onSpellOne(data) {
         };
     }
     //if cast by this player then show the cooldown
-    if (data.casted_by_me || data.id == "you") {
+    console.log("SHPELL ONE");
+    if (data.casted_by_me ) {
+        console.log("YELL");
         localPlayer.spellCD(1);
     }
 }
@@ -396,11 +398,13 @@ function onDescendAttackChanges(data) {
     var _player = helpers.playerById(data.id);
     if (_player === false) {
         localPlayer.setDescendAttack(data.descendAttack);
-
     } else {
         _player.setDescendAttack(data.descendAttack);
     }
-    if (_player == localPlayer){
+    console.log("1 " + data.descendAttack);
+    console.log(data.id + " --- " + localPlayer.id);
+    if (data.id == localPlayer.id){
+        console.log("2 " + data.descendAttack);
         if (data.descendAttack){
             localPlayer.spellCD(1);
         }

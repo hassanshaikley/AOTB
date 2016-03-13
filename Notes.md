@@ -1,11 +1,9 @@
 Now:
-  FRONT END UPDATE METHOD FOR GAME DEFINITELY ISNT FINISHING! CODE AT THE BOTTOM WAS NOT EXECUTING FUCK
-  All hitboxes are mucked
-  Fly CD 1 not displaying
+  Display Hitbox on meelee attacks or something like that
   Make attacks work on tabbed out users 
   Unclutter global namespace
   Swipe animation
-  Sometimes own bomb hurts you sometimes it doesn't
+  Sometimes own bomb hurts you sometimes it doesnt lol
   
   Let config report on cooldown, and turn that into what tooltip used
 
@@ -27,7 +25,7 @@ IDES:
   Perhapas an FSM for movement states (charging, immobilized, free)
 
 Hackers
-  Don't ban hackers, put them in a server together
+  Dont ban hackers, put them in a server together
 
 Javascript
   Use require.js for shared code between client and server
