@@ -93,3 +93,12 @@ helpers.playerById = function(id) {
     };
     return false;
 };
+
+
+function teamOneFilter(imageContainer) {
+    var filter = new PIXI.filters.ColorStepFilter();
+    var filter2 = new PIXI.filters.GrayFilter();
+    filter2.gray = .6;
+    filter.invert = .3;
+    imageContainer.filters = [filter, filter2];
+};

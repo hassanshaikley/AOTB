@@ -1,8 +1,3 @@
-//try to explain what this class does..
-//it loads the sprite sheet
-//it it creates a game container for pixi, and
-//initializes a lot of pixi stuff
-
 var ScreenManager = function() {
     this.stage = new PIXI.Container();
     this.renderer = new PIXI.autoDetectRenderer(768, 520, {
@@ -33,15 +28,8 @@ var ScreenManager = function() {
 };
 
 ScreenManager.prototype.loadSpriteSheet = function() {
-
     var loader = new PIXI.loaders.Loader();
-    var url;
-    // if (location.origin === "http://localhost:5000" &&
-    //UrlExists("/localAssets/spritesheet.png")){
-    url = "localAssets/";
-    /*} else {
-    		url = "https://s3-us-west-2.amazonaws.com/amara-assets/";
-    }*/
+    var url = "localAssets/";
     loader.add(url + "spritesheet.json", "localAssets/spritesheet.json");
     loader.add(url + "spritesheet.png", "localAssets/spritesheet.png");
     loader.once('complete', this.spriteSheetLoaded.bind(this));
@@ -50,7 +38,6 @@ ScreenManager.prototype.loadSpriteSheet = function() {
 
 ScreenManager.prototype.update = function() {
     this.renderer.render(this.stage);
-    //requestAnimationFrame(this.update.bind(this));
     update();
     draw();
     setTimeout(this.update.bind(this), 1000/60);
@@ -58,17 +45,5 @@ ScreenManager.prototype.update = function() {
 
 ScreenManager.prototype.spriteSheetLoaded = function() {
     localGame.init();
-    //requestAnimationFrame(this.update.bind(this));
-
     setTimeout(this.update.bind(this), 1000/60);
-
-};
-
-// helper
-function teamOneFilter(imageContainer) {
-    var filter = new PIXI.filters.ColorStepFilter();
-    var filter2 = new PIXI.filters.GrayFilter();
-    filter2.gray = .6;
-    filter.invert = .3;
-    imageContainer.filters = [filter, filter2];
 };

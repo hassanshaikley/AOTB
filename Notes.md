@@ -1,4 +1,4 @@
-Now:
+ow:
   Display Swipe animation on meelee attacks or something like that
   Redhatter q not working
   Refactor + Test
@@ -9,6 +9,7 @@ Now:
   Server doesnt feel as responsive as I would like on the website
 
   Next Version:
+    Hitboxes fuck around when you move
     Make attacks work on tabbed out users 
     Unclutter global namespace
     Sometimes own bomb hurts you sometimes it doesnt lol
