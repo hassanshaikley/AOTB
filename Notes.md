@@ -1,6 +1,7 @@
 Now:
   FRONT END UPDATE METHOD FOR GAME DEFINITELY ISNT FINISHING! CODE AT THE BOTTOM WAS NOT EXECUTING FUCK
-  Bird hitboxes are mucked
+  All hitboxes are mucked
+  Fly CD 1 not displaying
   Make attacks work on tabbed out users 
   Unclutter global namespace
   Swipe animation

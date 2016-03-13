@@ -238,15 +238,16 @@ function onVisibleAgain(data) {
 };
 //receives an _x and _y var of where to draw
 function onDrawHitmarker(data) {
+    console.log("DRAW HIT MARKER");
     /*
-     var sprite = new PIXI.Sprite.fromFrame("hitmarker.fw.png");
+     var sprite = new PIXI.Sprite.fromFrame("swipe.png");
      sprite.x = data.x - localPlayer.getX() + CONFIG.SCREEN_WIDTH/2;
      sprite.y = data.y-10;
      MAIN.stage.addChild(sprite);
      setTimeout( function(){
      MAIN.stage.removeChild(sprite);
      }, 500);
-     */
+*/
 }
 /* Useful for animation, that's it*/
 function onMeeleeAttack(data) {
