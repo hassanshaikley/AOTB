@@ -1,6 +1,7 @@
 ow:
   Display Swipe animation on meelee attacks or something like that
   Redhatter q not working
+  Change DB URL + PW on the server
   Refactor + Test
     Remove repeated code
     dont use getters and setters where you dont need to
