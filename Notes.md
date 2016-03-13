@@ -1,6 +1,12 @@
 Now:
   Display Swipe animation on meelee attacks or something like that
+  Redhatter q not working
   Refactor + Test
+    Remove repeated code
+    dont use getters and setters where you dont need to
+    use more mixins / use mixins as kind of factories
+
+  Server doesnt feel as responsive as I would like on the website
 
   Next Version:
     Make attacks work on tabbed out users 
@@ -30,5 +36,4 @@ Hackers
   Dont ban hackers, put them in a server together
 
 Takeaway:
-  I have random numbers without knowing the importance when re-reading the code.
-
+  I have random numbers without knowing the importance when re-reading the code. So use names.

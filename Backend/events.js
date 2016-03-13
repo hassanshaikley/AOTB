@@ -24,7 +24,6 @@ var Fly = require("./Units/fly").Fly,
 
 var DataBlob = require('./App/models/data-blob');
 var colors = require("colors");
-//var colors = require("colors");
 
 var CONFIG = require("./config");
 
@@ -35,24 +34,19 @@ var util = require("util");
 var attacks = {};
 
 var Events = function() {
-
-    var that = this;
-
+    var that = this; // using that to make methods testable
     function onSocketConnection(client) {
-        // Listen for client disconnected
         client.on("disconnect", onClientDisconnect);
         client.on('sendMessage', function(data) {
             this.broadcast.emit('message', {
                 text: data.text,
                 id: this.id
             });
-            // util.log(colors.teal(playerById(this.id).getName() + ": \t" + data.text));
             this.emit('message', {
                 text: data.text,
                 id: this.id
             });
         });
-        // Listen for new player message
         client.on("new player", onNewPlayer);
         client.on("spell one", onSpellOne);
         client.on("spell two", onSpellTwo);
@@ -62,7 +56,7 @@ var Events = function() {
         client.on("key press", onKeyPress);
         client.on("meelee hits", onMeeleeHits);
         client.on("spell hits", onSpellHits);
-//        client.on("landed", that.onLanded);
+        //        client.on("landed", that.onLanded);
         client.on("switch team", that.onSwitchTeam);
     };
 
@@ -76,12 +70,12 @@ var Events = function() {
         }
     };
     /*
-    this.onLanded = function(data){
-        console.log("\nsettling land y " +data.y);
-        player = playerById(this.id);
-        player.setLandY(data.y);
-    };*/
-    spell_hits = [];
+     this.onLanded = function(data){
+     console.log("\nsettling land y " +data.y);
+     player = playerById(this.id);
+     player.setLandY(data.y);
+     };*/
+
     /*
      * Player is hit
      * Ignore request from other player
@@ -104,10 +98,10 @@ var Events = function() {
      */
     function onSpellHits(data) {
         util.log(colors.magenta("Spell hit: " + data.attack_id + " -- " + data.hit));
-        // get the id of the person that hit
+
         var hit;
         if (!attacks[data.attack_id]){
-            console.log("ATTACK DOESNT EXIST");
+            console.log("Attack doesn't exist".red);
             return;
         };
 
@@ -144,11 +138,11 @@ var Events = function() {
             });
         };
     };
+
     /* Function that is called whenever a player is said to be hit
      * If 80% of clients say it happened within .1 seconds of it happening
      * Then we will say that it has really happened.
      */
-
     function onMeeleeHits(data) {
         var hit;
         var hit_by;
@@ -183,13 +177,9 @@ var Events = function() {
         var according_to = playerById(this.id);
         util.log("hit \t\t" + hit.id + " according to \t\t" + according_to.id + " attack id \t\t" + data.attack_id);
         //should only happen if they are on differnt teams
-        //        util.log("MEELEE HITS----->>" + data.attack_id + " -- " + hit);
         //this function returns true if they die...
         var has_been_hit = game1.attackHits(hit.id, data.attack_id, according_to.id, attacks[data.attack_id], false);
-        if (has_been_hit) {
 
-
-        }
         if (!hit.getAlive()) {
             this.emit('update team killcount', {
                 team_one_kills: game1.getTeamOneKills(),
@@ -201,6 +191,7 @@ var Events = function() {
             });
         };
     };
+
     this.setEventHandlers = function(io) {
         // Socket.IO
         io.set("transports", ["websocket"]);
@@ -211,7 +202,8 @@ var Events = function() {
     function onKeyPress(data) {
         var player = playerById(this.id);
         if (data.key === "jump" && data.down) { // only when u press down
-            util.log("JUMPINGG AAA " + player.getY() + " -- " + player.getHeight() / 2 + " -- " + CONFIG.FLOOR_HEIGHT);
+            util.log("JUMPINGG AAA " + player.getY() + " -- " +
+                     player.getHeight() / 2 + " -- " + CONFIG.FLOOR_HEIGHT);
             if (!player.jumping && player.getY() + player.getHeight() / 2 === player.getLandY()) {
                 player.jumping = true;
                 setTimeout(function() {
@@ -232,6 +224,7 @@ var Events = function() {
             player.down = data.down;
         }
     }
+
     /* Every meelee attack has an ID
      *
      */
@@ -333,7 +326,7 @@ var Events = function() {
             x: newPlayer.getX(),
             y: newPlayer.getY(),
             name: newPlayer.getName(),
-            characterType: newPlayer.getCharacterType(),
+            characterType: newPlayer.getCharacterType()
         });
         // Send existing players to the new player
         var i, existingPlayer;
@@ -444,7 +437,7 @@ var Events = function() {
         case "Grimes":
             if (!(player.spellTwoCastTime + Charge.cooldown <= Date.now())) {
                 return;
-                        }
+            }
             console.log(data.direction);
             if (data.direction == "right"){
                 player.setX(player.getX()+300);
@@ -589,7 +582,8 @@ var Events = function() {
         //    io.sockets.connected[data.hit_by].emit('set gold', { gold: hitBy.getGold()+1 });
         //    io.sockets.connected[hitPlayer.id].emit('set hp', { hp: hitPlayer.getHp() });
     }
-    /* sends a message to one player and responds with it's team*/
+
+    /* sends a message to one player and responds with it's team */
     var initClient = function(data) {
         var initPlayer = playerById(this.id);
         console.log("INIT WITH " + JSON.stringify(data));
@@ -603,23 +597,11 @@ var Events = function() {
         });
 
         var date = new Date();
-        var year    = date.getFullYear();
-        var month   = date.getMonth();
-        var day     = date.getDate();
-        var hour    = date.getHours();
-        var minute  = date.getMinutes();
-
-        /*    function helpNarine(){
-
-         User.findOne( { "local.email" : "sejad.a@gmail.com"}, function(err, doc){
-         doc.local.nickname = "sejoody";
-         doc.save(function(err){
-
-         });
-
-         });
-
-         };*/
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var day = date.getDate();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
 
         var data_blob = new DataBlob({
             name: initPlayer.getName(),
@@ -634,9 +616,6 @@ var Events = function() {
         });
 
     };
-    /**************************************************
-     ** GAME HELPER FUNCTIONS
-     **************************************************/
     function playerById(id) {
         var i;
         //var players = game1.getPlayers();
