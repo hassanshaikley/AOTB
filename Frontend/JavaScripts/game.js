@@ -268,7 +268,6 @@ function onMeeleeAttack(data) {
  * gotta make sure one user can only say it once . :D : D :D : D
  */
 function onSpellOne(data) {
-    var cd;
     if (data.spell === "tort stun") { //should be a variable shared between server and client
         var m = new TortStun(data.x, data.y, data.caster);
         m.attack_id = data.attack_id;

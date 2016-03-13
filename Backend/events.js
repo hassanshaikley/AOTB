@@ -565,7 +565,8 @@ var Events = function() {
             var that = this;
             util.log("WINDWALK");
             this.emit('spell one', {
-                id: "you",
+                casted_by_me: true,
+                id: player.id,
                 spell: "windwalk",
                 attack_id: v.getID()
             });
