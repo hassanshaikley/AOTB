@@ -194,8 +194,21 @@ var setEventHandlers = function() {
     socket.on("visible again", onVisibleAgain);
     socket.on("spell two", onSpellTwo);
     socket.on("update team killcount", onUpdateTeamKillcount);
-};
+    socket.on("change team", onChangeTeam);
 
+};
+function onChangeTeam(data){
+    console.log (" CHANGE TEAM " +data + " -- " + data.team);
+    var player = player = helpers.playerById(data.id);
+    player.setTeam(data.team);
+    player.setX(data.x);
+    player.setY(data.y);
+    console.log(" >> " +player.getX());
+
+    player.init_position();
+    console.log(" >> " +player.getX());
+
+}
 function onUpdateTeamKillcount(data) {
     localGame.setTeamZeroKills(data.team_zero_kills);
     localGame.setTeamOneKills(data.team_one_kills);
@@ -314,7 +327,7 @@ function onUpdatePlayer(data) {
     player.setX(data.x);
     player.setY(data.y);
     player.setHp(data.hp);
-    player.setTeam(data.team);
+//    player.setTeam(data.team);
     player.coordinateList.push({
         x: data.x,
         y: data.y,
@@ -463,6 +476,7 @@ function onNewPlayer(data) {
         newPlayer = new Dino(data.name, data.x, data.y, data.hp);
     }
 
+    newPlayer.setTeam(data.team);
     newPlayer.setX(0); // ehh this is 2 fix a bug..sry
     newPlayer.id = data.id;
     newPlayer.imageContainer.zIndex = 5;
@@ -649,6 +663,7 @@ function onInitMe(data) {
     localGame.setTeamOneKills(data.team_one_kills);
     localGame.setTeamZeroKills(data.team_zero_kills);
 
+
     localPlayer.init_position();
 
     //CONFIG = data.CONFIG;
@@ -692,7 +707,6 @@ function hostileById(id) {
     return false;
 };
 function switchTeams(){
-
     socket.emit("switch team");
     $('#switch_teams').blur();
 };

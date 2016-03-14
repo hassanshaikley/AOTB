@@ -105,14 +105,15 @@ var MovementComponent = function(that){
         postY = drawAtY;
         targetX = x;
         targetY = y;
+        that.coordinateList = [];
     };
     function calculateMovementData(){
 
         var oldDrawAtY = drawAtY;
         /*        if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 2500) {
-            drawAtY = y;
-            drawAtX = x;
-        }*/
+         drawAtY = y;
+         drawAtX = x;
+         }*/
 
         //move direction
         moveDifferenceX = (drawAtX - postX);
@@ -132,17 +133,12 @@ var MovementComponent = function(that){
             falling = false;
         }
 
-
     }
     /* Updates the variables for drawing*/
     this.update = function(){
         calculateMovementData();
 
-
-
-
-
-        if (( Math.abs(drawAtX - targetX) < 10  || Math.abs(drawAtY - targetY) < 10 ) || Math.abs(drawAtX - targetX) > 500){
+        if (( Math.abs(drawAtX - targetX) < 10  || Math.abs(drawAtY - targetY) < 10 )) {// || Math.abs(drawAtX - targetX) > 500
             getNextTargetCoords();
             generateSpeedFromCoords();
         }
@@ -150,13 +146,9 @@ var MovementComponent = function(that){
         if (xSpeed){
             drawAtX -= xSpeed;
         }
-
         if (ySpeed){
             drawAtY -= ySpeed;
         }
-
-
-
     };
 
     function getNextTargetCoords(){
@@ -169,7 +161,6 @@ var MovementComponent = function(that){
         targetX = coords.x;
         targetLatency = coords.latency;
         //        console.log("Target coordinates selected ("+targetX + ", "+targetY+")" );
-
         last_update_time = Date.now();
     }
     function generateSpeedFromCoords(){

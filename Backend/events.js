@@ -67,6 +67,19 @@ var Events = function() {
         player = playerById(this.id);
         if (player){
             player.switchTeam();
+            this.emit('change team', {
+                id: this.id,
+                team: player.getTeam(),
+                x: player.getX(),
+                y: player.getY()
+
+            });
+            this.broadcast.emit('change team', {
+                id: this.id,
+                team: player.getTeam(),
+                x: player.getX(),
+                y: player.getY()
+            });
         }
     };
     /*
@@ -268,12 +281,26 @@ var Events = function() {
         var respawnPlayer = playerById(this.id);
         respawnPlayer.alive = true;
         respawnPlayer.hp = 100;
-        this.emit("respawn player", {
+/*        this.emit("respawn player", {
             id: this.id
         });
         this.broadcast.emit("respawn player", {
             id: this.id
-        });
+        });*/
+
+        this.emit('change team', {
+                id: this.id,
+                team: player.getTeam(),
+                x: player.getX(),
+                y: player.getY()
+
+            });
+            this.broadcast.emit('change team', {
+                id: this.id,
+                team: player.getTeam(),
+                x: player.getX(),
+                y: player.getY()
+            });
     };
 
     function onClientDisconnect() {
@@ -326,7 +353,8 @@ var Events = function() {
             x: newPlayer.getX(),
             y: newPlayer.getY(),
             name: newPlayer.getName(),
-            characterType: newPlayer.getCharacterType()
+            characterType: newPlayer.getCharacterType(),
+            team: newPlayer.getTeam()
         });
         // Send existing players to the new player
         var i, existingPlayer;
@@ -618,7 +646,6 @@ var Events = function() {
     };
     function playerById(id) {
         var i;
-        //var players = game1.getPlayers();
         for (i in players) {
             if (players[i].id == id) return players[i];
         };
