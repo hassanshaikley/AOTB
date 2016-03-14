@@ -7,6 +7,6 @@ node_modules
 *#
 .#*
 *~
-notes
 nodemon.json
 *.log
+Notes.md

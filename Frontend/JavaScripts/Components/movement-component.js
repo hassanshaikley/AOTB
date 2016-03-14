@@ -13,7 +13,7 @@ var MovementComponent = function(that){
     var moveTimer = 0;
     var falling = false;
 
-        /* Used to determine the direction that a character is facing */
+    /* Used to determine the direction that a character is facing */
     that.getCurrentAction = function() {
         return that.current_action;
     };
@@ -135,7 +135,7 @@ var MovementComponent = function(that){
 
 
     }
-        /* Updates the variables for drawing*/
+    /* Updates the variables for drawing*/
     this.update = function(){
         calculateMovementData();
 
@@ -162,20 +162,20 @@ var MovementComponent = function(that){
 
     function getNextTargetCoords(){
         if (that.coordinateList.length  == 0){
-//            console.log("No target coordinates available");
+            //            console.log("No target coordinates available");
             return;
         }
         var coords = that.coordinateList.shift();
         targetY = coords.y;
         targetX = coords.x;
         targetLatency = coords.latency;
-//        console.log("Target coordinates selected ("+targetX + ", "+targetY+")" );
+        //        console.log("Target coordinates selected ("+targetX + ", "+targetY+")" );
 
         last_update_time = Date.now();
     }
     function generateSpeedFromCoords(){
-        xSpeed = (drawAtX - targetX)/(FPS/13);
-        ySpeed = (drawAtY - targetY)/(FPS/13);
+        xSpeed = (drawAtX - targetX)/(LATENCY);
+        ySpeed = (drawAtY - targetY)/(LATENCY);
 
     };
     that.isFalling = function(){

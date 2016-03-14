@@ -47,14 +47,13 @@ function MeeleeAttack(x, y, width, height, attack_id, belongs_to, duration){
         var allPlayers = remotePlayers.slice();
         allPlayers.push(localPlayer);
 
-        var xDiff = attacker.getX() - loc.x;
+        var xDiff = attacker.getDrawAtX() - loc.x;
         var yDiff = attacker.getDrawAtY() - loc.y;
 
         x = startX +xDiff;
         y = startY +yDiff;
-        box.x = x - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 - width / 2;
+        box.x = x - localPlayer.getDrawAtX() + CONFIG.SCREEN_WIDTH / 2 - width / 2;
         box.y = y;
-
 
 
         for ( var i = 0; i < allPlayers.length; i++){

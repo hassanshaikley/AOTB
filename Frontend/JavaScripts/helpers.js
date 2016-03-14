@@ -12,10 +12,33 @@ helpers.collision = function(thing1, thing2) {
     var t1w = (thing1. == undefined) ? thing1.getY() : thing1.y;
         var t2w =
      */
-    var x1 = thing1.getX();
-    var x2 = thing2.getX();
-    var y1 = thing1.getY();
-    var y2 = thing2.getY();
+    var x1;
+    var x2;
+    var y1;
+    var y2;
+    if (thing1.getDrawAtX){
+        console.log("DRAW AT X BITCH");
+        x1 = thing1.getDrawAtX();
+    } else {
+        x1 = thing1.getX();
+    }
+    if (thing2.getDrawAtX){
+                console.log("DRAW AT X2 BITCH");
+
+        x2 = thing2.getDrawAtX();
+    } else {
+        x2 = thing2.getX();
+    }
+    if (thing1.getDrawAtY){
+        y1 = thing1.getDrawAtY();
+    } else {
+        y1 = thing1.getY();
+    }
+    if (thing2.getDrawAtY){
+        y2 = thing2.getDrawAtY();
+    } else {
+        y2 = thing2.getY();
+    }
 
 
     //    console.log(y1 + " " + y2 + " " + x1 + " " + x2);
@@ -78,8 +101,13 @@ helpers.highlightPlayerHitboxes = function() {
             MAIN.stage.addChild( allPlayers[_i].box);
         }
 
-        allPlayers[_i].box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 -allPlayers[_i].getWidth() / 2 + allPlayers[_i].offset_x;
-        allPlayers[_i].box.y = allPlayers[_i].getY() - allPlayers[_i].getHeight() / 2 + allPlayers[_i].offset_y;
+        if (allPlayers[_i].id != localPlayer.id){
+            allPlayers[_i].box.x = allPlayers[_i].getX() - localPlayer.getDrawAtX() + CONFIG.SCREEN_WIDTH / 2 -allPlayers[_i].getWidth() / 2 + allPlayers[_i].offset_x;
+        } else {
+            allPlayers[_i].box.x = allPlayers[_i].getX() - localPlayer.getX() + CONFIG.SCREEN_WIDTH / 2 -allPlayers[_i].getWidth() / 2 + allPlayers[_i].offset_x;
+
+        }
+        allPlayers[_i].box.y = allPlayers[_i].getDrawAtY() - allPlayers[_i].getHeight() / 2 + allPlayers[_i].offset_y;
     }
 };
     // Find player by ID
