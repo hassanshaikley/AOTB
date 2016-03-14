@@ -109,11 +109,10 @@ var MovementComponent = function(that){
     function calculateMovementData(){
 
         var oldDrawAtY = drawAtY;
-        if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 2000) {
+        /*        if (Math.abs(drawAtY - y) >= 500 || Math.abs(drawAtX - x) > 2500) {
             drawAtY = y;
             drawAtX = x;
-        }
-
+        }*/
 
         //move direction
         moveDifferenceX = (drawAtX - postX);
