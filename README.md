@@ -2,9 +2,7 @@
 
 The server is authoritative and key presses are handled on the server.
 
-[Demo](http://aotb.io )
-
-##Running
+## Running
 
 Before running the game locally, MongoDB must be installed and running.
 
@@ -19,7 +17,7 @@ Then simply clone and run.
 
 Now head over to to localhost:5000 and enjoy!
 
-##Testing
+## Testing
 
 Tests are written in Mocha
 
